@@ -30,6 +30,9 @@ import java.lang.Math.min
 import java.util.Locale
 import kotlin.math.atan2
 
+enum class status_UD{
+    NONE,UP,DOWN
+}
 /** Draw the detected pose in preview.  */
 class PoseGraphic internal constructor(
     overlay: GraphicOverlay,
@@ -45,7 +48,8 @@ class PoseGraphic internal constructor(
             private val leftPaint: Paint
             private val rightPaint: Paint
             private val whitePaint: Paint
-
+            private val wrongPaint: Paint
+            private var STATUS: status_UD
             init {
                 classificationTextPaint = Paint()
                 classificationTextPaint.color = Color.WHITE
@@ -62,6 +66,10 @@ class PoseGraphic internal constructor(
                 rightPaint = Paint()
                 rightPaint.strokeWidth = STROKE_WIDTH
                 rightPaint.color = Color.YELLOW
+                wrongPaint = Paint()
+                wrongPaint.strokeWidth = STROKE_WIDTH
+                wrongPaint.color = Color.RED
+                STATUS = status_UD.UP
     }
     fun getAngle(firstPoint: PoseLandmark, midPoint: PoseLandmark, lastPoint: PoseLandmark): Double {
         var result = Math.toDegrees(
@@ -149,10 +157,9 @@ class PoseGraphic internal constructor(
             +"\nLeft_ElbowAngle : "+leftElbowAngle.toString()+"\nRight_KneeAngle : "+rightKneeAngle.toString()+"\nLeft_KneeAngle : "+leftKneeAngle.toString()
         )
 
-
+        // Left body
         drawLine(canvas, leftShoulder, rightShoulder, whitePaint)
         drawLine(canvas, leftHip, rightHip, whitePaint)
-        // Left body
         drawLine(canvas, leftShoulder, leftElbow, leftPaint)
         drawLine(canvas, leftElbow, leftWrist, leftPaint)
         drawLine(canvas, leftShoulder, leftHip, leftPaint)
@@ -164,8 +171,8 @@ class PoseGraphic internal constructor(
         drawLine(canvas, leftIndex, leftPinky, leftPaint)
         drawLine(canvas, leftAnkle, leftHeel, leftPaint)
         drawLine(canvas, leftHeel, leftFootIndex, leftPaint)
-        // Right body
 
+        // Right body
         drawLine(canvas, rightShoulder, rightElbow, rightPaint)
         drawLine(canvas, rightElbow, rightWrist, rightPaint)
         drawLine(canvas, rightShoulder, rightHip, rightPaint)
@@ -177,6 +184,33 @@ class PoseGraphic internal constructor(
         drawLine(canvas, rightIndex, rightPinky, rightPaint)
         drawLine(canvas, rightAnkle, rightHeel, rightPaint)
         drawLine(canvas, rightHeel, rightFootIndex, rightPaint)
+
+
+        // DOWN 상태이면 UP인 상태로 만든다.
+        if (STATUS == status_UD.DOWN){
+            // Wrong Pose Painting
+            if (!((77.0 < rightElbowAngle) && (99.0 > rightElbowAngle))){
+                Log.d("STATUS","Please Raise your hand")
+                drawLine(canvas, rightShoulder, rightElbow, wrongPaint)
+                drawLine(canvas, rightElbow, rightWrist, wrongPaint)
+            }
+            else {
+                STATUS = status_UD.UP
+            }
+        }
+        // UP인 상태이면 DOWN 상태로 만든다.
+        else if (STATUS == status_UD.UP){
+            if (!((160.0 < rightElbowAngle) && (181.0 > rightElbowAngle))){
+                Log.d("STATUS","Please down your hand")
+                drawLine(canvas, rightShoulder, rightElbow, wrongPaint)
+                drawLine(canvas, rightElbow, rightWrist, wrongPaint)
+            }
+            else {
+                STATUS = status_UD.DOWN
+            }
+        }
+
+
 
         // Draw inFrameLikelihood for all points
         if (showInFrameLikelihood) {
@@ -263,7 +297,6 @@ class PoseGraphic internal constructor(
     }
 
     companion object {
-
         private val DOT_RADIUS = 8.0f
         private val IN_FRAME_LIKELIHOOD_TEXT_SIZE = 30.0f
         private val STROKE_WIDTH = 10.0f

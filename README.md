@@ -21,7 +21,42 @@ This API run on-device, allowing for real-time use cases where you want to proce
   targetSdkVersion 30 
 * jdk 1.8 (jvmTarget 1.8)
 
+### File Structure
 
+📦mlkit_pose
+ ┣ 📂kotlin
+ ┃ ┣ 📂posedetector
+ ┃ ┃ ┣ 📂classification
+ ┃ ┃ ┃ ┣ 📜ClassificationResult.java
+ ┃ ┃ ┃ ┣ 📜EMASmoothing.java
+ ┃ ┃ ┃ ┣ 📜PoseClassifier.java
+ ┃ ┃ ┃ ┣ 📜PoseClassifierProcessor.java
+ ┃ ┃ ┃ ┣ 📜PoseEmbedding.java
+ ┃ ┃ ┃ ┣ 📜PoseSample.java
+ ┃ ┃ ┃ ┣ 📜RepetitionCounter.java
+ ┃ ┃ ┃ ┗ 📜Utils.java
+ ┃ ┃ ┣ 📜PoseDetectorProcessor.kt
+ ┃ ┃ ┗ 📜**PoseGraphic.kt**
+ ┃ ┣ 📜**CameraXLivePreviewActivity.kt**
+ ┃ ┣ 📜ChooserActivity.kt
+ ┃ ┣ 📜LivePreviewActivity.kt
+ ┃ ┗ 📜VisionProcessorBase.kt
+ ┣ 📂preference
+ ┃ ┣ 📜CameraXLivePreviewPreferenceFragment.java
+ ┃ ┣ 📜LivePreviewPreferenceFragment.java
+ ┃ ┣ 📜PreferenceUtils.java
+ ┃ ┣ 📜SettingsActivity.java
+ ┃ ┗ 📜StillImagePreferenceFragment.java
+ ┣ 📜BitmapUtils.java
+ ┣ 📜CameraImageGraphic.java
+ ┣ 📜CameraSource.java
+ ┣ 📜CameraSourcePreview.java
+ ┣ 📜CameraXViewModel.java
+ ┣ 📜FrameMetadata.java
+ ┣ 📜GraphicOverlay.java
+ ┣ 📜InferenceInfoGraphic.java
+ ┣ 📜ScopedExecutor.java
+ ┗ 📜VisionImageProcessor.java
 
 ### Usage
 
