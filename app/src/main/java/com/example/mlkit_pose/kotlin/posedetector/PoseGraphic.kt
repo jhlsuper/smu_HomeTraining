@@ -30,9 +30,6 @@ import java.lang.Math.min
 import java.util.Locale
 import kotlin.math.atan2
 
-enum class status_UD{
-    NONE,UP,DOWN
-}
 /** Draw the detected pose in preview.  */
 class PoseGraphic internal constructor(
     overlay: GraphicOverlay,
@@ -49,7 +46,8 @@ class PoseGraphic internal constructor(
             private val rightPaint: Paint
             private val whitePaint: Paint
             private val wrongPaint: Paint
-            private var STATUS: status_UD
+            private val DownPaint: Paint
+            private val UpPaint: Paint
             init {
                 classificationTextPaint = Paint()
                 classificationTextPaint.color = Color.WHITE
@@ -62,14 +60,19 @@ class PoseGraphic internal constructor(
                 whitePaint.textSize = IN_FRAME_LIKELIHOOD_TEXT_SIZE
                 leftPaint = Paint()
                 leftPaint.strokeWidth = STROKE_WIDTH
-                leftPaint.color = Color.GREEN
+                leftPaint.color = Color.BLUE
                 rightPaint = Paint()
                 rightPaint.strokeWidth = STROKE_WIDTH
                 rightPaint.color = Color.YELLOW
                 wrongPaint = Paint()
                 wrongPaint.strokeWidth = STROKE_WIDTH
                 wrongPaint.color = Color.RED
-                STATUS = status_UD.UP
+                DownPaint = Paint()
+                DownPaint.strokeWidth = STROKE_WIDTH
+                DownPaint.color = Color.GREEN
+                UpPaint = Paint()
+                UpPaint.strokeWidth = STROKE_WIDTH
+                UpPaint.color = Color.MAGENTA
     }
     fun getAngle(firstPoint: PoseLandmark, midPoint: PoseLandmark, lastPoint: PoseLandmark): Double {
         var result = Math.toDegrees(
@@ -185,31 +188,19 @@ class PoseGraphic internal constructor(
         drawLine(canvas, rightAnkle, rightHeel, rightPaint)
         drawLine(canvas, rightHeel, rightFootIndex, rightPaint)
 
-
-        // DOWN 상태이면 UP인 상태로 만든다.
-        if (STATUS == status_UD.DOWN){
-            // Wrong Pose Painting
-            if (!((77.0 < rightElbowAngle) && (99.0 > rightElbowAngle))){
-                Log.d("STATUS","Please Raise your hand")
-                drawLine(canvas, rightShoulder, rightElbow, wrongPaint)
-                drawLine(canvas, rightElbow, rightWrist, wrongPaint)
-            }
-            else {
-                STATUS = status_UD.UP
-            }
+        //77 ~ 99 / 160 ~ 181
+        if ((77.0 < rightElbowAngle) && (99.0 > rightElbowAngle)){
+            drawLine(canvas, rightShoulder, rightElbow, DownPaint)
+            drawLine(canvas, rightElbow, rightWrist, DownPaint)
         }
-        // UP인 상태이면 DOWN 상태로 만든다.
-        else if (STATUS == status_UD.UP){
-            if (!((160.0 < rightElbowAngle) && (181.0 > rightElbowAngle))){
-                Log.d("STATUS","Please down your hand")
-                drawLine(canvas, rightShoulder, rightElbow, wrongPaint)
-                drawLine(canvas, rightElbow, rightWrist, wrongPaint)
-            }
-            else {
-                STATUS = status_UD.DOWN
-            }
+        else if ((160.0 < rightElbowAngle) && (181.0 > rightElbowAngle)) {
+            drawLine(canvas, rightShoulder, rightElbow, UpPaint)
+            drawLine(canvas, rightElbow, rightWrist, UpPaint)
         }
-
+        else {
+            drawLine(canvas, rightShoulder, rightElbow, wrongPaint)
+            drawLine(canvas, rightElbow, rightWrist, wrongPaint)
+        }
 
 
         // Draw inFrameLikelihood for all points
@@ -292,7 +283,7 @@ class PoseGraphic internal constructor(
             )
             //Log.d("COORDINATE",
             //    "startX : "+translateX(start.x).toString()+"\n"+"startY : "+translateY(start.y).toString()+"\n"
-            //    +"endX : "+translateX(end.x).toString()+"\n"+"enY : "+translateY(end.y).toString()+"\n==============================")
+            //    +"endX : "+translateXsub(end.x).toString()+"\n"+"enY : "+translateY(end.y).toString()+"\n==============================")
         }
     }
 
