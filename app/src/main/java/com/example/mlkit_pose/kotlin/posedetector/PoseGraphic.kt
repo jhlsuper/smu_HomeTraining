@@ -203,6 +203,8 @@ class PoseGraphic internal constructor(
         }
 
 
+
+
         // Draw inFrameLikelihood for all points
         if (showInFrameLikelihood) {
             for (landmark in landmarks) {

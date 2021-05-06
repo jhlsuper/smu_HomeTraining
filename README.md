@@ -23,6 +23,7 @@ This API run on-device, allowing for real-time use cases where you want to proce
 
 ### File Structure
 
+```
 📦mlkit_pose
  ┣ 📂kotlin
  ┃ ┣ 📂posedetector
@@ -57,6 +58,7 @@ This API run on-device, allowing for real-time use cases where you want to proce
  ┣ 📜InferenceInfoGraphic.java
  ┣ 📜ScopedExecutor.java
  ┗ 📜VisionImageProcessor.java
+```
 
 ### Usage
 
