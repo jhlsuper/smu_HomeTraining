@@ -39,7 +39,8 @@ class PoseDetectorProcessor(
     private val visualizeZ: Boolean,
     private val rescaleZForVisualization: Boolean,
     private val runClassification: Boolean,
-    private val isStreamMode: Boolean
+    private val isStreamMode: Boolean,
+    private val exName: String?
 ) : VisionProcessorBase<PoseDetectorProcessor.PoseWithClassification>(context) {
 
     private val detector: PoseDetector
@@ -54,6 +55,9 @@ class PoseDetectorProcessor(
     init {
         detector = PoseDetection.getClient(options)
         classificationExecutor = Executors.newSingleThreadExecutor()
+        if (exName != null) {
+            Log.d("EXNAME",exName)
+        }
     }
 
     override fun stop() {
@@ -88,7 +92,7 @@ class PoseDetectorProcessor(
         graphicOverlay.add(
             PoseGraphic(
                 graphicOverlay, poseWithClassification.pose, showInFrameLikelihood, visualizeZ,
-                rescaleZForVisualization, poseWithClassification.classificationResult
+                rescaleZForVisualization, poseWithClassification.classificationResult,exName
             )
         )
     }

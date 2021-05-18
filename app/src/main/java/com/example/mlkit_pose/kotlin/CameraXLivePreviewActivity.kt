@@ -27,14 +27,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
-import android.widget.CompoundButton
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.Toast
-import android.widget.ToggleButton
 import androidx.annotation.RequiresApi
 import androidx.camera.core.CameraInfoUnavailableException
 import androidx.camera.core.CameraSelector
@@ -56,7 +50,9 @@ import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.common.model.LocalModel
 import com.example.mlkit_pose.preference.SettingsActivity.LaunchSource
+import kotlinx.android.synthetic.main.activity_vision_camerax_live_preview.*
 import java.util.ArrayList
+
 
 /** Live preview demo app for ML Kit APIs using CameraX.  */
 @KeepName
@@ -77,6 +73,7 @@ class CameraXLivePreviewActivity :
   private var selectedModel = POSE_DETECTION
   private var lensFacing = CameraSelector.LENS_FACING_BACK
   private var cameraSelector: CameraSelector? = null
+  private var exerciseName: String? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -100,6 +97,11 @@ class CameraXLivePreviewActivity :
     }
     cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
     setContentView(R.layout.activity_vision_camerax_live_preview)
+
+    val exname :TextView = findViewById(R.id.Exercise) as TextView
+    val exStr: String = exname.text.toString()
+    exerciseName = exStr
+
     previewView = findViewById(R.id.preview_view)
     if (previewView == null) {
       Log.d(TAG, "previewView is null")
@@ -277,7 +279,7 @@ class CameraXLivePreviewActivity :
           val runClassification = PreferenceUtils.shouldPoseDetectionRunClassification(this)
           PoseDetectorProcessor(
             this, poseDetectorOptions, shouldShowInFrameLikelihood, visualizeZ, rescaleZ,
-            runClassification, /* isStreamMode = */ true
+            runClassification, /* isStreamMode = */ true,exerciseName
           )
         }
         else -> throw IllegalStateException("Invalid model name")

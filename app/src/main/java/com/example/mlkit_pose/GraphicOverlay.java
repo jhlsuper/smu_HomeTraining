@@ -52,6 +52,7 @@ public class GraphicOverlay extends View {
 
   private int imageWidth;
   private int imageHeight;
+
   // The factor of overlay View size to image size. Anything in the image coordinates need to be
   // scaled by this amount to fit with the area of overlay View.
   private float scaleFactor = 1.0f;
@@ -63,6 +64,7 @@ public class GraphicOverlay extends View {
   private float postScaleHeightOffset;
   private boolean isImageFlipped;
   private boolean needUpdateTransformation = true;
+  private String exName;
 
   /**
    * Base class for a custom graphics object to be rendered within the graphic overlay. Subclass
@@ -193,7 +195,7 @@ public class GraphicOverlay extends View {
   public int getImageHeight() {
     return imageHeight;
   }
-
+  public String getExName() { return exName; }
   private void updateTransformationIfNeeded() {
     if (!needUpdateTransformation || imageWidth <= 0 || imageHeight <= 0) {
       return;

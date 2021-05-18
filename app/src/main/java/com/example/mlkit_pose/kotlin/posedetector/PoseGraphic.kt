@@ -20,9 +20,11 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.mlkit_pose.GraphicOverlay
 import com.google.common.primitives.Ints
 import com.example.mlkit_pose.GraphicOverlay.Graphic
+import com.example.mlkit_pose.R
 import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseLandmark
 import java.lang.Math.max
@@ -37,43 +39,44 @@ class PoseGraphic internal constructor(
     private val showInFrameLikelihood: Boolean,
     private val visualizeZ: Boolean,
     private val rescaleZForVisualization: Boolean,
-        private val poseClassification: List<String>
-        ) : GraphicOverlay.Graphic(overlay) {
-            private var zMin = java.lang.Float.MAX_VALUE
-            private var zMax = java.lang.Float.MIN_VALUE
-            private val classificationTextPaint: Paint
-            private val leftPaint: Paint
-            private val rightPaint: Paint
-            private val whitePaint: Paint
-            private val wrongPaint: Paint
-            private val DownPaint: Paint
-            private val UpPaint: Paint
-            init {
-                classificationTextPaint = Paint()
-                classificationTextPaint.color = Color.WHITE
-                classificationTextPaint.textSize = POSE_CLASSIFICATION_TEXT_SIZE
-                classificationTextPaint.setShadowLayer(5.0f, 0f, 0f, Color.BLACK)
+    private val poseClassification: List<String>,
+    private val exName: String?) : GraphicOverlay.Graphic(overlay) {
+        private var zMin = java.lang.Float.MAX_VALUE
+        private var zMax = java.lang.Float.MIN_VALUE
+        private val classificationTextPaint: Paint
+        private val leftPaint: Paint
+        private val rightPaint: Paint
+        private val whitePaint: Paint
+        private val wrongPaint: Paint
+        private val DownPaint: Paint
+        private val UpPaint: Paint
+        init {
+            classificationTextPaint = Paint()
+            classificationTextPaint.color = Color.WHITE
+            classificationTextPaint.textSize = POSE_CLASSIFICATION_TEXT_SIZE
+            classificationTextPaint.setShadowLayer(5.0f, 0f, 0f, Color.BLACK)
 
-                whitePaint = Paint()
-                whitePaint.strokeWidth = STROKE_WIDTH
-                whitePaint.color = Color.WHITE
-                whitePaint.textSize = IN_FRAME_LIKELIHOOD_TEXT_SIZE
-                leftPaint = Paint()
-                leftPaint.strokeWidth = STROKE_WIDTH
-                leftPaint.color = Color.BLUE
-                rightPaint = Paint()
-                rightPaint.strokeWidth = STROKE_WIDTH
-                rightPaint.color = Color.YELLOW
-                wrongPaint = Paint()
-                wrongPaint.strokeWidth = STROKE_WIDTH
-                wrongPaint.color = Color.RED
-                DownPaint = Paint()
-                DownPaint.strokeWidth = STROKE_WIDTH
-                DownPaint.color = Color.GREEN
-                UpPaint = Paint()
-                UpPaint.strokeWidth = STROKE_WIDTH
-                UpPaint.color = Color.MAGENTA
-    }
+            whitePaint = Paint()
+            whitePaint.strokeWidth = STROKE_WIDTH
+            whitePaint.color = Color.WHITE
+            whitePaint.textSize = IN_FRAME_LIKELIHOOD_TEXT_SIZE
+            leftPaint = Paint()
+            leftPaint.strokeWidth = STROKE_WIDTH
+            leftPaint.color = Color.BLUE
+            rightPaint = Paint()
+            rightPaint.strokeWidth = STROKE_WIDTH
+            rightPaint.color = Color.YELLOW
+            wrongPaint = Paint()
+            wrongPaint.strokeWidth = STROKE_WIDTH
+            wrongPaint.color = Color.RED
+            DownPaint = Paint()
+            DownPaint.strokeWidth = STROKE_WIDTH
+            DownPaint.color = Color.GREEN
+            UpPaint = Paint()
+            UpPaint.strokeWidth = STROKE_WIDTH
+            UpPaint.color = Color.MAGENTA
+
+        }
     fun getAngle(firstPoint: PoseLandmark, midPoint: PoseLandmark, lastPoint: PoseLandmark): Double {
         var result = Math.toDegrees(
             (atan2(lastPoint.getPosition().y - midPoint.getPosition().y,
@@ -159,6 +162,7 @@ class PoseGraphic internal constructor(
             "\nRight_ShoulderAngle : "+rightShoulderAngle.toString()+"\nLeft_ShoulderAngle : "+leftShoulderAngle.toString()+"\nRight_ElbowAngle : "+rightElbowAngle.toString()
             +"\nLeft_ElbowAngle : "+leftElbowAngle.toString()+"\nRight_KneeAngle : "+rightKneeAngle.toString()+"\nLeft_KneeAngle : "+leftKneeAngle.toString()
         )
+
 
         // Left body
         drawLine(canvas, leftShoulder, rightShoulder, whitePaint)
@@ -294,5 +298,6 @@ class PoseGraphic internal constructor(
         private val IN_FRAME_LIKELIHOOD_TEXT_SIZE = 30.0f
         private val STROKE_WIDTH = 10.0f
         private val POSE_CLASSIFICATION_TEXT_SIZE = 60.0f
+
     }
 }
