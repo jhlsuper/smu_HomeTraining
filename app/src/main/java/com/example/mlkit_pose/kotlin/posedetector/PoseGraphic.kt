@@ -50,6 +50,7 @@ class PoseGraphic internal constructor(
         private val wrongPaint: Paint
         private val DownPaint: Paint
         private val UpPaint: Paint
+        private val poseSearchList : PoseSearcher
         init {
             classificationTextPaint = Paint()
             classificationTextPaint.color = Color.WHITE
@@ -75,7 +76,7 @@ class PoseGraphic internal constructor(
             UpPaint = Paint()
             UpPaint.strokeWidth = STROKE_WIDTH
             UpPaint.color = Color.MAGENTA
-
+            poseSearchList = PoseSearcher()
         }
     fun getAngle(firstPoint: PoseLandmark, midPoint: PoseLandmark, lastPoint: PoseLandmark): Double {
         var result = Math.toDegrees(
@@ -193,18 +194,60 @@ class PoseGraphic internal constructor(
         drawLine(canvas, rightHeel, rightFootIndex, rightPaint)
 
         //77 ~ 99 / 160 ~ 181
-        if ((77.0 < rightElbowAngle) && (99.0 > rightElbowAngle)){
-            drawLine(canvas, rightShoulder, rightElbow, DownPaint)
-            drawLine(canvas, rightElbow, rightWrist, DownPaint)
-        }
-        else if ((160.0 < rightElbowAngle) && (181.0 > rightElbowAngle)) {
-            drawLine(canvas, rightShoulder, rightElbow, UpPaint)
-            drawLine(canvas, rightElbow, rightWrist, UpPaint)
-        }
-        else {
-            drawLine(canvas, rightShoulder, rightElbow, wrongPaint)
-            drawLine(canvas, rightElbow, rightWrist, wrongPaint)
-        }
+//        if ((77.0 < rightElbowAngle) && (99.0 > rightElbowAngle)){ // Down
+//            drawLine(canvas, rightShoulder, rightElbow, DownPaint)
+//            drawLine(canvas, rightElbow, rightWrist, DownPaint)
+//        }
+//        else if ((160.0 < rightElbowAngle) && (181.0 > rightElbowAngle)) { // UP
+//            drawLine(canvas, rightShoulder, rightElbow, UpPaint)
+//            drawLine(canvas, rightElbow, rightWrist, UpPaint)
+//        }
+//        else {
+//            drawLine(canvas, rightShoulder, rightElbow, wrongPaint)
+//            drawLine(canvas, rightElbow, rightWrist, wrongPaint)
+//        }
+
+        /*
+        val rightHipAngle = getAngle(rightShoulder,rightHip,rightKnee)
+        val leftHipAngle = getAngle(leftShoulder,leftHip,leftKnee)
+        // Shoulder angle
+        val rightShoulderAngle = getAngle(rightHip,rightShoulder,rightElbow)
+        val leftShoulderAngle = getAngle(leftHip,leftShoulder,leftElbow)
+        // Elbow Angle
+        val rightElbowAngle = getAngle(rightShoulder,rightElbow,rightWrist)
+        val leftElbowAngle = getAngle(leftShoulder,leftElbow,leftWrist)
+        // Knee Angle
+        val rightKneeAngle = getAngle(rightHip,rightKnee,rightAnkle)
+        val leftKneeAngle = getAngle(leftHip,leftKnee,leftAnkle)
+         */
+//        val nowPose:ExercisePose? = poseSearchList.searchExByName(exName)
+//
+//        if (nowPose != null) {
+//            if (nowPose.isAngle_rhS(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleS)){ // Right Hip
+//                drawLine(canvas,rightShoulder,rightHip,rightPaint)
+//                drawLine(canvas,rightHip,rightKnee,rightPaint)
+//            }
+//            else if (nowPose.isAngle_rhD(rightHipAngle)){
+//                drawLine(canvas,rightShoulder,rightHip,rightPaint)
+//                drawLine(canvas,rightHip,rightKnee,rightPaint)
+//            }
+//
+//            if (nowPose.isAngle_lhS(leftHipAngle)){
+//                drawLine(canvas,leftShoulder,leftHip,leftPaint)
+//                drawLine(canvas,leftHip,leftKnee,leftPaint)
+//            }
+//            else if (nowPose.isAngle_lhD(leftHipAngle)){
+//                drawLine(canvas,leftShoulder,leftHip,leftPaint)
+//                drawLine(canvas,leftHip,leftKnee,leftPaint)
+//            }
+//
+//            if (nowPose.isAngle_rsS(rightShoulderAngle)){
+//                drawLine(canvas,)
+//            }
+//            else if (nowPose.isAngle_rsD(rightShoulderAngle)){
+//
+//            }
+//        }
 
 
 
