@@ -1,7 +1,7 @@
 package com.example.mlkit_pose.kotlin.posedetector
 
 class ExercisePose{
-    private val exName : String
+    private val exName : String?
     // Hip angle
     var rightHipAngleS : List<Double>
         get() {
@@ -202,7 +202,7 @@ class ExercisePose{
         return false
     }
 
-    public fun getExName() : String{
+    public fun getExName() : String?{
         return exName
     }
     public fun getEnable(anglesList : List<Double>) : Boolean {

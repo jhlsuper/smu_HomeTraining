@@ -48,8 +48,7 @@ class PoseGraphic internal constructor(
         private val rightPaint: Paint
         private val whitePaint: Paint
         private val wrongPaint: Paint
-        private val DownPaint: Paint
-        private val UpPaint: Paint
+        private val correctPaint: Paint
         private val poseSearchList : PoseSearcher
         init {
             classificationTextPaint = Paint()
@@ -70,12 +69,9 @@ class PoseGraphic internal constructor(
             wrongPaint = Paint()
             wrongPaint.strokeWidth = STROKE_WIDTH
             wrongPaint.color = Color.RED
-            DownPaint = Paint()
-            DownPaint.strokeWidth = STROKE_WIDTH
-            DownPaint.color = Color.GREEN
-            UpPaint = Paint()
-            UpPaint.strokeWidth = STROKE_WIDTH
-            UpPaint.color = Color.MAGENTA
+            correctPaint = Paint()
+            correctPaint.strokeWidth = STROKE_WIDTH
+            correctPaint.color = Color.GREEN
             poseSearchList = PoseSearcher()
         }
     fun getAngle(firstPoint: PoseLandmark, midPoint: PoseLandmark, lastPoint: PoseLandmark): Double {
@@ -166,32 +162,32 @@ class PoseGraphic internal constructor(
 
 
         // Left body
-        drawLine(canvas, leftShoulder, rightShoulder, whitePaint)
-        drawLine(canvas, leftHip, rightHip, whitePaint)
-        drawLine(canvas, leftShoulder, leftElbow, leftPaint)
-        drawLine(canvas, leftElbow, leftWrist, leftPaint)
-        drawLine(canvas, leftShoulder, leftHip, leftPaint)
-        drawLine(canvas, leftHip, leftKnee, leftPaint)
-        drawLine(canvas, leftKnee, leftAnkle, leftPaint)
-        drawLine(canvas, leftWrist, leftThumb, leftPaint)
-        drawLine(canvas, leftWrist, leftPinky, leftPaint)
-        drawLine(canvas, leftWrist, leftIndex, leftPaint)
-        drawLine(canvas, leftIndex, leftPinky, leftPaint)
-        drawLine(canvas, leftAnkle, leftHeel, leftPaint)
-        drawLine(canvas, leftHeel, leftFootIndex, leftPaint)
+        drawLine(canvas, leftShoulder, rightShoulder, correctPaint)
+        drawLine(canvas, leftHip, rightHip, correctPaint)
+        drawLine(canvas, leftShoulder, leftElbow, correctPaint)
+        drawLine(canvas, leftElbow, leftWrist, correctPaint)
+        drawLine(canvas, leftShoulder, leftHip, correctPaint)
+        drawLine(canvas, leftHip, leftKnee, correctPaint)
+        drawLine(canvas, leftKnee, leftAnkle, correctPaint)
+        drawLine(canvas, leftWrist, leftThumb, correctPaint)
+        drawLine(canvas, leftWrist, leftPinky, correctPaint)
+        drawLine(canvas, leftWrist, leftIndex, correctPaint)
+        drawLine(canvas, leftIndex, leftPinky, correctPaint)
+        drawLine(canvas, leftAnkle, leftHeel, correctPaint)
+        drawLine(canvas, leftHeel, leftFootIndex, correctPaint)
 
         // Right body
-        drawLine(canvas, rightShoulder, rightElbow, rightPaint)
-        drawLine(canvas, rightElbow, rightWrist, rightPaint)
-        drawLine(canvas, rightShoulder, rightHip, rightPaint)
-        drawLine(canvas, rightHip, rightKnee, rightPaint)
-        drawLine(canvas, rightKnee, rightAnkle, rightPaint)
-        drawLine(canvas, rightWrist, rightThumb, rightPaint)
-        drawLine(canvas, rightWrist, rightPinky, rightPaint)
-        drawLine(canvas, rightWrist, rightIndex, rightPaint)
-        drawLine(canvas, rightIndex, rightPinky, rightPaint)
-        drawLine(canvas, rightAnkle, rightHeel, rightPaint)
-        drawLine(canvas, rightHeel, rightFootIndex, rightPaint)
+        drawLine(canvas, rightShoulder, rightElbow, correctPaint)
+        drawLine(canvas, rightElbow, rightWrist, correctPaint)
+        drawLine(canvas, rightShoulder, rightHip, correctPaint)
+        drawLine(canvas, rightHip, rightKnee, correctPaint)
+        drawLine(canvas, rightKnee, rightAnkle, correctPaint)
+        drawLine(canvas, rightWrist, rightThumb, correctPaint)
+        drawLine(canvas, rightWrist, rightPinky, correctPaint)
+        drawLine(canvas, rightWrist, rightIndex, correctPaint)
+        drawLine(canvas, rightIndex, rightPinky, correctPaint)
+        drawLine(canvas, rightAnkle, rightHeel, correctPaint)
+        drawLine(canvas, rightHeel, rightFootIndex, correctPaint)
 
         //77 ~ 99 / 160 ~ 181
 //        if ((77.0 < rightElbowAngle) && (99.0 > rightElbowAngle)){ // Down
@@ -220,34 +216,50 @@ class PoseGraphic internal constructor(
         val rightKneeAngle = getAngle(rightHip,rightKnee,rightAnkle)
         val leftKneeAngle = getAngle(leftHip,leftKnee,leftAnkle)
          */
-//        val nowPose:ExercisePose? = poseSearchList.searchExByName(exName)
-//
-//        if (nowPose != null) {
-//            if (nowPose.isAngle_rhS(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleS)){ // Right Hip
-//                drawLine(canvas,rightShoulder,rightHip,rightPaint)
-//                drawLine(canvas,rightHip,rightKnee,rightPaint)
-//            }
-//            else if (nowPose.isAngle_rhD(rightHipAngle)){
-//                drawLine(canvas,rightShoulder,rightHip,rightPaint)
-//                drawLine(canvas,rightHip,rightKnee,rightPaint)
-//            }
-//
-//            if (nowPose.isAngle_lhS(leftHipAngle)){
-//                drawLine(canvas,leftShoulder,leftHip,leftPaint)
-//                drawLine(canvas,leftHip,leftKnee,leftPaint)
-//            }
-//            else if (nowPose.isAngle_lhD(leftHipAngle)){
-//                drawLine(canvas,leftShoulder,leftHip,leftPaint)
-//                drawLine(canvas,leftHip,leftKnee,leftPaint)
-//            }
-//
-//            if (nowPose.isAngle_rsS(rightShoulderAngle)){
-//                drawLine(canvas,)
-//            }
-//            else if (nowPose.isAngle_rsD(rightShoulderAngle)){
-//
-//            }
-//        }
+        val nowPose:ExercisePose? = poseSearchList.searchExByName(exName)
+        if (nowPose != null) {
+            nowPose.getExName()?.let { Log.d("NOWPOSENAME", it) }
+        }
+        if (nowPose != null) {
+            if (nowPose.isAngle_rhS(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleS)){ // Right Hip
+                drawLine(canvas,rightShoulder,rightHip,correctPaint)
+                drawLine(canvas,rightHip,rightKnee,correctPaint)
+            }
+            else if (nowPose.isAngle_rhD(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleD)){
+                drawLine(canvas,rightShoulder,rightHip,correctPaint)
+                drawLine(canvas,rightHip,rightKnee,correctPaint)
+            }
+            else if (nowPose.getEnable(nowPose.rightHipAngleS) || nowPose.getEnable(nowPose.rightHipAngleD)){
+                drawLine(canvas,rightShoulder,rightHip,wrongPaint)
+                drawLine(canvas,rightHip,rightKnee,wrongPaint)
+            }
+
+            if (nowPose.isAngle_lhS(leftHipAngle)&& nowPose.getEnable(nowPose.leftHipAngleS)){
+                drawLine(canvas,leftShoulder,leftHip,correctPaint)
+                drawLine(canvas,leftHip,leftKnee,correctPaint)
+            }
+            else if (nowPose.isAngle_lhD(leftHipAngle)&& nowPose.getEnable(nowPose.leftHipAngleD)){
+                drawLine(canvas,leftShoulder,leftHip,correctPaint)
+                drawLine(canvas,leftHip,leftKnee,correctPaint)
+            }
+            else if (nowPose.getEnable(nowPose.leftHipAngleS) || nowPose.getEnable(nowPose.leftHipAngleD)){
+                drawLine(canvas,leftShoulder,leftHip,wrongPaint)
+                drawLine(canvas,leftHip,leftKnee,wrongPaint)
+            }
+
+            if (nowPose.isAngle_rsS(rightShoulderAngle) && nowPose.getEnable(nowPose.rightShoulderAngleS)){
+                drawLine(canvas,rightHip,rightShoulder,correctPaint)
+                drawLine(canvas,rightShoulder,rightElbow,correctPaint)
+            }
+            else if (nowPose.isAngle_rsD(rightShoulderAngle) && nowPose.getEnable(nowPose.rightShoulderAngleD)){
+                drawLine(canvas,rightHip,rightShoulder,correctPaint)
+                drawLine(canvas,rightShoulder,rightElbow,correctPaint)
+            }
+            else{
+                drawLine(canvas,rightHip,rightShoulder,wrongPaint)
+                drawLine(canvas,rightShoulder,rightElbow,wrongPaint)
+            }
+        }
 
 
 
