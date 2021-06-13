@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools2="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/ranking_border"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="10dp"
+    >
+
+    <ImageView
+        android:id="@+id/img_ranking_profile"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+
+        android:scaleType="centerCrop"
+        android:src="@drawable/penguin"
+        tools:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintStart_toStartOf="parent"
+        tools:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_ranking_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+
+        android:text="본인아이디"
+        android:textSize="25dp"
+        tools:layout_constraintEnd_toStartOf="@+id/btn_ranking_exercise"
+        tools:layout_constraintStart_toEndOf="@+id/img_ranking_profile"
+        tools:layout_constraintTop_toTopOf="@+id/img_ranking_profile" />
+
+    <TextView
+        android:id="@+id/txt_ranking_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+
+        android:text="2000pt"
+        android:textSize="20dp"
+        tools:layout_constraintEnd_toEndOf="@+id/txt_ranking_id"
+        tools:layout_constraintHorizontal_bias="0.557"
+        tools:layout_constraintStart_toStartOf="@+id/txt_ranking_id"
+        tools:layout_constraintTop_toBottomOf="@+id/txt_ranking_id" />
+
+    <Button
+        android:id="@+id/btn_ranking_exercise"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+
+
+        android:text="운동하기"
+        tools:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_marginEnd="5dp"-->
+<!--        android:layout_weight="1.3"-->
+<!--        android:background="@drawable/shape_ranking_mine"-->
+<!--        tools:layout_constraintEnd_toEndOf="parent"-->
+<!--        tools:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/img_ranking_profile"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="80dp"-->
+<!--                android:layout_height="70dp"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:src="@drawable/penguin" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="130dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/txt_ranking_id"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="top|center"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="본인아이디"-->
+<!--                    android:textSize="25dp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/txt_ranking_point"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="top|center"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:text="2000pt"-->
+<!--                    android:textSize="20dp" />-->
+
+
+<!--            </LinearLayout>-->
+
+<!--            <Button-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:text="운동하기"-->
+<!--                android:textStyle="bold" />-->
+
+
+<!--        </LinearLayout>-->
+
+
+<!--    </FrameLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

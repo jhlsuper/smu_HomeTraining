@@ -46,7 +46,7 @@
         android:textOn=""/>
 
     <ImageView
-        android:id="@+id/settings_button"
+        android:id="@+id/settings_button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

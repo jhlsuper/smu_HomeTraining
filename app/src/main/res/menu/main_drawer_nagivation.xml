@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/user_time"
+
+        android:title="운동한 시간"
+        />
+    <item android:id="@+id/user_calc"
+
+        android:title="소모한 칼로리"
+        />
+    <item android:id="@+id/user_point"
+
+        android:title="현재 Point:"
+        />
+
+</menu>
