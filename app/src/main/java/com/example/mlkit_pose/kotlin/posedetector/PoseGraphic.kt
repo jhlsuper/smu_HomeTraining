@@ -216,50 +216,124 @@ class PoseGraphic internal constructor(
         val rightKneeAngle = getAngle(rightHip,rightKnee,rightAnkle)
         val leftKneeAngle = getAngle(leftHip,leftKnee,leftAnkle)
          */
-//        val nowPose:ExercisePose? = poseSearchList.searchExByName(exName)
-//        if (nowPose != null) {
-//            nowPose.getExName()?.let { Log.d("NOWPOSENAME", it) }
-//        }
-//        if (nowPose != null) {
-//            if (nowPose.isAngle_rhS(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleS)){ // Right Hip
-//                drawLine(canvas,rightShoulder,rightHip,correctPaint)
-//                drawLine(canvas,rightHip,rightKnee,correctPaint)
-//            }
-//            else if (nowPose.isAngle_rhD(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleD)){
-//                drawLine(canvas,rightShoulder,rightHip,correctPaint)
-//                drawLine(canvas,rightHip,rightKnee,correctPaint)
-//            }
-//            else if (nowPose.getEnable(nowPose.rightHipAngleS) || nowPose.getEnable(nowPose.rightHipAngleD)){
-//                drawLine(canvas,rightShoulder,rightHip,wrongPaint)
-//                drawLine(canvas,rightHip,rightKnee,wrongPaint)
-//            }
-//
-//            if (nowPose.isAngle_lhS(leftHipAngle)&& nowPose.getEnable(nowPose.leftHipAngleS)){
-//                drawLine(canvas,leftShoulder,leftHip,correctPaint)
-//                drawLine(canvas,leftHip,leftKnee,correctPaint)
-//            }
-//            else if (nowPose.isAngle_lhD(leftHipAngle)&& nowPose.getEnable(nowPose.leftHipAngleD)){
-//                drawLine(canvas,leftShoulder,leftHip,correctPaint)
-//                drawLine(canvas,leftHip,leftKnee,correctPaint)
-//            }
-//            else if (nowPose.getEnable(nowPose.leftHipAngleS) || nowPose.getEnable(nowPose.leftHipAngleD)){
-//                drawLine(canvas,leftShoulder,leftHip,wrongPaint)
-//                drawLine(canvas,leftHip,leftKnee,wrongPaint)
-//            }
-//
-//            if (nowPose.isAngle_rsS(rightShoulderAngle) && nowPose.getEnable(nowPose.rightShoulderAngleS)){
-//                drawLine(canvas,rightHip,rightShoulder,correctPaint)
-//                drawLine(canvas,rightShoulder,rightElbow,correctPaint)
-//            }
-//            else if (nowPose.isAngle_rsD(rightShoulderAngle) && nowPose.getEnable(nowPose.rightShoulderAngleD)){
-//                drawLine(canvas,rightHip,rightShoulder,correctPaint)
-//                drawLine(canvas,rightShoulder,rightElbow,correctPaint)
-//            }
-//            else{
-//                drawLine(canvas,rightHip,rightShoulder,wrongPaint)
-//                drawLine(canvas,rightShoulder,rightElbow,wrongPaint)
-//            }
-//        }
+        val nowPose:ExercisePose? = poseSearchList.searchExByName(exName)
+        if (nowPose != null) {
+            nowPose.getExName()?.let { Log.d("NOWPOSENAME", it) }
+        }
+        if (nowPose != null) {
+            //Right Hip Angle
+            if (nowPose.isAngle_rhS(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleS)){ // Right Hip
+                // UP 각도 내에 있는 경우, 그리고 해당 부위가 활성화 된 경우
+                drawLine(canvas,rightShoulder,rightHip,correctPaint)
+                drawLine(canvas,rightHip,rightKnee,correctPaint)
+            }
+            else if (nowPose.isAngle_rhD(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleD)){
+                // Down 각도 내에 있는 경우, 그리고 해당 부위가 활성화 된 경우
+                drawLine(canvas,rightShoulder,rightHip,correctPaint)
+                drawLine(canvas,rightHip,rightKnee,correctPaint)
+            }
+            else if (nowPose.getEnable(nowPose.rightHipAngleS) || nowPose.getEnable(nowPose.rightHipAngleD)){
+                // 각도 내에 없지만 활성화된 경우 (틀린것)
+                drawLine(canvas,rightShoulder,rightHip,wrongPaint)
+                drawLine(canvas,rightHip,rightKnee,wrongPaint)
+            }
+            //Left Hip Angle
+            if (nowPose.isAngle_lhS(leftHipAngle)&& nowPose.getEnable(nowPose.leftHipAngleS)){
+                drawLine(canvas,leftShoulder,leftHip,correctPaint)
+                drawLine(canvas,leftHip,leftKnee,correctPaint)
+            }
+            else if (nowPose.isAngle_lhD(leftHipAngle)&& nowPose.getEnable(nowPose.leftHipAngleD)){
+                drawLine(canvas,leftShoulder,leftHip,correctPaint)
+                drawLine(canvas,leftHip,leftKnee,correctPaint)
+            }
+            else if (nowPose.getEnable(nowPose.leftHipAngleS) || nowPose.getEnable(nowPose.leftHipAngleD)){
+                drawLine(canvas,leftShoulder,leftHip,wrongPaint)
+                drawLine(canvas,leftHip,leftKnee,wrongPaint)
+            }
+            // Right Shoulder Angle
+            if (nowPose.isAngle_rsS(rightShoulderAngle) && nowPose.getEnable(nowPose.rightShoulderAngleS)){
+                drawLine(canvas,rightHip,rightShoulder,correctPaint)
+                drawLine(canvas,rightShoulder,rightElbow,correctPaint)
+            }
+            else if (nowPose.isAngle_rsD(rightShoulderAngle) && nowPose.getEnable(nowPose.rightShoulderAngleD)){
+                drawLine(canvas,rightHip,rightShoulder,correctPaint)
+                drawLine(canvas,rightShoulder,rightElbow,correctPaint)
+            }
+            else if (nowPose.getEnable(nowPose.rightShoulderAngleS) || nowPose.getEnable(nowPose.rightShoulderAngleD)){
+                drawLine(canvas,rightHip,rightShoulder,wrongPaint)
+                drawLine(canvas,rightShoulder,rightElbow,wrongPaint)
+            }
+            // Left Shoulder Angle
+            if (nowPose.isAngle_lsS(leftShoulderAngle) && nowPose.getEnable(nowPose.leftShoulderAngleS)){
+                drawLine(canvas,leftHip,leftShoulder,correctPaint)
+                drawLine(canvas,leftShoulder,leftElbow,correctPaint)
+            }
+            else if (nowPose.isAngle_lsD(leftShoulderAngle) && nowPose.getEnable(nowPose.leftShoulderAngleD)){
+                drawLine(canvas,leftHip,leftShoulder,correctPaint)
+                drawLine(canvas,leftShoulder,leftElbow,correctPaint)
+            }
+            else if (nowPose.getEnable(nowPose.leftShoulderAngleS) || nowPose.getEnable(nowPose.leftShoulderAngleD)){
+                drawLine(canvas,leftHip,leftShoulder,wrongPaint)
+                drawLine(canvas,leftShoulder,leftElbow,wrongPaint)
+            }
+            // Right Elbow Angle
+            if (nowPose.isAngle_reS(rightElbowAngle) && nowPose.getEnable(nowPose.rightElbowAngleS)){
+                //rightShoulder,rightElbow,rightWrist
+                drawLine(canvas,rightShoulder,rightElbow,correctPaint)
+                drawLine(canvas,rightElbow,rightWrist,correctPaint)
+            }
+            else if (nowPose.isAngle_reD(rightElbowAngle) && nowPose.getEnable(nowPose.rightElbowAngleD)){
+                drawLine(canvas,rightShoulder,rightElbow,correctPaint)
+                drawLine(canvas,rightElbow,rightWrist,correctPaint)
+            }
+            else if (nowPose.getEnable(nowPose.rightElbowAngleD) || nowPose.getEnable(nowPose.rightElbowAngleS)){
+                drawLine(canvas,rightShoulder,rightElbow,wrongPaint)
+                drawLine(canvas,rightElbow,rightWrist,wrongPaint)
+            }
+            // Left Elbow Angle
+            if (nowPose.isAngle_leS(leftElbowAngle) && nowPose.getEnable(nowPose.leftElbowAngleS)){
+                //leftShoulder,leftElbow,leftWrist
+                drawLine(canvas,leftShoulder,leftElbow,correctPaint)
+                drawLine(canvas,leftElbow,leftWrist,correctPaint)
+            }
+            else if (nowPose.isAngle_leD(leftElbowAngle) && nowPose.getEnable(nowPose.leftElbowAngleD)){
+                drawLine(canvas,leftShoulder,leftElbow,correctPaint)
+                drawLine(canvas,leftElbow,leftWrist,correctPaint)
+            }
+            else if (nowPose.getEnable(nowPose.leftElbowAngleD) || nowPose.getEnable(nowPose.leftElbowAngleS)){
+                drawLine(canvas,leftShoulder,leftElbow,wrongPaint)
+                drawLine(canvas,leftElbow,leftWrist,wrongPaint)
+            }
+            // Right Knee Angle
+            if (nowPose.isAngle_rkS(rightKneeAngle) && nowPose.getEnable(nowPose.rightKneeAngleS)){
+                //rightHip,rightKnee,rightAnkle
+                drawLine(canvas,rightHip,rightKnee,correctPaint)
+                drawLine(canvas,rightKnee,rightAnkle,correctPaint)
+            }
+            else if (nowPose.isAngle_rkD(rightKneeAngle) && nowPose.getEnable(nowPose.rightKneeAngleD)){
+                drawLine(canvas,rightHip,rightKnee,correctPaint)
+                drawLine(canvas,rightKnee,rightAnkle,correctPaint)
+            }
+            else if (nowPose.getEnable(nowPose.rightKneeAngleD) || nowPose.getEnable(nowPose.rightKneeAngleS)){
+                drawLine(canvas,rightHip,rightKnee,wrongPaint)
+                drawLine(canvas,rightKnee,rightAnkle,wrongPaint)
+            }
+            // Left Knee Angle
+            if (nowPose.isAngle_lkS(leftKneeAngle) && nowPose.getEnable(nowPose.leftKneeAngleS)){
+                //leftHip,leftKnee,leftAnkle
+                drawLine(canvas,leftHip,leftKnee,correctPaint)
+                drawLine(canvas,leftKnee,leftAnkle,correctPaint)
+            }
+            else if (nowPose.isAngle_lkD(leftKneeAngle) && nowPose.getEnable(nowPose.leftKneeAngleD)){
+                drawLine(canvas,leftHip,leftKnee,correctPaint)
+                drawLine(canvas,leftKnee,leftAnkle,correctPaint)
+            }
+            else if (nowPose.getEnable(nowPose.leftKneeAngleD) || nowPose.getEnable(nowPose.leftKneeAngleS)){
+                drawLine(canvas,leftHip,leftKnee,wrongPaint)
+                drawLine(canvas,leftKnee,leftAnkle,wrongPaint)
+            }
+
+        }
 
 
 

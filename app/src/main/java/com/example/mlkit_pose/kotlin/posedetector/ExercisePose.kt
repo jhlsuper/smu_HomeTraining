@@ -1,124 +1,128 @@
 package com.example.mlkit_pose.kotlin.posedetector
 
-class ExercisePose{
-    private val exName : String?
+import android.util.Log
+
+class ExercisePose(
+    rhs: List<Double>,
+    rhd: List<Double>,
+    lhs: List<Double>,
+    lhd: List<Double>,
+    rss: List<Double>,
+    rsd: List<Double>,
+    lss: List<Double>,
+    lsd: List<Double>,
+    res: List<Double>,
+    red: List<Double>,
+    les: List<Double>,
+    led: List<Double>,
+    rks: List<Double>,
+    rkd: List<Double>,
+    lks: List<Double>,
+    lkd: List<Double>,
+    exN: String
+) {
+    private val exName : String? = exN
+
     // Hip angle
-    var rightHipAngleS : List<Double>
+    var rightHipAngleS : List<Double> = rhs
         get() {
-            return rightHipAngleS
+            return field
         }
-    var rightHipAngleD : List<Double>
+    var rightHipAngleD : List<Double> = rhd
         get() {
-            return rightHipAngleD
+            return field
         }
-    var leftHipAngleS : List<Double>
+    var leftHipAngleS : List<Double> = lhs
         get() {
-            return leftHipAngleS
+            return field
         }
-    var leftHipAngleD : List<Double>
+    var leftHipAngleD : List<Double> = lhd
         get() {
-            return leftHipAngleD
+            return field
         }
 
     // Shoulder angle
-    var rightShoulderAngleS : List<Double>
+    var rightShoulderAngleS : List<Double> = rss
         get() {
-            return rightShoulderAngleS
+            return field
         }
-    var rightShoulderAngleD : List<Double>
+    var rightShoulderAngleD : List<Double> = rsd
         get() {
-            return rightShoulderAngleD
+            return field
         }
-    var leftShoulderAngleS : List<Double>
+    var leftShoulderAngleS : List<Double> = lss
         get() {
-            return leftShoulderAngleS
+            return field
         }
-    var leftShoulderAngleD : List<Double>
+    var leftShoulderAngleD : List<Double> = lsd
         get() {
-            return leftShoulderAngleD
+            return field
         }
 
     // Elbow Angle
-    var rightElbowAngleS : List<Double>
+    var rightElbowAngleS : List<Double> = res
         get() {
-            return rightElbowAngleS
+            return field
         }
-    var rightElbowAngleD : List<Double>
+    var rightElbowAngleD : List<Double> = red
         get() {
-            return rightElbowAngleD
+            return field
         }
-    var leftElbowAngleS : List<Double>
+    var leftElbowAngleS : List<Double> = les
         get() {
-            return leftElbowAngleS
+            return field
         }
-    var leftElbowAngleD : List<Double>
+    var leftElbowAngleD : List<Double> = led
         get() {
-            return leftElbowAngleD
+            return field
         }
 
     // Knee Angle
-    var rightKneeAngleS : List<Double>
+    var rightKneeAngleS : List<Double> = rks
         get() {
-            return rightKneeAngleS
+            return field
         }
-    var rightKneeAngleD : List<Double>
+    var rightKneeAngleD : List<Double> = rkd
         get() {
-            return rightKneeAngleD
+            return field
         }
-    var leftKneeAngleS : List<Double>
+    var leftKneeAngleS : List<Double> = lks
         get() {
-            return leftKneeAngleS
+            return field
         }
-    var leftKneeAngleD : List<Double>
+    var leftKneeAngleD : List<Double> = lkd
         get() {
-            return leftKneeAngleD
+            return field
         }
 
-    constructor(rhs : List<Double>,rhd: List<Double>,lhs: List<Double>,lhd: List<Double>,rss: List<Double>
-                ,rsd: List<Double>,lss: List<Double>,lsd: List<Double>,res: List<Double>,red: List<Double>,
-                les: List<Double>,led: List<Double>,rks: List<Double>,rkd: List<Double>,lks: List<Double>,lkd: List<Double>,exN : String){
-        rightHipAngleS = rhs
-        rightHipAngleD = rhd
-        leftHipAngleS = lhs
-        leftHipAngleD = lhd
-        rightShoulderAngleS = rss
-        rightShoulderAngleD = rsd
-        leftShoulderAngleS = lss
-        leftShoulderAngleD = lsd
-        rightElbowAngleS = res
-        rightElbowAngleD = red
-        leftElbowAngleS = les
-        leftElbowAngleD = led
-        rightKneeAngleS = rks
-        rightKneeAngleD = rkd
-        leftKneeAngleS = lks
-        leftKneeAngleD = lkd
-        exName = exN
-    }
     //S 는 Up인 상태 , D는 Down인 상태
     // list [start, end] 로 구성
 
     // Hip Angle
-    public fun isAngle_rhS(rh : Double) : Boolean {
+    public fun isAngle_rhS(rh : Double) : Boolean { //S 는 ?
         if (rightHipAngleS.get(0) <= rh && rightHipAngleS.get(1) >= rh){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line1")
             return true
         }
         return false
     }
     public fun isAngle_rhD(rh : Double) : Boolean {
         if (rightHipAngleD.get(0) <= rh && rightHipAngleD.get(1) >= rh){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line2")
             return true
         }
         return false
     }
     public fun isAngle_lhS(lh : Double) : Boolean {
         if (leftHipAngleS.get(0) <= lh && leftHipAngleS.get(1) >= lh){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line3")
             return true
         }
         return false
     }
     public fun isAngle_lhD(lh : Double) : Boolean {
         if (leftHipAngleD.get(0) <= lh && leftHipAngleD.get(1) >= lh){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line4")
             return true
         }
         return false
@@ -127,24 +131,28 @@ class ExercisePose{
     // Shoulder Angle
     public fun isAngle_rsS(rs : Double) : Boolean {
         if (rightShoulderAngleS.get(0) <= rs && rightShoulderAngleS.get(1) >= rs){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line5")
             return true
         }
         return false
     }
     public fun isAngle_rsD(rs : Double) : Boolean {
         if (rightShoulderAngleD.get(0) <= rs && rightShoulderAngleD.get(1) >= rs){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line6")
             return true
         }
         return false
     }
     public fun isAngle_lsS(ls : Double) : Boolean {
         if (leftShoulderAngleS.get(0) <= ls && leftShoulderAngleS.get(1) >= ls){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line7")
             return true
         }
         return false
     }
     public fun isAngle_lsD(ls : Double) : Boolean {
         if (leftShoulderAngleD.get(0) <= ls && leftShoulderAngleD.get(1) >= ls){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line8")
             return true
         }
         return false
@@ -153,24 +161,28 @@ class ExercisePose{
     // Elbow Angle
     public fun isAngle_reS(re : Double) : Boolean {
         if (rightElbowAngleS.get(0) <= re && rightElbowAngleS.get(1) >= re){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line9")
             return true
         }
         return false
     }
     public fun isAngle_reD(re : Double) : Boolean {
         if (rightElbowAngleD.get(0) <= re && rightElbowAngleD.get(1) >= re){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line10")
             return true
         }
         return false
     }
     public fun isAngle_leS(le : Double) : Boolean {
         if (leftElbowAngleS.get(0) <= le && leftElbowAngleS.get(1) >= le){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line11")
             return true
         }
         return false
     }
     public fun isAngle_leD(le : Double) : Boolean {
         if (leftElbowAngleD.get(0) <= le && leftElbowAngleD.get(1) >= le){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line12")
             return true
         }
         return false
@@ -179,24 +191,28 @@ class ExercisePose{
     // Knee Angle
     public fun isAngle_rkS(rk : Double) : Boolean {
         if (rightKneeAngleS.get(0) <= rk && rightKneeAngleS.get(1) >= rk){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line13")
             return true
         }
         return false
     }
-    public fun isAngle_rKD(rk : Double) : Boolean {
+    public fun isAngle_rkD(rk : Double) : Boolean {
         if (rightKneeAngleD.get(0) <= rk && rightKneeAngleD.get(1) >= rk){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line14")
             return true
         }
         return false
     }
     public fun isAngle_lkS(lk : Double) : Boolean {
         if (leftKneeAngleS.get(0) <= lk && leftKneeAngleS.get(1) >= lk){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line15")
             return true
         }
         return false
     }
     public fun isAngle_lkD(lk : Double) : Boolean {
         if (leftKneeAngleD.get(0) <= lk && leftKneeAngleD.get(1) >= lk){
+//            Log.d("PoseGraphic","PoseGraphic Angle Line16")
             return true
         }
         return false
@@ -206,6 +222,7 @@ class ExercisePose{
         return exName
     }
     public fun getEnable(anglesList : List<Double>) : Boolean {
+//        Log.d("PoseGraphic","Enable Line")
         if (anglesList.get(2) > 0.0 ){
             return true
         }

@@ -309,8 +309,8 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener {
 //            "com.example.hometrain.kotlin",
 //            "CameraXLivePreviewActivity"
 //        )
-        MlKit.initialize(this)
-        startActivity(intent)
+//        MlKit.initialize(this)
+//        startActivity(intent)
 //        finish()
 
     }
