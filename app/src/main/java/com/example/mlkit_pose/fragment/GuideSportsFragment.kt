@@ -20,6 +20,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.JSP
+import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
 import kotlinx.android.synthetic.main.fragment_bottom_menu.*
 import kotlinx.android.synthetic.main.fragment_bottom_menu.btn_guide
@@ -65,11 +66,14 @@ class GuideSportsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_guide_sports, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        btn_start_exercise.setOnClickListener{
+            (activity as PageActivity).startExcercsie()
+        }
         super.onViewCreated(view, savedInstanceState)
 
         setFragmentResultListener("requestKey2") { resultKey, bundle ->
