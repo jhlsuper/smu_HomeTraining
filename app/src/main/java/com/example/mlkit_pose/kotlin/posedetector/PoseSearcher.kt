@@ -21,15 +21,15 @@ class PoseSearcher {
     leftKneeAngleD = lkd
      */
     init{ // 운동 목록 초기화 # S (Raisd) D (Down)
-        val ShoulderPress:ExercisePose = ExercisePose(listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),
+        val ShoulderPressDB:ExercisePose = ExercisePose(listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),
                                                     listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),
                                                     listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),
                                                     listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),
                                                     listOf(155.0,180.0,1.0),listOf(77.0,99.0,1.0),
                                                     listOf(155.0,180.0,1.0),listOf(77.0,99.0,1.0),
                                                     listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),
-                                                    listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),"ShoulderPress")
-        poseList.add(ShoulderPress)
+                                                    listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),"ShoulderPressDB")
+        poseList.add(ShoulderPressDB)
     }
 
     public fun searchExByName(exname :String?) : ExercisePose?{

@@ -58,8 +58,6 @@ class HomeFragment : Fragment(),View.OnClickListener {
         btn_home_daily.setOnClickListener{
             Log.d("태그","fragment 기능 구현")
             Toast.makeText(activity,"ohh",Toast.LENGTH_SHORT).show()
-            (activity as PageActivity).startExcercsie()
-
         }
     }
 

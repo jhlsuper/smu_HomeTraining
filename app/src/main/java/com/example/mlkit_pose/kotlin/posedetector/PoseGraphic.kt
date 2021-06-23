@@ -115,7 +115,7 @@ class PoseGraphic internal constructor(
                 zMax = max(zMax, landmark.position3D.z)
             }
         }
-
+        Log.d("ExcerciseName","PoseGraphic IN ENAME $exName")
         val leftShoulder = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
         val rightShoulder = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
         val leftElbow = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
@@ -188,20 +188,6 @@ class PoseGraphic internal constructor(
         drawLine(canvas, rightIndex, rightPinky, correctPaint)
         drawLine(canvas, rightAnkle, rightHeel, correctPaint)
         drawLine(canvas, rightHeel, rightFootIndex, correctPaint)
-
-        //77 ~ 99 / 160 ~ 181
-//        if ((77.0 < rightElbowAngle) && (99.0 > rightElbowAngle)){ // Down
-//            drawLine(canvas, rightShoulder, rightElbow, DownPaint)
-//            drawLine(canvas, rightElbow, rightWrist, DownPaint)
-//        }
-//        else if ((160.0 < rightElbowAngle) && (181.0 > rightElbowAngle)) { // UP
-//            drawLine(canvas, rightShoulder, rightElbow, UpPaint)
-//            drawLine(canvas, rightElbow, rightWrist, UpPaint)
-//        }
-//        else {
-//            drawLine(canvas, rightShoulder, rightElbow, wrongPaint)
-//            drawLine(canvas, rightElbow, rightWrist, wrongPaint)
-//        }
 
         /*
         val rightHipAngle = getAngle(rightShoulder,rightHip,rightKnee)

@@ -25,9 +25,10 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/sport_detila_ename"
+                android:id="@+id/sport_detail_ename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="ShoulderPressDB"
                 android:layout_gravity="center_horizontal|top"
                 android:layout_marginTop="5dp"
                 android:visibility="invisible" />
@@ -109,7 +110,6 @@
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="@drawable/button_check"
-
             android:text="운동 하기"
             android:textColor="@color/black"
             android:textStyle="bold" />

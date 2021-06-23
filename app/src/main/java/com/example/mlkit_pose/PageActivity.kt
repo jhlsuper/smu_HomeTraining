@@ -300,8 +300,9 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener {
         })
         queue.add(StringRequest3)
     }
-    fun startExcercsie(){
+    fun startExcercise(exname:String?){
         val intent =Intent(this,CameraXLivePreviewActivity::class.java)
+        intent.putExtra("ExcerciseName",exname);
         startActivity(intent)
 
 //        val intent = Intent(Intent.ACTION_VIEW)

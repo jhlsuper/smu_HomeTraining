@@ -50,7 +50,7 @@ class GuideSportsFragment : Fragment() {
     var bitmap: Bitmap? = null
     var eturl: String? = null
     var result2: String? = null
-
+    var exname: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        arguments?.let {
@@ -71,9 +71,7 @@ class GuideSportsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        btn_start_exercise.setOnClickListener{
-            (activity as PageActivity).startExcercsie()
-        }
+
         super.onViewCreated(view, savedInstanceState)
 
         setFragmentResultListener("requestKey2") { resultKey, bundle ->
@@ -113,6 +111,11 @@ class GuideSportsFragment : Fragment() {
 //                        }
 //                    }
                         eturl = arr2[2]
+                        // Setting Eng name
+                        sport_detail_ename.text = arr2[3]
+                        val testTEXT = arr2[3]
+                        Log.d("EnameCHECK", "Ename $testTEXT")
+                        exname = arr2[3]
                     }
                 },
                 { })
@@ -148,8 +151,11 @@ class GuideSportsFragment : Fragment() {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(eturl))
                 startActivity(intent)
             }
-        }
 
+        }
+        btn_start_exercise.setOnClickListener{
+            (activity as PageActivity).startExcercise(exname)
+        }
 
     }
 

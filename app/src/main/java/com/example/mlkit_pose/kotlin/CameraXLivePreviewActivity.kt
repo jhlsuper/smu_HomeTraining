@@ -51,6 +51,7 @@ import com.google.mlkit.common.MlKitException
 import com.google.mlkit.common.model.LocalModel
 import com.example.mlkit_pose.preference.SettingsActivity.LaunchSource
 import kotlinx.android.synthetic.main.activity_vision_camerax_live_preview.*
+import kotlinx.android.synthetic.main.fragment_guide_sports.*
 import java.util.ArrayList
 
 
@@ -96,11 +97,15 @@ class CameraXLivePreviewActivity :
         )
     }
     cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
+//    setContentView(R.layout.fragment_guide_sports)
     setContentView(R.layout.activity_vision_camerax_live_preview)
-
-    val exname :TextView = findViewById(R.id.Exercise) as TextView
-    val exStr: String = exname.text.toString()
-    exerciseName = exStr
+//    val exname :TextView = findViewById(R.id.Exercise) as TextView
+//    val exStr: String = exname.text.toString()
+//    val exStr:String = sport_detail_ename.getText().toString()
+    val intent = getIntent()
+    val exText = intent.getStringExtra("ExcerciseName")
+    Log.d("ExcerciseName","ACTIVITY IN ENAME $exText")
+    exerciseName = exText
 
     previewView = findViewById(R.id.preview_view)
     if (previewView == null) {
