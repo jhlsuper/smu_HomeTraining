@@ -120,6 +120,7 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
                             val transaction = parentFragmentManager.beginTransaction()
                             transaction.add(R.id.frameLayout,GuideSportsFragment(),"guide_sport")
                             transaction.show(GuideSportsFragment())
+                            transaction.addToBackStack(null)
                             transaction.commit()
 
 
