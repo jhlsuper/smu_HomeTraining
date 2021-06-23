@@ -58,7 +58,7 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener {
         btn_drawer.setOnClickListener(this)
         btn_logout.setOnClickListener(this)
 
-        setUserRank()
+//        setUserRank()
 //        setRankData()
 
     }

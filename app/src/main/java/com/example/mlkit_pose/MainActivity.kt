@@ -2,6 +2,7 @@ package com.example.mlkit_pose
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.NavController
@@ -27,8 +28,9 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         super.onCreate(savedInstanceState)
         val currentUser = sharedManager.getCurrentUser()
-
-        if (currentUser.id === null){ //만약 로그인 정보가 있으면 그냥 메인화면으로
+//        Toast.makeText(this, currentUser.id.toString(),Toast.LENGTH_SHORT).show()
+        val d = Log.d("idinfo", currentUser.id.toString())
+        if (currentUser.id.toString() !== ""){ //만약 로그인 정보가 있으면 그냥 메인화면으로
             // id == null로 하면안되고 === 3개를 이용해야된다!
             startActivity(Intent(this, PageActivity::class.java))
             finish()
