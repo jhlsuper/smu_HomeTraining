@@ -147,7 +147,7 @@ class CameraXLivePreviewActivity :
         }
       )
 
-    val settingsButton = findViewById<ImageView>(R.id.settings_button)
+//    val settingsButton = findViewById<ImageView>(R.id.settings_button)
 //    settingsButton.setOnClickListener {
 //      val intent =
 //        Intent(applicationContext, SettingsActivity::class.java)
@@ -157,10 +157,10 @@ class CameraXLivePreviewActivity :
 //      )
 //      startActivity(intent)
 //    }
-//
-//    if (!allPermissionsGranted()) {
-//      runtimePermissions
-//    }
+
+    if (!allPermissionsGranted()) {
+      runtimePermissions
+    }
 
   }
 
@@ -287,6 +287,7 @@ class CameraXLivePreviewActivity :
             runClassification, /* isStreamMode = */ true,exerciseName
           )
         }
+//        SELFIE_SEGMENTATION -> SegmenterProcessor(this)
         else -> throw IllegalStateException("Invalid model name")
       }
     } catch (e: Exception) {
