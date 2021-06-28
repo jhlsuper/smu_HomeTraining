@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley
 //import com.example.mlkit_pose.databinding.ActivityMainBinding
 import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.kotlin.CameraXLivePreviewActivity
+import com.google.android.material.navigation.NavigationView
 import com.google.mlkit.common.MlKit
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
@@ -25,8 +26,8 @@ import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 
 
-class PageActivity : AppCompatActivity() ,View.OnClickListener {
-
+class PageActivity : AppCompatActivity() ,View.OnClickListener,
+    NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var logoutButton: Button
     lateinit var userRankAdapter: UserRkAdapter
@@ -47,6 +48,7 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener {
         transaction.commit()
 
         setSupportActionBar(main_layout_toolbar)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //드로어를 꺼낼 홈버튼 활상화
         supportActionBar?.setHomeAsUpIndicator(R.drawable.btn_menu)
         supportActionBar?.setDisplayShowTitleEnabled(false)  //타이틀 안보이게
@@ -56,24 +58,34 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener {
         btn_routine.setOnClickListener(this)
         btn_ranking.setOnClickListener(this)
         btn_drawer.setOnClickListener(this)
-        btn_logout.setOnClickListener(this)
 
+        main_navigationView.setNavigationItemSelectedListener(this)
+//        drawer_logoutButton.setOnClickListener(this)
 //        setUserRank()
 //        setRankData()
 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //툴바 버튼 처리
         when (item.itemId) {
             android.R.id.home -> {
                 main_drawer_layout.openDrawer(GravityCompat.START)
 
             }
+
         }
         return super.onOptionsItemSelected(item)
     }
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.btn_drawer_logout -> logOut()
+        }
+        return false
+    }
 
     override fun onBackPressed() {
+        //뒤로가기 버튼 처리
         if (main_drawer_layout.isDrawerOpen(GravityCompat.START)) {
             main_drawer_layout.closeDrawers()
 
@@ -108,11 +120,12 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener {
             R.id.btn_drawer -> {
                 info_user_id.setText("${currentUser.id}")
                 info_user_belong.setText("${currentUser.belong}")
+
                 main_drawer_layout.openDrawer(GravityCompat.START)
+
             }
-            R.id.btn_logout -> {
-                logOut()
-            }
+
+
 
         }
     }
@@ -124,6 +137,8 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener {
         sharedManager.DeleteCurrentUser(currentUser)
         startActivity(Intent(this, MainActivity::class.java))
         finish()
+
+
     }
     private fun setDataAtFragment(fragment: Fragment, tag: String){
         val currentUser = sharedManager.getCurrentUser()
@@ -328,6 +343,8 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener {
         private const val TAG_GUIDE_CLICK_FRAGMENT="guide_click"
         private const val TAG_GUIDE_SPORT_FRAGMENT="guide_sport"
     }
+
+
 
 }
 

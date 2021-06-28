@@ -28,17 +28,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></androidx.constraintlayout.utils.widget.ImageFilterButton>
-
-        <androidx.constraintlayout.utils.widget.ImageFilterButton
-            android:id="@+id/btn_logout"
-            android:layout_width="53dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="5dp"
-            android:background="@drawable/profile"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_drawer"
             app:layout_constraintTop_toTopOf="parent" />
+
+<!--        <androidx.constraintlayout.utils.widget.ImageFilterButton-->
+<!--            android:id="@+id/btn_logout"-->
+<!--            android:layout_width="53dp"-->
+<!--            android:layout_height="52dp"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:background="@drawable/profile"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/btn_drawer"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

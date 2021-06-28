@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/user_time"
-
+    <item android:id="@+id/txt_drawer_user_time"
+        android:icon="@drawable/icon_excersice_time"
         android:title="운동한 시간"
         />
-    <item android:id="@+id/user_calc"
-
-        android:title="소모한 칼로리"
+    <item android:id="@+id/txt_drawer_user_calc"
+        android:icon="@drawable/icon_calories"
+        android:title="소모한 칼로리:"
         />
-    <item android:id="@+id/user_point"
-
+    <item android:id="@+id/txt_drawer_user_point"
+        android:icon="@drawable/icon_current_point"
         android:title="현재 Point:"
         />
-
+    <item
+        android:id="@+id/txt_setting"
+        android:icon="@drawable/icon_settings"
+        android:title="설정하기"
+        />
+    <item android:id="@+id/btn_drawer_logout"
+        android:title ="로그아웃"
+        android:icon="@drawable/power_btn"
+    />
 </menu>
