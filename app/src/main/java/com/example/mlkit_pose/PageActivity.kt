@@ -316,18 +316,17 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
         queue.add(StringRequest3)
     }
     fun startExcercise(exname:String?){
+        // 점수 계산을 위한 운동 시간 설정
+
+        // 안내
+
+        // 카메라 사용 시작
         val intent =Intent(this,CameraXLivePreviewActivity::class.java)
         intent.putExtra("ExcerciseName",exname);
         startActivity(intent)
+        // 카메라 사용 끝
 
-//        val intent = Intent(Intent.ACTION_VIEW)
-//        intent.component = ComponentName(
-//            "com.example.hometrain.kotlin",
-//            "CameraXLivePreviewActivity"
-//        )
-//        MlKit.initialize(this)
-//        startActivity(intent)
-//        finish()
+        // 결과 화면
 
     }
 
