@@ -2,6 +2,7 @@ package com.example.mlkit_pose.fragment
 
 
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -12,6 +13,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResultListener
 
@@ -37,6 +40,7 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
+import kotlin.math.min
 
 
 private const val ARG_PARAM1 = "param1"
@@ -154,9 +158,10 @@ class GuideSportsFragment : Fragment() {
 
         }
         btn_start_exercise.setOnClickListener{
-            (activity as PageActivity).startExcercise(exname)
-        }
+//            (activity as PageActivity).startExcercise(exname)
+            showTimeSettingPopup()
 
+        }
     }
 
     companion object {
@@ -173,6 +178,40 @@ class GuideSportsFragment : Fragment() {
 
     }
 
+    public fun showTimeSettingPopup(){
+        val dialog = AlertDialog.Builder(context).create()
+        val edialog : LayoutInflater = LayoutInflater.from(context)
+        val mView : View = edialog.inflate(R.layout.fragment_settime,null)
+
+        val minute : NumberPicker = mView.findViewById(R.id.numberPicker_min)
+        val second : NumberPicker = mView.findViewById(R.id.numberPicker_sec)
+
+        val cancel : Button = mView.findViewById<Button>(R.id.btn_settime_no)
+        val start : Button = mView.findViewById<Button>(R.id.btn_settime_ok)
+        // editText 설정해제
+        minute.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        second.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+
+        //최소값 설정
+        minute.minValue = 0
+        second.minValue = 0
+
+        //최대값 설정
+        minute.maxValue = 59
+        second.maxValue = 59
+
+        //취소버튼
+        cancel.setOnClickListener{
+            dialog.dismiss()
+            dialog.cancel()
+        }
+        start.setOnClickListener {
+            Toast.makeText(context,"${minute.value}${second.value}",Toast.LENGTH_SHORT).show()
+        }
+        dialog.setView(mView)
+        dialog.create()
+        dialog.show()
+    }
 
 
 
