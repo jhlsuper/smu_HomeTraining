@@ -1,8 +1,9 @@
 package com.example.mlkit_pose.fragment
 
 
-
+import android.app.ActionBar
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -40,6 +41,7 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
+import java.util.*
 import kotlin.math.min
 
 
@@ -62,7 +64,7 @@ class GuideSportsFragment : Fragment() {
 //            param2 = it.getString(ARG_PARAM2)
 //        }
 
-        }
+    }
 
 
     override fun onCreateView(
@@ -157,7 +159,7 @@ class GuideSportsFragment : Fragment() {
             }
 
         }
-        btn_start_exercise.setOnClickListener{
+        btn_start_exercise.setOnClickListener {
 //            (activity as PageActivity).startExcercise(exname)
             showTimeSettingPopup()
 
@@ -178,16 +180,18 @@ class GuideSportsFragment : Fragment() {
 
     }
 
-    public fun showTimeSettingPopup(){
+    public fun showTimeSettingPopup() {
+
         val dialog = AlertDialog.Builder(context).create()
-        val edialog : LayoutInflater = LayoutInflater.from(context)
-        val mView : View = edialog.inflate(R.layout.fragment_settime,null)
+        
+        val edialog: LayoutInflater = LayoutInflater.from(context)
+        val mView: View = edialog.inflate(R.layout.fragment_settime, null)
 
-        val minute : NumberPicker = mView.findViewById(R.id.numberPicker_min)
-        val second : NumberPicker = mView.findViewById(R.id.numberPicker_sec)
+        val minute: NumberPicker = mView.findViewById(R.id.numberPicker_min)
+        val second: NumberPicker = mView.findViewById(R.id.numberPicker_sec)
 
-        val cancel : Button = mView.findViewById<Button>(R.id.btn_settime_no)
-        val start : Button = mView.findViewById<Button>(R.id.btn_settime_ok)
+        val cancel: Button = mView.findViewById<Button>(R.id.btn_settime_no)
+        val start: Button = mView.findViewById<Button>(R.id.btn_settime_ok)
         // editText 설정해제
         minute.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         second.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
@@ -197,16 +201,22 @@ class GuideSportsFragment : Fragment() {
         second.minValue = 0
 
         //최대값 설정
-        minute.maxValue = 59
+        minute.maxValue = 30
         second.maxValue = 59
+        //기본값 설정
+        minute.value = 1
+        second.value = 0
+        
+        //보여질 값 설정
 
+        
         //취소버튼
-        cancel.setOnClickListener{
+        cancel.setOnClickListener {
             dialog.dismiss()
             dialog.cancel()
         }
         start.setOnClickListener {
-            Toast.makeText(context,"${minute.value}${second.value}",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "${minute.value}분 ${second.value}초", Toast.LENGTH_SHORT).show()
         }
         dialog.setView(mView)
         dialog.create()
@@ -214,5 +224,8 @@ class GuideSportsFragment : Fragment() {
     }
 
 
-
 }
+
+
+
+
