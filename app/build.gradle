@@ -112,6 +112,9 @@ dependencies {
     // fragment 데이터전달
     implementation "androidx.fragment:fragment-ktx:1.3.3"
 
+    //원형이미지 view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
 }
 configurations {

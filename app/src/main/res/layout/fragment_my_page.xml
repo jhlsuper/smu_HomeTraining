@@ -1,197 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    android:focusable="true"
-    android:clickable="true">
+    android:orientation="vertical">
 
-
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-
-        app:layout_constraintGuide_percent="0.9" />
-
-
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="380dp"
-        android:layout_height="107dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
-        android:src="@drawable/blank_small"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
-        android:src="@drawable/img_user_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
-        android:src="@drawable/img_exercise_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-
-    <ImageView
-        android:id="@+id/imageView10"
+        android:layout_weight="6"
+        android:background="@drawable/background_white">
 
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/img_face"
+            android:scaleType="centerCrop" />
 
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
-        android:src="@drawable/img_my_routine"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
-    <ImageView
-        android:id="@+id/img_mypage_profile"
-        android:layout_width="73dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@drawable/img_face" />
+        <TextView
+            android:id="@+id/et_mypage_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="사용자 아이디"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/et_mypage_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:text="본인 아이디"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/img_mypage_profile"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
-    <TextView
-        android:id="@+id/txt_mypage_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
-        android:text="성별:"
-        app:layout_constraintEnd_toStartOf="@+id/txt_mypage_belong"
-        app:layout_constraintHorizontal_bias="0.133"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toTopOf="@+id/imageView5" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/et_mypage_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/txt_mypage_belong"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/txt_mypage_gender"
-        app:layout_constraintTop_toTopOf="@+id/txt_mypage_gender" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:layout_weight="1"
 
-    <TextView
-        android:id="@+id/txt_mypage_belong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="소속:"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_mypage_gender"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/txt_mypage_gender" />
+        android:background="@drawable/background_white"
+        android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"/>
 
-    <TextView
-        android:id="@+id/et_mypage_belong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_mypage_belong"
-        app:layout_constraintStart_toEndOf="@+id/txt_mypage_belong"
-        app:layout_constraintTop_toTopOf="@+id/txt_mypage_belong" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1.2"
+            android:background="@drawable/background_gray_light"
+            android:elevation="10dp"
+            tools:ignore="NestedWeights">
+            <TextView
+                android:id="@+id/et_mypage_belong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="사용자 소속"
+                android:textColor="@color/black"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="15dp"
+                />
 
-    <TextView
-        android:id="@+id/txt_mypage_height"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:text="키:"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/txt_mypage_gender" />
+            <TextView
+                android:id="@+id/et_mypage_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="35dp"
+                android:text="성별"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/et_mypage_belong"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txt_mypage_weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="몸무게:"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_mypage_height"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/txt_mypage_height" />
 
-    <TextView
-        android:id="@+id/et_mypage_height"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_mypage_height"
-        app:layout_constraintStart_toEndOf="@+id/txt_mypage_height"
-        app:layout_constraintTop_toTopOf="@+id/txt_mypage_height" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/et_mypage_weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_mypage_weight"
-        app:layout_constraintStart_toEndOf="@+id/txt_mypage_weight"
-        app:layout_constraintTop_toTopOf="@+id/txt_mypage_weight" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_gray_light"
+            android:elevation="10dp"/>
 
-    <Button
-        android:id="@+id/btn_mypage_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="2"
+            android:background="@drawable/background_gray_light"
+            android:elevation="10dp">
 
-        android:text="로그아웃"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
