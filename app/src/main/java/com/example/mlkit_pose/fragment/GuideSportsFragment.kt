@@ -1,27 +1,23 @@
 package com.example.mlkit_pose.fragment
 
 
-import android.app.ActionBar
 import android.app.AlertDialog
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.NumberPicker
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResultListener
 
-import androidx.transition.FragmentTransitionSupport
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -29,11 +25,6 @@ import com.example.mlkit_pose.JSP
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
 import kotlinx.android.synthetic.main.fragment_bottom_menu.*
-import kotlinx.android.synthetic.main.fragment_bottom_menu.btn_guide
-import kotlinx.android.synthetic.main.fragment_bottom_menu.btn_home
-import kotlinx.android.synthetic.main.fragment_bottom_menu.btn_mypage
-import kotlinx.android.synthetic.main.fragment_bottom_menu.btn_routine
-import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_guide_sports.*
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
@@ -44,7 +35,6 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 import java.util.*
-import kotlin.math.min
 
 
 private const val ARG_PARAM1 = "param1"
@@ -182,12 +172,12 @@ class GuideSportsFragment : Fragment() {
 
     }
 
-    public fun showTimeSettingPopup() {
+    fun showTimeSettingPopup() {
 
         val dialog = AlertDialog.Builder(context).create()
-        
+
         val edialog: LayoutInflater = LayoutInflater.from(context)
-        val mView: View = edialog.inflate(R.layout.fragment_settime, null)
+        val mView: View = edialog.inflate(R.layout.popup_settime, null)
 
         val minute: NumberPicker = mView.findViewById(R.id.numberPicker_min)
         val second: NumberPicker = mView.findViewById(R.id.numberPicker_sec)
@@ -221,9 +211,13 @@ class GuideSportsFragment : Fragment() {
             (activity as PageActivity).startExcercise(exname)
             dialog.dismiss()
         }
+
         dialog.setView(mView)
+
         dialog.create()
         dialog.show()
+        dialog.window!!.setLayout(750,WindowManager.LayoutParams.WRAP_CONTENT)
+
     }
 
 
