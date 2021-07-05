@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResultListener
 
@@ -195,7 +197,6 @@ class GuideSportsFragment : Fragment() {
         // editText 설정해제
         minute.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         second.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-
         //최소값 설정
         minute.minValue = 0
         second.minValue = 0

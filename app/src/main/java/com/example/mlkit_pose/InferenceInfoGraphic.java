@@ -70,12 +70,12 @@ public class InferenceInfoGraphic extends GraphicOverlay.Graphic {
           x,
           y + TEXT_SIZE,
           textPaint);
-      canvas.drawText(
-          "Detector latency: " + detectorLatency + " ms", x, y + TEXT_SIZE * 2, textPaint);
+//      canvas.drawText(
+//          "Detector latency: " + detectorLatency + " ms", x, y + TEXT_SIZE * 2, textPaint);
     } else {
       canvas.drawText("Frame latency: " + frameLatency + " ms", x, y + TEXT_SIZE, textPaint);
-      canvas.drawText(
-          "Detector latency: " + detectorLatency + " ms", x, y + TEXT_SIZE * 2, textPaint);
+//      canvas.drawText(
+//          "Detector latency: " + detectorLatency + " ms", x, y + TEXT_SIZE * 2, textPaint);
     }
   }
 }

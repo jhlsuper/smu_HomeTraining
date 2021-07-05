@@ -54,7 +54,7 @@ public class PoseSample {
 
   public static PoseSample getPoseSample(String csvLine, String separator) {
     List<String> tokens = Splitter.onPattern(separator).splitToList(csvLine);
-    // Format is expected to be Name,Class,X1,Y1,Z1,X2,Y2,Z2...
+    // Format is expected to be Name,Class,X1,Y1,Z1,X2,Y2,Z                           2...
     // + 2 is for Name & Class.
     if (tokens.size() != (NUM_LANDMARKS * NUM_DIMS) + 2) {
       Log.e(TAG, "Invalid number of tokens for PoseSample");

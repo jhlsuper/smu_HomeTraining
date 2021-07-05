@@ -37,13 +37,23 @@
 <!--      tools:visibility="visible" />-->
 
   <TextView
-      android:id="@+id/textView9"
+      android:id="@+id/textView"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Live Activity"
+      android:text="Setting Activity"
       app:layout_constraintBottom_toBottomOf="@+id/preview_view"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent" />
+
+  <ImageView
+      android:id="@+id/rect_image"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:src="@drawable/rectshape"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
   <include
       android:id="@+id/settings_button"

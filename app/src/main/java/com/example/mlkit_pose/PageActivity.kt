@@ -4,6 +4,7 @@ package com.example.mlkit_pose
 import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -18,6 +19,7 @@ import com.android.volley.toolbox.Volley
 //import com.example.mlkit_pose.databinding.ActivityMainBinding
 import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.kotlin.CameraXLivePreviewActivity
+import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.mlkit.common.MlKit
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
@@ -319,9 +321,13 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
         // 점수 계산을 위한 운동 시간 설정
 
         // 안내
-
+//        Handler().postDelayed({
+//            val intent = Intent(this,SettingLivePreviewActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+//            startActivity(intent)
+//        },5000)
         // 카메라 사용 시작
-        val intent =Intent(this,CameraXLivePreviewActivity::class.java)
+        val intent =Intent(this,SettingLivePreviewActivity::class.java)
         intent.putExtra("ExcerciseName",exname);
         startActivity(intent)
         // 카메라 사용 끝
