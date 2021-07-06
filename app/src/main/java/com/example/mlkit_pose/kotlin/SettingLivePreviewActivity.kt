@@ -103,11 +103,11 @@ class SettingLivePreviewActivity :
 //    val exname :TextView = findViewById(R.id.Exercise) as TextView
 //    val exStr: String = exname.text.toString()
 //    val exStr:String = sport_detail_ename.getText().toString()
-    val intent = getIntent()
-    val exText = intent.getStringExtra("ExcerciseName")
-    Log.d("ExcerciseName","ACTIVITY IN ENAME $exText")
+//    val intent = getIntent()
+//    val exText = intent.getStringExtra("ExcerciseName")
+//    Log.d("ExcerciseName","ACTIVITY IN ENAME $exText")
     Log.d("SettingActivity","Setting Live Preview Activity Running now")
-    exerciseName = exText
+//    exerciseName = exText
 
     previewView = findViewById(R.id.preview_view)
     if (previewView == null) {
