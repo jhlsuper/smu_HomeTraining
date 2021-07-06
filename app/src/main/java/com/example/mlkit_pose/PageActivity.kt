@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_main_page_part.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
-
+import kotlinx.android.synthetic.main.popup_point_warning.*
 
 class PageActivity : AppCompatActivity() ,View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener {
@@ -90,10 +90,10 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
         //뒤로가기 버튼 처리
         if (main_drawer_layout.isDrawerOpen(GravityCompat.START)) {
             main_drawer_layout.closeDrawers()
-
         } else {
             super.onBackPressed()
         }
+
     }
 
     override fun onClick(v: View) {
@@ -114,7 +114,6 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
             R.id.btn_ranking -> {
 //                setRankData()
                 setDataAtFragment(RankingMainFragment(), TAG_RANK_FRAGMENT)
-
             }
             R.id.btn_routine -> {
                 setDataAtFragment(MyRoutineFragment(), TAG_ROUTINE_FRAGMENT)
@@ -122,9 +121,7 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
             R.id.btn_drawer -> {
                 info_user_id.setText("${currentUser.id}")
                 info_user_belong.setText("${currentUser.belong}")
-
                 main_drawer_layout.openDrawer(GravityCompat.START)
-
             }
 
 
@@ -139,8 +136,6 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
         sharedManager.DeleteCurrentUser(currentUser)
         startActivity(Intent(this, MainActivity::class.java))
         finish()
-
-
     }
     private fun setDataAtFragment(fragment: Fragment, tag: String){
         val currentUser = sharedManager.getCurrentUser()
@@ -263,7 +258,6 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
 
     }
 
-
     private fun setUserRank(){
         val queue = Volley.newRequestQueue(this)
         var currentUser = sharedManager.getCurrentUser()
@@ -339,9 +333,7 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
             startActivity(intent)
         },5000)
         // 카메라 사용 끝
-
         // 결과 화면
-
     }
 
 

@@ -26,10 +26,12 @@ import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.camera.core.CameraInfoUnavailableException
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -176,6 +178,29 @@ class CameraXLivePreviewActivity :
     selectedModel = parent?.getItemAtPosition(pos).toString()
     Log.d(TAG, "Selected model: $selectedModel")
     bindAnalysisUseCase()
+  }
+
+  fun giveup_Button_Click(){
+    val dialog = AlertDialog.Builder(this).create()
+    val edialog: LayoutInflater = LayoutInflater.from(this)
+    val mView: View = edialog.inflate(R.layout.popup_point_warning, null)
+
+    val noBt : Button = mView.findViewById<Button>(R.id.btn_in_exercise_ok)
+    val yesBt : Button = mView.findViewById<Button>(R.id.btn_in_exercise_no)
+
+    noBt.setOnClickListener {
+      dialog.dismiss()
+      dialog.cancel()
+    }
+    yesBt.setOnClickListener {
+
+    }
+  }
+
+  override fun onBackPressed() {
+    giveup_Button_Click()
+
+    super.onBackPressed()
   }
 
   override fun onNothingSelected(parent: AdapterView<*>?) {
