@@ -208,7 +208,7 @@ class GuideSportsFragment : Fragment() {
         }
         start.setOnClickListener {
             Toast.makeText(context, "${minute.value}분 ${second.value}초", Toast.LENGTH_SHORT).show()
-            (activity as PageActivity).startExcercise(exname)
+            (activity as PageActivity).startExcercise(exname,minute.value,second.value)
             dialog.dismiss()
         }
 

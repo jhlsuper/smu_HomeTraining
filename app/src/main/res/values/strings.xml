@@ -27,6 +27,10 @@
     <string name="pref_category_pose_detection">Pose Detection</string>
     <string name="pref_category_segmentation">Selfie Segmentation</string>
 
+    <!-- Strings for info preference -->
+    <string name="pref_category_info" translatable="false">Detection Info</string>
+    <string name="pref_key_info_hide" translatable="false">ih</string>
+    <string name="pref_title_info_hide" translatable="false">Hide detection info</string>
     <!-- Strings for camera settings. -->
     <string name="pref_category_key_camera" translatable="false">pckc</string>
     <string name="pref_category_title_camera">Camera</string>

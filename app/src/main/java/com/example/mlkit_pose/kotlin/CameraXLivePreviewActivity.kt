@@ -185,15 +185,14 @@ class CameraXLivePreviewActivity :
     val edialog: LayoutInflater = LayoutInflater.from(this)
     val mView: View = edialog.inflate(R.layout.popup_point_warning, null)
 
-    val noBt : Button = mView.findViewById<Button>(R.id.btn_in_exercise_ok)
-    val yesBt : Button = mView.findViewById<Button>(R.id.btn_in_exercise_no)
+    val noBt : Button = mView.findViewById<Button>(R.id.btn_in_exercise_no)
+    val yesBt : Button = mView.findViewById<Button>(R.id.btn_in_exercise_ok)
 
     noBt.setOnClickListener {
       dialog.dismiss()
-      dialog.cancel()
     }
     yesBt.setOnClickListener {
-
+      finish()
     }
     dialog.setView(mView)
     dialog.create()

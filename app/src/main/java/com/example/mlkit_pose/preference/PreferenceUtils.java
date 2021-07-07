@@ -174,7 +174,12 @@ public class PreferenceUtils {
     String prefKey = context.getString(prefKeyResId);
     return Integer.parseInt(sharedPreferences.getString(prefKey, String.valueOf(defaultValue)));
   }
-
+  public static boolean shouldHideDetectionInfo(Context context) {
+    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+    String prefKey =
+            context.getString(R.string.pref_key_info_hide);
+    return sharedPreferences.getBoolean(prefKey, false);
+  }
   public static boolean isCameraLiveViewportEnabled(Context context) {
     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     String prefKey = context.getString(R.string.pref_key_camera_live_viewport);

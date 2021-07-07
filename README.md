@@ -8,7 +8,13 @@ MLKit is a mobile SDK that brings Google's on-device machine learning expertise 
 
 This API run on-device, allowing for real-time use cases where you want to process a live camera stream for example.
 
+> Reference
+>
 > [Google MLKit Overview](https://developers.google.com/ml-kit/guides)
+
+
+
+#### [Implements list  (WIKI)](https://github.com/ITs-smu-Team/its-core-android/wiki)
 
 
 
@@ -20,57 +26,35 @@ This API run on-device, allowing for real-time use cases where you want to proce
 * minSdkVersion 21 (Min API 21)
   targetSdkVersion 30 
 * jdk 1.8 (jvmTarget 1.8)
+* Android Phone
 
-### File Structure
 
-```
-📦mlkit_pose
- ┣ 📂kotlin
- ┃ ┣ 📂posedetector
- ┃ ┃ ┣ 📂classification
- ┃ ┃ ┃ ┣ 📜ClassificationResult.java
- ┃ ┃ ┃ ┣ 📜EMASmoothing.java
- ┃ ┃ ┃ ┣ 📜PoseClassifier.java
- ┃ ┃ ┃ ┣ 📜PoseClassifierProcessor.java
- ┃ ┃ ┃ ┣ 📜PoseEmbedding.java
- ┃ ┃ ┃ ┣ 📜PoseSample.java
- ┃ ┃ ┃ ┣ 📜RepetitionCounter.java
- ┃ ┃ ┃ ┗ 📜Utils.java
- ┃ ┃ ┣ 📜PoseDetectorProcessor.kt
- ┃ ┃ ┗ 📜**PoseGraphic.kt**
- ┃ ┣ 📜**CameraXLivePreviewActivity.kt**
- ┃ ┣ 📜ChooserActivity.kt
- ┃ ┣ 📜LivePreviewActivity.kt
- ┃ ┗ 📜VisionProcessorBase.kt
- ┣ 📂preference
- ┃ ┣ 📜CameraXLivePreviewPreferenceFragment.java
- ┃ ┣ 📜LivePreviewPreferenceFragment.java
- ┃ ┣ 📜PreferenceUtils.java
- ┃ ┣ 📜SettingsActivity.java
- ┃ ┗ 📜StillImagePreferenceFragment.java
- ┣ 📜BitmapUtils.java
- ┣ 📜CameraImageGraphic.java
- ┣ 📜CameraSource.java
- ┣ 📜CameraSourcePreview.java
- ┣ 📜CameraXViewModel.java
- ┣ 📜FrameMetadata.java
- ┣ 📜GraphicOverlay.java
- ┣ 📜InferenceInfoGraphic.java
- ┣ 📜ScopedExecutor.java
- ┗ 📜VisionImageProcessor.java
-```
 
 ### Usage
 
 Connect your Android phone to Computer, and just run.
 
-
+> **JSP Server IP is not included**
+>
+> if you want IP, please request Admininstrator
 
 ### Demo
 
 > preparing....
 
 
+
+### Structure
+
+> DB
+
+Preparing..
+
+
+
+> Class
+
+Preparing..
 
 ### LICENSE
 

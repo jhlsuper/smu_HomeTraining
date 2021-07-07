@@ -319,7 +319,7 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
 //            finish()
 //        },5000)
 //    }
-    fun startExcercise(exname:String?){
+    fun startExcercise(exname:String?,minute:Int,second:Int){
         // 점수 계산을 위한 운동 시간 설정 -> GuideSportsFragment.showTimeSettingPopup()
         // 안내 & 카메라 사용 시작
         val intent =Intent(this,SettingLivePreviewActivity::class.java)
@@ -330,6 +330,8 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
             val intent = Intent(this,CameraXLivePreviewActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             intent.putExtra("ExcerciseName",exname);
+            intent.putExtra("minute",minute)
+            intent.putExtra("second",second)
             startActivity(intent)
         },5000)
         // 카메라 사용 끝
