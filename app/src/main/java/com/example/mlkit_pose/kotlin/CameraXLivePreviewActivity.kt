@@ -195,12 +195,16 @@ class CameraXLivePreviewActivity :
     yesBt.setOnClickListener {
 
     }
+    dialog.setView(mView)
+    dialog.create()
+    dialog.show()
+
   }
 
   override fun onBackPressed() {
     giveup_Button_Click()
-
-    super.onBackPressed()
+    Toast.makeText(this,"backbutton눌림",Toast.LENGTH_SHORT).show()
+//    super.onBackPressed()
   }
 
   override fun onNothingSelected(parent: AdapterView<*>?) {
