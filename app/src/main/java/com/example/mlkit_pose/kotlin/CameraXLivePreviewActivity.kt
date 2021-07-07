@@ -148,7 +148,7 @@ class CameraXLivePreviewActivity :
           }
         }
       )
-
+//
 //    val settingsButton = findViewById<ImageView>(R.id.settings_button)
 //    settingsButton.setOnClickListener {
 //      val intent =
@@ -159,7 +159,7 @@ class CameraXLivePreviewActivity :
 //      )
 //      startActivity(intent)
 //    }
-
+//
     if (!allPermissionsGranted()) {
       runtimePermissions
     }

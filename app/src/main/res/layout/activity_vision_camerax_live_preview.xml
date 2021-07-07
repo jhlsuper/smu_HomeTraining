@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true">
 
+  <include
+      android:id="@+id/settings_button"
+      layout="@layout/settings_style"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      tools:visibility="invisible" />
+
   <androidx.camera.view.PreviewView
       android:id="@+id/preview_view"
       android:layout_width="match_parent"
@@ -16,16 +24,7 @@
 
   </androidx.camera.view.PreviewView>
 
-  <com.example.mlkit_pose.GraphicOverlay
-      android:id="@+id/graphic_overlay"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      app:layout_constraintLeft_toLeftOf="@id/preview_view"
-      app:layout_constraintRight_toRightOf="@id/preview_view"
-      app:layout_constraintTop_toTopOf="@id/preview_view"
-      app:layout_constraintBottom_toBottomOf="@id/preview_view"/>
-
-<!--  <TextView-->
+  <!--  <TextView-->
 <!--      android:id="@+id/Exercise"-->
 <!--      android:layout_width="wrap_content"-->
 <!--      android:layout_height="wrap_content"-->
@@ -45,14 +44,14 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent" />
 
-  <include
-      android:id="@+id/settings_button"
-      layout="@layout/settings_style"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+  <com.example.mlkit_pose.GraphicOverlay
+      android:id="@+id/graphic_overlay"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="@id/preview_view"
+      app:layout_constraintLeft_toLeftOf="@id/preview_view"
       app:layout_constraintRight_toRightOf="@id/preview_view"
-      app:layout_constraintTop_toTopOf="@id/preview_view"
-      tools:visibility="invisible" />
+      app:layout_constraintTop_toTopOf="@id/preview_view" />
 
   <LinearLayout
       android:id="@id/control"

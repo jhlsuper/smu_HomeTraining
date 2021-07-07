@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -20,6 +21,7 @@ import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.kotlin.CameraXLivePreviewActivity
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
+import com.example.mlkit_pose.preference.SettingsActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.mlkit.common.MlKit
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
@@ -65,7 +67,16 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
 //        drawer_logoutButton.setOnClickListener(this)
 //        setUserRank()
 //        setRankData()
-
+//        val settingsButton = findViewById<ImageView>(R.id.settings_button)
+//        settingsButton.setOnClickListener {
+//          val intent =
+//            Intent(applicationContext, SettingsActivity::class.java)
+//          intent.putExtra(
+//            SettingsActivity.EXTRA_LAUNCH_SOURCE,
+//            SettingsActivity.LaunchSource.CAMERAX_LIVE_PREVIEW
+//          )
+//          startActivity(intent)
+//        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
