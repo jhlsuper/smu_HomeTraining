@@ -24,6 +24,7 @@ import android.content.pm.PackageManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
@@ -85,7 +86,7 @@ class CameraXLivePreviewActivity :
       Toast.makeText(
         applicationContext,
         "CameraX is only supported on SDK version >=21. Current SDK version is " +
-          VERSION.SDK_INT,
+                VERSION.SDK_INT,
         Toast.LENGTH_LONG
       )
         .show()
@@ -105,8 +106,11 @@ class CameraXLivePreviewActivity :
 //    val exStr: String = exname.text.toString()
 //    val exStr:String = sport_detail_ename.getText().toString()
     val intent = getIntent()
+
     val exText = intent.getStringExtra("ExcerciseName")
-    Log.d("ExcerciseName","ACTIVITY IN ENAME $exText")
+    val minute = intent.getIntExtra("minute", 0)
+    val second = intent.getIntExtra("second", 30)
+    Log.d("ExcerciseName", "ACTIVITY IN ENAME $exText,$minute,$second")
     exerciseName = exText
 
     previewView = findViewById(R.id.preview_view)
@@ -163,7 +167,7 @@ class CameraXLivePreviewActivity :
     if (!allPermissionsGranted()) {
       runtimePermissions
     }
-
+    showExerciseDonePopup(exText.toString(),minute,second,this)
   }
 
   override fun onSaveInstanceState(bundle: Bundle) {
@@ -238,6 +242,8 @@ class CameraXLivePreviewActivity :
     )
       .show()
   }
+
+
 
   public override fun onResume() {
     super.onResume()
@@ -455,5 +461,41 @@ class CameraXLivePreviewActivity :
       Log.i(TAG, "Permission NOT granted: $permission")
       return false
     }
+  }
+  fun showExerciseDonePopup(name:String,minute:Int,second:Int,context: Context){
+    val dialog = android.app.AlertDialog.Builder(context).create()
+
+    val edialog: LayoutInflater = LayoutInflater.from(context)
+    val mView: View = edialog.inflate(R.layout.popup_exercise_done, null)
+    val point = 120*minute + 2*second
+    val endComment :TextView =mView.findViewById(R.id.txt_popup_exercise_time)
+    val time :TextView = mView.findViewById(R.id.txt_popup_point)
+
+    val exit :Button =mView.findViewById<Button>(R.id.btn_exercise_exit)
+    val redo: Button =mView.findViewById<Button>(R.id.btn_exercise_redo)
+
+    endComment.text = "${name} ${minute}분 ${second}초 했습니다!!!"
+    time.text="획득한 Point \n ${point} point !!!"
+
+    exit.setOnClickListener {
+      dialog.dismiss()
+      dialog.cancel()
+      finish()
+    }
+    redo.setOnClickListener {
+      Toast.makeText(this,"운동 다시 하기 ",Toast.LENGTH_SHORT).show()
+    }
+    Handler().postDelayed({
+      dialog.setView(mView)
+      dialog.create()
+      dialog.show()
+    },((60000*minute)+(second*1000)).toLong())
+
+
+
+//
+//    dialog.setView(mView)
+//    dialog.create()
+//    dialog.show()
   }
 }
