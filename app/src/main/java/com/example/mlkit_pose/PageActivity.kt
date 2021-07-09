@@ -2,15 +2,21 @@ package com.example.mlkit_pose
 
 
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -37,7 +43,7 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
     lateinit var userRankAdapter: UserRkAdapter
     val datas = mutableListOf<User>()
 
-
+    lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
 
     private val sharedManager: SharedManager by lazy { SharedManager(this) }
 
@@ -67,17 +73,12 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
 //        drawer_logoutButton.setOnClickListener(this)
 //        setUserRank()
 //        setRankData()
-//        val settingsButton = findViewById<ImageView>(R.id.settings_button)
-//        settingsButton.setOnClickListener {
-//          val intent =
-//            Intent(applicationContext, SettingsActivity::class.java)
-//          intent.putExtra(
-//            SettingsActivity.EXTRA_LAUNCH_SOURCE,
-//            SettingsActivity.LaunchSource.CAMERAX_LIVE_PREVIEW
-//          )
-//          startActivity(intent)
-//        }
+
+
+
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //툴바 버튼 처리
@@ -330,6 +331,40 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
 //            finish()
 //        },5000)
 //    }
+    fun showExerciseDonePopup(name:String?,minute:Int,second:Int,context: Context){
+        val dialog = android.app.AlertDialog.Builder(context).create()
+
+        val edialog: LayoutInflater = LayoutInflater.from(context)
+        val mView: View = edialog.inflate(R.layout.popup_exercise_done, null)
+        val point = 120*minute + 2*second
+        val endComment :TextView =mView.findViewById(R.id.txt_popup_exercise_time)
+        val time :TextView = mView.findViewById(R.id.txt_popup_point)
+
+        val exit :Button =mView.findViewById<Button>(R.id.btn_exercise_exit)
+        val redo: Button =mView.findViewById<Button>(R.id.btn_exercise_redo)
+
+        endComment.text = "${name} ${minute}분 ${second}초 했습니다!!!"
+        time.text="획득한 Point \n ${point} point !!!"
+
+        exit.setOnClickListener {
+            dialog.dismiss()
+            dialog.cancel()
+//            finish()
+        }
+        redo.setOnClickListener {
+            Toast.makeText(this,"운동 다시 하기 ",Toast.LENGTH_SHORT).show()
+        }
+//        Handler().postDelayed({
+//            dialog.setView(mView)
+//            dialog.create()
+//            dialog.show()
+//            finish()
+//        },((60000*minute)+(second*1000)).toLong())
+
+        dialog.setView(mView)
+        dialog.create()
+        dialog.show()
+    }
     fun startExcercise(exname:String?,minute:Int,second:Int){
         // 점수 계산을 위한 운동 시간 설정 -> GuideSportsFragment.showTimeSettingPopup()
         // 안내 & 카메라 사용 시작
@@ -338,17 +373,22 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
         startActivity(intent)
 
         Handler().postDelayed({
+
+            activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+                if (it.resultCode == RESULT_OK){
+                    showExerciseDonePopup(exname,minute,second,this)
+                }
+            }
             val intent = Intent(this,CameraXLivePreviewActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             intent.putExtra("ExcerciseName",exname);
             intent.putExtra("minute",minute)
             intent.putExtra("second",second)
-            startActivity(intent)
+            activityResultLauncher.launch(intent)
         },5000)
         // 카메라 사용 끝
         // 결과 화면
     }
-
 
 
 

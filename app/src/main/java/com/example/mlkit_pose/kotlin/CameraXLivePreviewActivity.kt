@@ -31,6 +31,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.camera.core.CameraInfoUnavailableException
@@ -42,10 +43,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.mlkit_pose.CameraXViewModel
-import com.example.mlkit_pose.GraphicOverlay
-import com.example.mlkit_pose.R
-import com.example.mlkit_pose.VisionImageProcessor
+import com.example.mlkit_pose.*
 import com.example.mlkit_pose.kotlin.posedetector.PoseDetectorProcessor
 import com.example.mlkit_pose.preference.PreferenceUtils
 import com.example.mlkit_pose.preference.SettingsActivity
@@ -55,7 +53,7 @@ import com.google.mlkit.common.model.LocalModel
 import com.example.mlkit_pose.preference.SettingsActivity.LaunchSource
 import kotlinx.android.synthetic.main.activity_vision_camerax_live_preview.*
 import kotlinx.android.synthetic.main.fragment_guide_sports.*
-import java.util.ArrayList
+import java.util.*
 
 
 /** Live preview demo app for ML Kit APIs using CameraX.  */
@@ -78,6 +76,8 @@ class CameraXLivePreviewActivity :
   private var lensFacing = CameraSelector.LENS_FACING_BACK
   private var cameraSelector: CameraSelector? = null
   private var exerciseName: String? = null
+  private var timerTask: Timer? = null
+  private var time = 0
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -111,6 +111,7 @@ class CameraXLivePreviewActivity :
     val minute = intent.getIntExtra("minute", 0)
     val second = intent.getIntExtra("second", 30)
     Log.d("ExcerciseName", "ACTIVITY IN ENAME $exText,$minute,$second")
+    runTimer(minute,second)
     exerciseName = exText
 
     previewView = findViewById(R.id.preview_view)
@@ -152,6 +153,9 @@ class CameraXLivePreviewActivity :
           }
         }
       )
+//    showExerciseDonePopup(exText.toString(),minute,second,this)
+
+
 //
 //    val settingsButton = findViewById<ImageView>(R.id.settings_button)
 //    settingsButton.setOnClickListener {
@@ -164,10 +168,12 @@ class CameraXLivePreviewActivity :
 //      startActivity(intent)
 //    }
 //
+
+
     if (!allPermissionsGranted()) {
       runtimePermissions
     }
-    showExerciseDonePopup(exText.toString(),minute,second,this)
+
   }
 
   override fun onSaveInstanceState(bundle: Bundle) {
@@ -439,6 +445,23 @@ class CameraXLivePreviewActivity :
     }
     super.onRequestPermissionsResult(requestCode, permissions, grantResults)
   }
+  private fun changeActivity(){
+    val intents = Intent(this, PageActivity::class.java)
+    setResult(RESULT_OK,intent)
+    if(!isFinishing) finish()
+  }
+
+  private fun runTimer(minute:Int,second:Int){
+    val check_time = minute*60 + second
+    timerTask = kotlin.concurrent.timer(period = 1000){
+      time += 1
+      val sec = time
+      if (sec == check_time){
+        changeActivity()
+      }
+      Log.d("TIMER","Now time $sec, Target Time : $check_time")
+    }
+  }
 
   companion object {
     private const val TAG = "CameraXLivePreview"
@@ -461,41 +484,5 @@ class CameraXLivePreviewActivity :
       Log.i(TAG, "Permission NOT granted: $permission")
       return false
     }
-  }
-  fun showExerciseDonePopup(name:String,minute:Int,second:Int,context: Context){
-    val dialog = android.app.AlertDialog.Builder(context).create()
-
-    val edialog: LayoutInflater = LayoutInflater.from(context)
-    val mView: View = edialog.inflate(R.layout.popup_exercise_done, null)
-    val point = 120*minute + 2*second
-    val endComment :TextView =mView.findViewById(R.id.txt_popup_exercise_time)
-    val time :TextView = mView.findViewById(R.id.txt_popup_point)
-
-    val exit :Button =mView.findViewById<Button>(R.id.btn_exercise_exit)
-    val redo: Button =mView.findViewById<Button>(R.id.btn_exercise_redo)
-
-    endComment.text = "${name} ${minute}분 ${second}초 했습니다!!!"
-    time.text="획득한 Point \n ${point} point !!!"
-
-    exit.setOnClickListener {
-      dialog.dismiss()
-      dialog.cancel()
-      finish()
-    }
-    redo.setOnClickListener {
-      Toast.makeText(this,"운동 다시 하기 ",Toast.LENGTH_SHORT).show()
-    }
-    Handler().postDelayed({
-      dialog.setView(mView)
-      dialog.create()
-      dialog.show()
-    },((60000*minute)+(second*1000)).toLong())
-
-
-
-//
-//    dialog.setView(mView)
-//    dialog.create()
-//    dialog.show()
   }
 }
