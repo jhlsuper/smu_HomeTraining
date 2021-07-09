@@ -54,7 +54,7 @@ import com.example.mlkit_pose.preference.SettingsActivity.LaunchSource
 import kotlinx.android.synthetic.main.activity_vision_camerax_live_preview.*
 import kotlinx.android.synthetic.main.fragment_guide_sports.*
 import java.util.*
-
+import kotlin.concurrent.timer
 
 /** Live preview demo app for ML Kit APIs using CameraX.  */
 @KeepName
@@ -448,12 +448,13 @@ class CameraXLivePreviewActivity :
   private fun changeActivity(){
     val intents = Intent(this, PageActivity::class.java)
     setResult(RESULT_OK,intent)
+    timerTask?.cancel()
     if(!isFinishing) finish()
   }
 
   private fun runTimer(minute:Int,second:Int){
     val check_time = minute*60 + second
-    timerTask = kotlin.concurrent.timer(period = 1000){
+    timerTask = timer(period = 1000){
       time += 1
       val sec = time
       if (sec == check_time){
