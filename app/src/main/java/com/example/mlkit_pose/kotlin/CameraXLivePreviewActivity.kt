@@ -55,6 +55,7 @@ import kotlinx.android.synthetic.main.activity_vision_camerax_live_preview.*
 import kotlinx.android.synthetic.main.fragment_guide_sports.*
 import java.util.*
 import kotlin.concurrent.timer
+import kotlin.properties.Delegates
 
 /** Live preview demo app for ML Kit APIs using CameraX.  */
 @KeepName
@@ -78,7 +79,8 @@ class CameraXLivePreviewActivity :
   private var exerciseName: String? = null
   private var timerTask: Timer? = null
   private var time = 0
-
+  var minute by Delegates.notNull<Int>()
+  var second by Delegates.notNull<Int>()
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     Log.d(TAG, "onCreate")
@@ -108,10 +110,10 @@ class CameraXLivePreviewActivity :
     val intent = getIntent()
 
     val exText = intent.getStringExtra("ExcerciseName")
-    val minute = intent.getIntExtra("minute", 0)
-    val second = intent.getIntExtra("second", 30)
+    minute = intent.getIntExtra("minute", 0)
+    second = intent.getIntExtra("second", 30)
     Log.d("ExcerciseName", "ACTIVITY IN ENAME $exText,$minute,$second")
-    runTimer(minute,second)
+    startTimer()
     exerciseName = exText
 
     previewView = findViewById(R.id.preview_view)
@@ -199,7 +201,7 @@ class CameraXLivePreviewActivity :
     val yesBt : Button = mView.findViewById<Button>(R.id.btn_in_exercise_ok)
 
     noBt.setOnClickListener {
-
+      startTimer()
       dialog.dismiss()
     }
     yesBt.setOnClickListener {
@@ -210,10 +212,13 @@ class CameraXLivePreviewActivity :
     dialog.setView(mView)
     dialog.create()
     dialog.show()
-
+  }
+  private fun pause(){
+    timerTask?.cancel()
   }
 
   override fun onBackPressed() {
+    pause()
     giveup_Button_Click()
     Toast.makeText(this,"backbutton눌림",Toast.LENGTH_SHORT).show()
 //    super.onBackPressed()
@@ -454,15 +459,26 @@ class CameraXLivePreviewActivity :
     if(!isFinishing) finish()
   }
 
-  private fun runTimer(minute:Int,second:Int){
+  private fun startTimer(){
     val check_time = minute*60 + second
-    timerTask = timer(period = 1000){
+    timerTask = timer(period = 10){
       time += 1
-      val sec = time
+      val sec = time / 100
+      val milli = time % 100
       if (sec == check_time){
         changeActivity()
       }
       Log.d("TIMER","[Live] Now time $sec, Target Time : $check_time")
+      runOnUiThread{
+        time_Minute.text = sec.toString()
+        if (milli < 10) {
+          time_Second.text = "0"+milli.toString()
+        }
+        else{
+          time_Second.text = milli.toString()
+        }
+
+      }
     }
   }
 
