@@ -199,9 +199,12 @@ class CameraXLivePreviewActivity :
     val yesBt : Button = mView.findViewById<Button>(R.id.btn_in_exercise_ok)
 
     noBt.setOnClickListener {
+
       dialog.dismiss()
     }
     yesBt.setOnClickListener {
+      timerTask?.cancel()
+      dialog.dismiss()
       finish()
     }
     dialog.setView(mView)
@@ -446,8 +449,7 @@ class CameraXLivePreviewActivity :
     super.onRequestPermissionsResult(requestCode, permissions, grantResults)
   }
   private fun changeActivity(){
-    val intents = Intent(this, PageActivity::class.java)
-    setResult(RESULT_OK,intent)
+    setResult(RESULT_OK)
     timerTask?.cancel()
     if(!isFinishing) finish()
   }
@@ -460,16 +462,14 @@ class CameraXLivePreviewActivity :
       if (sec == check_time){
         changeActivity()
       }
-      Log.d("TIMER","Now time $sec, Target Time : $check_time")
+      Log.d("TIMER","[Live] Now time $sec, Target Time : $check_time")
     }
   }
 
   companion object {
     private const val TAG = "CameraXLivePreview"
     private const val PERMISSION_REQUESTS = 1
-
     private const val POSE_DETECTION = "Pose Detection"
-
     private const val STATE_SELECTED_MODEL = "selected_model"
 
     private fun isPermissionGranted(

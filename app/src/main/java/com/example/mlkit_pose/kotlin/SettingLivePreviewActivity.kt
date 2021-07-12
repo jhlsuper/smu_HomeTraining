@@ -39,10 +39,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.mlkit_pose.CameraXViewModel
-import com.example.mlkit_pose.GraphicOverlay
-import com.example.mlkit_pose.R
-import com.example.mlkit_pose.VisionImageProcessor
+import com.example.mlkit_pose.*
 import com.example.mlkit_pose.kotlin.posedetector.PoseDetectorProcessor
 import com.example.mlkit_pose.preference.PreferenceUtils
 import com.example.mlkit_pose.preference.SettingsActivity
@@ -52,7 +49,8 @@ import com.google.mlkit.common.model.LocalModel
 import com.example.mlkit_pose.preference.SettingsActivity.LaunchSource
 import kotlinx.android.synthetic.main.activity_vision_camerax_live_preview.*
 import kotlinx.android.synthetic.main.fragment_guide_sports.*
-import java.util.ArrayList
+import java.util.*
+import kotlin.concurrent.timer
 
 
 /** Live preview demo app for ML Kit APIs using CameraX.  */
@@ -76,6 +74,8 @@ class SettingLivePreviewActivity :
   private var lensFacing = CameraSelector.LENS_FACING_BACK
   private var cameraSelector: CameraSelector? = null
   private var exerciseName: String? = null
+  private var timerTask: Timer? = null
+  private var time = 0
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -108,7 +108,10 @@ class SettingLivePreviewActivity :
 //    Log.d("ExcerciseName","ACTIVITY IN ENAME $exText")
     Log.d("SettingActivity","Setting Live Preview Activity Running now")
 //    exerciseName = exText
-
+    val exText = intent.getStringExtra("ExcerciseName")
+    val minute = intent.getIntExtra("minute", 0)
+    val second = intent.getIntExtra("second", 30)
+    runTimer(minute,second,exText)
     previewView = findViewById(R.id.preview_view)
     if (previewView == null) {
       Log.d(TAG, "previewView is null")
@@ -183,7 +186,12 @@ class SettingLivePreviewActivity :
   override fun onNothingSelected(parent: AdapterView<*>?) {
     // Do nothing.
   }
-
+  override fun onBackPressed() {
+    timerTask?.cancel()
+    setResult(2)
+    finish()
+    Toast.makeText(this,"Setting backbutton눌림",Toast.LENGTH_SHORT).show()
+  }
   override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
     if (cameraProvider == null) {
       return
@@ -395,7 +403,6 @@ class SettingLivePreviewActivity :
         )
       }
     }
-
   override fun onRequestPermissionsResult(
     requestCode: Int,
     permissions: Array<String>,
@@ -406,6 +413,29 @@ class SettingLivePreviewActivity :
       bindAllCameraUseCases()
     }
     super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+  }
+
+  private fun startLive(minute:Int,second:Int,exText:String?){
+    val intent = Intent(this,CameraXLivePreviewActivity::class.java)
+    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+    intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT)
+    intent.putExtra("ExcerciseName", exText);
+    intent.putExtra("minute", minute)
+    intent.putExtra("second", second)
+    startActivity(intent)
+    timerTask?.cancel()
+    finish()
+  }
+  private fun runTimer(minute:Int,second:Int,exText:String?){
+    val check_time = 3
+    timerTask = timer(period = 1000){
+      time += 1
+      val sec = time
+      if (sec == check_time){
+        startLive(minute,second,exText)
+      }
+      Log.d("TIMER","[Setting] Now time $sec, Target Time : $check_time")
+    }
   }
 
   companion object {

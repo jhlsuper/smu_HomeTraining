@@ -18,6 +18,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.HandlerCompat.postDelayed
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
@@ -35,12 +36,16 @@ import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.popup_point_warning.*
+import kotlin.properties.Delegates
 
 class PageActivity : AppCompatActivity() ,View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var logoutButton: Button
     lateinit var userRankAdapter: UserRkAdapter
+    lateinit var exname : String
+    private var minute by Delegates.notNull<Int>()
+    private var second by Delegates.notNull<Int>()
     val datas = mutableListOf<User>()
 
     lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
@@ -73,12 +78,13 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
 //        drawer_logoutButton.setOnClickListener(this)
 //        setUserRank()
 //        setRankData()
-
-
-
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            Log.d("resultLauncher",it.resultCode.toString())
+            if (it.resultCode == RESULT_OK){
+                showExerciseDonePopup(exname,minute,second,this)
+            }
+        }
     }
-
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //툴바 버튼 처리
@@ -365,29 +371,34 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
         dialog.create()
         dialog.show()
     }
+
     fun startExcercise(exname:String?,minute:Int,second:Int){
         // 점수 계산을 위한 운동 시간 설정 -> GuideSportsFragment.showTimeSettingPopup()
         // 안내 & 카메라 사용 시작
+//        settingStart()
+
+        // Initialize EXNAME,MINUTE,SECOND received from GuideSportsFragment
+        if (exname != null) {
+            this.exname = exname
+        }
+        this.minute = minute
+        this.second = second
+//        val intent2 = Intent(this, CameraXLivePreviewActivity::class.java)
+//        intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+//        intent2.putExtra("ExcerciseName", exname);
+//        intent2.putExtra("minute", minute)
+//        intent2.putExtra("second", second)
+
         val intent =Intent(this,SettingLivePreviewActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-        startActivity(intent)
-
-        Handler().postDelayed({
-
-            activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-                if (it.resultCode == RESULT_OK){
-                    showExerciseDonePopup(exname,minute,second,this)
-                }
-            }
-            val intent = Intent(this,CameraXLivePreviewActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            intent.putExtra("ExcerciseName",exname);
-            intent.putExtra("minute",minute)
-            intent.putExtra("second",second)
-            activityResultLauncher.launch(intent)
-        },5000)
+        intent.putExtra("ExcerciseName", exname);
+        intent.putExtra("minute", minute)
+        intent.putExtra("second", second)
+        activityResultLauncher.launch(intent)
         // 카메라 사용 끝
+
         // 결과 화면
+
     }
 
 
@@ -400,6 +411,7 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
         private const val TAG_MYPAGE_FRAGMENT="mypage"
         private const val TAG_GUIDE_CLICK_FRAGMENT="guide_click"
         private const val TAG_GUIDE_SPORT_FRAGMENT="guide_sport"
+        private const val SETTING_OK = 2
     }
 
 

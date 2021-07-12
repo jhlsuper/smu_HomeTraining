@@ -16,6 +16,8 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.setFragmentResultListener
 
 import com.android.volley.Request
@@ -200,7 +202,7 @@ class GuideSportsFragment : Fragment() {
         
         //보여질 값 설정
 
-        
+
         //취소버튼
         cancel.setOnClickListener {
             dialog.dismiss()
@@ -211,9 +213,7 @@ class GuideSportsFragment : Fragment() {
             (activity as PageActivity).startExcercise(exname,minute.value,second.value)
             dialog.dismiss()
         }
-
         dialog.setView(mView)
-
         dialog.create()
         dialog.show()
         dialog.window!!.setLayout(750,WindowManager.LayoutParams.WRAP_CONTENT)
