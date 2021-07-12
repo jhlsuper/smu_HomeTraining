@@ -16,6 +16,7 @@
 
 package com.example.mlkit_pose.kotlin
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.content.Context
@@ -459,6 +460,7 @@ class CameraXLivePreviewActivity :
     if(!isFinishing) finish()
   }
 
+  @SuppressLint("SetTextI18n")
   private fun startTimer(){
     val check_time = minute*60 + second
     timerTask = timer(period = 10){
@@ -470,13 +472,16 @@ class CameraXLivePreviewActivity :
       }
       Log.d("TIMER","[Live] Now time $sec, Target Time : $check_time")
       runOnUiThread{
-        time_Minute.text = sec.toString()
-        if (milli < 10) {
-          time_Second.text = "0"+milli.toString()
-        }
-        else{
-          time_Second.text = milli.toString()
-        }
+
+        time_Minute.text = "%02d".format(sec)
+        time_Second.text = "%02d".format(milli)
+      //        time_Minute.text = sec.toString()
+//        if (milli < 10) {
+//          time_Second.text = "0"+milli.toString()
+//        }
+//        else{
+//          time_Second.text = milli.toString()
+//        }
 
       }
     }
