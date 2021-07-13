@@ -45,6 +45,10 @@ class JSP {
             val url = Jsp_Url+"img/$inputSports"+".png"
             return url
         }
+        fun getUserPointSet(inputId:String ,points:String):String{
+            val url = Jsp_Url+"InsertScore.jsp?userId=$inputId&userScore=$points"
+            return url
+        }
 
     }
 

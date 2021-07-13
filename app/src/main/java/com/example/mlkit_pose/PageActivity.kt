@@ -1,24 +1,20 @@
 package com.example.mlkit_pose
 
 
-import android.content.ComponentName
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.HandlerCompat.postDelayed
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
@@ -26,29 +22,26 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 //import com.example.mlkit_pose.databinding.ActivityMainBinding
 import com.example.mlkit_pose.fragment.*
-import com.example.mlkit_pose.kotlin.CameraXLivePreviewActivity
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
-import com.example.mlkit_pose.preference.SettingsActivity
 import com.google.android.material.navigation.NavigationView
-import com.google.mlkit.common.MlKit
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
-import kotlinx.android.synthetic.main.popup_point_warning.*
 import kotlin.properties.Delegates
 
-class PageActivity : AppCompatActivity() ,View.OnClickListener,
+class PageActivity : AppCompatActivity(), View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var logoutButton: Button
     lateinit var userRankAdapter: UserRkAdapter
-    lateinit var exname : String
+    lateinit var exname: String
+
     private var minute by Delegates.notNull<Int>()
     private var second by Delegates.notNull<Int>()
     val datas = mutableListOf<User>()
 
-    lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
+    lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     private val sharedManager: SharedManager by lazy { SharedManager(this) }
 
@@ -78,12 +71,13 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
 //        drawer_logoutButton.setOnClickListener(this)
 //        setUserRank()
 //        setRankData()
-        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            Log.d("resultLauncher",it.resultCode.toString())
-            if (it.resultCode == RESULT_OK){
-                showExerciseDonePopup(exname,minute,second,this)
+        activityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                Log.d("resultLauncher", it.resultCode.toString())
+                if (it.resultCode == RESULT_OK) {
+                    showExerciseDonePopup(exname, minute, second, this)
+                }
             }
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -97,8 +91,9 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
         }
         return super.onOptionsItemSelected(item)
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.btn_drawer_logout -> logOut()
         }
         return false
@@ -143,10 +138,8 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
             }
 
 
-
         }
     }
-
 
 
     fun logOut() {
@@ -155,24 +148,26 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
-    private fun setDataAtFragment(fragment: Fragment, tag: String){
+
+    private fun setDataAtFragment(fragment: Fragment, tag: String) {
         val currentUser = sharedManager.getCurrentUser()
         val bundle = Bundle()
-        bundle.putString("id",currentUser.id)
-        bundle.putString("name",currentUser.name)
-        bundle.putString("gender",currentUser.gender)
-        bundle.putString("belong",currentUser.belong)
-        bundle.putString("points",currentUser.points)
-        fragment.arguments =bundle
-        setFragment(fragment,tag)
+        bundle.putString("id", currentUser.id)
+        bundle.putString("name", currentUser.name)
+        bundle.putString("gender", currentUser.gender)
+        bundle.putString("belong", currentUser.belong)
+        bundle.putString("points", currentUser.points)
+        fragment.arguments = bundle
+        setFragment(fragment, tag)
     }
-    private fun setFragment(fragment:Fragment, tag:String){
+
+    private fun setFragment(fragment: Fragment, tag: String) {
 
         val transaction = supportFragmentManager.beginTransaction()
         val manager = supportFragmentManager
 
-        if (manager.findFragmentByTag(tag)==null){
-            transaction.add(R.id.frameLayout,fragment,tag)
+        if (manager.findFragmentByTag(tag) == null) {
+            transaction.add(R.id.frameLayout, fragment, tag)
             transaction.show(fragment)
         }
         val home = manager.findFragmentByTag(TAG_HOME_FRAGMENT)
@@ -183,58 +178,58 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
         val guide_click = manager.findFragmentByTag(TAG_GUIDE_CLICK_FRAGMENT)
         val guide_sport = manager.findFragmentByTag(TAG_GUIDE_SPORT_FRAGMENT)
 
-        if (home!= null){
+        if (home != null) {
 //            transaction.remove(home)
-                transaction.hide(home)
-            Log.d("fragment","home hide")
+            transaction.hide(home)
+            Log.d("fragment", "home hide")
         }
-        if (rank!= null){
+        if (rank != null) {
             transaction.hide(rank)
 //            transaction.detach(rank)
         }
-        if (routine!= null){
+        if (routine != null) {
             transaction.hide(routine)
 //            transaction.remove(routine)
         }
-        if (guide!= null){
+        if (guide != null) {
             transaction.hide(guide)
 //            transaction.remove(guide)
         }
-        if (mypage!= null){
+        if (mypage != null) {
 
             transaction.hide(mypage)
         }
-        if(guide_click !=null){
+        if (guide_click != null) {
             transaction.remove(guide_click)
-            Log.d("fragment","gudie click removed")
+            Log.d("fragment", "gudie click removed")
         }
-        if(guide_sport !=null){
+        if (guide_sport != null) {
             transaction.remove(guide_sport)
-            Log.d("fragment","guide sport removed")
+            Log.d("fragment", "guide sport removed")
         }
 
-        when (tag){
-            TAG_HOME_FRAGMENT->{
+        when (tag) {
+            TAG_HOME_FRAGMENT -> {
 
-                if(home!=null){
+                if (home != null) {
                     transaction.show(home)
                 }
             }
-            TAG_RANK_FRAGMENT->{
+            TAG_RANK_FRAGMENT -> {
 
-                if(rank!=null){
+                if (rank != null) {
                     transaction.show(rank)
                 }
             }
-            TAG_ROUTINE_FRAGMENT->{
+            TAG_ROUTINE_FRAGMENT -> {
 
-                if(routine!=null){
+                if (routine != null) {
                     transaction.show(routine)
                 }
             }
-            TAG_GUIDE_FRAGMENT->{
+            TAG_GUIDE_FRAGMENT -> {
 
-                if(guide!=null){
+                if (guide != null) {
                     if (guide_click != null) {
                         transaction.remove(guide_click)
                     }
@@ -245,9 +240,9 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
                 }
             }
 
-            TAG_MYPAGE_FRAGMENT ->{
-                if(mypage!=null){
-                   transaction.show(mypage)
+            TAG_MYPAGE_FRAGMENT -> {
+                if (mypage != null) {
+                    transaction.show(mypage)
                 }
             }
         }
@@ -257,122 +252,122 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
 //        transaction.addToBackStack(null)
 //        transaction.addToBackStack(tag)
 
-    //        transaction.replace(R.id.frameLayout,fragment,tag)
+        //        transaction.replace(R.id.frameLayout,fragment,tag)
 
-    //        transaction.commitAllowingStateLoss()
+        //        transaction.commitAllowingStateLoss()
         transaction.commit()
     }
 
-    fun initRecycler(){
+    fun initRecycler() {
         userRankAdapter = UserRkAdapter(this)
         rankingRecyclerView?.adapter = userRankAdapter
-        userRankAdapter.datas =datas
+        userRankAdapter.datas = datas
         userRankAdapter.notifyDataSetChanged()
     }
-    fun emptyRecycler(){
+
+    fun emptyRecycler() {
         userRankAdapter = UserRkAdapter(this)
         rankingRecyclerView?.adapter = null
 
 
     }
 
-    private fun setUserRank(){
+    private fun setUserRank() {
         val queue = Volley.newRequestQueue(this)
-        var currentUser = sharedManager.getCurrentUser()
+        val currentUser = sharedManager.getCurrentUser()
 
         val url_getUserRank = JSP.getUserRank(currentUser.id.toString())
 
         val StringRequest2 = StringRequest(
-                Request.Method.GET, url_getUserRank, { response ->
-            response.trim { it <= ' ' }
+            Request.Method.GET, url_getUserRank, { response ->
+                response.trim { it <= ' ' }
 
-            val details2 = (response.trim().split(",")).toTypedArray()
-            val userPoint :Int
+                val details2 = (response.trim().split(",")).toTypedArray()
+                val userPoint: Int
 //            Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
-            if (details2[2]==null){
+                if (details2[2] == null) {
 
-                sharedManager.setUserPoint(currentUser,0)
-            }
-            else{
-                sharedManager.setUserPoint(currentUser,details2[2].toInt())
-            }
-                                                     }, {
-            Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
-        })
+                    sharedManager.setUserPoint(currentUser, 0)
+                } else {
+                    sharedManager.setUserPoint(currentUser, details2[2].toInt())
+                }
+            }, {
+                Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
+            })
         queue.add(StringRequest2)
 
     }
-     fun setRankData(){
+
+    //소속별 랭크 받아오고 랭크 어댑터에 data init
+    fun setRankData() {
         val queue = Volley.newRequestQueue(this)
-        var currentUser = sharedManager.getCurrentUser()
+        val currentUser = sharedManager.getCurrentUser()
         val url_getEveryRank = JSP.getEveryRank(currentUser.belong.toString())
 
         val StringRequest3 = StringRequest(
-                Request.Method.GET, url_getEveryRank, { response ->
-            response.trim { it <= ' ' }
+            Request.Method.GET, url_getEveryRank, { response ->
+                response.trim { it <= ' ' }
 
-            val details3 = (response.trim().split(",")).toTypedArray()
-            datas.clear()
-            for (i in 0 until (details3.size)-3 step 3){
-//                Log.d("ranklist",details3.size.toString())
-//                Log.d("ranklist",details3[i])
-                datas.apply{
-                    add(User(img = R.drawable.penguin, id = details3[i+1],points = details3[i+2]))
+                val details3 = (response.trim().split(",")).toTypedArray()
+                datas.clear()
+                for (i in 0 until (details3.size) - 3 step 3) {
 
+                    datas.apply {
+                        add(
+                            User(
+                                img = R.drawable.penguin,
+                                id = details3[i + 1],
+                                points = details3[i + 2]
+                            )
+                        )
+
+                    }
+                    Log.d("ranklist", "${details3[i + 1]} ${details3[i + 2]}")
                 }
-                Log.d("ranklist","${details3[i+1]} ${details3[i+2]}")
-            }
-            initRecycler()
+                initRecycler()
 
-        }, {
-            Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
-        })
+            }, {
+                Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
+            })
         queue.add(StringRequest3)
     }
-//    fun prepareExercise(){
-//        Handler().postDelayed({
-//            val intent = Intent(this,SettingLivePreviewActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-//            startActivity(intent)
-//            finish()
-//        },5000)
-//    }
-    fun showExerciseDonePopup(name:String?,minute:Int,second:Int,context: Context){
-        val dialog = android.app.AlertDialog.Builder(context).create()
 
+    @SuppressLint("SetTextI18n")
+    fun showExerciseDonePopup(name: String?, minute: Int, second: Int, context: Context) {
+        val dialog = android.app.AlertDialog.Builder(context).create()
+        val currentUser = sharedManager.getCurrentUser()
         val edialog: LayoutInflater = LayoutInflater.from(context)
         val mView: View = edialog.inflate(R.layout.popup_exercise_done, null)
-        val point = 120*minute + 2*second
-        val endComment :TextView =mView.findViewById(R.id.txt_popup_exercise_time)
-        val time :TextView = mView.findViewById(R.id.txt_popup_point)
+        val point = 120 * minute + 2 * second
+        val endComment: TextView = mView.findViewById(R.id.txt_popup_exercise_time)
+        val time: TextView = mView.findViewById(R.id.txt_popup_point)
 
-        val exit :Button =mView.findViewById<Button>(R.id.btn_exercise_exit)
-        val redo: Button =mView.findViewById<Button>(R.id.btn_exercise_redo)
+        val exit: Button = mView.findViewById<Button>(R.id.btn_exercise_exit)
+        val redo: Button = mView.findViewById<Button>(R.id.btn_exercise_redo)
+        val newPoint = point+ (currentUser.points)!!.toInt()
 
         endComment.text = "${name} ${minute}분 ${second}초 했습니다!!!"
-        time.text="획득한 Point \n ${point} point !!!"
+        time.text = "획득한 Point \n $point point !!!"
 
+        sharedManager.setUserPoint(currentUser,newPoint)
+        setUserDBPoints(currentUser,newPoint.toString())
+        Toast.makeText(this, "${currentUser.points}", Toast.LENGTH_SHORT).show()
         exit.setOnClickListener {
             dialog.dismiss()
             dialog.cancel()
 //            finish()
         }
         redo.setOnClickListener {
-            Toast.makeText(this,"운동 다시 하기 ",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "운동 다시 하기 ", Toast.LENGTH_SHORT).show()
         }
-//        Handler().postDelayed({
-//            dialog.setView(mView)
-//            dialog.create()
-//            dialog.show()
-//            finish()
-//        },((60000*minute)+(second*1000)).toLong())
+
 
         dialog.setView(mView)
         dialog.create()
         dialog.show()
     }
 
-    fun startExcercise(exname:String?,minute:Int,second:Int){
+    fun startExcercise(exname: String?, minute: Int, second: Int) {
         // 점수 계산을 위한 운동 시간 설정 -> GuideSportsFragment.showTimeSettingPopup()
         // 안내 & 카메라 사용 시작
 //        settingStart()
@@ -383,13 +378,9 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
         }
         this.minute = minute
         this.second = second
-//        val intent2 = Intent(this, CameraXLivePreviewActivity::class.java)
-//        intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-//        intent2.putExtra("ExcerciseName", exname);
-//        intent2.putExtra("minute", minute)
-//        intent2.putExtra("second", second)
 
-        val intent =Intent(this,SettingLivePreviewActivity::class.java)
+
+        val intent = Intent(this, SettingLivePreviewActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         intent.putExtra("ExcerciseName", exname);
         intent.putExtra("minute", minute)
@@ -401,19 +392,38 @@ class PageActivity : AppCompatActivity() ,View.OnClickListener,
 
     }
 
+    fun setUserDBPoints(user: User, points: String) {
+        val queue = Volley.newRequestQueue(this)
+        val url_setUserPoints = JSP.getUserPointSet(user.id.toString(), points)
+
+        val StringRequest=StringRequest(
+            Request.Method.GET, url_setUserPoints, { response ->
+                response.trim { it <= ' ' }
+                Toast.makeText(this,"$response",Toast.LENGTH_SHORT).show()
+                val details3 = (response.trim())
+                Log.d("Point", details3)
+//                datas.clear()
+                if (details3=="success"){
+                    Log.d("Point","유저의 Point가 $points 로 업데이트되었습니다.")
+                }
+            }, {
+                Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
+            })
+        queue.add(StringRequest)
+    }
 
 
     companion object {
+
         private const val TAG_HOME_FRAGMENT = "home"
         private const val TAG_RANK_FRAGMENT = "rank"
-        private const val TAG_ROUTINE_FRAGMENT="routine"
-        private const val TAG_GUIDE_FRAGMENT="guide"
-        private const val TAG_MYPAGE_FRAGMENT="mypage"
-        private const val TAG_GUIDE_CLICK_FRAGMENT="guide_click"
-        private const val TAG_GUIDE_SPORT_FRAGMENT="guide_sport"
+        private const val TAG_ROUTINE_FRAGMENT = "routine"
+        private const val TAG_GUIDE_FRAGMENT = "guide"
+        private const val TAG_MYPAGE_FRAGMENT = "mypage"
+        private const val TAG_GUIDE_CLICK_FRAGMENT = "guide_click"
+        private const val TAG_GUIDE_SPORT_FRAGMENT = "guide_sport"
         private const val SETTING_OK = 2
     }
-
 
 
 }

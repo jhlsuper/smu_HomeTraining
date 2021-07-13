@@ -37,8 +37,11 @@ class SharedManager(context:Context) {
         prefs["points"] = null
 
     }
-    fun setUserPoint(user:User,points:Int){
+    fun setUserPoint(user:User, points: Int?){
+
         prefs["points"]=points.toString()
     }
+
+
 
 }
