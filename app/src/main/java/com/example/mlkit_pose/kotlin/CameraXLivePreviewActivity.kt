@@ -20,19 +20,16 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
-import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.camera.core.CameraInfoUnavailableException
@@ -47,13 +44,9 @@ import androidx.core.content.ContextCompat
 import com.example.mlkit_pose.*
 import com.example.mlkit_pose.kotlin.posedetector.PoseDetectorProcessor
 import com.example.mlkit_pose.preference.PreferenceUtils
-import com.example.mlkit_pose.preference.SettingsActivity
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
-import com.google.mlkit.common.model.LocalModel
-import com.example.mlkit_pose.preference.SettingsActivity.LaunchSource
 import kotlinx.android.synthetic.main.activity_vision_camerax_live_preview.*
-import kotlinx.android.synthetic.main.fragment_guide_sports.*
 import java.util.*
 import kotlin.concurrent.timer
 import kotlin.properties.Delegates
@@ -75,7 +68,7 @@ class CameraXLivePreviewActivity :
   private var imageProcessor: VisionImageProcessor? = null
   private var needUpdateGraphicOverlayImageSourceInfo = false
   private var selectedModel = POSE_DETECTION
-  private var lensFacing = CameraSelector.LENS_FACING_BACK
+  private var lensFacing = CameraSelector.LENS_FACING_FRONT
   private var cameraSelector: CameraSelector? = null
   private var exerciseName: String? = null
   private var timerTask: Timer? = null
@@ -462,19 +455,19 @@ class CameraXLivePreviewActivity :
 
   @SuppressLint("SetTextI18n")
   private fun startTimer(){
-    val check_time = minute*60 + second
     timerTask = timer(period = 10){
       time += 1
-      val sec = time / 100
+      val sec = (time / 100) % 60
       val milli = time % 100
-      if (sec == check_time){
+      val minutes = (time / 100) / 60
+      if (sec == second && minutes == minute){
         changeActivity()
       }
-      Log.d("TIMER","[Live] Now time $sec, Target Time : $check_time")
+//      Log.d("TIMER","[Live] Now time $minutes min $sec sec , Target Time : $minute min $second sec ")
       runOnUiThread{
-
-        time_Minute.text = "%02d".format(sec)
-        time_Second.text = "%02d".format(milli)
+        time_Minute.text = "%02d".format(minutes)
+        time_Second.text = "%02d".format(sec)
+        time_Milli.text = "%02d".format(milli)
       //        time_Minute.text = sec.toString()
 //        if (milli < 10) {
 //          time_Second.text = "0"+milli.toString()
