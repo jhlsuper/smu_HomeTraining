@@ -45,7 +45,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
         android:layout_weight="1"
 
         android:background="@drawable/background_white"
@@ -61,30 +64,129 @@
             android:layout_marginBottom="15dp"
             android:layout_weight="1.2"
             android:background="@drawable/background_gray_light"
-            android:elevation="10dp"
+            android:elevation="7dp"
+
             tools:ignore="NestedWeights">
+
             <TextView
-                android:id="@+id/et_mypage_belong"
+                android:id="@+id/txt_mypage_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="사용자 소속"
-                android:textColor="@color/black"
-                android:layout_marginTop="35dp"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
+                android:text="이름 : "
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/et_mypage_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="25dp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_name"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="이정휘" />
+
+            <TextView
+                android:id="@+id/txt_mypage_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
+                android:text="성별 : "
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@id/guideline_mypage_50percent"
+                app:layout_constraintTop_toTopOf="parent"
+
                 />
 
             <TextView
                 android:id="@+id/et_mypage_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="35dp"
-                android:text="성별"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="25dp"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@id/et_mypage_belong"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_gender"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="남자"
+
+                />
+
+            <TextView
+                android:id="@+id/txt_mypage_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="몸무게 :"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/txt_mypage_belong"
+                app:layout_constraintStart_toStartOf="@id/txt_mypage_name"
+                app:layout_constraintTop_toBottomOf="@id/txt_mypage_name"
+                />
+            <TextView
+                android:id="@+id/et_mypage_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="60kg"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_weight"
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_weight"
+
+                />
+
+
+            <TextView
+                android:id="@+id/txt_mypage_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="신장 :"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/txt_mypage_belong"
+                app:layout_constraintStart_toStartOf="@id/txt_mypage_gender"
+                app:layout_constraintTop_toBottomOf="@id/txt_mypage_gender" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_height"
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_height"
+                tools:text="180cm" />
+
+            <TextView
+                android:id="@+id/txt_mypage_belong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="사용자 소속 :"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline_mypage_50percent" />
+
+            <TextView
+                android:id="@+id/et_mypage_belong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+
+                app:layout_constraintBottom_toBottomOf="@id/txt_mypage_belong"
+                app:layout_constraintStart_toEndOf="@id/guideline_mypage_50percent"
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_belong"
+                tools:layout_editor_absoluteX="266dp"
+                tools:text="상명대학교" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_mypage_50percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -97,7 +199,83 @@
             android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:background="@drawable/background_gray_light"
-            android:elevation="10dp"/>
+            android:elevation="7dp">
+
+            <TextView
+                android:id="@+id/txt_mypage_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
+                android:text="포인트 : "
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/et_mypage_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_point"
+                android:layout_marginTop="25dp"
+                tools:text="1000pt"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_mypage_exercisedays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                app:layout_constraintStart_toEndOf="@id/guideline_mypage_50percent2"
+                android:layout_marginTop="25dp"
+                android:text="총 운동 일수 :"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/et_mypage_exercisedays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_exercisedays"
+                android:layout_marginTop="25dp"
+                tools:text="15일"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_mypage_most_exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="@id/txt_mypage_point"
+
+                android:text="제일 많이 한 운동 :"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/txt_mypage_point" />
+
+            <TextView
+                android:id="@+id/et_mypage_most_exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_most_exercise"
+
+                tools:text="스쿼트"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_most_exercise" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_mypage_50percent2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -107,21 +285,13 @@
             android:layout_marginBottom="15dp"
             android:layout_weight="2"
             android:background="@drawable/background_gray_light"
-            android:elevation="10dp">
+            android:elevation="7dp">
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include
-            android:id="@+id/settings_button"
-            layout="@layout/settings_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:visibility="invisible" />
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>
