@@ -35,9 +35,9 @@ class MyRoutineFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        sport_delete_button.setOnClickListener {
-            ExpandableCardViewAdapter.
-        }
+//        sport_delete_button.setOnClickListener {
+//            ExpandableCardViewAdapter.
+//        }
 
     }
 
