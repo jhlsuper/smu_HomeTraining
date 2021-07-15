@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview_parent="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    cardview_parent:cardElevation="3dp"
+    cardview_parent:contentPadding="4dp"
+    cardview_parent:cardBackgroundColor="#E0C6F6"
+    cardview_parent:cardCornerRadius="2dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/item_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:textColor="#ffd600"
+            android:textSize="28sp" />
+
+
+        <ImageView
+            android:id="@+id/arrow_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            cardview_parent:srcCompat="@drawable/arrow_button" />
+
+        <ImageView
+            android:id="@+id/plus_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            cardview_parent:srcCompat="@drawable/plus_button" />
+
+        <ImageView
+            android:id="@+id/delete_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            cardview_parent:srcCompat="@drawable/delete" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
