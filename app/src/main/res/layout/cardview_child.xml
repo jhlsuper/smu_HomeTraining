@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview_child="http://schemas.android.com/apk/res-auto"
+    xmlns:cardview_parent="http://schemas.android.com/tools"
+    android:id="@+id/cardview_child"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="3dp"
+    android:layout_marginTop="3dp"
+    cardview_child:cardElevation="3dp"
+    cardview_child:contentPadding="2dp"
+    cardview_child:cardBackgroundColor="#ffd54f"
+    cardview_child:cardCornerRadius="4dp">
+
+    <TextView
+        android:id="@+id/item_text"
+        android:textColor="#448aff"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25sp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/sport_delete_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="end"
+        android:background="@drawable/delete" />
+
+</androidx.cardview.widget.CardView>

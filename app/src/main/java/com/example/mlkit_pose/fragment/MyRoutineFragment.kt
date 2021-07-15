@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.l.expandable_cardview.ExpandableCardViewAdapter
 
 import com.example.mlkit_pose.R
+import kotlinx.android.synthetic.main.cardview_child.*
 import kotlinx.android.synthetic.main.fragment_bottom_menu.*
+import kotlinx.android.synthetic.main.fragment_my_routine.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,6 +34,11 @@ class MyRoutineFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        sport_delete_button.setOnClickListener {
+            ExpandableCardViewAdapter.
+        }
+
     }
 
     override fun onCreateView(
@@ -42,6 +51,55 @@ class MyRoutineFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val cardView = recycler_cardview
+        val itemList = mutableListOf<ExpandableCardViewAdapter.Item>()
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.PARENT, "P-Lang"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Kotlin"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Go"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "C++"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Java"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Clojure"))
+
+        val item = ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.PARENT, "Android")
+        item.children = listOf(
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Jelly Bean"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "KitKat"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Lollipop"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Marshmallow"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Nougat"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Oreo"))
+        itemList.add(item)
+
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.PARENT, "NoteBook"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "MS Surface Pro 4"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Google Pixel Book"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Apple MacBook"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Samsung Series 9"))
+
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.PARENT, "Smart Phone"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Apple iPhone X"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Google Pixel XL 2"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Samsung Galaxy Note 8"))
+        itemList.add(ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "LG V30"))
+
+        val nation = ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.PARENT, "Nation")
+        nation.children = listOf(
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Republic Of Korea"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Canada"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "America"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Japan"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Denmark"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Britain"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "China"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Russia"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "France"),
+            ExpandableCardViewAdapter.Item(ExpandableCardViewAdapter.CHILD, "Turkey"))
+        itemList.add(nation)
+
+        cardView.layoutManager = LinearLayoutManager(context)
+        cardView.adapter = ExpandableCardViewAdapter(itemList)
+
 
     }
 
@@ -56,5 +114,7 @@ class MyRoutineFragment : Fragment() {
                 }
             }
     }
+
+
 
 }
