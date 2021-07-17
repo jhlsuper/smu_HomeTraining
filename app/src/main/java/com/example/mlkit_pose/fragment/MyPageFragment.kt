@@ -49,6 +49,7 @@ class MyPageFragment : Fragment() ,View.OnClickListener{
         view.et_mypage_gender.setText("${gender}")
         view.et_mypage_id.setText("${id}")
         view.et_mypage_belong.setText("${belong}")
+        view.btn_mypage_edit.setOnClickListener(this)
 
 //        return inflater.inflate(R.layout.fragment_my_page, container, false)
         return view
@@ -72,22 +73,9 @@ class MyPageFragment : Fragment() ,View.OnClickListener{
 
     override fun onClick(v: View?) {
         when(v?.id){
-//            R.id.btn_mypage_logout->{
-//                val mDialogView = LayoutInflater.from(context).inflate(R.layout.popup_logout,null)
-//                val mBuilder = AlertDialog.Builder(context).setView(mDialogView).setTitle("Logout")
-//                val mAlertDialog =mBuilder.show()
-//
-//                val btn_yes = mDialogView.findViewById<Button>(R.id.btn_logout_yes)
-//                val btn_no = mDialogView.findViewById<Button>(R.id.btn_logout_no)
-//                btn_yes.setOnClickListener{
-//                    (activity as PageActivity).logOut()
-//                }
-//                btn_no.setOnClickListener{
-//                    mAlertDialog.dismiss()
-//                }
-//
-//
-//            }
+            R.id.btn_mypage_edit->{
+
+            }
 
         }
     }

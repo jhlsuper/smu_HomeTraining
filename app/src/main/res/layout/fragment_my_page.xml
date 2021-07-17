@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="25dp"
-                android:text="이름 : "
+                android:text="닉네임 : "
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -88,7 +88,7 @@
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_name"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="이정휘" />
+                tools:text="abcdefg" />
 
             <TextView
                 android:id="@+id/txt_mypage_gender"
@@ -124,16 +124,16 @@
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@id/txt_mypage_belong"
                 app:layout_constraintStart_toStartOf="@id/txt_mypage_name"
-                app:layout_constraintTop_toBottomOf="@id/txt_mypage_name"
-                />
+                app:layout_constraintTop_toBottomOf="@id/txt_mypage_name" />
+
             <TextView
                 android:id="@+id/et_mypage_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="60kg"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="@id/txt_mypage_weight"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_weight"
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_weight"
+                tools:text="60kg"
 
                 />
 
@@ -162,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="25dp"
                 android:text="사용자 소속 :"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -180,6 +180,19 @@
                 tools:layout_editor_absoluteX="266dp"
                 tools:text="상명대학교" />
 
+            <Button
+                android:layout_marginTop="5dp"
+                android:id="@+id/btn_mypage_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/white"
+                android:text="수정하기"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/txt_mypage_belong"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_mypage_50percent"
@@ -192,12 +205,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="15dp"
             android:layout_weight="1"
+
             android:background="@drawable/background_gray_light"
             android:elevation="7dp">
 
@@ -211,47 +226,49 @@
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/et_mypage_point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                app:layout_constraintStart_toEndOf="@id/txt_mypage_point"
                 android:layout_marginTop="25dp"
-                tools:text="1000pt"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_point"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1000pt" />
 
             <TextView
                 android:id="@+id/txt_mypage_exercisedays"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                app:layout_constraintStart_toEndOf="@id/guideline_mypage_50percent2"
                 android:layout_marginTop="25dp"
                 android:text="총 운동 일수 :"
                 android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@id/guideline_mypage_50percent2"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/et_mypage_exercisedays"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                app:layout_constraintStart_toEndOf="@id/txt_mypage_exercisedays"
                 android:layout_marginTop="25dp"
-                tools:text="15일"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_exercisedays"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="15일" />
 
             <TextView
                 android:id="@+id/txt_mypage_most_exercise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="@id/txt_mypage_point"
-
                 android:text="제일 많이 한 운동 :"
+
                 android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@id/txt_mypage_point"
                 app:layout_constraintTop_toBottomOf="@id/txt_mypage_point" />
 
             <TextView
@@ -259,11 +276,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                app:layout_constraintStart_toEndOf="@id/txt_mypage_most_exercise"
-
-                tools:text="스쿼트"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="@id/txt_mypage_most_exercise" />
+
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_most_exercise"
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_most_exercise"
+                tools:text="스쿼트" />
 
 
             <androidx.constraintlayout.widget.Guideline
