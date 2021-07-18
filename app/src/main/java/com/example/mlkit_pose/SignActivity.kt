@@ -32,43 +32,31 @@ import com.example.mlkit_pose.fragment.MyPageFragment
 //import kotlinx.android.synthetic.main.belong_search.*
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
+import kotlin.reflect.typeOf
 
 class SignActivity : AppCompatActivity(){
 
-    lateinit var navController: NavController
+
 //    private lateinit var binding: FragmentSignUpBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
+        setContentView(R.layout.fragment_sign_up)
         val queue = Volley.newRequestQueue(this)
 
-//        binding = FragmentSignUpBinding.inflate(layoutInflater)
-//        val view = binding.root
-        setContentView(R.layout.fragment_sign_up)
-        val list = ArrayList<String>()
-//        settingList(list)
-
-
-
-        setContentView(R.layout.fragment_sign_up)
-//        val belong_list =settingList()
-//        val items = mutableListOf<String>()
-//        for(item in belong_list){
-//            items.add(item)
-//        }
-
-        btn_search_belong.setOnClickListener{
-            //dialog 만들기
-
-//            autoCompleteTextView.setAdapter(ArrayAdapter<String>(this,R.layout.belong_search,list))
-            val mDialogView = LayoutInflater.from(this).inflate(R.layout.belong_search,null)
-            val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
-//            val adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item,belong_list)
-//            autoCompleteTextView.setAdapter(adapter)
-            mBuilder.show()
+        var list = resources.getString(R.string.university_name)
+        val university = list.split(" ")
+        for (i in university){
+            Log.d("university",i)
         }
+        val arrayAdapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,university)
+        var autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.et_belong)
+        autoCompleteTextView.setAdapter(arrayAdapter)
+
+
+
+//        et_belong.setAdapter(adapter)
+
         btn_register_done.setOnClickListener {
             val userName = et_rg_name.text.toString().trim()
             val userId = et_rg_id.text.toString().trim()
@@ -101,6 +89,9 @@ class SignActivity : AppCompatActivity(){
                 })
                 queue.add(stringRequest2)
             }
+        }
+        btn_search_belong.setOnClickListener {
+
         }
 
     }
