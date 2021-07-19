@@ -16,13 +16,14 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="textPersonName"
         android:text="닉네임"
         android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.154"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,TextViewEdits" />
 
     <EditText
         android:id="@+id/et_rg_name"
@@ -64,7 +65,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_rg_name"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:ignore="TextFields" />
+        tools:ignore="HardcodedText,TextFields" />
 
     <EditText
         android:id="@+id/et_rg_passwordcheck"
@@ -77,7 +78,8 @@
         app:layout_constraintEnd_toEndOf="@+id/et_rg_name"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_rg_name"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        tools:ignore="HardcodedText" />
 
     <AutoCompleteTextView
         android:id="@+id/et_belong"
@@ -91,7 +93,8 @@
         app:layout_constraintEnd_toEndOf="@+id/et_rg_name"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_rg_name"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/et_rg_age"
@@ -104,7 +107,8 @@
         app:layout_constraintEnd_toEndOf="@+id/et_rg_name"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_rg_name"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/et_rg_gender"
@@ -117,7 +121,8 @@
         app:layout_constraintEnd_toEndOf="@+id/et_rg_name"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_rg_name"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView3"
@@ -128,7 +133,8 @@
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/et_rg_name" />
+        app:layout_constraintTop_toBottomOf="@+id/et_rg_name"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView4"
@@ -139,7 +145,8 @@
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/et_rg_id" />
+        app:layout_constraintTop_toBottomOf="@+id/et_rg_id"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView5"
@@ -151,7 +158,8 @@
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/et_rg_password" />
+        app:layout_constraintTop_toBottomOf="@+id/et_rg_password"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView6"
@@ -162,7 +170,8 @@
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/et_rg_passwordcheck" />
+        app:layout_constraintTop_toBottomOf="@+id/et_rg_passwordcheck"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView7"
@@ -173,7 +182,8 @@
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/et_belong" />
+        app:layout_constraintTop_toBottomOf="@+id/et_belong"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView8"
@@ -184,7 +194,59 @@
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/et_rg_age" />
+        app:layout_constraintTop_toBottomOf="@+id/et_rg_age"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="몸무게 : "
+        android:textSize="23sp"
+
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/et_rg_height"
+        app:layout_constraintTop_toBottomOf="@id/et_rg_gender"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="신장 : "
+        android:textSize="23sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/et_rg_gender"
+        app:layout_constraintTop_toBottomOf="@id/et_rg_gender"
+
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/et_rg_weight"
+        android:layout_width="60dp"
+        android:layout_height="38dp"
+        android:ems="10"
+        android:hint="kg"
+        android:inputType="number"
+        android:textSize="15sp"
+        app:layout_constraintTop_toTopOf="@id/textView10"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/textView9"
+
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/et_rg_height"
+        android:layout_width="60dp"
+        android:layout_height="38dp"
+        android:ems="10"
+        android:hint="cm"
+        android:inputType="number"
+        android:textSize="15sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/textView10"
+        app:layout_constraintTop_toTopOf="@id/textView10"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_register_done"
@@ -195,7 +257,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        tools:ignore="HardcodedText" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -232,7 +295,6 @@
         android:orientation="horizontal"
 
         app:layout_constraintGuide_percent="0.9" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
