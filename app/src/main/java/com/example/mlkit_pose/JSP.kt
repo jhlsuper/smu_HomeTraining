@@ -18,8 +18,8 @@ class JSP {
             return url
         }
 
-        fun getSignInURL(inputName:String, inputId:String,inputPw: String,inputTeam:String,inputAge:String,inputGender:String):String{
-            val url = Jsp_Url+"Sign.jsp?userName=$inputName&userId=$inputId&userPwd=$inputPw&userTeam = $inputTeam&userAge=$inputAge&userGender=$inputGender"
+        fun getSignInURL(inputName:String, inputId:String,inputPw: String,inputTeam:String,inputAge:String,inputGender:String,inputHeight:String,inputWeight:String):String{
+            val url = Jsp_Url+"Sign.jsp?userName=$inputName&userId=$inputId&userPwd=$inputPw&userTeam=$inputTeam&userAge=$inputAge&userGender=$inputGender&userHeight=$inputHeight&userWeight=$inputWeight"
             return url
         }
         fun getEveryRank(inputTeam: String):String{
