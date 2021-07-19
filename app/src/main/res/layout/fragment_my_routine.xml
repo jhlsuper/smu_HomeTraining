@@ -38,6 +38,7 @@
             android:layout_weight="0.7">
 
             <Button
+                android:id="@+id/tv_message"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"

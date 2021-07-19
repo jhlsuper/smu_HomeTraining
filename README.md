@@ -61,6 +61,10 @@ Preparing..
 Apache License 2.0
 
 
+=> 뷰바인딩 참고 코드
+https://underdog11.tistory.com/6
+
+
 
 
 

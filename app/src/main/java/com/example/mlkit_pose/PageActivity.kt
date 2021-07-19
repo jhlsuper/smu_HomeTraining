@@ -30,8 +30,10 @@ import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlin.properties.Delegates
 
+
 class PageActivity : AppCompatActivity(), View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener {
+
 
     lateinit var logoutButton: Button
     lateinit var userRankAdapter: UserRkAdapter
@@ -427,7 +429,5 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
 
 }
-
-
 
 

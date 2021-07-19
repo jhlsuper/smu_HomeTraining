@@ -1,18 +1,25 @@
 package com.example.l.expandable_cardview
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mlkit_pose.R
+import com.example.mlkit_pose.databinding.CardviewChildBinding
 import kotlinx.android.synthetic.main.cardview_parent.view.*
 
 
-class ExpandableCardViewAdapter(var items: MutableList<Item>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+class ExpandableCardViewAdapter(var items: MutableList<Item>, val onClickDeleteIcon: (item: Item) -> Unit) : //2. delete button이 눌렸을때 onclickDeleteIcon을 실행하라는뜻, 0->Unit이기때문에 함수자체에 return없다는뜻
+        RecyclerView.Adapter<ExpandableCardViewAdapter.TodoViewHolder>() {
+    class TodoViewHolder(val binding: CardviewChildBinding) : RecyclerView.ViewHolder(binding.root) {
+        val item_text: TextView
+            get() {
+                TODO()
+            }
+    }
+
 
     companion object {
         val PARENT = 0
@@ -22,7 +29,6 @@ class ExpandableCardViewAdapter(var items: MutableList<Item>) :
     }
 
     // ---------------------------------
-
     var mPosition = 0
 
     fun getPosition(): Int {
@@ -41,16 +47,16 @@ class ExpandableCardViewAdapter(var items: MutableList<Item>) :
     }
     // ---------------------------------
 
-
     data class Item(
-        val type: Int = 0,
-        var text: String = "Default",
-        var children: List<Item>? = null
+            val type: Int = 0,
+            var text: String = "Default",
+            var children: List<Item>? = null
     )
 
     inner class ItemHolder(v: View) : RecyclerView.ViewHolder(v) {
         var textView = v.item_text
         val toggleImageView = v.arrow_button
+
 
     }
 
@@ -59,7 +65,7 @@ class ExpandableCardViewAdapter(var items: MutableList<Item>) :
 
     override fun getItemViewType(position: Int): Int = items[position].type
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
 
         val inflater = LayoutInflater.from(parent?.context)
         var view: View? = null
@@ -69,12 +75,14 @@ class ExpandableCardViewAdapter(var items: MutableList<Item>) :
             CHILD -> view = inflater.inflate(R.layout.cardview_child, parent, false)
         }
 
-        return ItemHolder(view!!)
+        return TodoViewHolder(CardviewChildBinding.bind(view!!))
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+    override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val itemHolder = holder as? ItemHolder
         val item = items[position]
+
 
         itemHolder?.let {
             it.toggleImageView?.let {
@@ -110,7 +118,12 @@ class ExpandableCardViewAdapter(var items: MutableList<Item>) :
 
             it.textView.text = item.text
         }
-    }
 
+        val listposition = items[position]
+        holder.binding.itemText.text = listposition.text
+        holder.binding.sportDeleteButton.setOnClickListener {
+            onClickDeleteIcon.invoke(listposition) // deleteimage가 눌렸을때 listposition를 전달하면서 onClickDeleteIcon함수를 실행한다.
+        }
+    }
 
 }
