@@ -90,9 +90,9 @@ class SignActivity : AppCompatActivity(){
                 queue.add(stringRequest2)
             }
         }
-        btn_search_belong.setOnClickListener {
-
-        }
+//        btn_search_belong.setOnClickListener {
+//
+//        }
 
     }
 

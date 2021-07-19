@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
     private val sharedManager : SharedManager by lazy { SharedManager(this) }
 
-
     override fun onCreate(savedInstanceState: Bundle?){
 //        navController = nav_host_fragment.findNavController()
 
