@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+
+    android:orientation="vertical">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/txt_popup_exercise_done"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+
+            android:text="회원정보 수정"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:id="@+id/txt_mypage_edit_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+
+                android:text="몸무게: "
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <EditText
+                android:id="@+id/et_mypage_edit_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint=" 60kg"
+                android:inputType="number"
+                android:textColorHint="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_mypage_edit_weight"
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_edit_weight"
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_weight" />
+
+            <TextView
+
+                android:id="@+id/txt_mypage_edit_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="18dp"
+
+                android:text="신장: "
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_mypage_edit_weight"
+
+                />
+
+            <EditText
+                android:id="@+id/et_mypage_edit_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint=" 170cm"
+                android:inputType="number"
+                android:textColorHint="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_mypage_edit_height"
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_edit_height"
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_height" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_settime_50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+
+            <TextView
+
+                android:id="@+id/txt_mypage_edit_belong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="18dp"
+
+                android:text="신장: "
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_mypage_edit_height"
+
+                />
+
+            <AutoCompleteTextView
+                android:id="@+id/et_mypage_edit_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="소속 검색"
+                android:textColorHint="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/txt_mypage_edit_belong"
+                app:layout_constraintStart_toEndOf="@id/txt_mypage_edit_belong"
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_belong"
+                />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_settime_50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="6dp"
+        android:layout_weight="3"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_exercise_redo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+
+            android:text="다시하기"
+            android:textColor="@color/blue"
+
+            />
+
+        <Button
+            android:id="@+id/btn_exercise_exit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:background="@color/white"
+            android:text="종료하기"
+            android:textColor="@color/blue" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
