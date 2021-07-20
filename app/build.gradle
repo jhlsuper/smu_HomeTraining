@@ -6,13 +6,14 @@
 
 }
 
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.mlkit_pose"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 30
         multiDexEnabled true
         versionCode 11
@@ -38,9 +39,12 @@ android {
     aaptOptions {
         noCompress "tflite"
     }
+
+
 //    buildFeatures {
 //        viewBinding true
 //    }
+
 }
 repositories {
     // Depending on AndroidX Snapshot Builds to get the latest CameraX libs.

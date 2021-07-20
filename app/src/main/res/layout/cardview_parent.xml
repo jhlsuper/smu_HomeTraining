@@ -8,8 +8,7 @@
     cardview_parent:cardElevation="3dp"
     cardview_parent:contentPadding="4dp"
     cardview_parent:cardBackgroundColor="#E0C6F6"
-    cardview_parent:cardCornerRadius="2dp"
-    >
+    cardview_parent:cardCornerRadius="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,21 +33,21 @@
             android:layout_marginRight="5dp"
             cardview_parent:srcCompat="@drawable/arrow_button" />
 
-        <ImageView
+        <Button
             android:id="@+id/plus_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="3dp"
             android:layout_marginRight="5dp"
-            cardview_parent:srcCompat="@drawable/plus_button" />
+            android:background="@drawable/plus_button" />
 
-        <ImageView
+        <Button
             android:id="@+id/delete_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="3dp"
             android:layout_marginRight="5dp"
-            cardview_parent:srcCompat="@drawable/delete" />
+            android:background="@drawable/delete"/>
 
     </LinearLayout>
 

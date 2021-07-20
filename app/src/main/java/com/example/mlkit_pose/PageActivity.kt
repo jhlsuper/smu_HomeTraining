@@ -30,8 +30,10 @@ import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlin.properties.Delegates
 
+
 class PageActivity : AppCompatActivity(), View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener {
+
 
     lateinit var logoutButton: Button
     lateinit var userRankAdapter: UserRkAdapter
@@ -129,7 +131,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 setDataAtFragment(RankingMainFragment(), TAG_RANK_FRAGMENT)
             }
             R.id.btn_routine -> {
-                setDataAtFragment(MyRoutineFragment(), TAG_ROUTINE_FRAGMENT)
+//                setDataAtFragment(MyRoutineFragment(), TAG_ROUTINE_FRAGMENT)
             }
             R.id.btn_drawer -> {
                 info_user_id.setText("${currentUser.id}")
@@ -427,7 +429,5 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
 
 }
-
-
 
 
