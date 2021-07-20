@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 
 import com.example.mlkit_pose.PageActivity
@@ -74,10 +76,39 @@ class MyPageFragment : Fragment() ,View.OnClickListener{
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_mypage_edit->{
-
+                mypageEditPopup()
             }
 
         }
+    }
+
+    @SuppressLint("InflateParams")
+    fun mypageEditPopup(){
+        val dialog = AlertDialog.Builder(context).create()
+        val edialog: LayoutInflater = LayoutInflater.from(context)
+        val mView :View = edialog.inflate(R.layout.popup_mypage_edit,null)
+
+        val weight :EditText = mView.findViewById<EditText>(R.id.et_mypage_edit_weight)
+        val height :EditText = mView.findViewById<EditText>(R.id.et_mypage_edit_height)
+        val belong :EditText = mView.findViewById<EditText>(R.id.et_mypage_edit_belong)
+
+        val cancel :Button =mView.findViewById<Button>(R.id.btn_mypage_edit_cancel)
+        val ok :Button =mView.findViewById<Button>(R.id.btn_mypage_edit_ok)
+
+        cancel.setOnClickListener {
+            dialog.dismiss()
+            dialog.cancel()
+        }
+        ok.setOnClickListener {
+            val user_weight = weight.text
+            val user_height = height.text
+            val user_belong = belong.text
+            Toast.makeText(context,"$user_weight, $user_height, $user_belong 서버에 적용해야됨",Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+        dialog.setView(mView)
+        dialog.create()
+        dialog.show()
     }
 
 
