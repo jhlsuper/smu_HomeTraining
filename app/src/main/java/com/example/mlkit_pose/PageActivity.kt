@@ -80,6 +80,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                     showExerciseDonePopup(exname, minute, second, this)
                 }
             }
+        Log.d("userinfo","${currentUser.weight},${currentUser.height}")
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -159,6 +161,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         bundle.putString("gender", currentUser.gender)
         bundle.putString("belong", currentUser.belong)
         bundle.putString("points", currentUser.points)
+        bundle.putString("height",currentUser.height)
+        bundle.putString("weight",currentUser.weight)
         fragment.arguments = bundle
         setFragment(fragment, tag)
     }
@@ -248,15 +252,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 }
             }
         }
-//        manager.popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE)
-//        transaction.detach(fragment).attach(fragment).addToBackStack(fragName).commit()
-//        transaction.replace(R.id.frameLayout,fragment)
-//        transaction.addToBackStack(null)
-//        transaction.addToBackStack(tag)
 
-        //        transaction.replace(R.id.frameLayout,fragment,tag)
-
-        //        transaction.commitAllowingStateLoss()
         transaction.commit()
     }
 
