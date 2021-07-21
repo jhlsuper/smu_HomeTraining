@@ -11,16 +11,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.GravityCompat
-
-import com.example.mlkit_pose.PageActivity
-import com.example.mlkit_pose.R
-import com.example.mlkit_pose.SharedManager
-import com.example.mlkit_pose.User
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.mlkit_pose.*
 
 import kotlinx.android.synthetic.main.fragment_bottom_menu.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_my_page.view.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
+import kotlinx.android.synthetic.main.popup_mypage_edit.*
+import java.util.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -30,8 +30,10 @@ class MyPageFragment : Fragment() ,View.OnClickListener{
     private var id:String? =null
     private var gender:String? = null
     private var belong:String? = null
+    private var weight:String? =null
+    private var height:String? =null
 
-
+    lateinit var viewModel:MainViewModel
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -40,17 +42,33 @@ class MyPageFragment : Fragment() ,View.OnClickListener{
             id = it.getString("id")
             gender = it.getString("gender")
             belong = it.getString("belong")
+            weight = it.getString("weight")
+            height = it.getString("height")
         }
+        viewModel =ViewModelProvider(this).get(MainViewModel::class.java)
 
+        viewModel.weight.observe(this,Observer{
+            et_mypage_weight.text =it.toString()
+        })
+        viewModel.height.observe(this,Observer{
+            et_mypage_height.text =it.toString()
+        })
+        viewModel.belong.observe(this, Observer {
+            et_mypage_belong.text =it.toString()
+        })
+        viewModel.init()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view:View = inflater.inflate(R.layout.fragment_my_page,container,false)
-        view.et_mypage_gender.setText("${gender}")
-        view.et_mypage_id.setText("${id}")
-        view.et_mypage_belong.setText("${belong}")
+        view.et_mypage_gender.text = "$gender"
+        view.et_mypage_id.text = "$id"
+        view.et_mypage_belong.text = "$belong"
+        view.et_mypage_height.text ="${height}cm"
+        view.et_mypage_weight.text="${weight}kg"
         view.btn_mypage_edit.setOnClickListener(this)
 
 //        return inflater.inflate(R.layout.fragment_my_page, container, false)
@@ -100,9 +118,10 @@ class MyPageFragment : Fragment() ,View.OnClickListener{
             dialog.cancel()
         }
         ok.setOnClickListener {
-            val user_weight = weight.text
-            val user_height = height.text
-            val user_belong = belong.text
+            val user_weight = weight.text.toString()
+            val user_height = height.text.toString()
+            val user_belong = belong.text.toString()
+            viewModel.editUser(user_height,user_weight,user_belong)
             Toast.makeText(context,"$user_weight, $user_height, $user_belong 서버에 적용해야됨",Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }

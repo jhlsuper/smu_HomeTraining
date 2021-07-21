@@ -15,6 +15,8 @@ class SharedManager(context:Context) {
         prefs["age"]=user.age
         prefs["gender"]=user.gender
         prefs["points"]="0"
+        prefs["height"]=user.height
+        prefs["weight"]=user.weight
     }
     fun getCurrentUser() :User{
         return User().apply {
@@ -25,6 +27,8 @@ class SharedManager(context:Context) {
             age = prefs["age",0]
             gender= prefs["gender",""]
             points = prefs["points",""]
+            height =prefs["height",""]
+            weight = prefs["weight",""]
         }
     }
     fun DeleteCurrentUser(user: User){
@@ -35,6 +39,8 @@ class SharedManager(context:Context) {
         prefs["age"]=0
         prefs["gender"]=null
         prefs["points"] = null
+        prefs["height"] =null
+        prefs["weight"]=null
 
     }
     fun setUserPoint(user:User, points: Int?){
