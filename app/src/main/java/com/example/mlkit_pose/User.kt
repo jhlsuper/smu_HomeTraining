@@ -8,5 +8,7 @@ data class User (
     var age: Int? = 0,
     var gender :String? = null,
     var points :String? = null,
+    var height :String? =null,
+    var weight :String? =null,
     var img: Int?= null
 )
