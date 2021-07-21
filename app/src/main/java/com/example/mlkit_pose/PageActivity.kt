@@ -133,7 +133,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 setDataAtFragment(RankingMainFragment(), TAG_RANK_FRAGMENT)
             }
             R.id.btn_routine -> {
-//                setDataAtFragment(MyRoutineFragment(), TAG_ROUTINE_FRAGMENT)
+                setDataAtFragment(MyRoutineFragment(), TAG_ROUTINE_FRAGMENT)
             }
             R.id.btn_drawer -> {
                 info_user_id.setText("${currentUser.id}")
