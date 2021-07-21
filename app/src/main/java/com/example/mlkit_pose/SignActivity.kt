@@ -45,14 +45,14 @@ class SignActivity : AppCompatActivity() {
         setContentView(R.layout.fragment_sign_up)
         val queue = Volley.newRequestQueue(this)
 
-        var list = resources.getString(R.string.university_name)
+        val list = resources.getString(R.string.university_name)
         val university = list.split(" ")
         for (i in university) {
             Log.d("university", i)
         }
         val arrayAdapter =
             ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, university)
-        var autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.et_belong)
+        val autoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.et_rg_belong)
         autoCompleteTextView.setAdapter(arrayAdapter)
 
 
@@ -63,7 +63,7 @@ class SignActivity : AppCompatActivity() {
             val userId = et_rg_id.text.toString().trim()
             val userPwd = et_rg_password.text.toString().trim()
             val userRePwd = et_rg_passwordcheck.text.toString().trim()
-            val userTeam = et_rg_passwordcheck.text.toString().trim()
+            val userTeam = et_rg_belong.text.toString().trim()
             val userAge = et_rg_age.text.toString().trim()
             val userGender = et_rg_gender.text.toString().trim()
             val userHeight = et_rg_height.text.toString().trim()
