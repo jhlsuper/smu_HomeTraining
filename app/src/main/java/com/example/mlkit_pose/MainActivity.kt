@@ -74,8 +74,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                                 belong = details[4]
                                 age = details[5].toString().toInt()
                                 gender = details[6]
-
+                                weight =details[8]
+                                height = details[7]
                             }
+                            Log.d("userinfo","height : ${details[7]}  weight: ${details[8]}")
                             sharedManager.saveCurrentUser(currentUser)
                             startActivity(Intent(this, PageActivity::class.java))
 
