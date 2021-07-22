@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,24 +77,24 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         item.setTypeface(null, Typeface.BOLD);
         item.setText(mobileName);
 
-        ImageView delete = convertView.findViewById(R.id.delete);
+        ImageView delete = convertView.findViewById(R.id.delete_group);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you want remove?");
+                builder.setMessage("Do you want remove Group?");
                 builder.setCancelable(true);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        List<String> parent = mobileCollection.get(groupList.get(groupPosition));
-                        Log.d("parent", groupList.get(groupPosition));
-                        Log.d("child", String.valueOf(groupPosition));  // 5
-                        int counter = getGroupCount();
-                        if (counter > 0) {
-                            groupList.remove(groupPosition);
-                            notifyDataSetChanged();
-                        }
+                        mobileCollection.entrySet().removeIf(name ->
+                                name.getKey().equals(groupList.get(groupPosition)));
+                        groupList.remove(groupPosition);
+                        Log.d("Select_Group",mobileCollection.toString());
+
+                        notifyDataSetChanged();
+
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -124,7 +127,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you want remove?");
+                builder.setMessage("Do you want remove Child?");
                 builder.setCancelable(true);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
