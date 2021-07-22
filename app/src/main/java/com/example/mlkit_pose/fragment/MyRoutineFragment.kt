@@ -1,6 +1,7 @@
 package com.example.mlkit_pose.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,7 +67,8 @@ class MyRoutineFragment : Fragment() {
                 loadChild(motorolaModels)
             }
             else loadChild(emptyModels)
-            (mobileCollection as HashMap<String, List<String>>).put(group, childList!!)
+            (mobileCollection as HashMap<String, List<String>>)[group] = childList!!
+//            Log.d("Select_Group",mobileCollection.toString())
         }
     }
 
