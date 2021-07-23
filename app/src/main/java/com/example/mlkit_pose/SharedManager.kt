@@ -47,7 +47,11 @@ class SharedManager(context:Context) {
 
         prefs["points"]=points.toString()
     }
-
+    fun setUserInfo(user: User,weight:String,height:String, belong:String){
+        prefs["weight"] =weight.toString()
+        prefs["height"] = height.toString()
+        prefs["belong"] = belong.toString()
+    }
 
 
 }
