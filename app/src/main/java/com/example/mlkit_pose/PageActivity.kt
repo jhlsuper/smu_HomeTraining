@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -35,7 +36,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener {
 
 
-    lateinit var logoutButton: Button
+
     lateinit var userRankAdapter: UserRkAdapter
     lateinit var exname: String
 
@@ -46,6 +47,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     private val sharedManager: SharedManager by lazy { SharedManager(this) }
+
+    lateinit var viewModel: MainViewModel
+    private var points:String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,9 +74,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         btn_drawer.setOnClickListener(this)
 
         main_navigationView.setNavigationItemSelectedListener(this)
-//        drawer_logoutButton.setOnClickListener(this)
-//        setUserRank()
-//        setRankData()
+
         activityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 Log.d("resultLauncher", it.resultCode.toString())
@@ -82,6 +84,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             }
         Log.d("userinfo","${currentUser.weight},${currentUser.height}")
 
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        viewModel.belong.observe(this,{
+            info_user_belong.text = it.toString()
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -117,7 +124,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //        val datas = mutableListOf<User>()
         val currentUser = sharedManager.getCurrentUser()
 
-        val transaction = supportFragmentManager.beginTransaction()
+//        val transaction = supportFragmentManager.beginTransaction()
         when (v.id) {
             R.id.btn_home -> {
                 setDataAtFragment(HomeFragment(), TAG_HOME_FRAGMENT)
@@ -285,9 +292,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //            Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
                 if (details2[2] == null) {
 
-                    sharedManager.setUserPoint(currentUser, 0)
+                    sharedManager.setUserPoint(currentUser, "0")
                 } else {
-                    sharedManager.setUserPoint(currentUser, details2[2].toInt())
+                    sharedManager.setUserPoint(currentUser, details2[2])
                 }
             }, {
                 Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
@@ -347,7 +354,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         endComment.text = "${name} ${minute}분 ${second}초 했습니다!!!"
         time.text = "획득한 Point \n $point point !!!"
 
-        sharedManager.setUserPoint(currentUser,newPoint)
+        sharedManager.setUserPoint(currentUser,newPoint.toString())
         setUserDBPoints(currentUser,newPoint.toString())
         Toast.makeText(this, "${currentUser.points}", Toast.LENGTH_SHORT).show()
         exit.setOnClickListener {
@@ -397,7 +404,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val StringRequest=StringRequest(
             Request.Method.GET, url_setUserPoints, { response ->
                 response.trim { it <= ' ' }
-                Toast.makeText(this,"$response",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, response,Toast.LENGTH_SHORT).show()
                 val details3 = (response.trim())
                 Log.d("Point", details3)
 //                datas.clear()

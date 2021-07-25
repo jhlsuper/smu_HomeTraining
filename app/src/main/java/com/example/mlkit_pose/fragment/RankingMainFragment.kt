@@ -8,11 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.GravityCompat
-
-import com.example.mlkit_pose.PageActivity
-import com.example.mlkit_pose.R
-import com.example.mlkit_pose.User
-import com.example.mlkit_pose.UserRkAdapter
+import androidx.lifecycle.ViewModelProvider
+import com.example.mlkit_pose.*
 
 import kotlinx.android.synthetic.main.fragment_bottom_menu.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
@@ -28,12 +25,19 @@ class RankingMainFragment : Fragment(){
     private var id:String? =null
     private var points:String? = null
 
+    lateinit var viewModel:MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             id = it.getString("id")
             points = it.getString("points")
         }
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        viewModel.point.observe(this,{
+            txt_ranking_my_points.text = it.toString()
+        })
 
 
 
@@ -45,8 +49,8 @@ class RankingMainFragment : Fragment(){
     ): View? {
         // Inflate the layout for this fragment
         val view:View = inflater.inflate(R.layout.fragment_ranking_main,container,false)
-        view.txt_ranking_my_id.setText("${id}")
-        view.txt_ranking_my_points.setText("${points}")
+        view.txt_ranking_my_id.text = "$id"
+//        view.txt_ranking_my_points.setText("${points}")
 
         return view
     }
@@ -70,6 +74,9 @@ class RankingMainFragment : Fragment(){
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    fun rankingRefresh(){
+
     }
 
 }
