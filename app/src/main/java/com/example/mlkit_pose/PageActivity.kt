@@ -27,6 +27,7 @@ import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
+import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
@@ -93,9 +94,10 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         viewModel.point.observe(this,{
             Log.d("userPoint", it)
             txt_ranking_my_points?.text = it.toString()
-
+            et_mypage_point?.text = it.toString()
+            rankingRefresh()
         })
-//        viewModel.init()
+        viewModel.init()
     }
 
 

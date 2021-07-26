@@ -20,13 +20,14 @@ import kotlinx.android.synthetic.main.fragment_tool_bar.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 private var UserList = arrayListOf<User>()
-class RankingMainFragment : Fragment(),View.OnClickListener{
 
-    private var id:String? =null
-    private var points:String? = null
-    private var belong:String ? = null
+class RankingMainFragment : Fragment(), View.OnClickListener {
 
-    lateinit var viewModel:MainViewModel
+    private var id: String? = null
+    private var points: String? = null
+    private var belong: String? = null
+
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +42,11 @@ class RankingMainFragment : Fragment(),View.OnClickListener{
 //            txt_ranking_my_points.text = it.toString()
 //            rankingRefresh()
 //        })
-//        viewModel.belong.observe(this,{
-//            rankingRefresh()
+//        viewModel.belong.observe(this, {
+//            (activity as PageActivity).rankingRefresh()
 //        })
 
-//        viewModel.init()
+        viewModel.init()
 
     }
 
@@ -54,12 +55,10 @@ class RankingMainFragment : Fragment(),View.OnClickListener{
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        val view:View = inflater.inflate(R.layout.fragment_ranking_main,container,false)
+        val view: View = inflater.inflate(R.layout.fragment_ranking_main, container, false)
         view.txt_ranking_my_id.text = "$id"
         view.txt_ranking_my_points.text = "$points"
-//        view.btn_ranking_refresh.setOnClickListener{
-//            rankingRefresh()
-//        }
+
         return view
     }
 
@@ -68,10 +67,9 @@ class RankingMainFragment : Fragment(),View.OnClickListener{
 //        (activity as PageActivity).initRecycler()
         (activity as PageActivity).setRankData()
         (activity as PageActivity).initRecycler()
-        Log.d("viewCreated","initRecyclerView")
+        Log.d("viewCreated", "initRecyclerView")
         btn_ranking_refresh.setOnClickListener(this)
     }
-
 
 
     companion object {
@@ -88,9 +86,9 @@ class RankingMainFragment : Fragment(),View.OnClickListener{
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.btn_ranking_refresh->{
-//                rankingRefresh()
+        when (v?.id) {
+            R.id.btn_ranking_refresh -> {
+                (activity as PageActivity).rankingRefresh()
             }
         }
     }

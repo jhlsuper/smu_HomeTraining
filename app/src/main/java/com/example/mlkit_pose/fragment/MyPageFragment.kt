@@ -35,6 +35,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
     private var belong: String? = null
     private var weight: String? = null
     private var height: String? = null
+    private var point:String? = null
 
     lateinit var viewModel: MainViewModel
 
@@ -49,6 +50,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
             belong = it.getString("belong")
             weight = it.getString("weight")
             height = it.getString("height")
+            point = it.getString("points")
         }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -61,7 +63,8 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         viewModel.belong.observe(this, {
             et_mypage_belong.text = it.toString()
         })
-        viewModel.init()
+
+//        viewModel.init()
     }
 
     @SuppressLint("SetTextI18n")
@@ -77,6 +80,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         view.et_mypage_belong.text = "$belong"
         view.et_mypage_height.text = "${height}cm"
         view.et_mypage_weight.text = "${weight}kg"
+        view.et_mypage_point.text = "$point"
         view.btn_mypage_edit.setOnClickListener(this)
 
 //        return inflater.inflate(R.layout.fragment_my_page, container, false)
