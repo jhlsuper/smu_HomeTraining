@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -35,8 +36,6 @@ import kotlin.properties.Delegates
 class PageActivity : AppCompatActivity(), View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener {
 
-
-
     lateinit var userRankAdapter: UserRkAdapter
     lateinit var exname: String
 
@@ -48,13 +47,15 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     private val sharedManager: SharedManager by lazy { SharedManager(this) }
 
+//    private var belong: String? = sharedManager.getCurrentUser().belong
     lateinit var viewModel: MainViewModel
-    private var points:String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val currentUser = sharedManager.getCurrentUser()
+//        belong = currentUser.belong
+//        id = currentUser.id
 //        binding = ActivityMainBinding.inflate(layoutInflater)
         val transaction = supportFragmentManager.beginTransaction()
         setContentView(R.layout.fragment_main_page_part)
@@ -87,9 +88,17 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         viewModel.belong.observe(this,{
-            info_user_belong.text = it.toString()
+            info_user_belong?.text = it.toString()
         })
+        viewModel.point.observe(this,{
+            Log.d("userPoint", it)
+            txt_ranking_my_points?.text = it.toString()
+
+        })
+//        viewModel.init()
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //툴바 버튼 처리
@@ -143,8 +152,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 setDataAtFragment(MyRoutineFragment(), TAG_ROUTINE_FRAGMENT)
             }
             R.id.btn_drawer -> {
-                info_user_id.setText("${currentUser.id}")
-                info_user_belong.setText("${currentUser.belong}")
+                info_user_id.text = "${currentUser.id}"
+                info_user_belong.text = "${currentUser.belong}"
                 main_drawer_layout.openDrawer(GravityCompat.START)
             }
 
@@ -273,8 +282,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     fun emptyRecycler() {
         userRankAdapter = UserRkAdapter(this)
         rankingRecyclerView?.adapter = null
-
-
     }
 
     private fun setUserRank() {
@@ -353,8 +360,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
         endComment.text = "${name} ${minute}분 ${second}초 했습니다!!!"
         time.text = "획득한 Point \n $point point !!!"
-
-        sharedManager.setUserPoint(currentUser,newPoint.toString())
+        viewModel.editPoint(newPoint.toString())
+//        Log.d("userPoint",currentUser.points.toString())
+//        sharedManager.setUserPoint(currentUser,newPoint.toString())
         setUserDBPoints(currentUser,newPoint.toString())
         Toast.makeText(this, "${currentUser.points}", Toast.LENGTH_SHORT).show()
         exit.setOnClickListener {
@@ -415,6 +423,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
             })
         queue.add(StringRequest)
+    }
+    fun rankingRefresh(){
+        emptyRecycler()
+        setRankData()
+        initRecycler()
     }
 
 
