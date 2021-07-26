@@ -30,9 +30,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         height.value = input_height
         weight.value = input_weight
         belong.value = input_belong
-//        currentUser.height  = input_height
-//        currentUser.weight = input_weight
-//        currentUser.belong = input_belong
+
         sharedManager.setUserInfo(
             currentUser,
             weight.value.toString(),
@@ -44,8 +42,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
     fun editPoint(input_point:String){
         point.value = input_point
-        sharedManager.setUserPoint(currentUser,point.value)
+        sharedManager.setUserPoint(currentUser,point.value.toString())
+        Log.d("userPoint","${currentUser.points}")
     }
+
 
     override fun onCleared() {
         Log.d("userinfo", "edited info ${currentUser.height},${currentUser.weight}")

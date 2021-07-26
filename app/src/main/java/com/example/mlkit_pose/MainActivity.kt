@@ -1,35 +1,33 @@
 package com.example.mlkit_pose
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.navigation.NavController
 
 
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
-class MainActivity : AppCompatActivity(),View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
+    private val sharedManager: SharedManager by lazy { SharedManager(this) }
 
-    private val sharedManager : SharedManager by lazy { SharedManager(this) }
-
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
 //        navController = nav_host_fragment.findNavController()
 
         super.onCreate(savedInstanceState)
         val currentUser = sharedManager.getCurrentUser()
 //        Toast.makeText(this, currentUser.id.toString(),Toast.LENGTH_SHORT).show()
-        val d = Log.d("idinfo", currentUser.id.toString())
-        if (currentUser.id.toString() !== ""){ //만약 로그인 정보가 있으면 그냥 메인화면으로
+        Log.d("idinfo", currentUser.id.toString())
+        if (currentUser.id.toString() !== "") { //만약 로그인 정보가 있으면 그냥 메인화면으로
             // id == null로 하면안되고 === 3개를 이용해야된다!
             startActivity(Intent(this, PageActivity::class.java))
             finish()
@@ -44,14 +42,14 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
     override fun onClick(v: View?) {
 
         val queue = Volley.newRequestQueue(this)
-        val transaction = supportFragmentManager.beginTransaction()
+
         when (v?.id) {
             R.id.btn_login -> {
 //                startActivity(Intent(this, SignActivity::class.java))
 //                finish()
                 val inputLogin = et_id.text.toString()
                 val inputPassword = et_password.text.toString()
-                val url = JSP.getLoginURL(inputLogin,inputPassword)
+                val url = JSP.getLoginURL(inputLogin, inputPassword)
 
                 val stringRequest = StringRequest(
                     Request.Method.GET, url, { response ->
@@ -60,8 +58,9 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                         val details = response.split(",").toTypedArray()
 //                        Toast.makeText(this, "${details[0]},${details[1]},${details[2]}", Toast.LENGTH_LONG).show()
                         if (response.trim() == "error") {
-                            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
-                            et_password.setText(null)
+                            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT)
+                                .show()
+                            et_password.text = null
 
 
                         } else {
@@ -72,13 +71,14 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                                 id = details[2]
                                 password = details[3]
                                 belong = details[4]
-                                age = details[5].toString().toInt()
+                                age = details[5].toInt()
                                 gender = details[6]
-                                weight =details[8]
+                                weight = details[8]
                                 height = details[7]
                             }
-                            Log.d("userinfo","height : ${details[7]}  weight: ${details[8]}")
+                            Log.d("userinfo", "height : ${details[7]}  weight: ${details[8]}")
                             sharedManager.saveCurrentUser(currentUser)
+                            getUserPoints(currentUser.id)
                             startActivity(Intent(this, PageActivity::class.java))
 
                             finish()
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 )
                 queue.add(stringRequest)
             }
-            R.id.btn_signup->{
+            R.id.btn_signup -> {
 //                    Toast.makeText(this, "회원 가입버튼 눌림",Toast.LENGTH_SHORT).show()
 //                    setContentView(R.layout.fragment_sign_up)
                 startActivity(Intent(this, SignActivity::class.java))
@@ -99,5 +99,23 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
         } //when 문 끝
     }// onClick 끝
+
+    private fun getUserPoints(inputId: String?) {
+        val currentUser = sharedManager.getCurrentUser()
+        val queue = Volley.newRequestQueue(this)
+
+        val userRankUrl = JSP.getUserRank(inputId.toString())
+        val stringRequest2 = StringRequest(
+            Request.Method.GET, userRankUrl, { response ->
+                response.trim { it <= ' ' }
+                val userPoint = response.split(",").toTypedArray()[2]
+                sharedManager.setUserPoint(currentUser, userPoint.trim())
+                Log.d("userPoint", userPoint)
+            }, {
+                Toast.makeText(this, "sever error", Toast.LENGTH_SHORT).show()
+            })
+        queue.add(stringRequest2)
+//        return user_point
+    }
 
 }

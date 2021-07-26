@@ -3,8 +3,7 @@ package com.example.mlkit_pose.fragment
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
-import android.os.ResultReceiver
-import android.util.Log
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,20 +11,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.view.GravityCompat
-import androidx.lifecycle.Observer
+
+
 import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.*
 
-import kotlinx.android.synthetic.main.fragment_bottom_menu.*
+
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_my_page.view.*
-import kotlinx.android.synthetic.main.fragment_tool_bar.*
-import kotlinx.android.synthetic.main.popup_mypage_edit.*
-import java.util.*
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -38,6 +35,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
     private var belong: String? = null
     private var weight: String? = null
     private var height: String? = null
+    private var point:String? = null
 
     lateinit var viewModel: MainViewModel
 
@@ -52,34 +50,37 @@ class MyPageFragment : Fragment(), View.OnClickListener {
             belong = it.getString("belong")
             weight = it.getString("weight")
             height = it.getString("height")
+            point = it.getString("points")
         }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        viewModel.weight.observe(this, Observer {
+        viewModel.weight.observe(this, {
             et_mypage_weight.text = it.toString()
         })
-        viewModel.height.observe(this, Observer {
+        viewModel.height.observe(this, {
             et_mypage_height.text = it.toString()
         })
-        viewModel.belong.observe(this, Observer {
+        viewModel.belong.observe(this, {
             et_mypage_belong.text = it.toString()
         })
-        viewModel.init()
+
+//        viewModel.init()
     }
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_my_page, container, false)
         view.et_mypage_gender.text = "$gender"
         view.et_mypage_id.text = "$id"
         view.et_mypage_name.text ="$nickname"
-//        view.et_mypage_belong.text = "$belong"
-//        view.et_mypage_height.text = "${height}cm"
-//        view.et_mypage_weight.text = "${weight}kg"
+        view.et_mypage_belong.text = "$belong"
+        view.et_mypage_height.text = "${height}cm"
+        view.et_mypage_weight.text = "${weight}kg"
+        view.et_mypage_point.text = "$point"
         view.btn_mypage_edit.setOnClickListener(this)
 
 //        return inflater.inflate(R.layout.fragment_my_page, container, false)
@@ -155,7 +156,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
     ) {
         val queue = Volley.newRequestQueue(context)
         val url_setUserInfoDB =
-            JSP.getUserInfoEdit(input_height, input_weight, input_belong, input_id)
+            JSP.setUserInfoEdit(input_height, input_weight, input_belong, input_id)
         val StringRequest=StringRequest(
             Request.Method.GET, url_setUserInfoDB, { response ->
                 response.trim { it <= ' ' }
