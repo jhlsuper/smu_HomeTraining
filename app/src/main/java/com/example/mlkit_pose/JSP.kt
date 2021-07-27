@@ -49,7 +49,7 @@ class JSP {
             val url = Jsp_Url+"InsertScore.jsp?userId=$inputId&userScore=$points"
             return url
         }
-        fun getUserInfoEdit(inputHeight: String,inputWeight: String,inputTeam: String,inputId: String):String{
+        fun setUserInfoEdit(inputHeight: String,inputWeight: String,inputTeam: String,inputId: String):String{
             val url = Jsp_Url+"MypageUpdate.jsp?height=$inputHeight&weight=$inputWeight&team=$inputTeam&userId=$inputId"
             return url
         }
