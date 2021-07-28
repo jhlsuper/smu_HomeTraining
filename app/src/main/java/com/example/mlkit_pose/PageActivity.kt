@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 //import com.example.mlkit_pose.databinding.ActivityMainBinding
 import com.example.mlkit_pose.fragment.*
+import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
@@ -151,7 +152,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 setDataAtFragment(RankingMainFragment(), TAG_RANK_FRAGMENT)
             }
             R.id.btn_routine -> {
-                setDataAtFragment(MyRoutineFragment(), TAG_ROUTINE_FRAGMENT)
+                setDataAtFragment(RoutineFragment(), TAG_ROUTINE_FRAGMENT)
             }
             R.id.btn_drawer -> {
                 info_user_id.text = "${currentUser.id}"
