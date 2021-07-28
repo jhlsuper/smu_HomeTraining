@@ -156,7 +156,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
     ) {
         val queue = Volley.newRequestQueue(context)
         val url_setUserInfoDB =
-            JSP.getUserInfoEdit(input_height, input_weight, input_belong, input_id)
+            JSP.setUserInfoEdit(input_height, input_weight, input_belong, input_id)
         val StringRequest=StringRequest(
             Request.Method.GET, url_setUserInfoDB, { response ->
                 response.trim { it <= ' ' }
