@@ -22,13 +22,10 @@
             android:background="@drawable/shape_rectanglegray"
             android:padding="10dp">
 
-            <ExpandableListView
+            <com.example.mlkit_pose.fragment.expre.CustomRecyclerView
+                android:id="@+id/recylcerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/elvMobiles">
-
-            </ExpandableListView>
-
+                android:layout_height="match_parent" />
 
         </RelativeLayout>
 
