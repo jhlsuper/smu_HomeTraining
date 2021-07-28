@@ -2,15 +2,15 @@ package com.example.mlkit_pose.fragment.expre
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.mlkit_pose.R
-
+import kotlinx.android.synthetic.main.fragment_my_routine.*
 import java.util.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,6 +52,19 @@ class RoutineFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context))
         recyclerView.layoutManager = ItemLayoutManager(context)
+
+//        tv_message.setOnClickListener(View.OnClickListener {
+//            val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(context)
+//            val view: View = LayoutInflater.from(context).inflate(R.layout.edit_box, null, false)
+//            builder.setView(view)
+//
+//
+//
+//
+//        })
+
+
+
     }
 
     override fun onAttach(context: Context) {

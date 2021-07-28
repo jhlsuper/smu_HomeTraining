@@ -1,6 +1,7 @@
 package com.example.mlkit_pose.fragment.expre;
 
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.mlkit_pose.R;
 import com.example.mlkit_pose.fragment.expre.model.ChildItem;
@@ -25,13 +27,18 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private final String TAG = "[Simple][NewItemAdaptr]";
     private final int PARENT_ITEM_VIEW = 0;
     private final int CHILD_ITEM_VIEW = 1;
+    private Context context;
+
+    public Context getContext() {
+        return context;
+    }
 
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Item> visibleItems = new ArrayList<>();
 
     public ItemAdapter(){
         char alphabet = 'A';
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 5; i++){
         Item item1 = new ParentItem((char)(alphabet+i)+"", PARENT_ITEM_VIEW);
         Item item2 = new ChildItem((char)(alphabet+i)+"-1", CHILD_ITEM_VIEW);
         Item item3 = new ChildItem((char)(alphabet+i)+"-2", CHILD_ITEM_VIEW);
@@ -250,6 +257,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @Override
     public void onItemRemove(int position) {
         Log.i(TAG, "onItemRemove. item : "+visibleItems.get(position).name);
+
         switch(visibleItems.get(position).viewType){
             case PARENT_ITEM_VIEW:
             int childItemSize = getVisibleChildItemSize(position);
