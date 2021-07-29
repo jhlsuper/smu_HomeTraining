@@ -1,214 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <EditText
-        android:id="@+id/new_routine_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="루틴 이름을 입력하세요."
-        android:inputType="text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/Push_up"/>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <CheckBox
-        android:id="@+id/Push_up"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="푸쉬업"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/new_routine_name"
-        tools:ignore="MissingConstraints">
-    </CheckBox>
-    <CheckBox
-        android:id="@+id/Full_plank"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="풀 플랭크"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Push_up"
-        tools:ignore="MissingConstraints">
-    </CheckBox>
-    <CheckBox
-        android:id="@+id/Back_lift"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="백 리프트"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Full_plank"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-    android:id="@+id/Superman"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:text="슈퍼맨 운동"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/Back_lift"
-    tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Dumbbell_shoulder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="덤벨 숄더 프레스"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Superman"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Dumbbell_side"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="덤벨 사이드 레터럴 레이즈"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Dumbbell_shoulder"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Updown_plank"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="업다운 플랭크"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Dumbbell_side"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Dumbbell_cross"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="덤벨 교차 운동"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Updown_plank"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Leg_raise"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="레그레이즈"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Dumbbell_cross"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Sitted_kneeup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="시티드 니업"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Leg_raise"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Bird_dog"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="버드독"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Sitted_kneeup"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Dead_bug"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="데드 버그"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Bird_dog"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/V_situp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="V 싯업"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Dead_bug"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Forward_band"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="포워드 밴드"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/V_situp"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/One_arm"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="한 발로 땅 짚기"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Forward_band"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Wide_squat"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="와이드 스쿼트"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/One_arm"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Side_legraise"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="사이드 레그레이즈"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Wide_squat"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Band_sidestep"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="밴드 사이드 스텝"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Side_legraise"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Lunge"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="런지"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Band_sidestep"
-        tools:ignore="MissingConstraints"/>
-    <CheckBox
-        android:id="@+id/Bridge"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="브릿지"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Lunge"
-        tools:ignore="MissingConstraints"/>
+        <EditText
+            android:id="@+id/new_routine_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="루틴 이름을 입력하세요."
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@id/Push_up"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_dialog_submit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="추가"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Bridge" />
+        <CheckBox
+            android:id="@+id/Push_up"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="푸쉬업"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_routine_name"
+            tools:ignore="MissingConstraints" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <CheckBox
+            android:id="@+id/Full_plank"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="풀 플랭크"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Push_up"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Back_lift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="백 리프트"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Full_plank"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Superman"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="슈퍼맨 운동"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Back_lift"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Dumbbell_shoulder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="덤벨 숄더 프레스"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Superman"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Dumbbell_side"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="덤벨 사이드 레터럴 레이즈"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Dumbbell_shoulder"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Updown_plank"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="업다운 플랭크"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Dumbbell_side"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Dumbbell_cross"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="덤벨 교차 운동"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Updown_plank"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Leg_raise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="레그레이즈"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Dumbbell_cross"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Sitted_kneeup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="시티드 니업"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Leg_raise"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Bird_dog"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="버드독"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Sitted_kneeup"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Dead_bug"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="데드 버그"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Bird_dog"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/V_situp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="V 싯업"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Dead_bug"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Forward_band"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="포워드 밴드"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/V_situp"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/One_arm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="한 발로 땅 짚기"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Forward_band"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Wide_squat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="와이드 스쿼트"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/One_arm"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Side_legraise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="사이드 레그레이즈"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Wide_squat"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Band_sidestep"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="밴드 사이드 스텝"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Side_legraise"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Lunge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="런지"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Band_sidestep"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Bridge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="브릿지"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Lunge"
+            tools:ignore="MissingConstraints" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
