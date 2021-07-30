@@ -22,16 +22,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <TextView
         android:id="@+id/info_user_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:textColor="#000000"
-        android:textSize="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/header_icon"
+
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/header_icon"
         app:layout_constraintTop_toTopOf="@+id/header_icon"
         tools:text="로그인해주세요" />
@@ -40,13 +41,24 @@
         android:id="@+id/info_user_belong"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:text="유저 소속:"
         android:textColor="#EB554C4C"
-        android:textSize="15dp"
-        android:layout_marginStart="10dp"
-
-        app:layout_constraintEnd_toEndOf="@+id/info_user_id"
-        app:layout_constraintStart_toEndOf="@+id/header_icon"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/info_user_point"
+        app:layout_constraintStart_toStartOf="@id/info_user_id"
         app:layout_constraintTop_toBottomOf="@+id/info_user_id" />
+
+    <TextView
+        android:id="@+id/info_user_point"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="유저 Point: "
+        android:textColor="#EB554C4C"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/header_icon"
+        app:layout_constraintStart_toStartOf="@id/info_user_id"
+        app:layout_constraintTop_toBottomOf="@id/info_user_belong" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,10 +4,12 @@ package com.example.mlkit_pose
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Insets.add
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -17,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.core.view.OneShotPreDrawListener.add
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
@@ -49,9 +52,10 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     private val sharedManager: SharedManager by lazy { SharedManager(this) }
 
-//    private var belong: String? = sharedManager.getCurrentUser().belong
+    //    private var belong: String? = sharedManager.getCurrentUser().belong
     lateinit var viewModel: MainViewModel
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -85,22 +89,24 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                     showExerciseDonePopup(exname, minute, second, this)
                 }
             }
-        Log.d("userinfo","${currentUser.weight},${currentUser.height}")
+        Log.d("userinfo", "${currentUser.weight},${currentUser.height}")
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        viewModel.belong.observe(this,{
-            info_user_belong?.text = it.toString()
+        viewModel.belong.observe(this, {
+            info_user_belong?.text = "소속: $it"
         })
-        viewModel.point.observe(this,{
+        viewModel.point.observe(this, {
             Log.d("userPoint", it)
             txt_ranking_my_points?.text = it.toString()
             et_mypage_point?.text = it.toString()
+            info_user_point?.text = "포인트: $it"
             rankingRefresh()
+
+
         })
         viewModel.init()
     }
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -108,11 +114,17 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         when (item.itemId) {
             android.R.id.home -> {
                 main_drawer_layout.openDrawer(GravityCompat.START)
-
             }
 
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+
+        return super.onCreateOptionsMenu(menu)
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -132,6 +144,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onClick(v: View) {
 //        val datas = mutableListOf<User>()
         val currentUser = sharedManager.getCurrentUser()
@@ -156,7 +169,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             }
             R.id.btn_drawer -> {
                 info_user_id.text = "${currentUser.id}"
-                info_user_belong.text = "${currentUser.belong}"
+                info_user_belong.text = "소속: ${currentUser.belong}"
+                info_user_point.text = "포인트: ${currentUser.points}"
                 main_drawer_layout.openDrawer(GravityCompat.START)
             }
 
@@ -180,8 +194,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         bundle.putString("gender", currentUser.gender)
         bundle.putString("belong", currentUser.belong)
         bundle.putString("points", currentUser.points)
-        bundle.putString("height",currentUser.height)
-        bundle.putString("weight",currentUser.weight)
+        bundle.putString("height", currentUser.height)
+        bundle.putString("weight", currentUser.weight)
         fragment.arguments = bundle
         setFragment(fragment, tag)
     }
@@ -359,14 +373,14 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
         val exit: Button = mView.findViewById<Button>(R.id.btn_exercise_exit)
         val redo: Button = mView.findViewById<Button>(R.id.btn_exercise_redo)
-        val newPoint = point+ (currentUser.points)!!.toInt()
+        val newPoint = point + (currentUser.points)!!.toInt()
 
         endComment.text = "${name} ${minute}분 ${second}초 했습니다!!!"
         time.text = "획득한 Point \n $point point !!!"
         viewModel.editPoint(newPoint.toString())
 //        Log.d("userPoint",currentUser.points.toString())
 //        sharedManager.setUserPoint(currentUser,newPoint.toString())
-        setUserDBPoints(currentUser,newPoint.toString())
+        setUserDBPoints(currentUser, newPoint.toString())
         Toast.makeText(this, "${currentUser.points}", Toast.LENGTH_SHORT).show()
         exit.setOnClickListener {
             dialog.dismiss()
@@ -412,22 +426,23 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val queue = Volley.newRequestQueue(this)
         val url_setUserPoints = JSP.getUserPointSet(user.id.toString(), points)
 
-        val StringRequest=StringRequest(
+        val StringRequest = StringRequest(
             Request.Method.GET, url_setUserPoints, { response ->
                 response.trim { it <= ' ' }
-                Toast.makeText(this, response,Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, response, Toast.LENGTH_SHORT).show()
                 val details3 = (response.trim())
                 Log.d("Point", details3)
 //                datas.clear()
-                if (details3=="success"){
-                    Log.d("Point","유저의 Point가 $points 로 업데이트되었습니다.")
+                if (details3 == "success") {
+                    Log.d("Point", "유저의 Point가 $points 로 업데이트되었습니다.")
                 }
             }, {
                 Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
             })
         queue.add(StringRequest)
     }
-    fun rankingRefresh(){
+
+    fun rankingRefresh() {
         emptyRecycler()
         setRankData()
         initRecycler()
