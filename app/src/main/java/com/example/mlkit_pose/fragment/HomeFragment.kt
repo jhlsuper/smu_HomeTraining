@@ -10,9 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import com.example.mlkit_pose.MainActivity
-import com.example.mlkit_pose.PageActivity
-import com.example.mlkit_pose.R
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.ViewModelProvider
+import com.example.mlkit_pose.*
 
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -21,8 +21,8 @@ import kotlin.math.log
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private  val nickname:String? = null
+private  val point:String? = null
 
 
 class HomeFragment : Fragment(),View.OnClickListener {
@@ -30,24 +30,33 @@ class HomeFragment : Fragment(),View.OnClickListener {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var viewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+//            nickname = it.getString("name")
+//            point = it.getString("points")
             Log.d("태그","fragment 기능 구현")
             Toast.makeText(activity,"프래그먼트 on",Toast.LENGTH_SHORT).show()
 
         }
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        viewModel.point.observe(this,{
+            btn_home_ranking.text = it.toString()
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container:
-    ViewGroup?, savedInstanceState: Bundle?): View?
+    ViewGroup?, savedInstanceState: Bundle?): View
     {
+
+
         val view:View = inflater.inflate(R.layout.fragment_main,container,false)
         view.btn_home_daily.setOnClickListener(this)
 
-
+        view.btn_home_ranking.text ="$"
 //        return inflater.inflate(R.layout.fragment_main, container, false)
         return view
     }

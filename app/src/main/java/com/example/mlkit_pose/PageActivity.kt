@@ -63,7 +63,12 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //        belong = currentUser.belong
 //        id = currentUser.id
 //        binding = ActivityMainBinding.inflate(layoutInflater)
-        val transaction = supportFragmentManager.beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction().apply {
+            arguments = Bundle().apply {
+                putString("nickname",currentUser.name)
+                putString("points",currentUser.points)
+            }
+        }
         setContentView(R.layout.fragment_main_page_part)
         transaction.add(R.id.frameLayout, HomeFragment())
         transaction.commit()
