@@ -1,44 +1,35 @@
 package com.example.mlkit_pose.fragment
 
-import android.content.ComponentName
-import android.content.Intent
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import com.example.mlkit_pose.*
-
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
-import kotlin.math.log
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private  val nickname:String? = null
-private  val point:String? = null
 
 
 class HomeFragment : Fragment(),View.OnClickListener {
 
-    private var param1: String? = null
-    private var param2: String? = null
+    private var nickname: String? = null
+    private var point: String? = null
 
-    lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-//            nickname = it.getString("name")
-//            point = it.getString("points")
+            nickname = it.getString("name")
+            point = it.getString("points")
             Log.d("태그","fragment 기능 구현")
-            Toast.makeText(activity,"프래그먼트 on",Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,"$nickname,$point",Toast.LENGTH_SHORT).show()
 
         }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -48,6 +39,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
         })
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container:
     ViewGroup?, savedInstanceState: Bundle?): View
     {
@@ -55,9 +47,9 @@ class HomeFragment : Fragment(),View.OnClickListener {
 
         val view:View = inflater.inflate(R.layout.fragment_main,container,false)
         view.btn_home_daily.setOnClickListener(this)
+        view.btn_home_ranking.setOnClickListener(this)
+        view.btn_home_ranking.text ="유저 포인트\n $point"
 
-        view.btn_home_ranking.text ="$"
-//        return inflater.inflate(R.layout.fragment_main, container, false)
         return view
     }
 
@@ -73,8 +65,8 @@ class HomeFragment : Fragment(),View.OnClickListener {
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.btn_home_daily->{
-
+            R.id.btn_home_ranking->{
+                (activity as PageActivity).setDataAtFragment(RankingMainFragment(), PageActivity.TAG_RANK_FRAGMENT)
             }
         }
     }

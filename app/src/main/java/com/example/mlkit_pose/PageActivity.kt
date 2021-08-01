@@ -4,9 +4,7 @@ package com.example.mlkit_pose
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.Insets.add
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -19,17 +17,16 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.core.view.OneShotPreDrawListener.add
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-//import com.example.mlkit_pose.databinding.ActivityMainBinding
 import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
@@ -60,17 +57,15 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         super.onCreate(savedInstanceState)
 
         val currentUser = sharedManager.getCurrentUser()
-//        belong = currentUser.belong
-//        id = currentUser.id
-//        binding = ActivityMainBinding.inflate(layoutInflater)
-        val transaction = supportFragmentManager.beginTransaction().apply {
-            arguments = Bundle().apply {
-                putString("nickname",currentUser.name)
-                putString("points",currentUser.points)
-            }
-        }
+        setUserRank()
+        val transaction = supportFragmentManager.beginTransaction()
         setContentView(R.layout.fragment_main_page_part)
-        transaction.add(R.id.frameLayout, HomeFragment())
+        transaction.add(R.id.frameLayout, HomeFragment().apply {
+            arguments = Bundle().apply {
+                putString("name","${currentUser.name}")
+                putString("points","${currentUser.points}")
+            }
+        })
         transaction.commit()
 
         setSupportActionBar(main_layout_toolbar)
@@ -106,6 +101,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             txt_ranking_my_points?.text = it.toString()
             et_mypage_point?.text = it.toString()
             info_user_point?.text = "포인트: $it"
+            btn_home_ranking.text = "유저포인트\n $it"
             rankingRefresh()
 
 
@@ -191,7 +187,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         finish()
     }
 
-    private fun setDataAtFragment(fragment: Fragment, tag: String) {
+    fun setDataAtFragment(fragment: Fragment, tag: String) {
         val currentUser = sharedManager.getCurrentUser()
         val bundle = Bundle()
         bundle.putString("id", currentUser.id)
@@ -317,7 +313,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 response.trim { it <= ' ' }
 
                 val details2 = (response.trim().split(",")).toTypedArray()
-                val userPoint: Int
+//                val userPoint: Int
 //            Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
                 if (details2[2] == null) {
 
@@ -417,7 +413,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
         val intent = Intent(this, SettingLivePreviewActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-        intent.putExtra("ExcerciseName", exname);
+        intent.putExtra("ExcerciseName", exname)
         intent.putExtra("minute", minute)
         intent.putExtra("second", second)
         activityResultLauncher.launch(intent)
@@ -456,13 +452,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     companion object {
 
-        private const val TAG_HOME_FRAGMENT = "home"
-        private const val TAG_RANK_FRAGMENT = "rank"
-        private const val TAG_ROUTINE_FRAGMENT = "routine"
-        private const val TAG_GUIDE_FRAGMENT = "guide"
-        private const val TAG_MYPAGE_FRAGMENT = "mypage"
-        private const val TAG_GUIDE_CLICK_FRAGMENT = "guide_click"
-        private const val TAG_GUIDE_SPORT_FRAGMENT = "guide_sport"
+        const val TAG_HOME_FRAGMENT = "home"
+        const val TAG_RANK_FRAGMENT = "rank"
+        const val TAG_ROUTINE_FRAGMENT = "routine"
+        const val TAG_GUIDE_FRAGMENT = "guide"
+        const val TAG_MYPAGE_FRAGMENT = "mypage"
+        const val TAG_GUIDE_CLICK_FRAGMENT = "guide_click"
+        const val TAG_GUIDE_SPORT_FRAGMENT = "guide_sport"
         private const val SETTING_OK = 2
     }
 
