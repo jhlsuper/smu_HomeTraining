@@ -104,9 +104,9 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 public void onClick(View v) {
                     int holderPosition = ((ParentItemVH)v.getTag()).getAdapterPosition();
                     if(((ParentItem)visibleItems.get(holderPosition)).visibilityOfChildItems){
-                        collapseChildItems(holderPosition);
+                        collapseChildItems(holderPosition); // 접는거
                     }else{
-                        expandChildItems(holderPosition);
+                        expandChildItems(holderPosition); // 열리는거
                     }
                 }
             });
@@ -255,23 +255,27 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     @Override
-    public void onItemRemove(int position) {
+    public void onItemRemove(int position,boolean isDelete) {
         Log.i(TAG, "onItemRemove. item : "+visibleItems.get(position).name);
+        if (isDelete) {
+            switch (visibleItems.get(position).viewType) {
+                case PARENT_ITEM_VIEW:
+                    int childItemSize = getVisibleChildItemSize(position);
 
-        switch(visibleItems.get(position).viewType){
-            case PARENT_ITEM_VIEW:
-            int childItemSize = getVisibleChildItemSize(position);
+                    for (int i = 0; i <= childItemSize; i++) {
+                        visibleItems.remove(position);
+                    }
+                    notifyItemRangeRemoved(position, childItemSize + 1);
 
-            for(int i = 0; i <= childItemSize; i++){
-            visibleItems.remove(position);
+                    break;
+                case CHILD_ITEM_VIEW:
+                    visibleItems.remove(position);
+                    notifyItemRemoved(position);
+                    break;
+            }
         }
-            notifyItemRangeRemoved(position, childItemSize + 1);
-
-            break;
-            case CHILD_ITEM_VIEW:
-            visibleItems.remove(position);
-            notifyItemRemoved(position);
-            break;
+        else{
+            notifyItemChanged(position);
         }
     }
 
