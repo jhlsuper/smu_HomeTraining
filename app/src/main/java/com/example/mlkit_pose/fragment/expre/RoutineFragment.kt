@@ -1,7 +1,6 @@
 package com.example.mlkit_pose.fragment.expre
 
 import android.app.AlertDialog
-import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
@@ -9,6 +8,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.CompoundButton
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mlkit_pose.R
@@ -29,11 +31,10 @@ class RoutineFragment : Fragment() {
     private var param2: String? = null
     lateinit var adapter: ItemAdapter
 
-    val checkedItems = booleanArrayOf(
-        false, false, false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false
-    )    //체크된 내용 기억
+        //체크된 내용 기억
     val checkedItemList = ArrayList<String>()  // 선택된 항목을 담는 리스트
+    val RoutineList = ArrayList<String>()  // 선택된 항목을 담는 리스트
+    val RoutinesportsList = ArrayList<String>()  // 선택된 항목을 담는 리스트
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +58,8 @@ class RoutineFragment : Fragment() {
 
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView: CustomRecyclerView =
@@ -70,10 +73,15 @@ class RoutineFragment : Fragment() {
 //            val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(context)
 //            val view: View = inflater.inflate(R.layout.fragment_ranking_main, container, false)
 //            builder.setView(view)
-
-//            val popupView: View = layoutInflater.inflate(R.layout.edit_box, null)
+            val checkedItems = booleanArrayOf(
+                false, false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false
+            )
             val builder = AlertDialog.Builder(context)
-//            builder.setView(popupView)
+            builder.setTitle("NEW 루틴 생성")
+
+            val popupView: View = layoutInflater.inflate(R.layout.edit_box, null)
+            builder.setView(popupView)
 
             val itemList = arrayOf<String>(
                 "푸쉬업", "풀 플랭크", "백 리프트", "슈퍼맨 운동", "덤벨 숄더 프레스", "덤벨 사이드 레터럴 레이즈",
@@ -88,29 +96,54 @@ class RoutineFragment : Fragment() {
 //                    })
 
 
-            // 항목 클릭 시 이벤트
-            builder.setMultiChoiceItems(itemList, checkedItems) { dialog, which, isChecked ->
-                // 체크 시 리스트에 추가
-                if (isChecked) {
-                    checkedItemList.add(itemList[which])
-                }
-                // 체크 해제 시 리스트에서 제거
-                else if (checkedItemList.contains(itemList[which])) {
-                    checkedItemList.remove(itemList[which])
-                }
-            }
 
-            builder.setPositiveButton("추가") { dialog, which ->
-                Log.d("test2222", checkedItemList.toString())
-                Toast.makeText(
-                    context, checkedItemList.joinToString(", ", "루틴이 추가됨: "),
-                    Toast.LENGTH_SHORT).show()
-            }
+            var listener = DialogInterface.OnClickListener { p0, p1 ->
+                var alert = p0 as AlertDialog
+                var edit1: EditText? = alert.findViewById<EditText>(R.id.new_routine_name)
+                // 입력 받는 칸
 
-//            builder.setNegativeButton("루틴 이름 입력") { dialog, which ->
-//                val popupView: View = layoutInflater.inflate(R.layout.edit_box, null)
-//                builder.setView(popupView)
+
+//                Push_up.setOnClickListener {
 //
+//                }
+//
+//                Full_plank.setOnCheckedChangeListener { buttonView, isChecked ->
+//                    if (isChecked) RoutinesportsList.add("푸쉬업")
+//                    else Toast.makeText(context, "안됨", Toast.LENGTH_SHORT).show()
+//                    Log.d("test22", RoutinesportsList.toString())
+//                }
+
+
+                RoutineList.add("${edit1?.text}") // (루틴 이름을 받아오는쪽) 얘는 잘 됨!
+                Toast.makeText(
+                    context, "${edit1?.text} 루틴이 추가됨!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Log.d("list", RoutineList.toString())
+
+            }
+
+
+            builder.setPositiveButton("확인", listener)
+            builder.setNegativeButton("취소", null)
+
+            // 항목 클릭 시 이벤트
+//            builder.setMultiChoiceItems(itemList, checkedItems) { dialog, which, isChecked ->
+//                // 체크 시 리스트에 추가
+//                if (isChecked) {
+//                    checkedItemList.add(itemList[which])
+//                }
+//                // 체크 해제 시 리스트에서 제거
+//                else if (checkedItemList.contains(itemList[which])) {
+//                    checkedItemList.remove(itemList[which])
+//                }
+//            }
+
+//            builder.setPositiveButton("추가") { dialog, which ->
+//                Log.d("test2222", checkedItemList.toString())
+//                Toast.makeText(
+//                    context, checkedItemList.joinToString(", ", "루틴이 추가됨: "),
+//                    Toast.LENGTH_SHORT).show()
 //            }
 
             val alertDialog = builder.create()
@@ -134,6 +167,19 @@ class RoutineFragment : Fragment() {
 //        })
 
 
+    }
+
+    inner class CheckedboxListener : CompoundButton.OnCheckedChangeListener {
+        override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+            when (p0?.id) {
+                R.id.Push_up ->
+                    if (p1) RoutinesportsList.add(Push_up.text.toString())
+                    else Log.d("tes22", "안 찍힘")
+                R.id.Full_plank ->
+                    if (p1) RoutinesportsList.add("풀 플랭크")
+                    else Log.d("tes22", "안 찍힘")
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
