@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -16,39 +17,64 @@
 
         <Button
             android:id="@+id/btn_home"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="홈" />
+            android:layout_height="0dp"
+            android:text="홈"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintRight_toLeftOf="@id/btn_ranking"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/btn_ranking"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="랭킹" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toRightOf="@id/btn_home"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_routine"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="랭킹"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/btn_routine"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="루틴" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toRightOf="@id/btn_ranking"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_guide"
+            android:text="루틴"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/btn_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="가이드" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toRightOf="@id/btn_routine"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_mypage"
+            android:text="가이드"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/btn_mypage"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="마이페이지" />
-    </LinearLayout>
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toRightOf="@id/btn_guide"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="마이페이지"
+            tools:ignore="HardcodedText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"

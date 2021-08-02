@@ -5,19 +5,12 @@
     android:id="@+id/main_layout_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?attr/actionBarSize"
-    android:background="@drawable/top">
-<!--    <Button-->
-<!--        android:id="@+id/btn_drawer"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
+    android:background="@drawable/top"
+    android:minHeight="?attr/actionBarSize">
 
-<!--        android:background="@drawable/btn_menu"-->
-<!--        />-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.utils.widget.ImageFilterButton
             android:id="@+id/btn_drawer"
@@ -30,19 +23,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <androidx.constraintlayout.utils.widget.ImageFilterButton-->
-<!--            android:id="@+id/btn_logout"-->
-<!--            android:layout_width="53dp"-->
-<!--            android:layout_height="52dp"-->
-<!--            android:layout_marginStart="5dp"-->
-<!--            android:background="@drawable/profile"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/btn_drawer"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 </androidx.appcompat.widget.Toolbar>
