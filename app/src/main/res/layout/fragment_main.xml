@@ -5,18 +5,10 @@
     android:id="@+id/homeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="@color/light_grey_400"
     android:clickable="true"
     android:focusable="true"
     tools:context=".fragment.HomeFragment">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-
-        app:layout_constraintGuide_percent="0.9" />
 
 
     <Button
@@ -30,11 +22,13 @@
         android:background="@color/white"
         android:shadowColor="@color/gray"
         android:text="오늘의운동"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_home_ranking"
@@ -43,16 +37,17 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="35dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/white"
         android:shadowColor="@color/gray"
         android:text="1위 .000 \n 4500pt "
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@id/guideline36"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline18"
-        tools:layout_editor_absoluteY="127dp" />
+        tools:layout_editor_absoluteY="127dp"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_home_guide"
@@ -64,17 +59,18 @@
         android:layout_marginBottom="10dp"
         android:background="@color/white"
         android:shadowColor="@color/gray"
-        android:text="가이드로 가는 버튼
-"
+        android:text="가이드로 가는 버튼"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@id/guideline54"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline36"
-        tools:layout_editor_absoluteY="274dp" />
+        tools:layout_editor_absoluteY="274dp"
+        tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/btn_home_timer"
+        android:id="@+id/btn_home_mypage"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
@@ -83,14 +79,13 @@
         android:layout_marginBottom="10dp"
         android:background="@color/white"
         android:shadowColor="@color/gray"
-        android:text="타이머 버튼
-"
+        android:text="마이페이지 버튼"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@id/guideline54"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@id/guideline36"
-        tools:layout_editor_absoluteY="274dp" />
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_home_routine"
@@ -103,59 +98,59 @@
         android:background="@color/white"
         android:shadowColor="@color/gray"
         android:text="마이 루틴 가능 버튼 "
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@id/guideline72"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline54"
-        tools:layout_editor_absoluteY="405dp" />
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_home_app_routine"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/guideline72"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
-
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/white"
         android:shadowColor="@color/gray"
         android:text="앱 추천 루틴"
-
-
-        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline72"
+        tools:ignore="HardcodedText" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.18" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline36"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.36" />
+        app:layout_constraintGuide_percent="0.40" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline54"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.54" />
+        app:layout_constraintGuide_percent="0.60" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline72"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.72" />
+        app:layout_constraintGuide_percent="0.80" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -164,20 +159,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.0" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
