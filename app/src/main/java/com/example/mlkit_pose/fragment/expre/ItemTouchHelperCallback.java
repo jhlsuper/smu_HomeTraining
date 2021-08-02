@@ -2,6 +2,7 @@ package com.example.mlkit_pose.fragment.expre;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -45,6 +46,21 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         Log.i(TAG, "onSwiped");
-        listener.onItemRemove(viewHolder.getAdapterPosition());
+        new AlertDialog.Builder(viewHolder.itemView.getContext())
+                .setMessage("지우시겠습니까?")
+                .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        listener.onItemRemove(viewHolder.getAdapterPosition(),true);
+                    }
+                })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        listener.onItemRemove(viewHolder.getAdapterPosition(),false);
+                    }
+                })
+                .create()
+                .show();
     }
 }
