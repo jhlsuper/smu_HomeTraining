@@ -27,22 +27,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
+            <ImageView
+                android:id="@+id/add_routineButton"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="310dp"
+                android:layout_marginTop="600dp"
+                android:onClick="multiChoiceDialog"
+                android:src="@drawable/ic_addbutton" />
+
         </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.7">
-
-            <Button
-                android:id="@+id/tv_message"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="110dp"
-                android:text="새로운 루틴 추가"/>
-
-        </LinearLayout>
 
     </LinearLayout>
 
