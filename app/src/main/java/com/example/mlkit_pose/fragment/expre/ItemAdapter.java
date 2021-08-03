@@ -53,7 +53,11 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         visibleItems.add(item2);
         visibleItems.add(item3);
         visibleItems.add(item4);
+        }
     }
+
+    public void addItems(){
+
     }
 
     @Override
