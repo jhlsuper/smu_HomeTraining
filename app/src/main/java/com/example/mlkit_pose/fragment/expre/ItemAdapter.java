@@ -39,20 +39,26 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     public ItemAdapter(){
         char alphabet = 'A';
         for(int i = 0; i < 5; i++){
-        Item item1 = new ParentItem((char)(alphabet+i)+"", PARENT_ITEM_VIEW);
-        Item item2 = new ChildItem((char)(alphabet+i)+"-1", CHILD_ITEM_VIEW);
-        Item item3 = new ChildItem((char)(alphabet+i)+"-2", CHILD_ITEM_VIEW);
-        Item item4 = new ChildItem((char)(alphabet+i)+"-3", CHILD_ITEM_VIEW);
+            Item item1 = new ParentItem((char)(alphabet+i)+"", PARENT_ITEM_VIEW);
+            Item item2 = new ChildItem((char)(alphabet+i)+"-1", CHILD_ITEM_VIEW);
+            Item item3 = new ChildItem((char)(alphabet+i)+"-2", CHILD_ITEM_VIEW);
+            Item item4 = new ChildItem((char)(alphabet+i)+"-3", CHILD_ITEM_VIEW);
 
-        items.add(item1);
-        items.add(item2);
-        items.add(item3);
-        items.add(item4);
+            items.add(item1);
+            items.add(item2);
+            items.add(item3);
+            items.add(item4);
 
-        visibleItems.add(item1);
-        visibleItems.add(item2);
-        visibleItems.add(item3);
-        visibleItems.add(item4);
+            ParentItem pt = (ParentItem)item1;
+            pt.visibilityOfChildItems=false;
+            visibleItems.add(item1);
+            pt.unvisibleChildItems.add((ChildItem)item2);
+            pt.unvisibleChildItems.add((ChildItem)item3);
+            pt.unvisibleChildItems.add((ChildItem)item4);
+
+//            visibleItems.add(item2);
+//            visibleItems.add(item3);
+//            visibleItems.add(item4);
         }
     }
 
@@ -150,10 +156,9 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         int subItemSize = getVisibleChildItemSize(position);
         for(int i = 0; i < subItemSize; i++){
-        parentItem.unvisibleChildItems.add((ChildItem) visibleItems.get(position + 1));
-        visibleItems.remove(position + 1);
-    }
-
+            parentItem.unvisibleChildItems.add((ChildItem) visibleItems.get(position + 1));
+            visibleItems.remove(position + 1);
+        }
         notifyItemRangeRemoved(position + 1, subItemSize);
     }
 
@@ -179,8 +184,8 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         int childSize = parentItem.unvisibleChildItems.size();
 
         for(int i = childSize - 1; i >= 0; i--){
-        visibleItems.add(position + 1, parentItem.unvisibleChildItems.get(i));
-    }
+            visibleItems.add(position + 1, parentItem.unvisibleChildItems.get(i));
+        }
         parentItem.unvisibleChildItems.clear();
 
         notifyItemRangeInserted(position + 1, childSize);
