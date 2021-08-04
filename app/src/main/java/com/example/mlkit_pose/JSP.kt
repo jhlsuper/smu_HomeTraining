@@ -53,7 +53,11 @@ class JSP {
             val url = Jsp_Url+"MypageUpdate.jsp?height=$inputHeight&weight=$inputWeight&team=$inputTeam&userId=$inputId"
             return url
         }
-
+        // Routine Insert Part
+        fun setRoutineIns(inputId: String,routineName:String,execName:String,engExcName:String):String{
+            val url = Jsp_Url+"RoutineInsert.jsp?userId={$inputId}?routine_name={$routineName}?exc_name={$execName}?engexc_name={$engExcName}"
+            return url
+        }
     }
 
 

@@ -79,16 +79,24 @@ class RoutineFragment : Fragment() {
                 "업다운 플랭크", "덤벨 교차 운동", "레그레이즈", "시티드 니업", "버드독", "데드 버그",
                 "V 싯업", "포워드 밴드", "한 발로 땅 짚기", "와이드 스쿼트", "사이드 레그레이즈", "밴드 사이드 스텝", "런지", "브릿지"
             )
+            val itemEnArray = arrayOf<String>(
+                "PushUp","FullPlank","BackLift","Superman","ShoulderPressDB","SideLateralRaiseDB",
+                "UpDownPlank","CrossoverExerciseDB","LegRaise","SeatedKneeup","BirdDog","DeadBug","SitUp",
+                "ElbowPlank","SideBandDB","ForwardBand","WideSquat","SideLegRaise","Lunge","Bridge","BandSideStep"
+            )
             val checkedItems = booleanArrayOf(
                 false, false, false, false, false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false, false, false
             )
+
+            /* Exercise Check Part */
             val setExercise:AlertDialog.Builder = AlertDialog.Builder(context)
                 .setTitle("CheckList Test")
             setExercise.setMultiChoiceItems(itemArray,checkedItems) { dialog, which, isChekced ->
                 checkedItems[which] = isChekced
             }
             setExercise.setPositiveButton("확인",DialogInterface.OnClickListener(){ dialog,which->
+
                 var texts:String = ""
                 for (i in 0 until itemArray.size){
                     val checked = checkedItems[i]
@@ -96,6 +104,9 @@ class RoutineFragment : Fragment() {
                         texts = texts + "${itemArray[i]} \n"
                     }
                 }
+                // write down volley code here
+
+
                 Log.d("ROUTINE_LIST",texts+" is Selected")
              })
             .setNegativeButton("취소",DialogInterface.OnClickListener(){ dialog, which ->
@@ -103,13 +114,15 @@ class RoutineFragment : Fragment() {
             })
             setExercise.create()
 
-
-            setExercise.create()
+            /* Input Routine Name Part */
             val inputName = layoutInflater.inflate(R.layout.popup_routine_add,null)
             val setRoutineName: AlertDialog.Builder = AlertDialog.Builder(context)
                 .setView(inputName)
                 .setPositiveButton("확인",DialogInterface.OnClickListener(){ dialog,which->
                     newRoutineName = inputName.findViewById<EditText>(R.id.editRoutineName).text.toString()
+                    // write down volley code here
+
+
                     Log.d("ROUTINE_SET","inputName : $newRoutineName")
                     setExercise.show()
                 })
