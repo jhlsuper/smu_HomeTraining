@@ -129,7 +129,7 @@ class RoutineFragment : Fragment() {
                     }
                 }
                 texts = texts.substring(0, (texts.length) - 1)
-                engtexts = engtexts.substring(0, (texts.length) - 1)
+                engtexts = engtexts.substring(0, (engtexts.length) - 1)
                 setRoutine(id.toString(), newRoutineName, texts, engtexts)
 
                 // write down volley code here
