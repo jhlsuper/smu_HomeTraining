@@ -125,8 +125,10 @@ class RoutineFragment : Fragment() {
                 engtexts = engtexts.substring(0, (engtexts.length) - 1)
                 setRoutine(id.toString(), newRoutineName, texts, engtexts)
 
-//                val routineAdapter : ItemAdapter = recyclerView.adapter as ItemAdapter
-//                routineAdapter.addItems()
+                val routineAdapter : ItemAdapter = recyclerView.adapter as ItemAdapter
+                val childItems: List<String> = texts.split(",");
+                routineAdapter.addItems(childItems,newRoutineName);
+                Log.d("ROUTINE_LIST",childItems.toString())
                 dialog.dismiss()
                 // write down volley code here
 
@@ -143,13 +145,28 @@ class RoutineFragment : Fragment() {
             val setRoutineName: AlertDialog.Builder = AlertDialog.Builder(context)
                 .setView(inputName)
                 .setPositiveButton("확인", DialogInterface.OnClickListener() { dialog, which ->
+                    val routineAdapter : ItemAdapter = recyclerView.adapter as ItemAdapter
+
                     newRoutineName =
                         inputName.findViewById<EditText>(R.id.editRoutineName).text.toString()
                     // write down volley code here
-
+                    var nameFlag:Boolean = true;
+                    if(!routineAdapter.checkRoutineName(newRoutineName)){
+                        val checkOverlap: AlertDialog.Builder = AlertDialog.Builder(context)
+                            .setTitle("루틴 이름 중복")
+                            .setMessage("다른 이름으로 설정해주세요.")
+                            .setPositiveButton("확인",DialogInterface.OnClickListener { dialog, which ->
+                                nameFlag = false;
+                            })
+                        checkOverlap.create().show()
+                    }
+                    if(!nameFlag){
+                        dialog.dismiss()
+                    }
 
                     Log.d("ROUTINE_SET", "inputName : $newRoutineName")
                     setExercise.show()
+                    dialog.dismiss()
                 })
                 .setNegativeButton("취소", DialogInterface.OnClickListener() { dialog, which ->
                     dialog.dismiss()
