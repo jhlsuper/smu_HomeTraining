@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class JSP {
     companion object {
-        private val Jsp_Url = ""  //git pull 받으면 이거 고쳐서 쓸것!
+        private val Jsp_Url = "http://3.34.133.113:8080/"  //git pull 받으면 이거 고쳐서 쓸것!
 
         fun getLoginURL(inputId:String, inputPw:String):String{
             val url = Jsp_Url+"Login.jsp?userId=${inputId}&userPwd=${inputPw}"
@@ -57,6 +57,10 @@ class JSP {
         fun setRoutineIns(inputId: String,routineName:String,execName:String,engExcName:String):String{
 //            val url = Jsp_Url+"RoutineInsert.jsp?userId=$inputId&routine_name=$routineName&exc_name=$execName&engexc_name=$engExcName"
             val url = Jsp_Url+"insert.jsp?userId=$inputId&routine_name=$routineName&exc_name=$execName&engexc_name=$engExcName"
+            return url
+        }
+        fun getRoutineList(inputId: String) : String{
+            val url = Jsp_Url+"RoutineListCheck.jsp?UserId=${inputId}"
             return url
         }
     }

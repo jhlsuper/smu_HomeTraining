@@ -1,18 +1,13 @@
 package com.example.mlkit_pose.fragment.expre
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
-import android.graphics.PointF.length
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -21,9 +16,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.JSP
 import com.example.mlkit_pose.R
-import kotlinx.android.synthetic.main.edit_box.*
 import kotlinx.android.synthetic.main.fragment_my_routine.*
-import kotlinx.android.synthetic.main.popup_routine_add.*
 import java.util.*
 
 
@@ -71,7 +64,7 @@ class RoutineFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView: CustomRecyclerView =
             view.findViewById(R.id.recylcerview) as CustomRecyclerView
-        adapter = ItemAdapter()
+        adapter = ItemAdapter(id,context)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context))
         recyclerView.layoutManager = ItemLayoutManager(context)
@@ -132,6 +125,9 @@ class RoutineFragment : Fragment() {
                 engtexts = engtexts.substring(0, (engtexts.length) - 1)
                 setRoutine(id.toString(), newRoutineName, texts, engtexts)
 
+//                val routineAdapter : ItemAdapter = recyclerView.adapter as ItemAdapter
+//                routineAdapter.addItems()
+                dialog.dismiss()
                 // write down volley code here
 
                 Log.d("ROUTINE_LIST", texts)
