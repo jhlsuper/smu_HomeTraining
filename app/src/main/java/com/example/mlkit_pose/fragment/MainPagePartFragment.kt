@@ -41,6 +41,7 @@ class MainPagePartFragment : Fragment() {
     }
 
 
+
     companion object {
 
         @JvmStatic

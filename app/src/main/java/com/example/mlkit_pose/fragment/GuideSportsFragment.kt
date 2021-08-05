@@ -14,11 +14,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.NumberPicker
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.setFragmentResultListener
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
@@ -26,11 +27,15 @@ import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.JSP
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_bottom_menu.*
 import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_guide_sports.*
+import kotlinx.android.synthetic.main.fragment_guide_sports.view.*
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
+import kotlinx.android.synthetic.main.item_model.*
+import kotlinx.android.synthetic.main.popup_add_myroutine.*
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -46,7 +51,10 @@ private const val ARG_PARAM2 = "param2"
 class GuideSportsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param2: String? = null
-
+    var number :Int= 0
+    val list :MutableList<Model> by lazy {
+        mutableListOf<Model>()
+    }
     var bitmap: Bitmap? = null
     var eturl: String? = null
     var result2: String? = null
@@ -61,11 +69,14 @@ class GuideSportsFragment : Fragment() {
     }
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
 
         return inflater.inflate(R.layout.fragment_guide_sports, container, false)
     }
@@ -73,6 +84,8 @@ class GuideSportsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
+
+
 
         setFragmentResultListener("requestKey2") { resultKey, bundle ->
             bundle.getString("bundleKey2")?.let {
@@ -158,6 +171,9 @@ class GuideSportsFragment : Fragment() {
             showTimeSettingPopup()
 
         }
+        btn_add_routine.setOnClickListener{
+            MyRoutinePopup()
+        }
     }
 
     companion object {
@@ -217,6 +233,48 @@ class GuideSportsFragment : Fragment() {
         dialog.create()
         dialog.show()
         dialog.window!!.setLayout(750,WindowManager.LayoutParams.WRAP_CONTENT)
+
+    }
+
+        fun MyRoutinePopup() {
+
+        val dialog = AlertDialog.Builder(context).create()
+
+        val edialog: LayoutInflater = LayoutInflater.from(context)
+        val mView: View = edialog.inflate(R.layout.popup_add_myroutine, null) //팝업창을 띄우는 코드
+
+        val insert: Button = mView.findViewById<Button>(R.id.bt_insert)
+        val button: Button = mView.findViewById<Button>(R.id.button)
+        val recyclerView :RecyclerView = mView.findViewById(R.id.recyclerView)
+        val adapter = Adapter(list,R.layout.item_model,requireContext())
+        recyclerView.adapter = adapter
+        recyclerView.hasFixedSize()
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(),
+            RecyclerView.VERTICAL,false   )
+        list.add(Model("fistExc",1))
+
+
+        insert.setOnClickListener{
+            val name = editText.text.toString()
+            if (adapter != null) {
+                number = adapter.itemCount
+            }
+            list.add(Model(name,number++))
+            if (adapter != null) {
+                adapter.notifyDataSetChanged()
+            }
+        }
+
+        button.setOnClickListener{
+
+            val chkBox : CheckBox =checkBox
+            if(chkBox.isChecked()){
+                Toast.makeText(context,"루틴에 추가되었습니다",Toast.LENGTH_SHORT).show()
+            }
+        }
+        dialog.setView(mView)
+        dialog.create()
+        dialog.show()
 
     }
 
