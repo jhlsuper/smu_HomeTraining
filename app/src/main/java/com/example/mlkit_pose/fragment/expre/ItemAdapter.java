@@ -9,15 +9,28 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.mlkit_pose.R;
 import com.example.mlkit_pose.fragment.expre.model.ChildItem;
 import com.example.mlkit_pose.fragment.expre.model.Item;
 import com.example.mlkit_pose.fragment.expre.model.ParentItem;
-
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.android.volley.RequestQueue;
+import com.example.mlkit_pose.JSP;
+
+
 
 /**
  * Created by wlsdud.choi on 2016-04-01.
@@ -28,6 +41,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private final int PARENT_ITEM_VIEW = 0;
     private final int CHILD_ITEM_VIEW = 1;
     private Context context;
+    private Context lastContext;
 
     public Context getContext() {
         return context;
@@ -36,34 +50,90 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Item> visibleItems = new ArrayList<>();
 
-    public ItemAdapter(){
-        char alphabet = 'A';
-        for(int i = 0; i < 5; i++){
-            Item item1 = new ParentItem((char)(alphabet+i)+"", PARENT_ITEM_VIEW);
-            Item item2 = new ChildItem((char)(alphabet+i)+"-1", CHILD_ITEM_VIEW);
-            Item item3 = new ChildItem((char)(alphabet+i)+"-2", CHILD_ITEM_VIEW);
-            Item item4 = new ChildItem((char)(alphabet+i)+"-3", CHILD_ITEM_VIEW);
+    private Map<String,ArrayList<String>> routineItems = new HashMap<String,ArrayList<String>>();
 
-            items.add(item1);
-            items.add(item2);
-            items.add(item3);
-            items.add(item4);
+    public ItemAdapter(String inputId,Context lastContext){
 
-            ParentItem pt = (ParentItem)item1;
-            pt.visibilityOfChildItems=false;
-            visibleItems.add(item1);
-            pt.unvisibleChildItems.add((ChildItem)item2);
-            pt.unvisibleChildItems.add((ChildItem)item3);
-            pt.unvisibleChildItems.add((ChildItem)item4);
+        this.lastContext = lastContext;
+        setItemData(inputId);
 
-//            visibleItems.add(item2);
-//            visibleItems.add(item3);
-//            visibleItems.add(item4);
-        }
+//
+//        char alphabet = 'A';
+//        for(int i = 0; i < 5; i++) {
+//            Item item1 = new ParentItem((char) (alphabet + i) + "", PARENT_ITEM_VIEW);
+//            Item item2 = new ChildItem((char) (alphabet + i) + "-1", CHILD_ITEM_VIEW);
+//            Item item3 = new ChildItem((char) (alphabet + i) + "-2", CHILD_ITEM_VIEW);
+//            Item item4 = new ChildItem((char) (alphabet + i) + "-3", CHILD_ITEM_VIEW);
+//
+//            items.add(item1);
+//            items.add(item2);
+//            items.add(item3);
+//            items.add(item4);
+//
+//            ParentItem pt = (ParentItem) item1;
+//            pt.visibilityOfChildItems = false;
+//            visibleItems.add(item1);
+//            pt.unvisibleChildItems.add((ChildItem) item2);
+//            pt.unvisibleChildItems.add((ChildItem) item3);
+//            pt.unvisibleChildItems.add((ChildItem) item4);
+//        }
+    }
+    public void setItemData(String inputId){
+        Log.d("ROUTINE_LIST","setItemData "+inputId);
+        RequestQueue queue = Volley.newRequestQueue(lastContext);
+        String url = JSP.Companion.getRoutineList(inputId);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String[] routineList = response.split("@");
+                // Divide Parent and Child
+
+                for(int i=0; i< routineList.length-1;i++){
+                    String[] detail = routineList[i].split(",");
+                    /* detail[0] // Parent    detail[1] // Child    detail[2] // Child Eng */
+                    ArrayList<String> childList = new ArrayList<String>();
+                    if (routineItems.containsKey(detail[0])){
+                        childList = routineItems.get(detail[0]);
+                        childList.add(detail[1]);
+                    }else{
+                        childList.add(detail[1]);
+                    }
+                    routineItems.put(detail[0],childList);
+                }
+                Log.d("ROUTINE_LIST",routineItems.toString());
+                for(String key : routineItems.keySet()){
+                    Item parent = new ParentItem(key,PARENT_ITEM_VIEW);
+                    Log.d("ROUTINE_LIST",key);
+                    items.add(parent);
+                    ArrayList<Item> childList = new ArrayList<Item>();
+                    for (String value : routineItems.get(key)){
+                        Item child = new ChildItem(value,CHILD_ITEM_VIEW);
+                        items.add(child);
+                        childList.add(child);
+                    }
+                    ParentItem pt = (ParentItem) parent;
+                    pt.visibilityOfChildItems = false;
+                    visibleItems.add(parent);
+                    for (Item child : childList){
+                        pt.unvisibleChildItems.add((ChildItem) child);
+                    }
+                }
+                notifyDataSetChanged();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("ROUTINE_LIST_ERROR",error.toString());
+                Toast.makeText(lastContext, "sever error", Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(stringRequest);
+
+
     }
 
     public void addItems(){
-
+        Log.d("ROUTINE_LIST",visibleItems.toString());
     }
 
     @Override
@@ -76,7 +146,6 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @Override
     public int getItemViewType(int position) {
         Log.i(TAG, "getItemViewType. position : "+position+", viewType : "+visibleItems.get(position).viewType+", item : "+ visibleItems.get(position).name);
-
         return visibleItems.get(position).viewType;
     }
 
@@ -120,8 +189,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                     }
                 }
             });
-            parentItemVH.name.setOnClickListener(new View.OnClickListener(){
-
+            parentItemVH.name.setOnClickListener(new View.OnClickListener(){ //이름 클릭했을 때
                 @Override
                 public void onClick(View v) {
                     Log.d("ONCLICK_PARENT","ONCLICK TEXT");

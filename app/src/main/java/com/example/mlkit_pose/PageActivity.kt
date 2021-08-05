@@ -316,7 +316,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //                val userPoint: Int
 //            Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
                 if (details2[2] == null) {
-
                     sharedManager.setUserPoint(currentUser, "0")
                 } else {
                     sharedManager.setUserPoint(currentUser, details2[2])
