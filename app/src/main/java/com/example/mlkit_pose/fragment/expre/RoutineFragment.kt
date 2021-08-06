@@ -69,6 +69,7 @@ class RoutineFragment : Fragment() {
         recyclerView.addItemDecoration(DividerItemDecoration(context))
         recyclerView.layoutManager = ItemLayoutManager(context)
 
+
         add_routineButton.setOnClickListener {
             var newRoutineName: String = ""
             val itemArray = arrayOf<String>(

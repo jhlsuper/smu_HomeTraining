@@ -2,6 +2,7 @@ package com.example.mlkit_pose.fragment.expre;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -30,6 +34,8 @@ import com.android.volley.toolbox.Volley;
 import com.android.volley.RequestQueue;
 import com.example.mlkit_pose.JSP;
 
+import static androidx.core.os.BundleKt.bundleOf;
+import static androidx.fragment.app.FragmentKt.setFragmentResult;
 
 
 /**
@@ -42,6 +48,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private final int CHILD_ITEM_VIEW = 1;
     private Context context;
     private Context lastContext;
+    OnPersonItemClickListener listener;
 
     public Context getContext() {
         return context;
@@ -51,6 +58,36 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private ArrayList<Item> visibleItems = new ArrayList<>();
 
     private Map<String,ArrayList<String>> routineItems = new HashMap<String,ArrayList<String>>();
+
+    
+    public void setItemClickListener(OnPersonItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView textView;
+        TextView textView2;
+
+        public ViewHolder(@NonNull View itemView, OnPersonItemClickListener listener) {
+            super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    Log.d("mess", position+"");
+
+                   if (position != RecyclerView.NO_POSITION) {
+                     Log.d("mess", "message");
+                   };
+                }
+            });
+
+            textView = itemView.findViewById(R.id.item_name);
+            textView2 = itemView.findViewById(R.id.subitem_name);
+        }
+    }
 
     public ItemAdapter(String inputId,Context lastContext){
 
@@ -193,6 +230,13 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 @Override
                 public void onClick(View v) {
                     Log.d("ONCLICK_PARENT","ONCLICK TEXT");
+
+                    String routine_name = (String) parentItemVH.name.getText();
+                    Log.d("message", routine_name);
+
+//                    Intent intent = new Intent(getContext(), RoutineDetailFragment.class);
+//                    intent.putExtra("routine_name", routine_name);
+
                 }
             });
 
