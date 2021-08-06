@@ -11,14 +11,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -26,12 +30,15 @@ import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.fragment_guide_sports.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
+import kotlinx.android.synthetic.main.popup_add_myroutine.*
+import kotlinx.android.synthetic.main.popup_add_myroutine.view.*
 import kotlin.properties.Delegates
 
 
@@ -51,7 +58,10 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     //    private var belong: String? = sharedManager.getCurrentUser().belong
     lateinit var viewModel: MainViewModel
-
+    val list :MutableList<Model> by lazy {
+        mutableListOf<Model>()
+    }
+    var number =0
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +90,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         btn_ranking.setOnClickListener(this)
         btn_drawer.setOnClickListener(this)
 
+//        btn_add_routine.setOnClickListener(this)
         main_navigationView.setNavigationItemSelectedListener(this)
 
         activityResultLauncher =
@@ -173,6 +184,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 info_user_belong.text = "소속: ${currentUser.belong}"
                 info_user_point.text = "포인트: ${currentUser.points}"
                 main_drawer_layout.openDrawer(GravityCompat.START)
+            }
+            R.id.btn_add_routine->{
+                guidePopup()
             }
 
 
@@ -307,14 +321,16 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val currentUser = sharedManager.getCurrentUser()
 
         val url_getUserRank = JSP.getUserRank(currentUser.id.toString())
-
+        Log.d("currentID",currentUser.id.toString())
         val StringRequest2 = StringRequest(
             Request.Method.GET, url_getUserRank, { response ->
                 response.trim { it <= ' ' }
 
                 val details2 = (response.trim().split(",")).toTypedArray()
+                Log.d("rankingresponse","${details2[0]}")
 //                val userPoint: Int
-//            Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
+
+            Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
                 if (details2[2] == null) {
                     sharedManager.setUserPoint(currentUser, "0")
                 } else {
@@ -446,6 +462,37 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         emptyRecycler()
         setRankData()
         initRecycler()
+    }
+    fun guidePopup(){
+
+        val dialog = AlertDialog.Builder(this)
+        val view = layoutInflater.inflate(R.layout.popup_add_myroutine,null)
+        dialog.setView(view)
+        list.add(Model("0",number))
+        val adapter = Adapter(list,R.layout.item_model,this)
+        recyclerView.adapter = adapter
+        recyclerView.hasFixedSize()
+        recyclerView.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false   )
+
+
+
+        bt_insert.setOnClickListener{
+            val name = editText.text.toString()
+            number = adapter.itemCount
+            list.add(Model(name, number++))
+            adapter.notifyDataSetChanged()
+        }
+
+        button.setOnClickListener {
+            val myToast = Toast.makeText(this.applicationContext, "루틴에 추가되었습니다.", Toast.LENGTH_SHORT)
+            val  chkBox : CheckBox = findViewById(R.id.checkBox)
+//            val chkBox :CheckBox = findViewById(R.id.checkbox)
+            if(chkBox.isChecked()) {
+                myToast.show()
+            }
+        }
+        dialog.create()
+        dialog.show()
     }
 
 

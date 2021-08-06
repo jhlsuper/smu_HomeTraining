@@ -4,6 +4,7 @@ import GuideBookRecyclerAdapter
 import GuideBookRecyclerAdapter.Companion.array_name
 import GuideBookSportsList
 import GuideSports
+import android.graphics.pdf.PdfDocument
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -151,6 +152,7 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_guide_back -> {
+
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.frameLayout, GuideMainFragment())
                     .commit()

@@ -25,6 +25,7 @@ import com.example.mlkit_pose.fragment.expre.model.Item;
 import com.example.mlkit_pose.fragment.expre.model.ParentItem;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -166,13 +167,32 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         });
         queue.add(stringRequest);
 
-
     }
 
-    public void addItems(){
-        Log.d("ROUTINE_LIST",visibleItems.toString());
+    public void addItems(List<String> childItems,String parentName){
+        Item parent = new ParentItem(parentName,PARENT_ITEM_VIEW);
+        items.add(parent);
+        ArrayList<Item> childList = new ArrayList<Item>();
+        for (String value : childItems){
+            Item child = new ChildItem(value,CHILD_ITEM_VIEW);
+            items.add(child);
+            childList.add(child);
+        }
+        ParentItem pt = (ParentItem) parent;
+        pt.visibilityOfChildItems = false;
+        visibleItems.add(parent);
+        for (Item child : childList){
+            pt.unvisibleChildItems.add((ChildItem) child);
+        }
+        Log.d("ROUTINE_LIST",routineItems.toString());
+        notifyDataSetChanged();
     }
-
+    public boolean checkRoutineName(String parent){
+        if(routineItems.containsKey(parent)){
+            return true;
+        }
+        return false;
+    }
     @Override
     public int getItemCount() {
         Log.i(TAG, "getItemCount. count : "+ visibleItems.size());
