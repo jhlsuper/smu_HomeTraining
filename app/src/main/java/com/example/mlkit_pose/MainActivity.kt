@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         response.trim { it <= ' ' }
 
                         val details = response.split(",").toTypedArray()
-//                        Toast.makeText(this, "${details[0]},${details[1]},${details[2]}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "${details[0]},${details[1]},${details[2]}", Toast.LENGTH_LONG).show()
                         if (response.trim() == "error") {
                             Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT)
                                 .show()
@@ -67,9 +67,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //                            Toast.makeText(this, "${details[0]}비밀먼호: ${details[1]}", Toast.LENGTH_SHORT).show()
 //                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                             val currentUser = User().apply {
-                                name = details[1]
-                                id = details[2]
-                                password = details[3]
+                                id = details[1]
+                                password = details[2]
+                                name = details[3]
                                 belong = details[4]
                                 age = details[5].toInt()
                                 gender = details[6]

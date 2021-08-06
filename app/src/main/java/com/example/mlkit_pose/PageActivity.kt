@@ -321,14 +321,16 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val currentUser = sharedManager.getCurrentUser()
 
         val url_getUserRank = JSP.getUserRank(currentUser.id.toString())
-
+        Log.d("currentID",currentUser.id.toString())
         val StringRequest2 = StringRequest(
             Request.Method.GET, url_getUserRank, { response ->
                 response.trim { it <= ' ' }
 
                 val details2 = (response.trim().split(",")).toTypedArray()
+                Log.d("rankingresponse","${details2[0]}")
 //                val userPoint: Int
-//            Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
+
+            Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
                 if (details2[2] == null) {
                     sharedManager.setUserPoint(currentUser, "0")
                 } else {
