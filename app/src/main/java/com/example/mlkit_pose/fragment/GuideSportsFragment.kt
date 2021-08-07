@@ -13,10 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.NumberPicker
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,8 +48,8 @@ private const val ARG_PARAM2 = "param2"
 class GuideSportsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param2: String? = null
-    var number :Int= 0
-    val list :MutableList<Model> by lazy {
+    var number: Int = 0
+    val list: MutableList<Model> by lazy {
         mutableListOf<Model>()
     }
     var bitmap: Bitmap? = null
@@ -67,8 +64,6 @@ class GuideSportsFragment : Fragment() {
 //        }
 
     }
-
-
 
 
     override fun onCreateView(
@@ -171,7 +166,7 @@ class GuideSportsFragment : Fragment() {
             showTimeSettingPopup()
 
         }
-        btn_add_routine.setOnClickListener{
+        btn_add_routine.setOnClickListener {
             MyRoutinePopup()
         }
     }
@@ -215,7 +210,7 @@ class GuideSportsFragment : Fragment() {
         //기본값 설정
         minute.value = 1
         second.value = 0
-        
+
         //보여질 값 설정
 
 
@@ -226,50 +221,54 @@ class GuideSportsFragment : Fragment() {
         }
         start.setOnClickListener {
             Toast.makeText(context, "${minute.value}분 ${second.value}초", Toast.LENGTH_SHORT).show()
-            (activity as PageActivity).startExcercise(exname,minute.value,second.value)
+            (activity as PageActivity).startExcercise(exname, minute.value, second.value)
             dialog.dismiss()
         }
         dialog.setView(mView)
         dialog.create()
         dialog.show()
-        dialog.window!!.setLayout(750,WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.window!!.setLayout(750, WindowManager.LayoutParams.WRAP_CONTENT)
 
     }
 
-        fun MyRoutinePopup() {
+    fun MyRoutinePopup() {
 
         val dialog = AlertDialog.Builder(context).create()
 
         val edialog: LayoutInflater = LayoutInflater.from(context)
         val mView: View = edialog.inflate(R.layout.popup_add_myroutine, null) //팝업창을 띄우는 코드
-
+        val routineName: EditText = mView.findViewById<EditText>(R.id.editText)
         val insert: Button = mView.findViewById<Button>(R.id.bt_insert)
+//        val checkbox:CheckBox =mView.findViewById<CheckBox>(R.id.checkBox)
         val button: Button = mView.findViewById<Button>(R.id.button)
-        val recyclerView :RecyclerView = mView.findViewById(R.id.recyclerView)
-        val adapter = Adapter(list,R.layout.item_model,requireContext())
+        val recyclerView: RecyclerView = mView.findViewById(R.id.recyclerView)
+        val adapter = Adapter(list, R.layout.item_model, requireContext())
         recyclerView.adapter = adapter
         recyclerView.hasFixedSize()
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(),
-            RecyclerView.VERTICAL,false   )
-        list.add(Model("fistExc",1))
+        recyclerView.layoutManager = LinearLayoutManager(
+            requireContext(),
+            RecyclerView.VERTICAL, false
+        )
+        list.add(Model("fistExc", 1))
 
 
-        insert.setOnClickListener{
-            val name = editText.text.toString()
+        insert.setOnClickListener {
+            val name = routineName.text.toString()
             if (adapter != null) {
                 number = adapter.itemCount
             }
-            list.add(Model(name,number++))
+            list.add(Model(name, number++))
             if (adapter != null) {
                 adapter.notifyDataSetChanged()
             }
         }
 
-        button.setOnClickListener{
+        button.setOnClickListener {
 
-            val chkBox : CheckBox =checkBox
-            if(chkBox.isChecked()){
-                Toast.makeText(context,"루틴에 추가되었습니다",Toast.LENGTH_SHORT).show()
+
+            if (checkBox.isChecked) {
+
+                Toast.makeText(context, "루틴에 추가되었습니다", Toast.LENGTH_SHORT).show()
             }
         }
         dialog.setView(mView)
