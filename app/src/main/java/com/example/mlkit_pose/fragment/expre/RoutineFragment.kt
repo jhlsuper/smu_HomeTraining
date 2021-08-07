@@ -59,15 +59,20 @@ class RoutineFragment : Fragment() {
 
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView: CustomRecyclerView =
-            view.findViewById(R.id.recylcerview) as CustomRecyclerView
-        adapter = ItemAdapter(id,context)
+        val recyclerView: CustomRecyclerView = view.findViewById(R.id.recylcerview) as CustomRecyclerView
+        adapter = ItemAdapter(id, context)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context))
         recyclerView.layoutManager = ItemLayoutManager(context)
+
+        (recyclerView.adapter as ItemAdapter).setOnItemClickListener(object : OnPersonItemClickListener {
+            override fun onItemClick(holder: ItemAdapter.ViewHolder?, view: View?, position: Int) {
+                Toast.makeText(context, "아이템 선택 ", Toast.LENGTH_LONG).show()
+                Log.d("jieun", "jieun")
+            }
+        })
 
 
         add_routineButton.setOnClickListener {
@@ -126,10 +131,10 @@ class RoutineFragment : Fragment() {
                 engtexts = engtexts.substring(0, (engtexts.length) - 1)
                 setRoutine(id.toString(), newRoutineName, texts, engtexts)
 
-                val routineAdapter : ItemAdapter = recyclerView.adapter as ItemAdapter
+                val routineAdapter: ItemAdapter = recyclerView.adapter as ItemAdapter
                 val childItems: List<String> = texts.split(",");
-                routineAdapter.addItems(childItems,newRoutineName);
-                Log.d("ROUTINE_LIST",childItems.toString())
+                routineAdapter.addItems(childItems, newRoutineName);
+                Log.d("ROUTINE_LIST", childItems.toString())
                 dialog.dismiss()
                 // write down volley code here
 
@@ -146,22 +151,24 @@ class RoutineFragment : Fragment() {
             val setRoutineName: AlertDialog.Builder = AlertDialog.Builder(context)
                 .setView(inputName)
                 .setPositiveButton("확인", DialogInterface.OnClickListener() { dialog, which ->
-                    val routineAdapter : ItemAdapter = recyclerView.adapter as ItemAdapter
+                    val routineAdapter: ItemAdapter = recyclerView.adapter as ItemAdapter
 
                     newRoutineName =
                         inputName.findViewById<EditText>(R.id.editRoutineName).text.toString()
                     // write down volley code here
-                    var nameFlag:Boolean = true;
-                    if(!routineAdapter.checkRoutineName(newRoutineName)){
+                    var nameFlag: Boolean = true;
+                    if (!routineAdapter.checkRoutineName(newRoutineName)) {
                         val checkOverlap: AlertDialog.Builder = AlertDialog.Builder(context)
                             .setTitle("루틴 이름 중복")
                             .setMessage("다른 이름으로 설정해주세요.")
-                            .setPositiveButton("확인",DialogInterface.OnClickListener { dialog, which ->
-                                nameFlag = false;
-                            })
+                            .setPositiveButton(
+                                "확인",
+                                DialogInterface.OnClickListener { dialog, which ->
+                                    nameFlag = false;
+                                })
                         checkOverlap.create().show()
                     }
-                    if(!nameFlag){
+                    if (!nameFlag) {
                         dialog.dismiss()
                     }
 

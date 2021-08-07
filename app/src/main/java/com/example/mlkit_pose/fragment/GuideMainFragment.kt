@@ -68,6 +68,7 @@ class GuideMainFragment : Fragment(),View.OnClickListener {
 
     fun setPosition(positionName:String){
         val result = positionName
+        Log.d("jieun", result)
         setFragmentResult("requestKey", bundleOf("bundleKey" to result))
         parentFragmentManager.beginTransaction()
             .add(R.id.frameLayout,GuideClickFragment(),"guide_click")
@@ -83,6 +84,7 @@ class GuideMainFragment : Fragment(),View.OnClickListener {
         when(v?.id){
             R.id.chest->{
                 setPosition("가슴")
+                Log.d("jieun", "hello")
             }
             R.id.back->{
                 setPosition("등")

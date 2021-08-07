@@ -3,10 +3,12 @@ package com.example.mlkit_pose.fragment.expre;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,15 +16,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.mlkit_pose.PageActivity;
 import com.example.mlkit_pose.R;
 import com.example.mlkit_pose.fragment.expre.model.ChildItem;
 import com.example.mlkit_pose.fragment.expre.model.Item;
 import com.example.mlkit_pose.fragment.expre.model.ParentItem;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +39,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.RequestQueue;
 import com.example.mlkit_pose.JSP;
+import com.example.mlkit_pose.fragment.expre.model.SharedViewModel;
 
 import static androidx.core.os.BundleKt.bundleOf;
 import static androidx.fragment.app.FragmentKt.setFragmentResult;
@@ -42,8 +48,9 @@ import static androidx.fragment.app.FragmentKt.setFragmentResult;
 /**
  * Created by wlsdud.choi on 2016-04-01.
  */
-public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperListener {
+public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperListener, OnPersonItemClickListener {
 
+    private SharedViewModel sharedViewModel;
     private final String TAG = "[Simple][NewItemAdaptr]";
     private final int PARENT_ITEM_VIEW = 0;
     private final int CHILD_ITEM_VIEW = 1;
@@ -58,39 +65,43 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Item> visibleItems = new ArrayList<>();
 
-    private Map<String,ArrayList<String>> routineItems = new HashMap<String,ArrayList<String>>();
+    private Map<String, ArrayList<String>> routineItems = new HashMap<String, ArrayList<String>>();
 
-    
-    public void setItemClickListener(OnPersonItemClickListener listener) {
+    // 여기부터 아래까지 새로운 프래그먼트 열기 위함
+    public void setOnItemClickListener(OnPersonItemClickListener listener) {
         this.listener = listener;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onItemClick(ViewHolder holder, View view, int position) {
+        if (listener != null) {
+            listener.onItemClick(holder, view, position);
+        }
+    }
 
+    static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         TextView textView2;
 
-        public ViewHolder(@NonNull View itemView, OnPersonItemClickListener listener) {
+        public ViewHolder(View itemView, final OnPersonItemClickListener listener) {
             super(itemView);
+
+            textView = itemView.findViewById(R.id.item_name);
+            textView2 = itemView.findViewById(R.id.subitem_name);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    Log.d("mess", position+"");
-
-                   if (position != RecyclerView.NO_POSITION) {
-                     Log.d("mess", "message");
-                   };
+                    if (listener != null) {
+                        listener.onItemClick(ViewHolder.this, v, position);
+                    }
                 }
             });
-
-            textView = itemView.findViewById(R.id.item_name);
-            textView2 = itemView.findViewById(R.id.subitem_name);
         }
-    }
+    } // 여기까지
 
-    public ItemAdapter(String inputId,Context lastContext){
+    public ItemAdapter(String inputId, Context lastContext) {
 
         this.lastContext = lastContext;
         setItemData(inputId);
@@ -116,8 +127,9 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 //            pt.unvisibleChildItems.add((ChildItem) item4);
 //        }
     }
-    public void setItemData(String inputId){
-        Log.d("ROUTINE_LIST","setItemData "+inputId);
+
+    public void setItemData(String inputId) {
+        Log.d("ROUTINE_LIST", "setItemData " + inputId);
         RequestQueue queue = Volley.newRequestQueue(lastContext);
         String url = JSP.Companion.getRoutineList(inputId);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -126,33 +138,33 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 String[] routineList = response.split("@");
                 // Divide Parent and Child
 
-                for(int i=0; i< routineList.length-1;i++){
+                for (int i = 0; i < routineList.length - 1; i++) {
                     String[] detail = routineList[i].split(",");
                     /* detail[0] // Parent    detail[1] // Child    detail[2] // Child Eng */
                     ArrayList<String> childList = new ArrayList<String>();
-                    if (routineItems.containsKey(detail[0])){
+                    if (routineItems.containsKey(detail[0])) {
                         childList = routineItems.get(detail[0]);
                         childList.add(detail[1]);
-                    }else{
+                    } else {
                         childList.add(detail[1]);
                     }
-                    routineItems.put(detail[0],childList);
+                    routineItems.put(detail[0], childList);
                 }
-                Log.d("ROUTINE_LIST",routineItems.toString());
-                for(String key : routineItems.keySet()){
-                    Item parent = new ParentItem(key,PARENT_ITEM_VIEW);
-                    Log.d("ROUTINE_LIST",key);
+                Log.d("ROUTINE_LIST", routineItems.toString());
+                for (String key : routineItems.keySet()) {
+                    Item parent = new ParentItem(key, PARENT_ITEM_VIEW);
+                    Log.d("ROUTINE_LIST", key);
                     items.add(parent);
                     ArrayList<Item> childList = new ArrayList<Item>();
-                    for (String value : routineItems.get(key)){
-                        Item child = new ChildItem(value,CHILD_ITEM_VIEW);
+                    for (String value : routineItems.get(key)) {
+                        Item child = new ChildItem(value, CHILD_ITEM_VIEW);
                         items.add(child);
                         childList.add(child);
                     }
                     ParentItem pt = (ParentItem) parent;
                     pt.visibilityOfChildItems = false;
                     visibleItems.add(parent);
-                    for (Item child : childList){
+                    for (Item child : childList) {
                         pt.unvisibleChildItems.add((ChildItem) child);
                     }
                 }
@@ -161,7 +173,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("ROUTINE_LIST_ERROR",error.toString());
+                Log.e("ROUTINE_LIST_ERROR", error.toString());
                 Toast.makeText(lastContext, "sever error", Toast.LENGTH_SHORT).show();
             }
         });
@@ -169,57 +181,59 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     }
 
-    public void addItems(List<String> childItems,String parentName){
-        Item parent = new ParentItem(parentName,PARENT_ITEM_VIEW);
+    public void addItems(List<String> childItems, String parentName) {
+        Item parent = new ParentItem(parentName, PARENT_ITEM_VIEW);
         items.add(parent);
         ArrayList<Item> childList = new ArrayList<Item>();
-        for (String value : childItems){
-            Item child = new ChildItem(value,CHILD_ITEM_VIEW);
+        for (String value : childItems) {
+            Item child = new ChildItem(value, CHILD_ITEM_VIEW);
             items.add(child);
             childList.add(child);
         }
         ParentItem pt = (ParentItem) parent;
         pt.visibilityOfChildItems = false;
         visibleItems.add(parent);
-        for (Item child : childList){
+        for (Item child : childList) {
             pt.unvisibleChildItems.add((ChildItem) child);
         }
-        Log.d("ROUTINE_LIST",routineItems.toString());
+        Log.d("ROUTINE_LIST", routineItems.toString());
         notifyDataSetChanged();
     }
-    public boolean checkRoutineName(String parent){
-        if(routineItems.containsKey(parent)){
+
+    public boolean checkRoutineName(String parent) {
+        if (routineItems.containsKey(parent)) {
             return true;
         }
         return false;
     }
+
     @Override
     public int getItemCount() {
-        Log.i(TAG, "getItemCount. count : "+ visibleItems.size());
+        Log.i(TAG, "getItemCount. count : " + visibleItems.size());
 
         return visibleItems.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        Log.i(TAG, "getItemViewType. position : "+position+", viewType : "+visibleItems.get(position).viewType+", item : "+ visibleItems.get(position).name);
+        Log.i(TAG, "getItemViewType. position : " + position + ", viewType : " + visibleItems.get(position).viewType + ", item : " + visibleItems.get(position).name);
         return visibleItems.get(position).viewType;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.i(TAG, "onCreateViewHolder. viewType : "+viewType);
+        Log.i(TAG, "onCreateViewHolder. viewType : " + viewType);
         RecyclerView.ViewHolder viewHolder = null;
 
-        switch(viewType){
+        switch (viewType) {
             case PARENT_ITEM_VIEW:
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyc_item, parent, false);
-            viewHolder = new ParentItemVH(view);
-            break;
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyc_item, parent, false);
+                viewHolder = new ParentItemVH(view);
+                break;
             case CHILD_ITEM_VIEW:
-            View subview = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyc_subitem, parent, false);
-            viewHolder = new ChildItemVH(subview);
-            break;
+                View subview = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyc_subitem, parent, false);
+                viewHolder = new ChildItemVH(subview);
+                break;
         }
 
         return viewHolder;
@@ -227,10 +241,10 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.i(TAG, "onBindViewHolder. position : "+position);
-        if(holder instanceof ParentItemVH){
-            Log.i(TAG, "onBindViewHolder. parentItem. "+visibleItems.get(position).name);
-            ParentItemVH parentItemVH = (ParentItemVH)holder;
+        Log.i(TAG, "onBindViewHolder. position : " + position);
+        if (holder instanceof ParentItemVH) {
+            Log.i(TAG, "onBindViewHolder. parentItem. " + visibleItems.get(position).name);
+            ParentItemVH parentItemVH = (ParentItemVH) holder;
 
             parentItemVH.name.setText(visibleItems.get(position).name);
             parentItemVH.arrow.setTag(holder);
@@ -238,18 +252,18 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             parentItemVH.arrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int holderPosition = ((ParentItemVH)v.getTag()).getAdapterPosition();
-                    if(((ParentItem)visibleItems.get(holderPosition)).visibilityOfChildItems){
+                    int holderPosition = ((ParentItemVH) v.getTag()).getAdapterPosition();
+                    if (((ParentItem) visibleItems.get(holderPosition)).visibilityOfChildItems) {
                         collapseChildItems(holderPosition); // 접는거
-                    }else{
+                    } else {
                         expandChildItems(holderPosition); // 열리는거
                     }
                 }
             });
-            parentItemVH.name.setOnClickListener(new View.OnClickListener(){ //이름 클릭했을 때
+            parentItemVH.name.setOnClickListener(new View.OnClickListener() { //이름 클릭했을 때
                 @Override
                 public void onClick(View v) {
-                    Log.d("ONCLICK_PARENT","ONCLICK TEXT");
+                    Log.d("ONCLICK_PARENT", "ONCLICK TEXT");
 
                     String routine_name = (String) parentItemVH.name.getText();
                     Log.d("message", routine_name);
@@ -257,7 +271,22 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 //                    Intent intent = new Intent(getContext(), RoutineDetailFragment.class);
 //                    intent.putExtra("routine_name", routine_name);
 
+                    FragmentTransaction var10000 = ((PageActivity)PageActivity.context_main).getSupportFragmentManager().beginTransaction();
+                    RoutineDetailFragment routineDetailfragment = new RoutineDetailFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Routine_detail_name", routine_name); // 이름 번들에 넣음
+                    routineDetailfragment.setArguments(bundle);
+                    FragmentTransaction transaction = var10000;
+
+//                    sharedViewModel.setLiveData(routine_name);
+
+                    transaction.replace(R.id.frameLayout, new RoutineDetailFragment()); // 변경
+//                    transaction.add(R.id.frameLayout, new RoutineDetailFragment(), "Routine_Detail");
+                    transaction.commit(); // 저장
+
                 }
+
+
             });
 
 //            parentItemVH.itemView.setTag(holder);
@@ -274,33 +303,33 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 //                });
 //            }
 
-        }else if(holder instanceof ChildItemVH){
-            Log.i(TAG, "onBindViewHolder. sub item. "+visibleItems.get(position).name);
+        } else if (holder instanceof ChildItemVH) {
+            Log.i(TAG, "onBindViewHolder. sub item. " + visibleItems.get(position).name);
 
-            ((ChildItemVH)holder).name.setText(visibleItems.get(position).name);
+            ((ChildItemVH) holder).name.setText(visibleItems.get(position).name);
         }
     }
 
-    private void collapseChildItems(int position){
+    private void collapseChildItems(int position) {
         Log.i(TAG, "collapseChildItems");
-        ParentItem parentItem = (ParentItem)visibleItems.get(position);
+        ParentItem parentItem = (ParentItem) visibleItems.get(position);
         parentItem.visibilityOfChildItems = false;
 
         int subItemSize = getVisibleChildItemSize(position);
-        for(int i = 0; i < subItemSize; i++){
+        for (int i = 0; i < subItemSize; i++) {
             parentItem.unvisibleChildItems.add((ChildItem) visibleItems.get(position + 1));
             visibleItems.remove(position + 1);
         }
         notifyItemRangeRemoved(position + 1, subItemSize);
     }
 
-    private int getVisibleChildItemSize(int parentPosition){
+    private int getVisibleChildItemSize(int parentPosition) {
         int count = 0;
         parentPosition++;
-        while(true){
-            if(parentPosition == visibleItems.size() || visibleItems.get(parentPosition).viewType == PARENT_ITEM_VIEW){
+        while (true) {
+            if (parentPosition == visibleItems.size() || visibleItems.get(parentPosition).viewType == PARENT_ITEM_VIEW) {
                 break;
-            }else{
+            } else {
                 parentPosition++;
                 count++;
             }
@@ -308,14 +337,14 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         return count;
     }
 
-    private void expandChildItems(int position){
+    private void expandChildItems(int position) {
         Log.i(TAG, "expandChildItems");
 
-        ParentItem parentItem = (ParentItem)visibleItems.get(position);
+        ParentItem parentItem = (ParentItem) visibleItems.get(position);
         parentItem.visibilityOfChildItems = true;
         int childSize = parentItem.unvisibleChildItems.size();
 
-        for(int i = childSize - 1; i >= 0; i--){
+        for (int i = childSize - 1; i >= 0; i--) {
             visibleItems.add(position + 1, parentItem.unvisibleChildItems.get(i));
         }
         parentItem.unvisibleChildItems.clear();
@@ -396,8 +425,8 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     @Override
-    public void onItemRemove(int position,boolean isDelete) {
-        Log.i(TAG, "onItemRemove. item : "+visibleItems.get(position).name);
+    public void onItemRemove(int position, boolean isDelete) {
+        Log.i(TAG, "onItemRemove. item : " + visibleItems.get(position).name);
         if (isDelete) {
             switch (visibleItems.get(position).viewType) {
                 case PARENT_ITEM_VIEW:
@@ -414,17 +443,16 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                     notifyItemRemoved(position);
                     break;
             }
-        }
-        else{
+        } else {
             notifyItemChanged(position);
         }
     }
 
-    private int getParentPosition(int position){
-        while(true){
-            if(visibleItems.get(position).viewType == PARENT_ITEM_VIEW){
+    private int getParentPosition(int position) {
+        while (true) {
+            if (visibleItems.get(position).viewType == PARENT_ITEM_VIEW) {
                 break;
-            }else{
+            } else {
                 position--;
             }
         }
@@ -439,8 +467,8 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public ParentItemVH(View itemView) {
             super(itemView);
             Log.i(TAG, "ParentItemVH");
-            name = (TextView)itemView.findViewById(R.id.item_name);
-            arrow = (ImageButton)itemView.findViewById(R.id.item_arrow);
+            name = (TextView) itemView.findViewById(R.id.item_name);
+            arrow = (ImageButton) itemView.findViewById(R.id.item_arrow);
         }
     }
 
@@ -451,7 +479,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         public ChildItemVH(View itemView) {
             super(itemView);
             Log.i(TAG, "ChildItemVH");
-            name = (TextView)itemView.findViewById(R.id.subitem_name);
+            name = (TextView) itemView.findViewById(R.id.subitem_name);
         }
     }
 }
