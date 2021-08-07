@@ -108,7 +108,7 @@ class GuideSportsFragment : Fragment() {
 //                    }
 
                         // 운동 설명
-                        sport_detail_text.setText(arr2[1])
+                        sport_detail_text.setText(arr2[0])
 
 
                         // 운동 링크
@@ -118,12 +118,12 @@ class GuideSportsFragment : Fragment() {
 //                            startActivity(intent)
 //                        }
 //                    }
-                        eturl = arr2[2]
+                        eturl = arr2[1]
                         // Setting Eng name
-                        sport_detail_ename.text = arr2[3]
-                        val testTEXT = arr2[3]
+                        sport_detail_ename.text = arr2[2]
+                        val testTEXT = arr2[2]
                         Log.d("EnameCHECK", "Ename $testTEXT")
-                        exname = arr2[3]
+                        exname = arr2[2]
                     }
                 },
                 { })

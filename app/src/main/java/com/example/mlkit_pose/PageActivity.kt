@@ -30,7 +30,6 @@ import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.fragment_guide_sports.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
@@ -38,7 +37,6 @@ import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.popup_add_myroutine.*
-import kotlinx.android.synthetic.main.popup_add_myroutine.view.*
 import kotlin.properties.Delegates
 
 
@@ -65,6 +63,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        context_main = this;
 
         val currentUser = sharedManager.getCurrentUser()
         setUserRank()
@@ -72,8 +71,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         setContentView(R.layout.fragment_main_page_part)
         transaction.add(R.id.frameLayout, HomeFragment().apply {
             arguments = Bundle().apply {
-                putString("name","${currentUser.name}")
-                putString("points","${currentUser.points}")
+                putString("name", "${currentUser.name}")
+                putString("points", "${currentUser.points}")
             }
         })
         transaction.commit()
@@ -185,7 +184,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 info_user_point.text = "포인트: ${currentUser.points}"
                 main_drawer_layout.openDrawer(GravityCompat.START)
             }
-            R.id.btn_add_routine->{
+            R.id.btn_add_routine -> {
                 guidePopup()
             }
 
@@ -321,16 +320,16 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val currentUser = sharedManager.getCurrentUser()
 
         val url_getUserRank = JSP.getUserRank(currentUser.id.toString())
-        Log.d("currentID",currentUser.id.toString())
+        Log.d("currentID", currentUser.id.toString())
         val StringRequest2 = StringRequest(
             Request.Method.GET, url_getUserRank, { response ->
                 response.trim { it <= ' ' }
 
                 val details2 = (response.trim().split(",")).toTypedArray()
-                Log.d("rankingresponse","${details2[0]}")
+                Log.d("rankingresponse", "${details2[0]}")
 //                val userPoint: Int
 
-            Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
                 if (details2[2] == null) {
                     sharedManager.setUserPoint(currentUser, "0")
                 } else {
@@ -466,13 +465,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     fun guidePopup(){
 
         val dialog = AlertDialog.Builder(this)
-        val view = layoutInflater.inflate(R.layout.popup_add_myroutine,null)
+        val view = layoutInflater.inflate(R.layout.popup_add_myroutine, null)
         dialog.setView(view)
-        list.add(Model("0",number))
-        val adapter = Adapter(list,R.layout.item_model,this)
+        list.add(Model("0", number))
+        val adapter = Adapter(list, R.layout.item_model, this)
         recyclerView.adapter = adapter
         recyclerView.hasFixedSize()
-        recyclerView.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false   )
+        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
 
 
@@ -484,7 +483,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         }
 
         button.setOnClickListener {
-            val myToast = Toast.makeText(this.applicationContext, "루틴에 추가되었습니다.", Toast.LENGTH_SHORT)
+            val myToast = Toast.makeText(
+                this.applicationContext,
+                "루틴에 추가되었습니다.",
+                Toast.LENGTH_SHORT
+            )
             val  chkBox : CheckBox = findViewById(R.id.checkBox)
 //            val chkBox :CheckBox = findViewById(R.id.checkbox)
             if(chkBox.isChecked()) {
@@ -497,7 +500,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
 
     companion object {
-
+        lateinit var context_main: Any
         const val TAG_HOME_FRAGMENT = "home"
         const val TAG_RANK_FRAGMENT = "rank"
         const val TAG_ROUTINE_FRAGMENT = "routine"
