@@ -129,7 +129,7 @@ class RoutineFragment : Fragment() {
                 }
                 texts = texts.substring(0, (texts.length) - 1)
                 engtexts = engtexts.substring(0, (engtexts.length) - 1)
-                setRoutine(id.toString(), newRoutineName, texts, engtexts)
+//                setRoutine(id.toString(), newRoutineName, texts, engtexts)
 
                 val routineAdapter: ItemAdapter = recyclerView.adapter as ItemAdapter
                 val childItems: List<String> = texts.split(",");
@@ -145,7 +145,15 @@ class RoutineFragment : Fragment() {
                     dialog.dismiss()
                 })
             setExercise.create()
-
+            val checkOverlap: AlertDialog.Builder = AlertDialog.Builder(context)
+                .setTitle("루틴 이름 중복")
+                .setMessage("다른 이름으로 설정해주세요.")
+                .setPositiveButton(
+                    "확인",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        dialog.dismiss()
+                    })
+            checkOverlap.create()
             /* Input Routine Name Part */
             val inputName = layoutInflater.inflate(R.layout.popup_routine_add, null)
             val setRoutineName: AlertDialog.Builder = AlertDialog.Builder(context)
@@ -156,24 +164,13 @@ class RoutineFragment : Fragment() {
                     newRoutineName =
                         inputName.findViewById<EditText>(R.id.editRoutineName).text.toString()
                     // write down volley code here
-                    var nameFlag: Boolean = true;
-                    if (!routineAdapter.checkRoutineName(newRoutineName)) {
-                        val checkOverlap: AlertDialog.Builder = AlertDialog.Builder(context)
-                            .setTitle("루틴 이름 중복")
-                            .setMessage("다른 이름으로 설정해주세요.")
-                            .setPositiveButton(
-                                "확인",
-                                DialogInterface.OnClickListener { dialog, which ->
-                                    nameFlag = false;
-                                })
-                        checkOverlap.create().show()
+                    if (routineAdapter.checkRoutineName(newRoutineName)) {
+                        checkOverlap.show()
                     }
-                    if (!nameFlag) {
-                        dialog.dismiss()
+                    else{
+                        setExercise.show()
                     }
-
                     Log.d("ROUTINE_SET", "inputName : $newRoutineName")
-                    setExercise.show()
                     dialog.dismiss()
                 })
                 .setNegativeButton("취소", DialogInterface.OnClickListener() { dialog, which ->
