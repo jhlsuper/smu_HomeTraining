@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,8 +42,6 @@ import com.android.volley.RequestQueue;
 import com.example.mlkit_pose.JSP;
 import com.example.mlkit_pose.fragment.expre.model.SharedViewModel;
 
-import static androidx.core.os.BundleKt.bundleOf;
-import static androidx.fragment.app.FragmentKt.setFragmentResult;
 
 
 /**
@@ -56,7 +55,10 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private final int CHILD_ITEM_VIEW = 1;
     private Context context;
     private Context lastContext;
+
     OnPersonItemClickListener listener;
+
+    FragmentManager mFragmentManager;
 
     public Context getContext() {
         return context;
@@ -67,10 +69,6 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     private Map<String, ArrayList<String>> routineItems = new HashMap<String, ArrayList<String>>();
 
-    // 여기부터 아래까지 새로운 프래그먼트 열기 위함
-    public void setOnItemClickListener(OnPersonItemClickListener listener) {
-        this.listener = listener;
-    }
 
     @Override
     public void onItemClick(ViewHolder holder, View view, int position) {
@@ -100,9 +98,10 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             });
         }
     } // 여기까지
-    public ItemAdapter(String inputId, Context lastContext) {
+    public ItemAdapter(String inputId, Context lastContext,FragmentManager fm) {
 
         this.lastContext = lastContext;
+        this.mFragmentManager = fm;
         setItemData(inputId);
     }
 
@@ -256,26 +255,16 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             parentItemVH.name.setOnClickListener(new View.OnClickListener() { //이름 클릭했을 때
                 @Override
                 public void onClick(View v) {
-                    Log.d("ONCLICK_PARENT", "ONCLICK TEXT");
-
                     String routine_name = (String) parentItemVH.name.getText();
-                    Log.d("message", routine_name);
-
-//                    Intent intent = new Intent(getContext(), RoutineDetailFragment.class);
-//                    intent.putExtra("routine_name", routine_name);
-
-                    FragmentTransaction var10000 = ((PageActivity)PageActivity.context_main).getSupportFragmentManager().beginTransaction();
-                    RoutineDetailFragment routineDetailfragment = new RoutineDetailFragment();
+                    Log.d("ONCLICK_PARENT", routine_name);
+                    RoutineDetailFragment rtd = new RoutineDetailFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("Routine_detail_name", routine_name); // 이름 번들에 넣음
-                    routineDetailfragment.setArguments(bundle);
-                    FragmentTransaction transaction = var10000;
-
-//                    sharedViewModel.setLiveData(routine_name);
-
-                    transaction.replace(R.id.frameLayout, new RoutineDetailFragment()); // 변경
-//                    transaction.add(R.id.frameLayout, new RoutineDetailFragment(), "Routine_Detail");
-                    transaction.commit(); // 저장
+                    bundle.putString("routine_Name",routine_name);
+                    rtd.setArguments(bundle);
+                    FragmentTransaction ft = mFragmentManager.beginTransaction();
+                    ft.add(R.id.frameLayout,rtd);
+                    ft.show(rtd);
+                    ft.commit();
 
                 }
 
