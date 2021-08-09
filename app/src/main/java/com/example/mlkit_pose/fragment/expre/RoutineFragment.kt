@@ -121,7 +121,7 @@ class RoutineFragment : Fragment() {
                 }
                 texts = texts.substring(0, (texts.length) - 1)
                 engtexts = engtexts.substring(0, (engtexts.length) - 1)
-//                setRoutine(id.toString(), newRoutineName, texts, engtexts)
+                setRoutine(id.toString(), newRoutineName, texts, engtexts)
 
                 val routineAdapter: ItemAdapter = recyclerView.adapter as ItemAdapter
                 val childItems: List<String> = texts.split(",");
