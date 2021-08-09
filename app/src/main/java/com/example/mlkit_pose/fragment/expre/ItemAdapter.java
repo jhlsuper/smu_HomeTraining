@@ -262,10 +262,9 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                     bundle.putString("routine_Name",routine_name);
                     rtd.setArguments(bundle);
                     FragmentTransaction ft = mFragmentManager.beginTransaction();
-                    ft.add(R.id.frameLayout,rtd);
-                    ft.show(rtd);
+                    ft.replace(R.id.frameLayout,rtd);
+                    ft.addToBackStack(null);
                     ft.commit();
-
                 }
 
 
