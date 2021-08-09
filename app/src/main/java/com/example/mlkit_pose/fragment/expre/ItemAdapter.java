@@ -100,32 +100,20 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             });
         }
     } // 여기까지
-
     public ItemAdapter(String inputId, Context lastContext) {
 
         this.lastContext = lastContext;
         setItemData(inputId);
+    }
 
-//
-//        char alphabet = 'A';
-//        for(int i = 0; i < 5; i++) {
-//            Item item1 = new ParentItem((char) (alphabet + i) + "", PARENT_ITEM_VIEW);
-//            Item item2 = new ChildItem((char) (alphabet + i) + "-1", CHILD_ITEM_VIEW);
-//            Item item3 = new ChildItem((char) (alphabet + i) + "-2", CHILD_ITEM_VIEW);
-//            Item item4 = new ChildItem((char) (alphabet + i) + "-3", CHILD_ITEM_VIEW);
-//
-//            items.add(item1);
-//            items.add(item2);
-//            items.add(item3);
-//            items.add(item4);
-//
-//            ParentItem pt = (ParentItem) item1;
-//            pt.visibilityOfChildItems = false;
-//            visibleItems.add(item1);
-//            pt.unvisibleChildItems.add((ChildItem) item2);
-//            pt.unvisibleChildItems.add((ChildItem) item3);
-//            pt.unvisibleChildItems.add((ChildItem) item4);
-//        }
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+    public ArrayList<Item> getVisibleItems() {
+        return visibleItems;
+    }
+    public Map<String, ArrayList<String>> getRoutineItems() {
+        return routineItems;
     }
 
     public void setItemData(String inputId) {
@@ -201,8 +189,13 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     public boolean checkRoutineName(String parent) {
-        if (routineItems.containsKey(parent)) {
-            return true;
+        for (Item i : items){
+            if(i instanceof ParentItem){
+                if (i.name.equals(parent)){
+                    Log.d("ROUTINE_SET","Parent : "+i.name);
+                    return true;
+                }
+            }
         }
         return false;
     }
