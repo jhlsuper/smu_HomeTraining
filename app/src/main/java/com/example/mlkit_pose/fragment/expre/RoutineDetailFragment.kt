@@ -1,26 +1,29 @@
 package com.example.mlkit_pose.fragment.expre
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import com.example.mlkit_pose.R
 import com.example.mlkit_pose.fragment.expre.model.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_routine_detail.*
-import java.util.*
 
+
+private const val ARG_PARAM1 = "param1"
 
 class RoutineDetailFragment : Fragment(){
-    var routine_name : String = ""
-    private val sharedViewModel: SharedViewModel? = null
+    private var routine_name : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var routine_name : String? = null
-        context_mainR = this;
+        arguments?.let{
+            routine_name = it.getString("routine_Name")
+        }
 
 //        arguments?.let {
 //            routine_name = it.getString("result")
@@ -38,16 +41,7 @@ class RoutineDetailFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_routine_detail, container, false)
-
-        Log.d("jieun", arguments.toString()) // 널로 찍힘
-        if(arguments != null)
-        {
-            routine_name = arguments?.getString("Routine_detail_name").toString()
-            Log.d("jieun", routine_name)
-        }
-
-        return view
+        return inflater.inflate(R.layout.fragment_routine_detail, container, false)
     }
 
 
@@ -55,19 +49,28 @@ class RoutineDetailFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
 
-        setFragmentResultListener("requestKey") { resultKey, bundle ->
-            val result = bundle.getString("bundleKey")
-            Log.d("result", result.toString())
-            routine_detail_name.setText("${result}")
-//            val queue = Volley.newRequestQueue(context)
-//            val url = JSP.getSportsName(result.toString()).toString()
-        }
-
+//        setFragmentResultListener("requestKey") { resultKey, bundle ->
+//            val result = bundle.getString("bundleKey")
+//            Log.d("result", result.toString())
+//            routine_detail_name.setText("${result}")
+////            val queue = Volley.newRequestQueue(context)
+////            val url = JSP.getSportsName(result.toString()).toString()
+//        }
+        Log.d("ROUTINE_DETAIL",routine_name!!)
+        routine_detail_name.text = routine_name
 
     }
 
+
     companion object {
-        lateinit var context_mainR: Any
+        @JvmStatic
+        fun newInstance(param1:String){
+            RoutineDetailFragment().apply{
+                arguments = Bundle().apply{
+                    putString(ARG_PARAM1,param1);
+                }
+            }
+        }
 
     }
 

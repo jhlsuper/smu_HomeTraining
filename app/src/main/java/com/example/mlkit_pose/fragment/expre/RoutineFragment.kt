@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -62,19 +63,10 @@ class RoutineFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView: CustomRecyclerView = view.findViewById(R.id.recylcerview) as CustomRecyclerView
-        adapter = ItemAdapter(id, context)
+        adapter = ItemAdapter(id, context,fragmentManager)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context))
         recyclerView.layoutManager = ItemLayoutManager(context)
-
-        (recyclerView.adapter as ItemAdapter).setOnItemClickListener(object : OnPersonItemClickListener {
-            override fun onItemClick(holder: ItemAdapter.ViewHolder?, view: View?, position: Int) {
-                Toast.makeText(context, "아이템 선택 ", Toast.LENGTH_LONG).show()
-                Log.d("jieun", "jieun")
-            }
-        })
-
-
         add_routineButton.setOnClickListener {
             var newRoutineName: String = ""
             val itemArray = arrayOf<String>(
