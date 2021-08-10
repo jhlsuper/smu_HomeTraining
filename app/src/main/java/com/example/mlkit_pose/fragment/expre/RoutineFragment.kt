@@ -63,7 +63,7 @@ class RoutineFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView: CustomRecyclerView = view.findViewById(R.id.recylcerview) as CustomRecyclerView
-        adapter = ItemAdapter(id, context,fragmentManager)
+        adapter = ItemAdapter(id, context,parentFragmentManager)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(DividerItemDecoration(context))
         recyclerView.layoutManager = ItemLayoutManager(context)
@@ -186,8 +186,6 @@ class RoutineFragment : Fragment() {
         val url_setRoutine = JSP.setRoutineIns(id, routineName, exerciseName, exerciseEnName)
         val StringRequest = StringRequest(Request.Method.GET, url_setRoutine, { response ->
             response.trim { it <= ' ' }
-            Toast.makeText(context, "$response, 보내졌습니다.", Toast.LENGTH_SHORT).show()
-
         }, {
             Toast.makeText(context, "sever error", Toast.LENGTH_SHORT).show()
         })

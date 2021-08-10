@@ -1,39 +1,27 @@
 package com.example.mlkit_pose.fragment
 
+//import com.example.hometrain.GuideBookRecyclerAdapter.Companion.array_name
+
 import GuideBookRecyclerAdapter
 import GuideBookRecyclerAdapter.Companion.array_name
 import GuideBookSportsList
 import GuideSports
-import android.graphics.pdf.PdfDocument
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.add
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.mlkit_pose.*
 import com.example.mlkit_pose.JSP.Companion.getSportsName
-//import com.example.hometrain.GuideBookRecyclerAdapter.Companion.array_name
-
-import kotlinx.android.synthetic.main.fragment_bottom_menu.*
-import kotlinx.android.synthetic.main.fragment_bottom_menu.btn_guide
-import kotlinx.android.synthetic.main.fragment_bottom_menu.btn_home
-import kotlinx.android.synthetic.main.fragment_bottom_menu.btn_mypage
-import kotlinx.android.synthetic.main.fragment_bottom_menu.btn_routine
+import com.example.mlkit_pose.R
 import kotlinx.android.synthetic.main.fragment_guide_click.*
-import kotlinx.android.synthetic.main.fragment_guide_click.*
-import kotlinx.android.synthetic.main.fragment_main_page_part.*
-import kotlinx.android.synthetic.main.fragment_ranking_main.*
-import kotlinx.android.synthetic.main.fragment_tool_bar.*
 
 
 private const val ARG_PARAM1 = "param1"
@@ -117,7 +105,6 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
                             val result = guidelist.GuideList.get(pos).name
                             Log.d("result", result)
                             setFragmentResult("requestKey2", bundleOf("bundleKey2" to result))
-
                             val transaction = parentFragmentManager.beginTransaction()
                             transaction.add(R.id.frameLayout,GuideSportsFragment(),"guide_sport")
                             transaction.show(GuideSportsFragment())
