@@ -47,7 +47,7 @@ import com.example.mlkit_pose.fragment.expre.model.SharedViewModel;
 /**
  * Created by wlsdud.choi on 2016-04-01.
  */
-public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperListener, OnPersonItemClickListener {
+public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperListener{
 
     private SharedViewModel sharedViewModel;
     private final String TAG = "[Simple][NewItemAdaptr]";
@@ -55,8 +55,6 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private final int CHILD_ITEM_VIEW = 1;
     private Context context;
     private Context lastContext;
-
-    OnPersonItemClickListener listener;
 
     FragmentManager mFragmentManager;
 
@@ -69,35 +67,6 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     private Map<String, ArrayList<String>> routineItems = new HashMap<String, ArrayList<String>>();
 
-
-    @Override
-    public void onItemClick(ViewHolder holder, View view, int position) {
-        if (listener != null) {
-            listener.onItemClick(holder, view, position);
-        }
-    }
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
-        TextView textView2;
-
-        public ViewHolder(View itemView, final OnPersonItemClickListener listener) {
-            super(itemView);
-
-            textView = itemView.findViewById(R.id.item_name);
-            textView2 = itemView.findViewById(R.id.subitem_name);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (listener != null) {
-                        listener.onItemClick(ViewHolder.this, v, position);
-                    }
-                }
-            });
-        }
-    } // 여기까지
     public ItemAdapter(String inputId, Context lastContext,FragmentManager fm) {
 
         this.lastContext = lastContext;
@@ -262,7 +231,8 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                     bundle.putString("routine_Name",routine_name);
                     rtd.setArguments(bundle);
                     FragmentTransaction ft = mFragmentManager.beginTransaction();
-                    ft.replace(R.id.frameLayout,rtd);
+                    ft.add(R.id.frameLayout,rtd,"routine_detail");
+                    ft.show(rtd);
                     ft.addToBackStack(null);
                     ft.commit();
                 }
@@ -336,72 +306,6 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-//
-//        Log.i(TAG, "onItemMove. fromPosition : "+fromPosition+", toPosition : "+toPosition);
-//        Log.i(TAG, "onItemMove. fromItem : "+visibleItems.get(fromPosition).name+", toItem : "+visibleItems.get(toPosition).name);
-//
-//        if(fromPosition < 0 || fromPosition >= visibleItems.size() || toPosition < 0 || toPosition >= visibleItems.size()){
-//            return false;
-//        }
-//
-//        Item fromItem = visibleItems.get(fromPosition);
-//
-//        if(visibleItems.get(fromPosition).viewType == CHILD_ITEM_VIEW){
-//            if(fromPosition <= 0 || toPosition <= 0){
-//                return false;
-//            }
-//            Log.i(TAG, "onItemMove. remove add");
-//
-//            visibleItems.remove(fromPosition);
-//            visibleItems.add(toPosition, fromItem);
-//
-//            notifyItemMoved(fromPosition, toPosition);
-//
-//        }else{
-//            if(visibleItems.get(fromPosition).viewType == visibleItems.get(toPosition).viewType) {
-//                if(fromPosition > toPosition){
-//                    Log.i(TAG, "onItemMove. remove add");
-//
-//                    visibleItems.remove(fromPosition);
-//                    visibleItems.add(toPosition, fromItem);
-//
-//                    notifyItemMoved(fromPosition, toPosition);
-//                }else{
-//                    int toParentPosition = getParentPosition(toPosition);
-//                    int toLastchildSize = getVisibleChildItemSize(toParentPosition);
-//                    Log.i(TAG, "onItemMove. lastChild : "+toLastchildSize);
-//                    if(toLastchildSize == 0){
-//                        Log.i(TAG, "onItemMove. remove add");
-//
-//                        visibleItems.remove(fromPosition);
-//                        visibleItems.add(toPosition, fromItem);
-//
-//                        notifyItemMoved(fromPosition, toPosition);
-//                    }
-//
-//                }
-//            }else{
-//                if(fromPosition < toPosition){
-//                    int toParentPosition = getParentPosition(toPosition);
-//                    int toLastchildPosition = getVisibleChildItemSize(toParentPosition) + toParentPosition;
-//                    Log.i(TAG, "onItemMove. lastChild : "+toLastchildPosition);
-//
-//                    if(toLastchildPosition == toPosition) {
-//                        Log.i(TAG, "onItemMove. remove add");
-//
-//                        visibleItems.remove(fromPosition);
-//                        visibleItems.add(toPosition, fromItem);
-//
-//                        notifyItemMoved(fromPosition, toPosition);
-//                    }
-//                }
-//            }
-//        }
-//
-//        for(int i = 0; i < visibleItems.size(); i++){
-//        Log.i(TAG, "onItemMove : "+visibleItems.get(i).name);
-//    }
-
         return false;
     }
 

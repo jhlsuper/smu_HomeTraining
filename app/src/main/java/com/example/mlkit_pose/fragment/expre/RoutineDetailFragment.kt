@@ -24,16 +24,6 @@ class RoutineDetailFragment : Fragment(){
         arguments?.let{
             routine_name = it.getString("routine_Name")
         }
-
-//        arguments?.let {
-//            routine_name = it.getString("result")
-//        }
-//
-//        setFragmentResultListener("requestKey") { resultKey, bundle ->
-//            val result = bundle.getString("bundleKey")
-//            Log.d("result", result.toString())
-//
-//        }
     }
 
     override fun onCreateView(
@@ -47,15 +37,6 @@ class RoutineDetailFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-//        setFragmentResultListener("requestKey") { resultKey, bundle ->
-//            val result = bundle.getString("bundleKey")
-//            Log.d("result", result.toString())
-//            routine_detail_name.setText("${result}")
-////            val queue = Volley.newRequestQueue(context)
-////            val url = JSP.getSportsName(result.toString()).toString()
-//        }
         Log.d("ROUTINE_DETAIL",routine_name!!)
         routine_detail_name.text = routine_name
 

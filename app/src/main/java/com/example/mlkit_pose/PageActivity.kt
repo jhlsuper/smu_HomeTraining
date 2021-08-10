@@ -230,6 +230,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val mypage = manager.findFragmentByTag(TAG_MYPAGE_FRAGMENT)
         val guide_click = manager.findFragmentByTag(TAG_GUIDE_CLICK_FRAGMENT)
         val guide_sport = manager.findFragmentByTag(TAG_GUIDE_SPORT_FRAGMENT)
+        val routine_detail = manager.findFragmentByTag(TAG_ROUTINE_DETAIL_FRAGMENT)
 
         if (home != null) {
 //            transaction.remove(home)
@@ -260,7 +261,10 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             transaction.remove(guide_sport)
             Log.d("fragment", "guide sport removed")
         }
-
+        if (routine_detail != null){
+            transaction.remove(routine_detail)
+            Log.d("fragment", "routine Detail removed")
+        }
         when (tag) {
             TAG_HOME_FRAGMENT -> {
 
@@ -277,6 +281,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             TAG_ROUTINE_FRAGMENT -> {
 
                 if (routine != null) {
+                    if (routine_detail != null){
+                        transaction.remove(routine_detail)
+                    }
                     transaction.show(routine)
                 }
             }
@@ -508,6 +515,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         const val TAG_MYPAGE_FRAGMENT = "mypage"
         const val TAG_GUIDE_CLICK_FRAGMENT = "guide_click"
         const val TAG_GUIDE_SPORT_FRAGMENT = "guide_sport"
+        const val TAG_ROUTINE_DETAIL_FRAGMENT = "routine_detail"
         private const val SETTING_OK = 2
     }
 
