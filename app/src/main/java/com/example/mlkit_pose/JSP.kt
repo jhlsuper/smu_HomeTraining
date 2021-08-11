@@ -63,6 +63,10 @@ class JSP {
             val url = Jsp_Url+"RoutineListCheck.jsp?UserId=${inputId}"
             return url
         }
+        fun getRoutineCheck(inputId: String) : String {
+            val url = Jsp_Url+"RoutineCheck.jsp?UserId=${inputId}"
+            return url
+        }
     }
 
 

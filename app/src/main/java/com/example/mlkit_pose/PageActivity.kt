@@ -499,6 +499,10 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //        dialog.create()
 //        dialog.show()
 //    }
+    fun findUserId():String{
+        val currentUser= sharedManager.getCurrentUser()
+        return currentUser.id.toString()
+    }
 
 
     companion object {
