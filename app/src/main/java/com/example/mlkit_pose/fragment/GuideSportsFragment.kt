@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.JSP
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
+import com.example.mlkit_pose.SharedManager
 import kotlinx.android.synthetic.main.fragment_guide_sports.*
 import kotlinx.android.synthetic.main.item_model.*
 import java.io.IOException
@@ -38,6 +39,7 @@ import java.net.URL
 class GuideSportsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param2: String? = null
+
     var number: Int = 0
     val list: MutableList<Model> by lazy {
         mutableListOf<Model>()
@@ -47,6 +49,7 @@ class GuideSportsFragment : Fragment() {
     var result2: String? = null
     var exname: String? = null
     var id: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -211,6 +214,8 @@ class GuideSportsFragment : Fragment() {
 
     fun MyRoutinePopup() {
 
+        id = (activity as PageActivity).findUserId()
+        Log.d("userId","$id")
         val dialog = AlertDialog.Builder(context).create()
 
         val edialog: LayoutInflater = LayoutInflater.from(context)
