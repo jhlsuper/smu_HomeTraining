@@ -24,25 +24,15 @@ import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.JSP
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.fragment_bottom_menu.*
-import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_guide_sports.*
-import kotlinx.android.synthetic.main.fragment_guide_sports.view.*
-import kotlinx.android.synthetic.main.fragment_main_page_part.*
-import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.item_model.*
-import kotlinx.android.synthetic.main.popup_add_myroutine.*
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
-import java.util.*
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 
 class GuideSportsFragment : Fragment() {
@@ -56,12 +46,12 @@ class GuideSportsFragment : Fragment() {
     var eturl: String? = null
     var result2: String? = null
     var exname: String? = null
+    var id: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            result = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
+        arguments?.let {
+            id = it.getString("id")
+        }
 
     }
 
@@ -171,19 +161,7 @@ class GuideSportsFragment : Fragment() {
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GuideSportsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
 
-        // var result: String? = null
-
-    }
 
     fun showTimeSettingPopup() {
 
@@ -237,10 +215,9 @@ class GuideSportsFragment : Fragment() {
 
         val edialog: LayoutInflater = LayoutInflater.from(context)
         val mView: View = edialog.inflate(R.layout.popup_add_myroutine, null) //팝업창을 띄우는 코드
-        val routineName: EditText = mView.findViewById<EditText>(R.id.editText)
-        val insert: Button = mView.findViewById<Button>(R.id.bt_insert)
+        val insert_button: Button = mView.findViewById<Button>(R.id.add_to_routine)
 //        val checkbox:CheckBox =mView.findViewById<CheckBox>(R.id.checkBox)
-        val button: Button = mView.findViewById<Button>(R.id.button)
+        val cancel_button: Button = mView.findViewById<Button>(R.id.add_to_routine_cancel)
         val recyclerView: RecyclerView = mView.findViewById(R.id.recyclerView)
         val adapter = Adapter(list, R.layout.item_model, requireContext())
         recyclerView.adapter = adapter
@@ -249,35 +226,49 @@ class GuideSportsFragment : Fragment() {
             requireContext(),
             RecyclerView.VERTICAL, false
         )
-        list.add(Model("fistExc", 1))
+//        list.add(Model("fistExc", 1))
+//        if (adapter != null) {
+//            number = adapter.itemCount
+//        }
+//        list.add(Model("add_name", number++))
+//        if (adapter != null) {
+//            adapter.notifyDataSetChanged()
+//        }
 
+        val queue = Volley.newRequestQueue(context)
+        val url:String = JSP.getRoutineCheck(id!!)
+        val stringRequest1 = StringRequest(Request.Method.GET, url, {  response ->
+                response.trim {it <= ','}
+                Log.d("GuideClick","${response}, Sports Name : exname")
+            },{Log.d("GuideClick","Volley Error") })
+        queue.add(stringRequest1)
 
-        insert.setOnClickListener {
-            val name = routineName.text.toString()
-            if (adapter != null) {
-                number = adapter.itemCount
-            }
-            list.add(Model(name, number++))
-            if (adapter != null) {
-                adapter.notifyDataSetChanged()
-            }
+        insert_button.setOnClickListener {
+
         }
-
-        button.setOnClickListener {
-
-
-            if (checkBox.isChecked) {
-
-                Toast.makeText(context, "루틴에 추가되었습니다", Toast.LENGTH_SHORT).show()
-            }
+        cancel_button.setOnClickListener {
+            dialog.dismiss()
         }
         dialog.setView(mView)
         dialog.create()
         dialog.show()
 
     }
+    private fun settingRoutineNames(){
 
+    }
+    companion object {
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            GuideSportsFragment().apply {
+                arguments = Bundle().apply {
+                    putString("id", param1)
+                }
+            }
 
+        // var result: String? = null
+
+    }
 }
 
 

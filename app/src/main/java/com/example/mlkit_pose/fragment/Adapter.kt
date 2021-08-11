@@ -55,11 +55,11 @@ class Adapter(val list: MutableList<Model>, val layout:Int, val context: Context
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
 
                 if(isChecked){
-                    Log.d("sss","Check btn ON${list[position].number}")
+                    Log.d("Guide_Sports","Check btn ON${list[position].number}")
                     Toast.makeText(context,"Check btn ON${list[position].number}", Toast.LENGTH_LONG).show()
 
                 }else {
-                    Log.d("sss","Check btn OFF${list[position].number}")
+                    Log.d("Guide_Sports","Check btn OFF${list[position].number}")
                     Toast.makeText(context,"Check btn OFF${list[position].number}", Toast.LENGTH_LONG).show()
 
                 }

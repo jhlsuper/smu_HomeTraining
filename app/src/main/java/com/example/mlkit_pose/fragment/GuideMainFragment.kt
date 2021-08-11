@@ -22,23 +22,20 @@ import kotlinx.android.synthetic.main.fragment_guide_main.view.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 
 
-private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
 class GuideMainFragment : Fragment(),View.OnClickListener {
 //    lateinit var  binding: ActivityMainBinding
-    private var param1: String? = null
+    private var id: String? = null
     private var param2: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            id = it.getString("id")
         }
-
     }
 
     override fun onCreateView(
@@ -68,7 +65,6 @@ class GuideMainFragment : Fragment(),View.OnClickListener {
 
     fun setPosition(positionName:String){
         val result = positionName
-        Log.d("jieun", result)
         setFragmentResult("requestKey", bundleOf("bundleKey" to result))
         parentFragmentManager.beginTransaction()
             .add(R.id.frameLayout,GuideClickFragment(),"guide_click")
@@ -84,7 +80,6 @@ class GuideMainFragment : Fragment(),View.OnClickListener {
         when(v?.id){
             R.id.chest->{
                 setPosition("가슴")
-                Log.d("jieun", "hello")
             }
             R.id.back->{
                 setPosition("등")
@@ -126,8 +121,7 @@ class GuideMainFragment : Fragment(),View.OnClickListener {
         fun newInstance(param1: String, param2: String) =
                 GuideMainFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
+                        putString("id", id)
                     }
                 }
     }
