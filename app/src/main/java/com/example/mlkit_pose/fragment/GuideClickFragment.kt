@@ -24,15 +24,14 @@ import com.example.mlkit_pose.R
 import kotlinx.android.synthetic.main.fragment_guide_click.*
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 val sportsdatas = mutableListOf<String>()
+private val ARG_PARAM1:String = "ARG_PARAM1"
+private val ARG_PARAM2:String = "ARG_PARAM2"
 
 class GuideClickFragment : Fragment(), View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var sports_names: String? = null
-    private var param2: String? = null
+    private var id: String? = null
 
 
 
@@ -40,7 +39,7 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         arguments?.let {
             sports_names = it.getString("result")
-            param2 = it.getString(ARG_PARAM2)
+            id = it.getString("id")
         }
 
         setFragmentResultListener("requestKey") { resultKey, bundle ->

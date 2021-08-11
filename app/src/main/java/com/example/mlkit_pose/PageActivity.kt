@@ -184,11 +184,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 info_user_point.text = "포인트: ${currentUser.points}"
                 main_drawer_layout.openDrawer(GravityCompat.START)
             }
-            R.id.btn_add_routine -> {
-                guidePopup()
-            }
-
-
         }
     }
 
@@ -469,41 +464,41 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         setRankData()
         initRecycler()
     }
-    fun guidePopup(){
-
-        val dialog = AlertDialog.Builder(this)
-        val view = layoutInflater.inflate(R.layout.popup_add_myroutine, null)
-        dialog.setView(view)
-        list.add(Model("0", number))
-        val adapter = Adapter(list, R.layout.item_model, this)
-        recyclerView.adapter = adapter
-        recyclerView.hasFixedSize()
-        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-
-
-
-        bt_insert.setOnClickListener{
-            val name = editText.text.toString()
-            number = adapter.itemCount
-            list.add(Model(name, number++))
-            adapter.notifyDataSetChanged()
-        }
-
-        button.setOnClickListener {
-            val myToast = Toast.makeText(
-                this.applicationContext,
-                "루틴에 추가되었습니다.",
-                Toast.LENGTH_SHORT
-            )
-            val  chkBox : CheckBox = findViewById(R.id.checkBox)
-//            val chkBox :CheckBox = findViewById(R.id.checkbox)
-            if(chkBox.isChecked()) {
-                myToast.show()
-            }
-        }
-        dialog.create()
-        dialog.show()
-    }
+//    fun guidePopup(){
+//
+//        val dialog = AlertDialog.Builder(this)
+//        val view = layoutInflater.inflate(R.layout.popup_add_myroutine, null)
+//        dialog.setView(view)
+//        list.add(Model("0", number))
+//        val adapter = Adapter(list, R.layout.item_model, this)
+//        recyclerView.adapter = adapter
+//        recyclerView.hasFixedSize()
+//        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+//
+//
+//
+//        add_to_routine_cancel.setOnClickListener{
+//            val name = editText.text.toString()
+//            number = adapter.itemCount
+//            list.add(Model(name, number++))
+//            adapter.notifyDataSetChanged()
+//        }
+//
+//        add_to_routine.setOnClickListener {
+//            val myToast = Toast.makeText(
+//                this.applicationContext,
+//                "루틴에 추가되었습니다.",
+//                Toast.LENGTH_SHORT
+//            )
+//            val  chkBox : CheckBox = findViewById(R.id.checkBox)
+////            val chkBox :CheckBox = findViewById(R.id.checkbox)
+//            if(chkBox.isChecked()) {
+//                myToast.show()
+//            }
+//        }
+//        dialog.create()
+//        dialog.show()
+//    }
 
 
     companion object {
