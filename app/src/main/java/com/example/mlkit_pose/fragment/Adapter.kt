@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_model.view.*
 class Adapter(val list: MutableList<Model>, val layout:Int, val context: Context) : RecyclerView.Adapter<ViewHolder>(){
     val selectionList = mutableListOf<Long>()
     val onItemClickListener : ((MutableList<Long>) -> Unit)?= null
-
+    var selectedItem = mutableListOf<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_model,parent,false)
         view.setOnClickListener(object : View.OnClickListener{
@@ -53,15 +53,14 @@ class Adapter(val list: MutableList<Model>, val layout:Int, val context: Context
          })*/
         holder.chkBox.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-
                 if(isChecked){
-                    Log.d("Guide_Sports","Check btn ON${list[position].number}")
-                    Toast.makeText(context,"Check btn ON${list[position].number}", Toast.LENGTH_LONG).show()
-
+                    Log.d("Guide_Sports","Check btn ON${list[position].name}")
+                    Toast.makeText(context,"Check btn ON${list[position].name}", Toast.LENGTH_LONG).show()
+                    selectedItem.add(list[position].name)
                 }else {
-                    Log.d("Guide_Sports","Check btn OFF${list[position].number}")
-                    Toast.makeText(context,"Check btn OFF${list[position].number}", Toast.LENGTH_LONG).show()
-
+                    Log.d("Guide_Sports","Check btn OFF${list[position].name}")
+                    Toast.makeText(context,"Check btn OFF${list[position].name}", Toast.LENGTH_LONG).show()
+                    selectedItem.remove(list[position].name)
                 }
             }
         })

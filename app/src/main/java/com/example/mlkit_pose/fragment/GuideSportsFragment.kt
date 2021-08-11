@@ -41,9 +41,7 @@ class GuideSportsFragment : Fragment() {
     private var param2: String? = null
 
     var number: Int = 0
-    val list: MutableList<Model> by lazy {
-        mutableListOf<Model>()
-    }
+
     var bitmap: Bitmap? = null
     var eturl: String? = null
     var result2: String? = null
@@ -73,7 +71,7 @@ class GuideSportsFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
-
+        id = (activity as PageActivity).findUserId()
 
         setFragmentResultListener("requestKey2") { resultKey, bundle ->
             bundle.getString("bundleKey2")?.let {
@@ -214,10 +212,11 @@ class GuideSportsFragment : Fragment() {
 
     fun MyRoutinePopup() {
 
-        id = (activity as PageActivity).findUserId()
+        val list: MutableList<Model> by lazy {
+            mutableListOf<Model>()
+        }
         Log.d("userId","$id")
         val dialog = AlertDialog.Builder(context).create()
-
         val edialog: LayoutInflater = LayoutInflater.from(context)
         val mView: View = edialog.inflate(R.layout.popup_add_myroutine, null) //팝업창을 띄우는 코드
         val insert_button: Button = mView.findViewById<Button>(R.id.add_to_routine)
@@ -231,35 +230,36 @@ class GuideSportsFragment : Fragment() {
             requireContext(),
             RecyclerView.VERTICAL, false
         )
-//        list.add(Model("fistExc", 1))
-//        if (adapter != null) {
-//            number = adapter.itemCount
-//        }
-//        list.add(Model("add_name", number++))
-//        if (adapter != null) {
-//            adapter.notifyDataSetChanged()
-//        }
 
+        // 루틴 이름들 셋팅
         val queue = Volley.newRequestQueue(context)
         val url:String = JSP.getRoutineCheck(id!!)
         val stringRequest1 = StringRequest(Request.Method.GET, url, {  response ->
-                response.trim {it <= ','}
-                Log.d("GuideClick","${response}, Sports Name : exname")
-            },{Log.d("GuideClick","Volley Error") })
+            response.trim {it <= ' '}
+            val routineList = response.split(",")
+            for ((i, item) in routineList.withIndex()){
+                if (i==routineList.size-1){
+                    break
+                }
+                Log.d("GuideClick","${item}, ${i}, ${routineList.size}")
+                list.add(Model(item, i+1))
+            }
+            adapter.notifyDataSetChanged()
+        },{Log.d("GuideClick","Volley Error") })
         queue.add(stringRequest1)
 
+        // 루틴에 추가 버튼 누를 때
         insert_button.setOnClickListener {
-
+            Log.d("GuideClick","Insert Button Click Fuck!")
+            Log.d("GuideClick",adapter.selectedItem.toString())
         }
+        // 취소 버튼 누를 때
         cancel_button.setOnClickListener {
             dialog.dismiss()
         }
         dialog.setView(mView)
         dialog.create()
         dialog.show()
-
-    }
-    private fun settingRoutineNames(){
 
     }
     companion object {

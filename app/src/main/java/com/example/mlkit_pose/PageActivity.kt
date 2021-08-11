@@ -491,7 +491,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //                Toast.LENGTH_SHORT
 //            )
 //            val  chkBox : CheckBox = findViewById(R.id.checkBox)
-////            val chkBox :CheckBox = findViewById(R.id.checkbox)
 //            if(chkBox.isChecked()) {
 //                myToast.show()
 //            }
