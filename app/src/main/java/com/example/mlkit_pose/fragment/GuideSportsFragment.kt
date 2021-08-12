@@ -25,6 +25,8 @@ import com.example.mlkit_pose.JSP
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
 import com.example.mlkit_pose.SharedManager
+import com.example.mlkit_pose.fragment.expre.ItemAdapter
+import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import kotlinx.android.synthetic.main.fragment_guide_sports.*
 import kotlinx.android.synthetic.main.item_model.*
 import java.io.IOException
@@ -46,6 +48,7 @@ class GuideSportsFragment : Fragment() {
     var eturl: String? = null
     var result2: String? = null
     var exname: String? = null
+    var exname_k: String? = null
     var id: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,6 +115,7 @@ class GuideSportsFragment : Fragment() {
                         eturl = arr2[1]
                         // Setting Eng name
                         sport_detail_ename.text = arr2[2]
+                        exname_k = sport_detail_name.text as String?
                         val testTEXT = arr2[2]
                         Log.d("EnameCHECK", "Ename $testTEXT")
                         exname = arr2[2]
@@ -248,10 +252,25 @@ class GuideSportsFragment : Fragment() {
         },{Log.d("GuideClick","Volley Error") })
         queue.add(stringRequest1)
 
-        // 루틴에 추가 버튼 누를 때
+        // 루틴에 추가 버튼 누를 때 --> Volley 처리
         insert_button.setOnClickListener {
-            Log.d("GuideClick","Insert Button Click Fuck!")
-            Log.d("GuideClick",adapter.selectedItem.toString())
+            Log.d("GuideClick","Insert to ${adapter.selectedItem}, item : ${exname}, ${sport_detail_name.text}")
+            val queue = Volley.newRequestQueue(context)
+            val urls:ArrayList<StringRequest> = ArrayList<StringRequest>()
+            for (item:String in adapter.selectedItem){
+                val url_item:String = JSP.setRoutineInsOne(id!!,item,exname_k!!,exname!!)
+                val stringRequests = StringRequest(Request.Method.GET,url_item,{ response ->
+                    response.trim{it<=' '}
+                    Log.d("GuideClick_Insert", response)
+                },{
+                    Log.d("GuideClick","Volley Error")
+                })
+                urls.add(stringRequests)
+            }
+            for (requests:StringRequest in urls){
+                queue.add(requests)
+            }
+            dialog.dismiss()
         }
         // 취소 버튼 누를 때
         cancel_button.setOnClickListener {

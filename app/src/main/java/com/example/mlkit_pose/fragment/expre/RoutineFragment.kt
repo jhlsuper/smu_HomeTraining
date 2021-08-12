@@ -172,9 +172,6 @@ class RoutineFragment : Fragment() {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
 
     private fun setRoutine(
         id: String,
@@ -190,6 +187,10 @@ class RoutineFragment : Fragment() {
             Toast.makeText(context, "sever error", Toast.LENGTH_SHORT).show()
         })
         queue.add(StringRequest)
+    }
+
+    public fun itemNotify(){
+        adapter.notifyDataSetChanged()
     }
 
     companion object {
