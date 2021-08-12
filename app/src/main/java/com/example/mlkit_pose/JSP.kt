@@ -1,20 +1,11 @@
 package com.example.mlkit_pose
 
-import android.content.Intent
-import android.widget.Toast
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.fragment_login.*
-
 class JSP {
     companion object {
-        private val Jsp_Url = ""  //git pull 받으면 이거 고쳐서 쓸것!
+        private val Jsp_Url = "http://13.125.123.238:8080/"  //git pull 받으면 이거 고쳐서 쓸것!
 
         fun getLoginURL(inputId:String, inputPw:String):String{
             val url = Jsp_Url+"Login.jsp?userId=${inputId}&userPwd=${inputPw}"
-
             return url
         }
 
@@ -67,8 +58,8 @@ class JSP {
             val url = Jsp_Url+"RoutineCheck.jsp?UserId=${inputId}"
             return url
         }
-        fun setRoutineInsOne(inputId:String, routine_name:String,exc_name:String,engexc_name:String):String{
-            val url = Jsp_Url+"RoutineInsert.jsp?userId=${inputId}&routine_name=${routine_name}&exc_name=${exc_name}&engexc_name=${engexc_name}"
+        fun getRoutineNameList(inputId: String?, routineName: String) : String{
+            val url = Jsp_Url+"RoutineExcCheck.jsp?UserId=$inputId&RoutineName=$routineName"
             return url
         }
     }
