@@ -67,6 +67,10 @@ class JSP {
             val url = Jsp_Url+"RoutineCheck.jsp?UserId=${inputId}"
             return url
         }
+        fun setRoutineInsOne(inputId:String, routine_name:String,exc_name:String,engexc_name:String):String{
+            val url = Jsp_Url+"RoutineInsert.jsp?userId=${inputId}&routine_name=${routine_name}&exc_name=${exc_name}&engexc_name=${engexc_name}"
+            return url
+        }
     }
 
 
