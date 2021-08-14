@@ -237,7 +237,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //            transaction.detach(rank)
         }
         if (routine != null) {
-            transaction.hide(routine)
+            transaction.remove(routine)
 //            transaction.remove(routine)
         }
         if (guide != null) {
@@ -279,6 +279,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                     if (routine_detail != null){
                         transaction.remove(routine_detail)
                     }
+                    transaction.remove(routine)
+                    transaction.add(R.id.frameLayout,routine, TAG_ROUTINE_FRAGMENT)
                     transaction.show(routine)
                 }
             }

@@ -37,11 +37,11 @@ class RoutineFragment : Fragment() {
     val checkedItemList = ArrayList<String>()  // 선택된 항목을 담는 리스트
     val RoutineList = ArrayList<String>()  // 선택된 항목을 담는 리스트
     val RoutinesportsList = ArrayList<String>()  // 선택된 항목을 담는 리스트
-
+    var recyclerView: CustomRecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        Log.v("ROUTINE_FRAGMENT","onCreate")
         arguments?.let {
             id = it.getString("id")
             param2 = it.getString(ARG_PARAM2)
@@ -55,18 +55,27 @@ class RoutineFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.v("ROUTINE_FRAGMENT","onCreateView")
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_routine, container, false)
 
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val recyclerView: CustomRecyclerView = view.findViewById(R.id.recylcerview) as CustomRecyclerView
+    fun setAdapter(){
+        Log.v("ROUTINE_FRAGMENT","setAdapter")
         adapter = ItemAdapter(id, context,parentFragmentManager)
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(DividerItemDecoration(context))
-        recyclerView.layoutManager = ItemLayoutManager(context)
+        if (recyclerView != null) {
+            recyclerView!!.adapter = adapter
+        }
+        recyclerView?.addItemDecoration(DividerItemDecoration(context))
+        if (recyclerView != null) {
+            recyclerView!!.layoutManager = ItemLayoutManager(context)
+        }
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.v("ROUTINE_FRAGMENT","onViewCreate")
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView = view.findViewById(R.id.recylcerview) as CustomRecyclerView
+        setAdapter()
         add_routineButton.setOnClickListener {
             var newRoutineName: String = ""
             val itemArray = arrayOf<String>(
@@ -123,7 +132,7 @@ class RoutineFragment : Fragment() {
                 engtexts = engtexts.substring(0, (engtexts.length) - 1)
                 setRoutine(id.toString(), newRoutineName, texts, engtexts)
 
-                val routineAdapter: ItemAdapter = recyclerView.adapter as ItemAdapter
+                val routineAdapter: ItemAdapter = recyclerView?.adapter as ItemAdapter
                 val childItems: List<String> = texts.split(",");
                 routineAdapter.addItems(childItems, newRoutineName);
                 Log.d("ROUTINE_LIST", childItems.toString())
@@ -151,7 +160,7 @@ class RoutineFragment : Fragment() {
             val setRoutineName: AlertDialog.Builder = AlertDialog.Builder(context)
                 .setView(inputName)
                 .setPositiveButton("확인", DialogInterface.OnClickListener() { dialog, which ->
-                    val routineAdapter: ItemAdapter = recyclerView.adapter as ItemAdapter
+                    val routineAdapter: ItemAdapter = recyclerView?.adapter as ItemAdapter
 
                     newRoutineName =
                         inputName.findViewById<EditText>(R.id.editRoutineName).text.toString()
@@ -172,7 +181,10 @@ class RoutineFragment : Fragment() {
         }
     }
 
-
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        Log.v("ROUTINE_FRAGMENT","onViewStateRestored")
+    }
     private fun setRoutine(
         id: String,
         routineName: String,
@@ -189,9 +201,6 @@ class RoutineFragment : Fragment() {
         queue.add(StringRequest)
     }
 
-    public fun itemNotify(){
-        adapter.notifyDataSetChanged()
-    }
 
     companion object {
 

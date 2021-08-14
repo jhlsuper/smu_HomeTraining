@@ -2,7 +2,7 @@ package com.example.mlkit_pose
 
 class JSP {
     companion object {
-        private val Jsp_Url = "http://13.125.123.238:8080/"  //git pull 받으면 이거 고쳐서 쓸것!
+        private val Jsp_Url = "/"  //git pull 받으면 이거 고쳐서 쓸것!
 
         fun getLoginURL(inputId:String, inputPw:String):String{
             val url = Jsp_Url+"Login.jsp?userId=${inputId}&userPwd=${inputPw}"
@@ -50,6 +50,7 @@ class JSP {
             val url = Jsp_Url+"insert.jsp?userId=$inputId&routine_name=$routineName&exc_name=$execName&engexc_name=$engExcName"
             return url
         }
+
         fun getRoutineList(inputId: String) : String{
             val url = Jsp_Url+"RoutineListCheck.jsp?UserId=${inputId}"
             return url
@@ -60,6 +61,18 @@ class JSP {
         }
         fun getRoutineNameList(inputId: String?, routineName: String) : String{
             val url = Jsp_Url+"RoutineExcCheck.jsp?UserId=$inputId&RoutineName=$routineName"
+            return url
+        }
+        fun setRoutineInsOne(inputId:String, routine_name:String,exc_name:String,engexc_name:String):String{
+            val url = Jsp_Url+"RoutineInsert.jsp?userId=${inputId}&routine_name=${routine_name}&exc_name=${exc_name}&engexc_name=${engexc_name}"
+            return url
+        }
+        fun deleteRoutineExc(inputId:String,routine_name:String,exc_name:String):String{
+            val url = Jsp_Url+"RoutineExcDelete.jsp?userId=${inputId}&routine_name=${routine_name}&exc_name=${exc_name}"
+            return url
+        }
+        fun deleteRoutine(inputId:String,routine_name:String):String{
+            val url = Jsp_Url+"RoutineDelete.jsp?userId=${inputId}&routine_name=${routine_name}"
             return url
         }
     }
