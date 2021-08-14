@@ -55,7 +55,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private final int CHILD_ITEM_VIEW = 1;
     private Context context;
     private Context lastContext;
-
+    private String inputId;
     FragmentManager mFragmentManager;
 
     public Context getContext() {
@@ -68,7 +68,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private Map<String, ArrayList<String>> routineItems = new HashMap<String, ArrayList<String>>();
 
     public ItemAdapter(String inputId, Context lastContext,FragmentManager fm) {
-
+        this.inputId = inputId;
         this.lastContext = lastContext;
         this.mFragmentManager = fm;
         setItemData(inputId);
@@ -316,6 +316,24 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             switch (visibleItems.get(position).viewType) {
                 case PARENT_ITEM_VIEW:
                     int childItemSize = getVisibleChildItemSize(position);
+                    String deleteItem = visibleItems.get(position).name;
+                    Log.d("ROUTINE_DELETE",visibleItems.get(position).name);
+                    // Volley Here
+                    RequestQueue queue = Volley.newRequestQueue(lastContext);
+                    String url = JSP.Companion.deleteRoutine(inputId,visibleItems.get(position).name);
+                    Log.d("ROUTINE_DELETE",url);
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Toast.makeText(lastContext, "Removed Success :"+deleteItem, Toast.LENGTH_SHORT).show();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(lastContext, "sever error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    queue.add(stringRequest);
 
                     for (int i = 0; i <= childItemSize; i++) {
                         visibleItems.remove(position);
@@ -325,6 +343,9 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                     break;
                 case CHILD_ITEM_VIEW:
                     visibleItems.remove(position);
+                    // Child Delete Volley
+
+
                     notifyItemRemoved(position);
                     break;
             }
