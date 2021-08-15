@@ -113,7 +113,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                     items.add(parent);
                     ArrayList<Item> childList = new ArrayList<Item>();
                     for (String value : routineItems.get(key)) {
-                        Item child = new ChildItem(value, CHILD_ITEM_VIEW);
+                        Item child = new ChildItem(value, CHILD_ITEM_VIEW,key);
                         items.add(child);
                         childList.add(child);
                     }
@@ -142,7 +142,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         items.add(parent);
         ArrayList<Item> childList = new ArrayList<Item>();
         for (String value : childItems) {
-            Item child = new ChildItem(value, CHILD_ITEM_VIEW);
+            Item child = new ChildItem(value, CHILD_ITEM_VIEW,parentName);
             items.add(child);
             childList.add(child);
         }
@@ -316,16 +316,15 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             switch (visibleItems.get(position).viewType) {
                 case PARENT_ITEM_VIEW:
                     int childItemSize = getVisibleChildItemSize(position);
-                    String deleteItem = visibleItems.get(position).name;
+                    String deleteItem_Parent = visibleItems.get(position).name;
                     Log.d("ROUTINE_DELETE",visibleItems.get(position).name);
                     // Volley Here
-                    RequestQueue queue = Volley.newRequestQueue(lastContext);
-                    String url = JSP.Companion.deleteRoutine(inputId,visibleItems.get(position).name);
-                    Log.d("ROUTINE_DELETE",url);
-                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    RequestQueue queue_pr = Volley.newRequestQueue(lastContext);
+                    String url_pr = JSP.Companion.deleteRoutine(inputId,visibleItems.get(position).name);
+                    StringRequest stringRequest_pr = new StringRequest(Request.Method.GET, url_pr, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Toast.makeText(lastContext, "Removed Success :"+deleteItem, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(lastContext, "Removed Success :"+deleteItem_Parent, Toast.LENGTH_SHORT).show();
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -333,7 +332,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                             Toast.makeText(lastContext, "sever error", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    queue.add(stringRequest);
+                    queue_pr.add(stringRequest_pr);
 
                     for (int i = 0; i <= childItemSize; i++) {
                         visibleItems.remove(position);
@@ -342,10 +341,25 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
                     break;
                 case CHILD_ITEM_VIEW:
+                    ChildItem sel_ch_item = (ChildItem)visibleItems.get(position);
+                    String deleteItem_ch = sel_ch_item.name;
+                    Log.d("ROUTINE_DELETE",sel_ch_item.name);
+                    // Volley Here
+                    RequestQueue queue_ch = Volley.newRequestQueue(lastContext);
+                    String url_ch = JSP.Companion.deleteRoutineExc(inputId,sel_ch_item.parent_Name,sel_ch_item.name);
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url_ch, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Toast.makeText(lastContext, "Removed Success :"+deleteItem_ch, Toast.LENGTH_SHORT).show();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(lastContext, "sever error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    queue_ch.add(stringRequest);
                     visibleItems.remove(position);
-                    // Child Delete Volley
-
-
                     notifyItemRemoved(position);
                     break;
             }

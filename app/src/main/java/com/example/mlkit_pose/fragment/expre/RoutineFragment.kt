@@ -46,8 +46,6 @@ class RoutineFragment : Fragment() {
             id = it.getString("id")
             param2 = it.getString(ARG_PARAM2)
         }
-
-
     }
 
     override fun onCreateView(
@@ -71,113 +69,91 @@ class RoutineFragment : Fragment() {
             recyclerView!!.layoutManager = ItemLayoutManager(context)
         }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.v("ROUTINE_FRAGMENT","onViewCreate")
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.recylcerview) as CustomRecyclerView
         setAdapter()
         add_routineButton.setOnClickListener {
-            var newRoutineName: String = ""
-            val itemArray = arrayOf<String>(
-                "푸쉬업", "풀 플랭크", "백 리프트", "슈퍼맨 운동", "덤벨 숄더 프레스", "덤벨 사이드 레터럴 레이즈",
-                "업다운 플랭크", "덤벨 교차 운동", "레그레이즈", "시티드 니업", "버드독", "데드 버그",
-                "V 싯업", "포워드 밴드", "한 발로 땅 짚기", "와이드 스쿼트", "사이드 레그레이즈", "밴드 사이드 스텝", "런지", "브릿지"
-            )
-            val itemEnArray = arrayOf<String>(
-                "PushUp",
-                "FullPlank",
-                "BackLift",
-                "Superman",
-                "ShoulderPressDB",
-                "SideLateralRaiseDB",
-                "UpDownPlank",
-                "CrossoverExerciseDB",
-                "LegRaise",
-                "SeatedKneeup",
-                "BirdDog",
-                "DeadBug",
-                "SitUp",
-                "ElbowPlank",
-                "SideBandDB",
-                "ForwardBand",
-                "WideSquat",
-                "SideLegRaise",
-                "Lunge",
-                "Bridge",
-                "BandSideStep"
-            )
-            val checkedItems = booleanArrayOf(
-                false, false, false, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false, false, false
-            )
-
-            /* Exercise Check Part */
-            val setExercise: AlertDialog.Builder = AlertDialog.Builder(context)
-                .setTitle("CheckList Test")
-            setExercise.setMultiChoiceItems(itemArray, checkedItems) { dialog, which, isChekced ->
-                checkedItems[which] = isChekced
-            }
-            setExercise.setPositiveButton("확인", DialogInterface.OnClickListener() { dialog, which ->
-
-                var texts: String = ""
-                var engtexts: String = ""
-                for (i in 0 until itemArray.size) {
-                    val checked = checkedItems[i]
-                    if (checked) {
-                        texts += "${itemArray[i]},"
-                        engtexts += "${itemEnArray[i]},"
-                    }
+            val queue = Volley.newRequestQueue(context)
+            val url = JSP.Companion.getExercise()
+            val stringRequest = StringRequest(Request.Method.GET,url,{ response ->
+                val datas = response.split("@")
+                var newRoutineName: String = ""
+                val (itemArray,itemEnArray) = setItemList(datas)
+                val checkedItems = BooleanArray(22)
+                /* Exercise Check Part */
+                val setExercise: AlertDialog.Builder = AlertDialog.Builder(context)
+                    .setTitle("CheckList Test")
+                setExercise.setMultiChoiceItems(itemArray, checkedItems) { dialog, which, isChekced ->
+                    checkedItems[which] = isChekced
                 }
-                texts = texts.substring(0, (texts.length) - 1)
-                engtexts = engtexts.substring(0, (engtexts.length) - 1)
-                setRoutine(id.toString(), newRoutineName, texts, engtexts)
+                setExercise.setPositiveButton("확인", DialogInterface.OnClickListener() { dialog, which ->
 
-                val routineAdapter: ItemAdapter = recyclerView?.adapter as ItemAdapter
-                val childItems: List<String> = texts.split(",");
-                routineAdapter.addItems(childItems, newRoutineName);
-                Log.d("ROUTINE_LIST", childItems.toString())
-                dialog.dismiss()
-                // write down volley code here
+                    var texts: String = ""
+                    var engtexts: String = ""
+                    for (i in 0 until itemArray.size) {
+                        val checked = checkedItems[i]
+                        if (checked) {
+                            texts += "${itemArray[i]},"
+                            engtexts += "${itemEnArray[i]},"
+                        }
+                    }
+                    texts = texts.substring(0, (texts.length) - 1)
+                    engtexts = engtexts.substring(0, (engtexts.length) - 1)
+                    setRoutine(id.toString(), newRoutineName, texts, engtexts)
 
-                Log.d("ROUTINE_LIST", texts)
-                Log.d("ROUTINE_LIST", engtexts)
-            })
-                .setNegativeButton("취소", DialogInterface.OnClickListener() { dialog, which ->
+                    val routineAdapter: ItemAdapter = recyclerView?.adapter as ItemAdapter
+                    val childItems: List<String> = texts.split(",");
+                    routineAdapter.addItems(childItems, newRoutineName);
+                    Log.d("ROUTINE_LIST", childItems.toString())
                     dialog.dismiss()
+                    // write down volley code here
+
+                    Log.d("ROUTINE_LIST", texts)
+                    Log.d("ROUTINE_LIST", engtexts)
                 })
-            setExercise.create()
-            val checkOverlap: AlertDialog.Builder = AlertDialog.Builder(context)
-                .setTitle("루틴 이름 중복")
-                .setMessage("다른 이름으로 설정해주세요.")
-                .setPositiveButton(
-                    "확인",
-                    DialogInterface.OnClickListener { dialog, which ->
+                    .setNegativeButton("취소", DialogInterface.OnClickListener() { dialog, which ->
                         dialog.dismiss()
                     })
-            checkOverlap.create()
-            /* Input Routine Name Part */
-            val inputName = layoutInflater.inflate(R.layout.popup_routine_add, null)
-            val setRoutineName: AlertDialog.Builder = AlertDialog.Builder(context)
-                .setView(inputName)
-                .setPositiveButton("확인", DialogInterface.OnClickListener() { dialog, which ->
-                    val routineAdapter: ItemAdapter = recyclerView?.adapter as ItemAdapter
+                setExercise.create()
+                val checkOverlap: AlertDialog.Builder = AlertDialog.Builder(context)
+                    .setTitle("루틴 이름 중복")
+                    .setMessage("다른 이름으로 설정해주세요.")
+                    .setPositiveButton(
+                        "확인",
+                        DialogInterface.OnClickListener { dialog, which ->
+                            dialog.dismiss()
+                        })
+                checkOverlap.create()
+                /* Input Routine Name Part */
+                val inputName = layoutInflater.inflate(R.layout.popup_routine_add, null)
+                val setRoutineName: AlertDialog.Builder = AlertDialog.Builder(context)
+                    .setView(inputName)
+                    .setPositiveButton("확인", DialogInterface.OnClickListener() { dialog, which ->
+                        val routineAdapter: ItemAdapter = recyclerView?.adapter as ItemAdapter
 
-                    newRoutineName =
-                        inputName.findViewById<EditText>(R.id.editRoutineName).text.toString()
-                    // write down volley code here
-                    if (routineAdapter.checkRoutineName(newRoutineName)) {
-                        checkOverlap.show()
-                    }
-                    else{
-                        setExercise.show()
-                    }
-                    Log.d("ROUTINE_SET", "inputName : $newRoutineName")
-                    dialog.dismiss()
-                })
-                .setNegativeButton("취소", DialogInterface.OnClickListener() { dialog, which ->
-                    dialog.dismiss()
-                })
-            setRoutineName.create().show()
+                        newRoutineName =
+                            inputName.findViewById<EditText>(R.id.editRoutineName).text.toString()
+                        // write down volley code here
+                        if (routineAdapter.checkRoutineName(newRoutineName)) {
+                            checkOverlap.show()
+                        }
+                        else{
+                            setExercise.show()
+                        }
+                        Log.d("ROUTINE_SET", "inputName : $newRoutineName")
+                        dialog.dismiss()
+                    })
+                    .setNegativeButton("취소", DialogInterface.OnClickListener() { dialog, which ->
+                        dialog.dismiss()
+                    })
+                setRoutineName.create().show()
+            },{
+                Log.d("ROUTINE_POPUP","Volley Error")
+            })
+            queue.add(stringRequest)
         }
     }
 
@@ -200,10 +176,18 @@ class RoutineFragment : Fragment() {
         })
         queue.add(StringRequest)
     }
-
+    fun setItemList(excData:List<String>): Pair<Array<String>, Array<String>> {
+        val itemArray : ArrayList<String> = ArrayList<String>()
+        val itemEnArray : ArrayList<String> = ArrayList<String>()
+        for(i in 0 until (excData.size -1)){
+            val excItems = excData[i].split(",")
+            itemArray.add(excItems[0])
+            itemEnArray.add(excItems[1])
+        }
+        return Pair(itemArray.toTypedArray(),itemEnArray.toTypedArray())
+    }
 
     companion object {
-
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             RoutineFragment().apply {
