@@ -21,6 +21,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.content.Context
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -43,6 +45,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.mlkit_pose.*
 import com.example.mlkit_pose.kotlin.posedetector.PoseDetectorProcessor
+import com.example.mlkit_pose.kotlin.posedetector.PoseGraphic
 import com.example.mlkit_pose.preference.PreferenceUtils
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
@@ -75,7 +78,12 @@ class CameraXLivePreviewActivity :
   private var time = 0
   var minute by Delegates.notNull<Int>()
   var second by Delegates.notNull<Int>()
+
+
+
   override fun onCreate(savedInstanceState: Bundle?) {
+
+
     super.onCreate(savedInstanceState)
     Log.d(TAG, "onCreate")
     if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
@@ -169,6 +177,8 @@ class CameraXLivePreviewActivity :
     if (!allPermissionsGranted()) {
       runtimePermissions
     }
+
+
 
   }
 
@@ -271,6 +281,8 @@ class CameraXLivePreviewActivity :
     imageProcessor?.run {
       this.stop()
     }
+
+
   }
 
   private fun bindAllCameraUseCases() {
@@ -480,6 +492,7 @@ class CameraXLivePreviewActivity :
     }
   }
 
+
   companion object {
     private const val TAG = "CameraXLivePreview"
     private const val PERMISSION_REQUESTS = 1
@@ -498,6 +511,10 @@ class CameraXLivePreviewActivity :
       }
       Log.i(TAG, "Permission NOT granted: $permission")
       return false
+    }
+    private var instance:CameraXLivePreviewActivity?=null
+    fun getInstance():CameraXLivePreviewActivity?{
+      return instance
     }
   }
 }
