@@ -19,12 +19,15 @@ package com.example.mlkit_pose.kotlin.posedetector
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.media.MediaPlayer
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mlkit_pose.GraphicOverlay
 import com.google.common.primitives.Ints
 import com.example.mlkit_pose.GraphicOverlay.Graphic
 import com.example.mlkit_pose.R
+import com.example.mlkit_pose.kotlin.CameraXLivePreviewActivity
 import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseLandmark
 import java.lang.Math.max
@@ -50,6 +53,8 @@ class PoseGraphic internal constructor(
         private val wrongPaint: Paint
         private val correctPaint: Paint
         private val poseSearchList : PoseSearcher
+        val mediaPlayer2 = MediaPlayer.create(applicationContext,R.raw.beeps)
+//        private val cameraXLivePreviewActivity = CameraXLivePreviewActivity.getInstance()
         init {
             classificationTextPaint = Paint()
             classificationTextPaint.color = Color.WHITE
@@ -88,6 +93,8 @@ class PoseGraphic internal constructor(
         return result
     }
     override fun draw(canvas: Canvas) {
+
+        mediaPlayer2.start()
         val landmarks = pose.allPoseLandmarks
         if (landmarks.isEmpty()) {
             return
@@ -285,10 +292,12 @@ class PoseGraphic internal constructor(
             else if (nowPose.isAngle_leD(leftElbowAngle) && nowPose.getEnable(nowPose.leftElbowAngleD)){
                 drawLine(canvas,leftShoulder,leftElbow,correctPaint)
                 drawLine(canvas,leftElbow,leftWrist,correctPaint)
+
             }
             else if (nowPose.getEnable(nowPose.leftElbowAngleD) || nowPose.getEnable(nowPose.leftElbowAngleS)){
                 drawLine(canvas,leftShoulder,leftElbow,wrongPaint)
                 drawLine(canvas,leftElbow,leftWrist,wrongPaint)
+
             }
             // Right Knee Angle
             if (nowPose.isAngle_rkS(rightKneeAngle) && nowPose.getEnable(nowPose.rightKneeAngleS)){
@@ -406,6 +415,10 @@ class PoseGraphic internal constructor(
             //    "startX : "+translateX(start.x).toString()+"\n"+"startY : "+translateY(start.y).toString()+"\n"
             //    +"endX : "+translateXsub(end.x).toString()+"\n"+"enY : "+translateY(end.y).toString()+"\n==============================")
         }
+    }
+    fun Beep(){
+//        CameraXLivePreviewActivity.getInstance()?.initSound()
+//        cameraXLivePreviewActivity?.playBeep()
     }
 
     companion object {
