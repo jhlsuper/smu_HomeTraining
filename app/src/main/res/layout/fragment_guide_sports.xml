@@ -11,40 +11,42 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_margin="15dp"
-        android:layout_weight="9"
         android:background="@drawable/shape_rectangle"
-        android:orientation="vertical"
-        android:weightSum="8">
+        android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="1">
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.7">
 
             <TextView
                 android:id="@+id/sport_detail_ename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ShoulderPressDB"
                 android:layout_gravity="center_horizontal|top"
                 android:layout_marginTop="5dp"
+                android:text="ShoulderPressDB"
                 android:visibility="invisible" />
 
             <ImageView
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/button_purple" />
 
             <TextView
                 android:id="@+id/sport_detail_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|top"
-                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/scdream5"
+                android:text="버드 독"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -57,18 +59,18 @@
             android:layout_height="0dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_weight="3"
+            android:layout_weight="2.5"
             android:src="@drawable/penguin" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="3"
-            android:background="@drawable/shape_rectanglegray">
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="3.2"
+            android:background="@drawable/shape_rectanglegray_guide">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -76,6 +78,7 @@
                 android:fillViewport="true">
 
                 <TextView
+                    android:fontFamily="@font/kopuddotummedium"
                     android:id="@+id/sport_detail_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -89,42 +92,59 @@
 
         </FrameLayout>
 
-        <Button
-            android:id="@+id/sports_link_check"
-            android:layout_width="100dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:background="@drawable/button_check"
-            android:onClick="onButton2Clicked"
-            android:text="영상 확인"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_start_exercise"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_check"
-            android:text="운동 하기"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-        <Button
-            android:id="@+id/btn_add_routine"
-            android:layout_width="96dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_check"
-            android:text="루틴에 추가"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            <Button
+                android:fontFamily="@font/bitrocorettf"
+                android:id="@+id/sports_link_check"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_check"
+                android:onClick="onButton2Clicked"
+                android:text="영상 확인"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_start_exercise"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_check"
+                android:fontFamily="@font/bitrocorettf"
+                android:text="운동 하기"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <Button
+                android:fontFamily="@font/bitrocorettf"
+
+                android:id="@+id/btn_add_routine"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_check"
+                android:text="루틴에 추가"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </LinearLayout>
+
 
 </LinearLayout>

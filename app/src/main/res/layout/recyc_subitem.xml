@@ -11,11 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         card_view:cardCornerRadius="10dp"
-        card_view:cardBackgroundColor="#ddbee0bd"
+        card_view:cardBackgroundColor="#ffdb4b"
         card_view:contentPadding="5dp"
         >
         <TextView
             android:id="@+id/subitem_name"
+            android:fontFamily="@font/kopuddotummedium"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textSize="17sp"
