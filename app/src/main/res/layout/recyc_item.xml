@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="10dp"
         card_view:contentPadding="5dp"
-        card_view:cardBackgroundColor="#5cb88b"
+        card_view:cardBackgroundColor="#ffd400"
         >
 
         <RelativeLayout
@@ -26,6 +26,7 @@
                 android:textSize="20sp"
                 android:layout_gravity="center"
                 android:text="A"
+                android:fontFamily="@font/gmartketsansttfmedium"
                 android:textStyle="bold"
                 android:gravity="center" />
 

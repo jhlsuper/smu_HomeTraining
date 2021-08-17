@@ -40,11 +40,10 @@
             android:id="@+id/img_mypage_profile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/img_face"
+            android:layout_margin="20dp"
+            android:background="@drawable/pngegg"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="@id/layout_mypage_profile"
-
             app:layout_constraintEnd_toStartOf="@id/guideline_mypage_30percent"
             app:layout_constraintStart_toStartOf="@id/layout_mypage_profile"
             app:layout_constraintTop_toTopOf="@id/layout_mypage_profile" />
@@ -57,6 +56,8 @@
             android:layout_marginStart="10dp"
             android:gravity="center_vertical"
             android:text="사용자 아이디"
+            android:fontFamily="@font/gmartketsansttfmedium"
+
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -89,10 +90,9 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="15dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1.5"
             android:background="@drawable/background_gray_light"
             android:elevation="7dp"
-
             tools:ignore="NestedWeights">
 
             <TextView
@@ -100,8 +100,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:text="닉네임 : "
+                android:fontFamily="@font/gmartketsansttfmedium"
+
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -111,8 +113,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/gmartketsansttfmedium"
+
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_name"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="abcdefg" />
@@ -122,8 +126,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:text="성별 : "
+                android:fontFamily="@font/gmartketsansttfmedium"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@id/guideline_mypage_50percent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -132,24 +137,25 @@
 
             <TextView
                 android:id="@+id/et_mypage_gender"
+                android:fontFamily="@font/gmartketsansttfmedium"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_gender"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="남자"
-
-                />
+                tools:text="남자" />
 
             <TextView
                 android:id="@+id/txt_mypage_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="몸무게 :"
+                android:fontFamily="@font/gmartketsansttfmedium"
                 android:textColor="@color/black"
-                app:layout_constraintBottom_toTopOf="@id/txt_mypage_belong"
                 app:layout_constraintStart_toStartOf="@id/txt_mypage_name"
                 app:layout_constraintTop_toBottomOf="@id/txt_mypage_name" />
 
@@ -158,12 +164,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:fontFamily="@font/gmartketsansttfmedium"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_weight"
                 app:layout_constraintTop_toTopOf="@id/txt_mypage_weight"
-                tools:text="60kg"
-
-                />
+                tools:text="60kg" />
 
 
             <TextView
@@ -171,6 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="신장 :"
+                android:fontFamily="@font/gmartketsansttfmedium"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@id/txt_mypage_belong"
                 app:layout_constraintStart_toStartOf="@id/txt_mypage_gender"
@@ -182,6 +188,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/gmartketsansttfmedium"
+
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_height"
                 app:layout_constraintTop_toTopOf="@id/txt_mypage_height"
                 tools:text="180cm" />
@@ -190,51 +198,56 @@
                 android:id="@+id/txt_mypage_belong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="3dp"
-                android:text="사용자 소속 :"
                 android:layout_marginBottom="5dp"
+                android:text="사용자 소속 :"
+                android:fontFamily="@font/gmartketsansttfmedium"
+
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/et_mypage_belong"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintRight_toLeftOf="@id/et_mypage_belong"
                 app:layout_constraintStart_toStartOf="@id/txt_mypage_weight"
-                app:layout_constraintTop_toBottomOf="@id/et_mypage_weight" />
+                app:layout_constraintTop_toBottomOf="@id/et_mypage_weight"
+                app:layout_constraintVertical_bias="0.162" />
 
             <TextView
                 android:id="@+id/et_mypage_belong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/gmartketsansttfmedium"
+
                 android:textColor="@color/black"
-
                 app:layout_constraintBottom_toBottomOf="@id/txt_mypage_belong"
-
                 app:layout_constraintLeft_toRightOf="@id/txt_mypage_belong"
                 app:layout_constraintTop_toTopOf="@id/txt_mypage_belong"
+                app:layout_constraintVertical_bias="0.0"
                 tools:text="상명대학교" />
 
             <Button
                 android:id="@+id/btn_mypage_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="4dp"
                 android:background="@color/white"
                 android:text="수정하기"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_mypage_height"
-                app:layout_constraintStart_toStartOf="@id/txt_mypage_height"
+                android:fontFamily="@font/gmartketsansttfmedium"
                 android:textColor="@color/black"
-
-                />
-
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="124dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_mypage_50percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="166dp" />
+                app:layout_constraintGuide_end="165dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -245,9 +258,8 @@
             android:layout_height="0dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="1"
-
+            android:layout_marginBottom="10dp"
+            android:layout_weight="0.8"
             android:background="@drawable/background_gray_light"
             android:elevation="7dp">
 
@@ -256,8 +268,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 android:text="포인트 : "
+                android:fontFamily="@font/gmartketsansttfmedium"
+
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -267,7 +281,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/gmartketsansttfmedium"
+
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_point"
                 app:layout_constraintTop_toTopOf="parent"
@@ -278,8 +294,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 android:text="총 운동 일수 :"
+                android:fontFamily="@font/gmartketsansttfmedium"
+
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@id/guideline_mypage_50percent2"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -289,10 +307,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_exercisedays"
                 app:layout_constraintTop_toTopOf="parent"
+                android:fontFamily="@font/gmartketsansttfmedium"
+
                 tools:text="15일" />
 
             <TextView
@@ -302,6 +322,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:text="제일 많이 한 운동 :"
+                android:fontFamily="@font/gmartketsansttfmedium"
+
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/txt_mypage_point"
@@ -313,7 +335,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:textColor="@color/black"
-
+                android:fontFamily="@font/gmartketsansttfmedium"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_most_exercise"
                 app:layout_constraintTop_toTopOf="@id/txt_mypage_most_exercise"
                 tools:text="스쿼트" />
@@ -324,24 +346,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
+                app:layout_constraintGuide_begin="166dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="2"
-            android:background="@drawable/background_gray_light"
-            android:elevation="7dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_weight="2"
+                    android:elevation="7dp">
 
+                    <ImageView
+                        android:layout_width="184dp"
+                        android:layout_height="88dp"
+                        android:src="@drawable/mainimg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        tools:ignore="MissingConstraints">
+                    </ImageView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>

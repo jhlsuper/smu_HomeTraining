@@ -43,7 +43,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_addbutton" />
+                android:src="@drawable/plus_button_routine" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
