@@ -6,14 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
-import android.widget.Toast
+import android.view.*
+import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -431,7 +425,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
         val intent = Intent(this, SettingLivePreviewActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-        intent.putExtra("ExcerciseName", exname)
+        intent.putExtra("ExcerciseName", exname) //English Name
         intent.putExtra("minute", minute)
         intent.putExtra("second", second)
         activityResultLauncher.launch(intent)
@@ -466,40 +460,51 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         setRankData()
         initRecycler()
     }
-//    fun guidePopup(){
-//
-//        val dialog = AlertDialog.Builder(this)
-//        val view = layoutInflater.inflate(R.layout.popup_add_myroutine, null)
-//        dialog.setView(view)
-//        list.add(Model("0", number))
-//        val adapter = Adapter(list, R.layout.item_model, this)
-//        recyclerView.adapter = adapter
-//        recyclerView.hasFixedSize()
-//        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-//
-//
-//
-//        add_to_routine_cancel.setOnClickListener{
-//            val name = editText.text.toString()
-//            number = adapter.itemCount
-//            list.add(Model(name, number++))
-//            adapter.notifyDataSetChanged()
-//        }
-//
-//        add_to_routine.setOnClickListener {
-//            val myToast = Toast.makeText(
-//                this.applicationContext,
-//                "루틴에 추가되었습니다.",
-//                Toast.LENGTH_SHORT
-//            )
-//            val  chkBox : CheckBox = findViewById(R.id.checkBox)
-//            if(chkBox.isChecked()) {
-//                myToast.show()
-//            }
-//        }
-//        dialog.create()
-//        dialog.show()
-//    }
+    fun showTimeSettingPopup(exEname:String?,context: Context) {
+
+        val dialog = android.app.AlertDialog.Builder(context).create()
+
+        val edialog: LayoutInflater = LayoutInflater.from(context)
+        val mView: View = edialog.inflate(R.layout.popup_settime, null)
+
+        val minute: NumberPicker = mView.findViewById(R.id.numberPicker_min)
+        val second: NumberPicker = mView.findViewById(R.id.numberPicker_sec)
+
+        val cancel: Button = mView.findViewById<Button>(R.id.btn_settime_no)
+        val start: Button = mView.findViewById<Button>(R.id.btn_settime_ok)
+        // editText 설정해제
+        minute.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        second.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        //최소값 설정
+        minute.minValue = 0
+        second.minValue = 0
+
+        //최대값 설정
+        minute.maxValue = 30
+        second.maxValue = 59
+        //기본값 설정
+        minute.value = 1
+        second.value = 0
+
+        //보여질 값 설정
+
+
+        //취소버튼
+        cancel.setOnClickListener {
+            dialog.dismiss()
+            dialog.cancel()
+        }
+        start.setOnClickListener {
+            Toast.makeText(context, "${minute.value}분 ${second.value}초", Toast.LENGTH_SHORT).show()
+            startExcercise(exEname, minute.value, second.value)
+            dialog.dismiss()
+        }
+        dialog.setView(mView)
+        dialog.create()
+        dialog.show()
+        dialog.window!!.setLayout(750, WindowManager.LayoutParams.WRAP_CONTENT)
+
+    }
     fun findUserId():String{
         val currentUser= sharedManager.getCurrentUser()
         return currentUser.id.toString()

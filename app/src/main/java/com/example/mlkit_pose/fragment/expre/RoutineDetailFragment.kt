@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.JSP.Companion.getRoutineNameList
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
+import com.example.mlkit_pose.fragment.GuideSportsFragment
 import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_routine_detail.*
 
@@ -27,7 +28,7 @@ class RoutineDetailFragment : Fragment() {
     var routine_name: String? = null
     private var id: String? = null
     var routine_name_list = arrayListOf<String>()
-
+    val routine_Map : HashMap<String, String> = HashMap()
     var mFragmentManager: FragmentManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,28 +57,32 @@ class RoutineDetailFragment : Fragment() {
 
         val queue = Volley.newRequestQueue(context)
         val url = getRoutineNameList(id, routine_name!!)
-        Log.d("url", url)
 
         val Routine_detail_request = StringRequest(
             Request.Method.GET, url, { response ->
                 response.trim { it <= ' ' }
                 Log.d("response", response)
-                val arr = (response.trim().split(",")).toTypedArray()
-
-                if (response == "error") {
-                    Log.d("error", "error")
-                } else {
-                    for (i in 0..arr.size-2 step (2)) {
-                        routine_name_list.add(arr[i]) // -> 이제 routine_name_list에 이름들 들어옴
-                    }
-                    Log.d("jieun2", routine_name_list.toString())
+                val arr = response.trim().split("@")
+                for (i:Int in 0 until arr.size-1){
+                    val (krName,enName) = arr[i].split(",")
+                    routine_name_list.add(krName)
+                    routine_Map[krName] = enName
                 }
+//
                 val guideBookRecyclerAdapter = GuideBookRecyclerAdapter(
                     guidelist = createsportslist(),
                     inflater = LayoutInflater.from(context)
                 )
                 routine_recycler_view?.adapter = guideBookRecyclerAdapter
                 routine_recycler_view?.layoutManager = LinearLayoutManager(context)
+                guideBookRecyclerAdapter.setOnItemClickListener(object : GuideBookRecyclerAdapter.OnItemClickListener{
+                    override fun onItemClick(v: View, guidelist: GuideBookSportsList, pos: Int) {
+                        val krName = guidelist.GuideList[pos].name
+                        Log.d("ROUTINE_DETAIL", "KR : ${guidelist.GuideList[pos].name}, EN ${routine_Map[krName]}")
+                        (activity as PageActivity).showTimeSettingPopup(routine_Map[krName],context!!)
+                    }
+                })
+
             }, {})
         queue.add(Routine_detail_request)
 
