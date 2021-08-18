@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/bitrocorettf"
+                    android:fontFamily="@font/gmartketsansttfmedium"
                     android:padding="2dp"
                     android:textColor="@color/black"
                     android:textSize="20dp"
@@ -71,13 +71,13 @@
             android:layout_margin="12dp"
             android:layout_weight="6"
             android:background="@drawable/shape_rectanglegray"
-            android:padding="20dp">
+            android:padding="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/sports_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp" />
+                android:padding="2dp" />
 
 
         </RelativeLayout>

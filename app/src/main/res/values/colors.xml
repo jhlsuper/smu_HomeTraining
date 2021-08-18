@@ -24,4 +24,9 @@
     <color name="gray">#E1E1E1</color>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
+
+    <color name="unyellow">#F5E6CA</color>
+    <color name="orange">#FB9300</color>
+    <color name="unpink">#F54748</color>
+    <color name="unblue">#343F56</color>
 </resources>
