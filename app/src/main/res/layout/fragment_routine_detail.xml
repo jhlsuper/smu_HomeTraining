@@ -5,7 +5,7 @@
     android:id="@+id/routine_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="#F5E6CA"
     tools:context=".fragment.RoutineDetailFragment"
     android:focusable="true"
     android:clickable="true">
@@ -36,20 +36,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/shape_rectangle_routinea" />
+                    android:src="@drawable/rec_item_a"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="5dp"/>
+
 
                 <TextView
                     android:id="@+id/routine_detail_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:text="루틴 이름"
-                    android:fontFamily="@font/bitrocorettf"
+                    android:fontFamily="@font/gmartketsansttfmedium"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -64,7 +65,7 @@
             android:layout_height="0dp"
             android:layout_margin="12dp"
             android:layout_weight="7"
-            android:background="@drawable/shape_rectangle_routineb"
+            android:background="@drawable/shape_rectangle_orange"
             android:padding="20dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -74,6 +75,21 @@
 
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="115dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/mainimgremovebg" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

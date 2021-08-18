@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         card_view:cardCornerRadius="10dp"
-        card_view:cardBackgroundColor="#ffdb4b"
+card_view:cardBackgroundColor="@color/white"
         card_view:contentPadding="5dp"
         >
         <TextView
