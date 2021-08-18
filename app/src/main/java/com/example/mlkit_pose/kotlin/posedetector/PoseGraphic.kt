@@ -150,17 +150,17 @@ class PoseGraphic internal constructor(
         /* Get Angle */
 
         // Hip angle
-        val rightHipAngle = getAngle(rightShoulder,rightHip,rightKnee)
-        val leftHipAngle = getAngle(leftShoulder,leftHip,leftKnee)
+        val rightHipAngle = getAngle(rightShoulder!!,rightHip!!,rightKnee!!)
+        val leftHipAngle = getAngle(leftShoulder!!,leftHip!!,leftKnee!!)
         // Shoulder angle
-        val rightShoulderAngle = getAngle(rightHip,rightShoulder,rightElbow)
-        val leftShoulderAngle = getAngle(leftHip,leftShoulder,leftElbow)
+        val rightShoulderAngle = getAngle(rightHip,rightShoulder,rightElbow!!)
+        val leftShoulderAngle = getAngle(leftHip,leftShoulder,leftElbow!!)
         // Elbow Angle
-        val rightElbowAngle = getAngle(rightShoulder,rightElbow,rightWrist)
-        val leftElbowAngle = getAngle(leftShoulder,leftElbow,leftWrist)
+        val rightElbowAngle = getAngle(rightShoulder,rightElbow,rightWrist!!)
+        val leftElbowAngle = getAngle(leftShoulder,leftElbow,leftWrist!!)
         // Knee Angle
-        val rightKneeAngle = getAngle(rightHip,rightKnee,rightAnkle)
-        val leftKneeAngle = getAngle(leftHip,leftKnee,leftAnkle)
+        val rightKneeAngle = getAngle(rightHip,rightKnee,rightAnkle!!)
+        val leftKneeAngle = getAngle(leftHip,leftKnee,leftAnkle!!)
 
         Log.d("ANGLE","=================\n"+"Right_HipAngle : "+rightHipAngle.toString()+"\nLeft_HipAngle : "+leftHipAngle.toString()+
             "\nRight_ShoulderAngle : "+rightShoulderAngle.toString()+"\nLeft_ShoulderAngle : "+leftShoulderAngle.toString()+"\nRight_ElbowAngle : "+rightElbowAngle.toString()

@@ -158,7 +158,7 @@ class GuideSportsFragment : Fragment() {
         }
         btn_start_exercise.setOnClickListener {
 //            (activity as PageActivity).startExcercise(exname)
-            showTimeSettingPopup()
+            (activity as PageActivity).showTimeSettingPopup(exname,context!!)
 
         }
         btn_add_routine.setOnClickListener {
@@ -168,51 +168,51 @@ class GuideSportsFragment : Fragment() {
 
 
 
-    fun showTimeSettingPopup() {
-
-        val dialog = AlertDialog.Builder(context).create()
-
-        val edialog: LayoutInflater = LayoutInflater.from(context)
-        val mView: View = edialog.inflate(R.layout.popup_settime, null)
-
-        val minute: NumberPicker = mView.findViewById(R.id.numberPicker_min)
-        val second: NumberPicker = mView.findViewById(R.id.numberPicker_sec)
-
-        val cancel: Button = mView.findViewById<Button>(R.id.btn_settime_no)
-        val start: Button = mView.findViewById<Button>(R.id.btn_settime_ok)
-        // editText 설정해제
-        minute.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        second.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        //최소값 설정
-        minute.minValue = 0
-        second.minValue = 0
-
-        //최대값 설정
-        minute.maxValue = 30
-        second.maxValue = 59
-        //기본값 설정
-        minute.value = 1
-        second.value = 0
-
-        //보여질 값 설정
-
-
-        //취소버튼
-        cancel.setOnClickListener {
-            dialog.dismiss()
-            dialog.cancel()
-        }
-        start.setOnClickListener {
-            Toast.makeText(context, "${minute.value}분 ${second.value}초", Toast.LENGTH_SHORT).show()
-            (activity as PageActivity).startExcercise(exname, minute.value, second.value)
-            dialog.dismiss()
-        }
-        dialog.setView(mView)
-        dialog.create()
-        dialog.show()
-        dialog.window!!.setLayout(750, WindowManager.LayoutParams.WRAP_CONTENT)
-
-    }
+//    fun showTimeSettingPopup(exEname:String?) {
+//
+//        val dialog = AlertDialog.Builder(context).create()
+//
+//        val edialog: LayoutInflater = LayoutInflater.from(context)
+//        val mView: View = edialog.inflate(R.layout.popup_settime, null)
+//
+//        val minute: NumberPicker = mView.findViewById(R.id.numberPicker_min)
+//        val second: NumberPicker = mView.findViewById(R.id.numberPicker_sec)
+//
+//        val cancel: Button = mView.findViewById<Button>(R.id.btn_settime_no)
+//        val start: Button = mView.findViewById<Button>(R.id.btn_settime_ok)
+//        // editText 설정해제
+//        minute.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+//        second.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+//        //최소값 설정
+//        minute.minValue = 0
+//        second.minValue = 0
+//
+//        //최대값 설정
+//        minute.maxValue = 30
+//        second.maxValue = 59
+//        //기본값 설정
+//        minute.value = 1
+//        second.value = 0
+//
+//        //보여질 값 설정
+//
+//
+//        //취소버튼
+//        cancel.setOnClickListener {
+//            dialog.dismiss()
+//            dialog.cancel()
+//        }
+//        start.setOnClickListener {
+//            Toast.makeText(context, "${minute.value}분 ${second.value}초", Toast.LENGTH_SHORT).show()
+//            (activity as PageActivity).startExcercise(exEname, minute.value, second.value)
+//            dialog.dismiss()
+//        }
+//        dialog.setView(mView)
+//        dialog.create()
+//        dialog.show()
+//        dialog.window!!.setLayout(750, WindowManager.LayoutParams.WRAP_CONTENT)
+//
+//    }
 
     fun MyRoutinePopup() {
 

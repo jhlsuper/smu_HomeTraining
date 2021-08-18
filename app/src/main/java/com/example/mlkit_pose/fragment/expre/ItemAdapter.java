@@ -2,46 +2,36 @@ package com.example.mlkit_pose.fragment.expre;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.mlkit_pose.PageActivity;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.mlkit_pose.JSP;
 import com.example.mlkit_pose.R;
 import com.example.mlkit_pose.fragment.expre.model.ChildItem;
 import com.example.mlkit_pose.fragment.expre.model.Item;
 import com.example.mlkit_pose.fragment.expre.model.ParentItem;
+import com.example.mlkit_pose.fragment.expre.model.SharedViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.android.volley.RequestQueue;
-import com.example.mlkit_pose.JSP;
-import com.example.mlkit_pose.fragment.expre.model.SharedViewModel;
-
 
 
 /**
@@ -108,7 +98,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 }
                 Log.d("ROUTINE_LIST", routineItems.toString());
                 for (String key : routineItems.keySet()) {
-                    Item parent = new ParentItem(key, PARENT_ITEM_VIEW);
+                    Item parent = new ParentItem(key, PARENT_ITEM_VIEW,null);
                     Log.d("ROUTINE_LIST", key);
                     items.add(parent);
                     ArrayList<Item> childList = new ArrayList<Item>();
@@ -138,7 +128,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     public void addItems(List<String> childItems, String parentName) {
-        Item parent = new ParentItem(parentName, PARENT_ITEM_VIEW);
+        Item parent = new ParentItem(parentName, PARENT_ITEM_VIEW,null);
         items.add(parent);
         ArrayList<Item> childList = new ArrayList<Item>();
         for (String value : childItems) {
@@ -337,6 +327,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                     for (int i = 0; i <= childItemSize; i++) {
                         visibleItems.remove(position);
                     }
+                    items.remove(deleteItem_Parent);
                     notifyItemRangeRemoved(position, childItemSize + 1);
 
                     break;
@@ -359,8 +350,30 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                         }
                     });
                     queue_ch.add(stringRequest);
+                    boolean flag = false;
+                    for (Item i: visibleItems){
+                        if (i.parent_Name == null){
+                            Log.d("ROUTINE_DELETE","PARENT SKIP"); // 부모인 경우
+                        }
+                        else if (i.parent_Name.equals(sel_ch_item.parent_Name)){
+                            Log.d("ROUTINE_DELETE","자식있음 "+sel_ch_item.name);
+                            flag=true;
+                            break; // 아직 있다는 뜻
+                        }
+                    }
+                    if (!flag){ // 없다는 뜻
+                        Log.d("ROUTINE_DELETE","자식없음");
+                        int i = 0;
+                        for (Item it : visibleItems) {
+                            if (sel_ch_item.parent_Name.equals(it.name) && it.parent_Name==null){
+                                //부모를 visibleItems에서 삭제해야함
+                                visibleItems.remove(i);
+                            }
+                            i++;
+                        }
+                    }
                     visibleItems.remove(position);
-                    notifyItemRemoved(position);
+                    notifyDataSetChanged();
                     break;
             }
         } else {
