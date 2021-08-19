@@ -1,7 +1,9 @@
 package com.example.mlkit_pose.fragment.expre;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -147,7 +149,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     public boolean checkRoutineName(String parent) {
-        for (Item i : items){
+        for (Item i : visibleItems){
             if(i instanceof ParentItem){
                 if (i.name.equals(parent)){
                     Log.d("ROUTINE_SET","Parent : "+i.name);
@@ -305,31 +307,46 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         if (isDelete) {
             switch (visibleItems.get(position).viewType) {
                 case PARENT_ITEM_VIEW:
-                    int childItemSize = getVisibleChildItemSize(position);
-                    String deleteItem_Parent = visibleItems.get(position).name;
-                    Log.d("ROUTINE_DELETE",visibleItems.get(position).name);
-                    // Volley Here
-                    RequestQueue queue_pr = Volley.newRequestQueue(lastContext);
-                    String url_pr = JSP.Companion.deleteRoutine(inputId,visibleItems.get(position).name);
-                    StringRequest stringRequest_pr = new StringRequest(Request.Method.GET, url_pr, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Toast.makeText(lastContext, "Removed Success :"+deleteItem_Parent, Toast.LENGTH_SHORT).show();
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(lastContext, "sever error", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    queue_pr.add(stringRequest_pr);
+                    new AlertDialog.Builder(lastContext)
+                            .setMessage("루틴을 삭제하면 하위 운동들도 전부 삭제됩니다.\n삭제하시겠습니까?")
+                            .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    int childItemSize = getVisibleChildItemSize(position);
+                                    String deleteItem_Parent = visibleItems.get(position).name;
+                                    // Volley Here
+                                    RequestQueue queue_pr = Volley.newRequestQueue(lastContext);
+                                    String url_pr = JSP.Companion.deleteRoutine(inputId,visibleItems.get(position).name);
+                                    StringRequest stringRequest_pr = new StringRequest(Request.Method.GET, url_pr, new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            Toast.makeText(lastContext, "Removed Success :"+deleteItem_Parent, Toast.LENGTH_SHORT).show();
+                                        }
+                                    }, new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Toast.makeText(lastContext, "sever error", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                    queue_pr.add(stringRequest_pr);
 
-                    for (int i = 0; i <= childItemSize; i++) {
-                        visibleItems.remove(position);
-                    }
-                    items.remove(deleteItem_Parent);
-                    notifyItemRangeRemoved(position, childItemSize + 1);
+                                    for (int i = 0; i <= childItemSize; i++) {
+                                        visibleItems.remove(position);
+                                    }
 
+                                    Log.d("ROUTINE_DELETE","Delete Position :"+position);
+                                    items.remove(deleteItem_Parent);
+                                    notifyItemRangeRemoved(position, childItemSize + 1);
+
+                                }
+                            })
+                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    notifyDataSetChanged();
+                                }
+                            }).create().show();
                     break;
                 case CHILD_ITEM_VIEW:
                     ChildItem sel_ch_item = (ChildItem)visibleItems.get(position);
@@ -350,29 +367,14 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                         }
                     });
                     queue_ch.add(stringRequest);
-                    boolean flag = false;
-                    for (Item i: visibleItems){
-                        if (i.parent_Name == null){
-                            Log.d("ROUTINE_DELETE","PARENT SKIP"); // 부모인 경우
-                        }
-                        else if (i.parent_Name.equals(sel_ch_item.parent_Name)){
-                            Log.d("ROUTINE_DELETE","자식있음 "+sel_ch_item.name);
-                            flag=true;
-                            break; // 아직 있다는 뜻
-                        }
-                    }
-                    if (!flag){ // 없다는 뜻
-                        Log.d("ROUTINE_DELETE","자식없음");
-                        int i = 0;
-                        for (Item it : visibleItems) {
-                            if (sel_ch_item.parent_Name.equals(it.name) && it.parent_Name==null){
-                                //부모를 visibleItems에서 삭제해야함
-                                visibleItems.remove(i);
-                            }
-                            i++;
-                        }
-                    }
+
+                    //삭제 후에 삭제한 것의 부모가 child를 가지지 않으면 부모도 삭제함 getVisibleChildItemSize
+                    Log.d("ROUTINE_DELETE","Delete Position :"+position);
                     visibleItems.remove(position);
+                    if (getItemViewType(position-1) == PARENT_ITEM_VIEW && getVisibleChildItemSize(position-1) == 0){ //부모인데, 자식이 없다면 삭제
+                        visibleItems.remove(position-1);
+                    }
+//                    notifyItemRemoved(position);
                     notifyDataSetChanged();
                     break;
             }
