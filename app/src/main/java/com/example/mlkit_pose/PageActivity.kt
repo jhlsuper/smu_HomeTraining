@@ -3,6 +3,7 @@ package com.example.mlkit_pose
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -54,6 +55,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         mutableListOf<Model>()
     }
     var number =0
+    lateinit var alertDialog: AlertDialog
+    lateinit var builder :AlertDialog.Builder
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,7 +138,10 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.btn_drawer_logout -> logOut()
+
+            R.id.btn_drawer_logout ->
+//                logOut()
+                getAlertShow("로그아웃","정말 로그아웃 하시겠습니까?") { logOut() }
         }
         return false
     }
@@ -144,7 +151,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         if (main_drawer_layout.isDrawerOpen(GravityCompat.START)) {
             main_drawer_layout.closeDrawers()
         } else {
-            super.onBackPressed()
+            getAlertShow("종료하기","정말로 종료하시겠습니까?") { super.onBackPressed() }
+//            super.onBackPressed()
         }
 
     }
@@ -183,6 +191,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
 
     fun logOut() {
+
         val currentUser = sharedManager.getCurrentUser()
         sharedManager.DeleteCurrentUser(currentUser)
         startActivity(Intent(this, MainActivity::class.java))
@@ -508,6 +517,24 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     fun findUserId():String{
         val currentUser= sharedManager.getCurrentUser()
         return currentUser.id.toString()
+    }
+    fun getAlertShow(title:String,message:String,function:()->Unit){
+
+        val buttonOk = "확인"
+        val buttonNo = "취소"
+
+        builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(message)
+        builder.setCancelable(false)
+        builder.setPositiveButton(buttonOk,DialogInterface.OnClickListener{
+            dialog, which -> function()
+        })
+        builder.setNegativeButton(buttonNo,DialogInterface.OnClickListener{
+            dialog, which ->  alertDialog.dismiss()
+        })
+        alertDialog = builder.create()
+        alertDialog.show()
     }
 
 
