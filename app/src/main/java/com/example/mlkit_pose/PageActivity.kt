@@ -147,12 +147,15 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     override fun onBackPressed() {
+        val count = supportFragmentManager.backStackEntryCount
         //뒤로가기 버튼 처리
         if (main_drawer_layout.isDrawerOpen(GravityCompat.START)) {
             main_drawer_layout.closeDrawers()
-        } else {
+        } else if(count ==0) {
             getAlertShow("종료하기","정말로 종료하시겠습니까?") { super.onBackPressed() }
 //            super.onBackPressed()
+        }else{
+            super.onBackPressed()
         }
 
     }
