@@ -24,6 +24,8 @@ import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
+import com.google.android.gms.oss.licenses.OssLicensesActivity
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
@@ -51,12 +53,12 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     //    private var belong: String? = sharedManager.getCurrentUser().belong
     lateinit var viewModel: MainViewModel
-    val list :MutableList<Model> by lazy {
+    val list: MutableList<Model> by lazy {
         mutableListOf<Model>()
     }
-    var number =0
+    var number = 0
     lateinit var alertDialog: AlertDialog
-    lateinit var builder :AlertDialog.Builder
+    lateinit var builder: AlertDialog.Builder
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -139,20 +141,28 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-            R.id.btn_drawer_logout ->
+            R.id.btn_drawer_logout -> {
 //                logOut()
-                getAlertShow("로그아웃","정말 로그아웃 하시겠습니까?") { logOut() }
+                getAlertShow("로그아웃", "정말 로그아웃 하시겠습니까?") { logOut() }
+            }
+            R.id.btn_opensource->{
+                startActivity(Intent(this,OssLicensesMenuActivity::class.java))
+                OssLicensesMenuActivity.setActivityTitle("오픈소스 라이브러리")
+            }
         }
         return false
     }
 
     override fun onBackPressed() {
+        val count = supportFragmentManager.backStackEntryCount
         //뒤로가기 버튼 처리
         if (main_drawer_layout.isDrawerOpen(GravityCompat.START)) {
             main_drawer_layout.closeDrawers()
-        } else {
-            getAlertShow("종료하기","정말로 종료하시겠습니까?") { super.onBackPressed() }
+        } else if (count == 0) {
+            getAlertShow("종료하기", "정말로 종료하시겠습니까?") { super.onBackPressed() }
 //            super.onBackPressed()
+        } else {
+            super.onBackPressed()
         }
 
     }
@@ -259,7 +269,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             transaction.remove(guide_sport)
             Log.d("fragment", "guide sport removed")
         }
-        if (routine_detail != null){
+        if (routine_detail != null) {
             transaction.remove(routine_detail)
             Log.d("fragment", "routine Detail removed")
         }
@@ -279,11 +289,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             TAG_ROUTINE_FRAGMENT -> {
 
                 if (routine != null) {
-                    if (routine_detail != null){
+                    if (routine_detail != null) {
                         transaction.remove(routine_detail)
                     }
                     transaction.remove(routine)
-                    transaction.add(R.id.frameLayout,routine, TAG_ROUTINE_FRAGMENT)
+                    transaction.add(R.id.frameLayout, routine, TAG_ROUTINE_FRAGMENT)
                     transaction.show(routine)
                 }
             }
@@ -469,7 +479,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         setRankData()
         initRecycler()
     }
-    fun showTimeSettingPopup(exEname:String?,context: Context) {
+
+    fun showTimeSettingPopup(exEname: String?, context: Context) {
 
         val dialog = android.app.AlertDialog.Builder(context).create()
 
@@ -514,11 +525,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         dialog.window!!.setLayout(750, WindowManager.LayoutParams.WRAP_CONTENT)
 
     }
-    fun findUserId():String{
-        val currentUser= sharedManager.getCurrentUser()
+
+    fun findUserId(): String {
+        val currentUser = sharedManager.getCurrentUser()
         return currentUser.id.toString()
     }
-    fun getAlertShow(title:String,message:String,function:()->Unit){
+
+    fun getAlertShow(title: String, message: String, function: () -> Unit) {
 
         val buttonOk = "확인"
         val buttonNo = "취소"
@@ -527,11 +540,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         builder.setTitle(title)
         builder.setMessage(message)
         builder.setCancelable(false)
-        builder.setPositiveButton(buttonOk,DialogInterface.OnClickListener{
-            dialog, which -> function()
+        builder.setPositiveButton(buttonOk, DialogInterface.OnClickListener { dialog, which ->
+            function()
         })
-        builder.setNegativeButton(buttonNo,DialogInterface.OnClickListener{
-            dialog, which ->  alertDialog.dismiss()
+        builder.setNegativeButton(buttonNo, DialogInterface.OnClickListener { dialog, which ->
+            alertDialog.dismiss()
         })
         alertDialog = builder.create()
         alertDialog.show()
