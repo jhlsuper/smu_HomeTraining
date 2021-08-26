@@ -2,9 +2,11 @@ package com.example.mlkit_pose
 
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -13,6 +15,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -119,7 +123,18 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         viewModel.init()
     }
 
-
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if(requestCode == 1000){
+//            if (grantResults[0] != PackageManager.PERMISSION_GRANTED){
+//                Toast.makeText(this@PageActivity,"거부하실 경우 카메라 사용에 문제가 될 수 있습니다.",Toast.LENGTH_LONG).show()
+//            }
+//        }
+//    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //툴바 버튼 처리
         when (item.itemId) {
@@ -179,6 +194,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             }
             R.id.btn_guide -> {
                 setDataAtFragment(GuideMainFragment(), TAG_GUIDE_FRAGMENT)
+
             }
             R.id.btn_mypage -> {
                 setDataAtFragment(MyPageFragment(), TAG_MYPAGE_FRAGMENT)
