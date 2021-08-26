@@ -2,7 +2,9 @@ package com.example.mlkit_pose.fragment
 
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -14,6 +16,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,8 +39,7 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
-
-
+import java.util.jar.Manifest
 
 
 class GuideSportsFragment : Fragment() {
@@ -158,14 +162,30 @@ class GuideSportsFragment : Fragment() {
         }
         btn_start_exercise.setOnClickListener {
 //            (activity as PageActivity).startExcercise(exname)
-            (activity as PageActivity).showTimeSettingPopup(exname,context!!)
+            var flag = false
+            val cameraPermissionCheck = ContextCompat.checkSelfPermission(
+                context!!, android.Manifest.permission.CAMERA
+            )
+            if (cameraPermissionCheck != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(android.Manifest.permission.CAMERA), 1001)
+                Toast.makeText(context!!, "거부할 시 카메라 사용에 문제가 있을 수 있습니다.", Toast.LENGTH_LONG).show()
+            } else {
+                flag = true
+                (activity as PageActivity).showTimeSettingPopup(exname, context!!)
+            }
+            if (ContextCompat.checkSelfPermission(
+                    context!!,
+                    android.Manifest.permission.CAMERA
+                ) == PackageManager.PERMISSION_GRANTED && !flag
+            ) {
+                (activity as PageActivity).showTimeSettingPopup(exname, context!!)
+            }
 
         }
         btn_add_routine.setOnClickListener {
             MyRoutinePopup()
         }
     }
-
 
 
 //    fun showTimeSettingPopup(exEname:String?) {
@@ -280,6 +300,21 @@ class GuideSportsFragment : Fragment() {
         dialog.create()
         dialog.show()
 
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode){
+            1001 ->
+                if (ContextCompat.checkSelfPermission(context!!,android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    (activity as PageActivity).showTimeSettingPopup(exname, context!!)
+                }
+                //Alert 만들 것
+        }
     }
     companion object {
         @JvmStatic
