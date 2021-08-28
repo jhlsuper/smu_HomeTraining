@@ -17,6 +17,8 @@ class SharedManager(context:Context) {
         prefs["points"]="0"
         prefs["height"]=user.height
         prefs["weight"]=user.weight
+        prefs["recentDay"]=user.recentDay
+        prefs["countDays"] = user.countDays
     }
     fun getCurrentUser() :User{
         return User().apply {
@@ -29,6 +31,8 @@ class SharedManager(context:Context) {
             points = prefs["points",""]
             height =prefs["height",""]
             weight = prefs["weight",""]
+            recentDay =prefs["recentDay",""]
+            countDays = prefs["countDays",0]
         }
     }
     fun DeleteCurrentUser(user: User){
@@ -41,16 +45,33 @@ class SharedManager(context:Context) {
         prefs["points"] = null
         prefs["height"] =null
         prefs["weight"]=null
+        prefs["recentDay"]=null
+        prefs["countDays"]=0
 
     }
     fun setUserPoint(user:User, points: String?){
 
         prefs["points"]=points.toString()
+
     }
+//    fun setUserPointAndDate(user:User,points:String?, today:String?,countDays:Int?){
+//        prefs["points"] =points
+//        prefs["recentDay"] = today
+//        prefs["countDays"] = countDays
+//    }
     fun setUserInfo(user: User,weight:String,height:String, belong:String){
         prefs["weight"] =weight.toString()
         prefs["height"] = height.toString()
         prefs["belong"] = belong.toString()
+    }
+    fun setUserCountDays(){
+        val currentUser = getCurrentUser()
+        val count = currentUser.countDays
+        if (count != null) {
+            prefs["countDays"] = count+1
+        }
+
+
     }
 
 
