@@ -10,5 +10,7 @@ data class User (
     var points :String? = null,
     var height :String? =null,
     var weight :String? =null,
-    var img: Int?= null
+    var img: Int?= null,
+    var recentDay: String? = null,
+    var countDays: Int? =0
 )

@@ -2,7 +2,7 @@ package com.example.mlkit_pose
 
 class JSP {
     companion object {
-        private val Jsp_Url = "http://13.125.123.238:8080/"  //git pull 받으면 이거 고쳐서 쓸것!
+        private val Jsp_Url = ""  //git pull 받으면 이거 고쳐서 쓸것!
 
         fun getLoginURL(inputId:String, inputPw:String):String{
             val url = Jsp_Url+"Login.jsp?userId=${inputId}&userPwd=${inputPw}"
@@ -36,8 +36,8 @@ class JSP {
             val url = Jsp_Url+"img/$inputSports"+".png"
             return url
         }
-        fun getUserPointSet(inputId:String ,points:String):String{
-            val url = Jsp_Url+"InsertScore.jsp?userId=$inputId&userScore=$points"
+        fun getUserPointSet(inputId:String, points:String, today:String, countDays:String):String{
+            val url = Jsp_Url+"InsertScore.jsp?userId=$inputId&userScore=$points&last_exc=$today&total_exc=$countDays"
             return url
         }
         fun setUserInfoEdit(inputHeight: String,inputWeight: String,inputTeam: String,inputId: String):String{

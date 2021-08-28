@@ -2,11 +2,9 @@ package com.example.mlkit_pose
 
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -15,20 +13,15 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
-import com.google.android.gms.oss.licenses.OssLicensesActivity
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -37,7 +30,8 @@ import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
-import kotlinx.android.synthetic.main.popup_add_myroutine.*
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.properties.Delegates
 
 
@@ -336,6 +330,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         transaction.commit()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun initRecycler() {
         userRankAdapter = UserRkAdapter(this)
         rankingRecyclerView?.adapter = userRankAdapter
@@ -359,15 +354,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 response.trim { it <= ' ' }
 
                 val details2 = (response.trim().split(",")).toTypedArray()
-                Log.d("rankingresponse", "${details2[0]}")
+                Log.d("rankingresponse", details2[0])
 //                val userPoint: Int
 
                 Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
-                if (details2[2] == null) {
-                    sharedManager.setUserPoint(currentUser, "0")
-                } else {
-                    sharedManager.setUserPoint(currentUser, details2[2])
-                }
+                sharedManager.setUserPoint(currentUser, details2[2])
             }, {
                 Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
             })
@@ -429,6 +420,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //        Log.d("userPoint",currentUser.points.toString())
 //        sharedManager.setUserPoint(currentUser,newPoint.toString())
         setUserDBPoints(currentUser, newPoint.toString())
+        sharedManager.setUserCountDays()
+        Log.d("userinfo",currentUser.countDays.toString())
         Toast.makeText(this, "${currentUser.points}", Toast.LENGTH_SHORT).show()
         exit.setOnClickListener {
             dialog.dismiss()
@@ -471,8 +464,23 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     fun setUserDBPoints(user: User, points: String) {
+        val longNow = System.currentTimeMillis()
+        val nowDate = Date(longNow)
+        val nowDateFormat = SimpleDateFormat("yyyyMMdd",Locale("ko","KR"))
+        val strDate = nowDateFormat.format(nowDate)
+
+
+        val currentUser: User= sharedManager.getCurrentUser()
         val queue = Volley.newRequestQueue(this)
-        val url_setUserPoints = JSP.getUserPointSet(user.id.toString(), points)
+        Log.d("userinfo",currentUser.countDays.toString())
+
+        val url_setUserPoints = JSP.getUserPointSet(
+                user.id.toString(),
+                points,
+                strDate,
+                currentUser.countDays.toString()
+            )
+        Log.d("userinfo",url_setUserPoints)
 
         val StringRequest = StringRequest(
             Request.Method.GET, url_setUserPoints, { response ->
@@ -482,10 +490,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 Log.d("Point", details3)
 //                datas.clear()
                 if (details3 == "success") {
+                    Log.d("userinfo","${details3[0]} ,${details3[1]}")
                     Log.d("Point", "유저의 Point가 $points 로 업데이트되었습니다.")
                 }
             }, {
-                Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "server error here", Toast.LENGTH_SHORT).show()
             })
         queue.add(StringRequest)
     }

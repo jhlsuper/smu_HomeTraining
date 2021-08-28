@@ -56,7 +56,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         response.trim { it <= ' ' }
 
                         val details = response.split(",").toTypedArray()
-                        Toast.makeText(this, "${details[0]},${details[1]},${details[2]}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this,
+                            "${details[0]},${details[1]},${details[2]}",
+                            Toast.LENGTH_LONG
+                        ).show()
                         if (response.trim() == "error") {
                             Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT)
                                 .show()
@@ -75,9 +79,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                                 gender = details[6]
                                 weight = details[8]
                                 height = details[7]
+                                recentDay = details[11]
+                                countDays = details[10].toInt()
                             }
                             Log.d("userinfo", "height : ${details[7]}  weight: ${details[8]}")
                             sharedManager.saveCurrentUser(currentUser)
+                            Log.d("userinfo","${currentUser.countDays}")
                             getUserPoints(currentUser.id)
                             startActivity(Intent(this, PageActivity::class.java))
 
