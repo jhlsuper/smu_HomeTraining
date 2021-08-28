@@ -5,7 +5,7 @@
     android:id="@+id/main_layout_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_rectangle_lightblue_90"
+    android:background="@color/neworange2"
     android:minHeight="?attr/actionBarSize">
 
     <androidx.constraintlayout.widget.ConstraintLayout
