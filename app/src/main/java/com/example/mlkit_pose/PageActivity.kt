@@ -117,7 +117,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         viewModel.init()
     }
 
-//    override fun onRequestPermissionsResult(
+    //    override fun onRequestPermissionsResult(
 //        requestCode: Int,
 //        permissions: Array<out String>,
 //        grantResults: IntArray
@@ -154,8 +154,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //                logOut()
                 getAlertShow("로그아웃", "정말 로그아웃 하시겠습니까?") { logOut() }
             }
-            R.id.btn_opensource->{
-                startActivity(Intent(this,OssLicensesMenuActivity::class.java))
+            R.id.btn_opensource -> {
+                startActivity(Intent(this, OssLicensesMenuActivity::class.java))
                 OssLicensesMenuActivity.setActivityTitle("오픈소스 라이브러리")
             }
         }
@@ -421,7 +421,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //        sharedManager.setUserPoint(currentUser,newPoint.toString())
         setUserDBPoints(currentUser, newPoint.toString())
         sharedManager.setUserCountDays()
-        Log.d("userinfo",currentUser.countDays.toString())
+        Log.d("userinfo", currentUser.countDays.toString())
         Toast.makeText(this, "${currentUser.points}", Toast.LENGTH_SHORT).show()
         exit.setOnClickListener {
             dialog.dismiss()
@@ -466,21 +466,21 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     fun setUserDBPoints(user: User, points: String) {
         val longNow = System.currentTimeMillis()
         val nowDate = Date(longNow)
-        val nowDateFormat = SimpleDateFormat("yyyyMMdd",Locale("ko","KR"))
+        val nowDateFormat = SimpleDateFormat("yyyyMMdd", Locale("ko", "KR"))
         val strDate = nowDateFormat.format(nowDate)
 
 
-        val currentUser: User= sharedManager.getCurrentUser()
+        val currentUser: User = sharedManager.getCurrentUser()
         val queue = Volley.newRequestQueue(this)
-        Log.d("userinfo",currentUser.countDays.toString())
+        Log.d("userinfo", currentUser.countDays.toString())
 
         val url_setUserPoints = JSP.getUserPointSet(
-                user.id.toString(),
-                points,
-                strDate,
-                currentUser.countDays.toString()
-            )
-        Log.d("userinfo",url_setUserPoints)
+            user.id.toString(),
+            points,
+            strDate,
+            currentUser.countDays.toString()
+        )
+        Log.d("userinfo", "$url_setUserPoints 앱네 countdays ${currentUser.countDays}")
 
         val StringRequest = StringRequest(
             Request.Method.GET, url_setUserPoints, { response ->
@@ -489,10 +489,12 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 val details3 = (response.trim())
                 Log.d("Point", details3)
 //                datas.clear()
-                if (details3 == "success") {
-                    Log.d("userinfo","${details3[0]} ,${details3[1]}")
-                    Log.d("Point", "유저의 Point가 $points 로 업데이트되었습니다.")
-                }
+
+                Log.d("userinfo", "서버리스폰스 ${details3[0]} ,${details3[1]}")
+                Log.d("Point", "유저의 Point가 $points 로 업데이트되었습니다.")
+                sharedManager.setUserCountDays()
+                Log.d("userinfo", "앱네 count days ${currentUser.countDays}")
+
             }, {
                 Toast.makeText(this, "server error here", Toast.LENGTH_SHORT).show()
             })
