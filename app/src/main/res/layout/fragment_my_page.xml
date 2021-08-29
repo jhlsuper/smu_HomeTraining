@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray">
+    android:background="@color/newyellow">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_mypage_25percent"
@@ -271,7 +271,6 @@
                 android:layout_marginTop="20dp"
                 android:text="포인트 : "
                 android:fontFamily="@font/gmartketsansttfmedium"
-
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

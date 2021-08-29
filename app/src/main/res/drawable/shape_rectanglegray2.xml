@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <solid
-        android:color="@color/guidebutton"/>
+        android:color="#CEBBAD"/>
 
     <corners
         android:radius="30dp"/>
