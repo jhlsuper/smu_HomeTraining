@@ -17,8 +17,11 @@
 package com.example.mlkit_pose.kotlin.posedetector
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.util.Log
 import com.example.mlkit_pose.GraphicOverlay
+import com.example.mlkit_pose.R
+import com.example.mlkit_pose.kotlin.CameraXLivePreviewActivity
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
 import com.example.mlkit_pose.kotlin.posedetector.classification.PoseClassifierProcessor
@@ -42,11 +45,13 @@ class PoseDetectorProcessor(
     private val runClassification: Boolean,
     private val isStreamMode: Boolean,
     private val exName: String?,
-    private val isSetting: Boolean
+    private val isSetting: Boolean,
+    private val mediaPlayer2:MediaPlayer
 ) : VisionProcessorBase<PoseDetectorProcessor.PoseWithClassification>(context) {
     private var taskTimer: Timer? = null
     private var time = 0
-    private var checkedTime = 5
+    private var checkedTime = 15
+    private var STACK = 0
     private val detector: PoseDetector
     private val classificationExecutor: Executor
 
@@ -94,14 +99,22 @@ class PoseDetectorProcessor(
             graphicOverlay, poseWithClassification.pose, showInFrameLikelihood, visualizeZ,
             rescaleZForVisualization, poseWithClassification.classificationResult,exName,isSetting)
         graphicOverlay.add(poseG)
-
-        taskTimer = timer(period=10000){
-            time += 1
-            if (time == checkedTime) {
+        time+=1
+        if(time==checkedTime) {
+            if(false in poseG.correctArray){
                 Log.d("POSE_TIME", "DETECTED : ${poseG.correctArray.joinToString(",")}, isSetting : $isSetting")
-                checkedTime += 5
+                STACK += 1
             }
+            else{
+                STACK = 0
+            }
+            if(STACK == 3){
+                mediaPlayer2.start() // Music Start
+                STACK = 0
+            }
+            checkedTime+=15
         }
+
 
     }
 

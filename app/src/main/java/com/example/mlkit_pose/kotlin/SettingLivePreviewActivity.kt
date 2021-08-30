@@ -19,6 +19,7 @@ package com.example.mlkit_pose.kotlin
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -70,10 +71,12 @@ class SettingLivePreviewActivity :
   private var exerciseName: String? = null
   private var timerTask: Timer? = null
   private var time = 0
+  private lateinit var mediaPlayer2:MediaPlayer
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     Log.d(TAG, "onCreate")
+    mediaPlayer2 = MediaPlayer.create(applicationContext, R.raw.beeps)
     if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
       Toast.makeText(
         applicationContext,
@@ -288,7 +291,7 @@ class SettingLivePreviewActivity :
           val runClassification = PreferenceUtils.shouldPoseDetectionRunClassification(this)
           PoseDetectorProcessor(
             this, poseDetectorOptions, shouldShowInFrameLikelihood, visualizeZ, rescaleZ,
-            runClassification, /* isStreamMode = */ true,exerciseName,true
+            runClassification, /* isStreamMode = */ true,exerciseName,true,mediaPlayer2
           )
         }
 //        SELFIE_SEGMENTATION -> SegmenterProcessor(this)
