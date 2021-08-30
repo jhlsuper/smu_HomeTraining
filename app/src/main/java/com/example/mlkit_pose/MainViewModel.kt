@@ -51,9 +51,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun editExerciseDay(input_recentDay:String,input_countDays:Int){
-        recentDay.value = input_recentDay
+        recentDay.value = input_recentDay.trim()
         countDays.value = input_countDays
         sharedManager.setUserCountDays(input_recentDay,input_countDays)
+        Log.d("userinfo","editExcersieDay done, ${currentUser.recentDay},${currentUser.countDays}")
     }
 
 

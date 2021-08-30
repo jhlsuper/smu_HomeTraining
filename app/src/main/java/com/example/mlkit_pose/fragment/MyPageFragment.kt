@@ -70,28 +70,30 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         viewModel.belong.observe(this, {
             et_mypage_belong.text = it.toString()
         })
-        viewModel.recentDay.observe(this, {
-            year = it.subSequence(0, 4).toString()
-            month = it.subSequence(4, 6).toString()
-            day = it.subSequence(6, 8).toString()
-            et_mypage_belong.text = "${year}년 ${month}월 ${day}일"
-        })
-        viewModel.countDays.observe(this, {
-            et_mypage_exercisedays.text = it.toString() + "일"
-        })
-        if (recentDay === "0") {
-            year = "없음"
-            month = ""
-            day = ""
-        } else {
+//        viewModel.recentDay.observe(this, {
+//            year = it.subSequence(0, 4).toString()
+//            month = it.subSequence(4, 6).toString()
+//            day = it.subSequence(6, 8).toString()
+//            et_mypage_belong.text = "${year}년 ${month}월 ${day}일"
+//        })
+//        viewModel.countDays.observe(this, {
+//            et_mypage_exercisedays.text = it.toString() + "일"
+//        })
 
-            year = recentDay?.subSequence(0, 4).toString()
-            month = recentDay?.subSequence(4, 6).toString()
-            day = recentDay?.subSequence(6, 8).toString()
-            Log.d("days", "$year,$month,$day")
-        }
 
 //        viewModel.init()
+        Log.d("userinfo","$recentDay")
+        if (recentDay.toString()=="0"){
+            year ="없음"
+            month = ""
+            day = ""
+        }
+        else{
+            year = recentDay?.substring(0 until 4).toString().trim()+"년"
+            month = recentDay?.subSequence(4 until  6).toString()+"월"
+            day =recentDay?.subSequence(6 until  8).toString()+"일"
+        }
+        Log.d("userinfo","ymd ymd $year,$month,$day")
     }
 
     @SuppressLint("SetTextI18n")
@@ -108,7 +110,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         view.et_mypage_height.text = "${height}cm"
         view.et_mypage_weight.text = "${weight}kg"
         view.et_mypage_point.text = "$point"
-        view.et_mypage_recent_day.text = "${year}년 ${month}월 ${day}일"
+        view.et_mypage_recent_day.text = "$year $month $day"
         view.et_mypage_exercisedays.text = "$countDays"
 
 //        view.et_mypage_recent_day.text = "$r"

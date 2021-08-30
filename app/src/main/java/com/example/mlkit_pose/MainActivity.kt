@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         val details = response.split(",").toTypedArray()
                         Toast.makeText(
                             this,
-                            "${details[0]},${details[1]},${details[2]}",
+                            "$details",
                             Toast.LENGTH_LONG
                         ).show()
                         if (response.trim() == "error") {

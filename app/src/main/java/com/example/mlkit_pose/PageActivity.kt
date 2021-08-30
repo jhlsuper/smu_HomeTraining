@@ -40,7 +40,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     lateinit var userRankAdapter: UserRkAdapter
     lateinit var exname: String
-
+    lateinit var year: String
+    lateinit var month: String
+    lateinit var day: String
     private var minute by Delegates.notNull<Int>()
     private var second by Delegates.notNull<Int>()
     val datas = mutableListOf<User>()
@@ -111,8 +113,21 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             info_user_point?.text = "포인트: $it"
             btn_home_ranking.text = "유저포인트\n $it"
             rankingRefresh()
-
-
+        })
+        viewModel.recentDay.observe(this, {
+            if (it.length != 8) {
+                year = "없음"
+                month = ""
+                day = ""
+            } else {
+                year = it.substring(0 until 4) + "년"
+                month = it.substring(4 until 6) + "월"
+                day = it.substring(6 until 8) + "일"
+                et_mypage_recent_day?.text = "$year $month $day"
+            }
+        })
+        viewModel.countDays.observe(this, {
+            et_mypage_exercisedays?.text = it.toString() + "일"
         })
         viewModel.init()
         Log.d("userinfo", "${currentUser.countDays},${currentUser.recentDay}")
