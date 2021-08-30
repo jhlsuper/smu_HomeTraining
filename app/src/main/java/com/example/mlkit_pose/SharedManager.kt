@@ -64,14 +64,9 @@ class SharedManager(context:Context) {
         prefs["height"] = height.toString()
         prefs["belong"] = belong.toString()
     }
-    fun setUserCountDays(){
-        val currentUser = getCurrentUser()
-        val count = currentUser.countDays
-        if (count != null) {
-            prefs["countDays"] = count+1
-        }
-
-
+    fun setUserCountDays(recentDay:String,countDays:Int){
+        prefs["recentDay"] = recentDay
+        prefs["countDays"] = countDays
     }
 
 

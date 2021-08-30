@@ -61,7 +61,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        context_main = this;
+        context_main = this
 
         val currentUser = sharedManager.getCurrentUser()
         setUserRank()
@@ -115,6 +115,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
         })
         viewModel.init()
+        Log.d("userinfo", "${currentUser.countDays},${currentUser.recentDay}")
+
     }
 
     //    override fun onRequestPermissionsResult(
@@ -228,6 +230,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         bundle.putString("points", currentUser.points)
         bundle.putString("height", currentUser.height)
         bundle.putString("weight", currentUser.weight)
+        bundle.putString("recentDay", currentUser.recentDay)
+        bundle.putString("countDays", currentUser.countDays.toString())
         fragment.arguments = bundle
         setFragment(fragment, tag)
     }
@@ -420,7 +424,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //        Log.d("userPoint",currentUser.points.toString())
 //        sharedManager.setUserPoint(currentUser,newPoint.toString())
         setUserDBPoints(currentUser, newPoint.toString())
-        sharedManager.setUserCountDays()
+
         Log.d("userinfo", currentUser.countDays.toString())
         Toast.makeText(this, "${currentUser.points}", Toast.LENGTH_SHORT).show()
         exit.setOnClickListener {
@@ -465,10 +469,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     fun setUserDBPoints(user: User, points: String) {
         val longNow = System.currentTimeMillis()
-        val nowDate = Date(longNow)
-        val nowDateFormat = SimpleDateFormat("yyyyMMdd", Locale("ko", "KR"))
-        val strDate = nowDateFormat.format(nowDate)
-
 
         val currentUser: User = sharedManager.getCurrentUser()
         val queue = Volley.newRequestQueue(this)
@@ -477,7 +477,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val url_setUserPoints = JSP.getUserPointSet(
             user.id.toString(),
             points,
-            strDate,
+            currentUser.recentDay.toString(),
             currentUser.countDays.toString()
         )
         Log.d("userinfo", "$url_setUserPoints 앱네 countdays ${currentUser.countDays}")
@@ -486,13 +486,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             Request.Method.GET, url_setUserPoints, { response ->
                 response.trim { it <= ' ' }
                 Toast.makeText(this, response, Toast.LENGTH_SHORT).show()
-                val details3 = (response.trim())
-                Log.d("Point", details3)
-//                datas.clear()
-
-                Log.d("userinfo", "서버리스폰스 ${details3[0]} ,${details3[1]}")
+                val details3 = (response.trim().split(",")).toTypedArray()
+                Log.d("userinfo", "details ${details3[0]}, ${details3[1]}")
+                //details3[0] 은 운동 count details[1] 이 최근 날짜 response
                 Log.d("Point", "유저의 Point가 $points 로 업데이트되었습니다.")
-                sharedManager.setUserCountDays()
+                viewModel.editExerciseDay(details3[1], details3[0].toInt())
                 Log.d("userinfo", "앱네 count days ${currentUser.countDays}")
 
             }, {
