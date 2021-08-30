@@ -32,8 +32,9 @@ import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseLandmark
 import java.lang.Math.max
 import java.lang.Math.min
-import java.util.Locale
+import java.util.*
 import kotlin.math.atan2
+import kotlin.concurrent.timer
 
 /** Draw the detected pose in preview.  */
 class PoseGraphic internal constructor(
@@ -43,7 +44,8 @@ class PoseGraphic internal constructor(
     private val visualizeZ: Boolean,
     private val rescaleZForVisualization: Boolean,
     private val poseClassification: List<String>,
-    private val exName: String?) : GraphicOverlay.Graphic(overlay) {
+    private val exName: String?,
+    private val isSetting: Boolean) : GraphicOverlay.Graphic(overlay) {
         private var zMin = java.lang.Float.MAX_VALUE
         private var zMax = java.lang.Float.MIN_VALUE
         private val classificationTextPaint: Paint
@@ -53,14 +55,15 @@ class PoseGraphic internal constructor(
         private val wrongPaint: Paint
         private val correctPaint: Paint
         private val poseSearchList : PoseSearcher
-        val mediaPlayer2 = MediaPlayer.create(applicationContext,R.raw.beeps)
+        private val nowPose:ExercisePose?
+        public var correctArray = Array(8){i-> true}
+//        val mediaPlayer2 = MediaPlayer.create(applicationContext,R.raw.beeps)
 //        private val cameraXLivePreviewActivity = CameraXLivePreviewActivity.getInstance()
         init {
             classificationTextPaint = Paint()
             classificationTextPaint.color = Color.WHITE
             classificationTextPaint.textSize = POSE_CLASSIFICATION_TEXT_SIZE
             classificationTextPaint.setShadowLayer(5.0f, 0f, 0f, Color.BLACK)
-
             whitePaint = Paint()
             whitePaint.strokeWidth = STROKE_WIDTH
             whitePaint.color = Color.WHITE
@@ -78,6 +81,8 @@ class PoseGraphic internal constructor(
             correctPaint.strokeWidth = STROKE_WIDTH
             correctPaint.color = Color.GREEN
             poseSearchList = PoseSearcher()
+            nowPose = poseSearchList.searchExByName(exName)
+            checkCorrect()
         }
     fun getAngle(firstPoint: PoseLandmark, midPoint: PoseLandmark, lastPoint: PoseLandmark): Double {
         var result = Math.toDegrees(
@@ -94,7 +99,9 @@ class PoseGraphic internal constructor(
     }
     override fun draw(canvas: Canvas) {
 
-        mediaPlayer2.start()
+//        if(!isSetting) {
+//            mediaPlayer2.start() // Music Start
+//        }
         val landmarks = pose.allPoseLandmarks
         if (landmarks.isEmpty()) {
             return
@@ -122,7 +129,7 @@ class PoseGraphic internal constructor(
                 zMax = max(zMax, landmark.position3D.z)
             }
         }
-        Log.d("ExcerciseName","PoseGraphic IN ENAME $exName")
+        Log.d("ExerciseName","PoseGraphic IN ENAME $exName")
         val leftShoulder = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
         val rightShoulder = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
         val leftElbow = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
@@ -209,10 +216,6 @@ class PoseGraphic internal constructor(
         val rightKneeAngle = getAngle(rightHip,rightKnee,rightAnkle)
         val leftKneeAngle = getAngle(leftHip,leftKnee,leftAnkle)
          */
-        val nowPose:ExercisePose? = poseSearchList.searchExByName(exName)
-        if (nowPose != null) {
-            nowPose.getExName()?.let { Log.d("NOWPOSENAME", it) }
-        }
         if (nowPose != null) {
             //Right Hip Angle
             if (nowPose.isAngle_rhS(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleS)){ // Right Hip
@@ -229,6 +232,7 @@ class PoseGraphic internal constructor(
                 // 각도 내에 없지만 활성화된 경우 (틀린것)
                 drawLine(canvas,rightShoulder,rightHip,wrongPaint)
                 drawLine(canvas,rightHip,rightKnee,wrongPaint)
+                correctArray[0] = false
             }
             //Left Hip Angle
             if (nowPose.isAngle_lhS(leftHipAngle)&& nowPose.getEnable(nowPose.leftHipAngleS)){
@@ -242,6 +246,7 @@ class PoseGraphic internal constructor(
             else if (nowPose.getEnable(nowPose.leftHipAngleS) || nowPose.getEnable(nowPose.leftHipAngleD)){
                 drawLine(canvas,leftShoulder,leftHip,wrongPaint)
                 drawLine(canvas,leftHip,leftKnee,wrongPaint)
+                correctArray[1] = false
             }
             // Right Shoulder Angle
             if (nowPose.isAngle_rsS(rightShoulderAngle) && nowPose.getEnable(nowPose.rightShoulderAngleS)){
@@ -255,6 +260,7 @@ class PoseGraphic internal constructor(
             else if (nowPose.getEnable(nowPose.rightShoulderAngleS) || nowPose.getEnable(nowPose.rightShoulderAngleD)){
                 drawLine(canvas,rightHip,rightShoulder,wrongPaint)
                 drawLine(canvas,rightShoulder,rightElbow,wrongPaint)
+                correctArray[2] = false
             }
             // Left Shoulder Angle
             if (nowPose.isAngle_lsS(leftShoulderAngle) && nowPose.getEnable(nowPose.leftShoulderAngleS)){
@@ -268,6 +274,7 @@ class PoseGraphic internal constructor(
             else if (nowPose.getEnable(nowPose.leftShoulderAngleS) || nowPose.getEnable(nowPose.leftShoulderAngleD)){
                 drawLine(canvas,leftHip,leftShoulder,wrongPaint)
                 drawLine(canvas,leftShoulder,leftElbow,wrongPaint)
+                correctArray[3] = false
             }
             // Right Elbow Angle
             if (nowPose.isAngle_reS(rightElbowAngle) && nowPose.getEnable(nowPose.rightElbowAngleS)){
@@ -282,6 +289,7 @@ class PoseGraphic internal constructor(
             else if (nowPose.getEnable(nowPose.rightElbowAngleD) || nowPose.getEnable(nowPose.rightElbowAngleS)){
                 drawLine(canvas,rightShoulder,rightElbow,wrongPaint)
                 drawLine(canvas,rightElbow,rightWrist,wrongPaint)
+                correctArray[4] = false
             }
             // Left Elbow Angle
             if (nowPose.isAngle_leS(leftElbowAngle) && nowPose.getEnable(nowPose.leftElbowAngleS)){
@@ -297,7 +305,7 @@ class PoseGraphic internal constructor(
             else if (nowPose.getEnable(nowPose.leftElbowAngleD) || nowPose.getEnable(nowPose.leftElbowAngleS)){
                 drawLine(canvas,leftShoulder,leftElbow,wrongPaint)
                 drawLine(canvas,leftElbow,leftWrist,wrongPaint)
-
+                correctArray[5] = false
             }
             // Right Knee Angle
             if (nowPose.isAngle_rkS(rightKneeAngle) && nowPose.getEnable(nowPose.rightKneeAngleS)){
@@ -312,6 +320,7 @@ class PoseGraphic internal constructor(
             else if (nowPose.getEnable(nowPose.rightKneeAngleD) || nowPose.getEnable(nowPose.rightKneeAngleS)){
                 drawLine(canvas,rightHip,rightKnee,wrongPaint)
                 drawLine(canvas,rightKnee,rightAnkle,wrongPaint)
+                correctArray[6] = false
             }
             // Left Knee Angle
             if (nowPose.isAngle_lkS(leftKneeAngle) && nowPose.getEnable(nowPose.leftKneeAngleS)){
@@ -326,12 +335,9 @@ class PoseGraphic internal constructor(
             else if (nowPose.getEnable(nowPose.leftKneeAngleD) || nowPose.getEnable(nowPose.leftKneeAngleS)){
                 drawLine(canvas,leftHip,leftKnee,wrongPaint)
                 drawLine(canvas,leftKnee,leftAnkle,wrongPaint)
+                correctArray[7] = false
             }
-
         }
-
-
-
 
         // Draw inFrameLikelihood for all points
         if (showInFrameLikelihood) {
@@ -421,6 +427,110 @@ class PoseGraphic internal constructor(
 //        cameraXLivePreviewActivity?.playBeep()
     }
 
+    private fun checkCorrect(){
+        //Right Hip Angle
+        val landmarks = pose.allPoseLandmarks
+        if (landmarks.isEmpty()) {
+            return
+        }
+
+        Log.d("ExerciseName","PoseGraphic IN ENAME $exName")
+        val leftShoulder = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
+        val rightShoulder = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
+        val leftElbow = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
+        val rightElbow = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW)
+        val leftWrist = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
+        val rightWrist = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST)
+        val leftHip = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
+        val rightHip = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
+        val leftKnee = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
+        val rightKnee = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
+        val leftAnkle = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
+        val rightAnkle = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
+
+        val leftPinky = pose.getPoseLandmark(PoseLandmark.LEFT_PINKY)
+        val rightPinky = pose.getPoseLandmark(PoseLandmark.RIGHT_PINKY)
+        val leftIndex = pose.getPoseLandmark(PoseLandmark.LEFT_INDEX)
+        val rightIndex = pose.getPoseLandmark(PoseLandmark.RIGHT_INDEX)
+        val leftThumb = pose.getPoseLandmark(PoseLandmark.LEFT_THUMB)
+        val rightThumb = pose.getPoseLandmark(PoseLandmark.RIGHT_THUMB)
+        val leftHeel = pose.getPoseLandmark(PoseLandmark.LEFT_HEEL)
+        val rightHeel = pose.getPoseLandmark(PoseLandmark.RIGHT_HEEL)
+        val leftFootIndex = pose.getPoseLandmark(PoseLandmark.LEFT_FOOT_INDEX)
+        val rightFootIndex = pose.getPoseLandmark(PoseLandmark.RIGHT_FOOT_INDEX)
+
+        /* Get Angle */
+
+        // Hip angle
+        val rightHipAngle = getAngle(rightShoulder!!,rightHip!!,rightKnee!!)
+        val leftHipAngle = getAngle(leftShoulder!!,leftHip!!,leftKnee!!)
+        // Shoulder angle
+        val rightShoulderAngle = getAngle(rightHip,rightShoulder,rightElbow!!)
+        val leftShoulderAngle = getAngle(leftHip,leftShoulder,leftElbow!!)
+        // Elbow Angle
+        val rightElbowAngle = getAngle(rightShoulder,rightElbow,rightWrist!!)
+        val leftElbowAngle = getAngle(leftShoulder,leftElbow,leftWrist!!)
+        // Knee Angle
+        val rightKneeAngle = getAngle(rightHip,rightKnee,rightAnkle!!)
+        val leftKneeAngle = getAngle(leftHip,leftKnee,leftAnkle!!)
+
+        if (nowPose != null) {
+            if (nowPose.isAngle_rhS(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleS)) { // Right Hip
+                // UP 각도 내에 있는 경우, 그리고 해당 부위가 활성화 된 경우
+            } else if (nowPose.isAngle_rhD(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleD)) {
+                // Down 각도 내에 있는 경우, 그리고 해당 부위가 활성화 된 경우
+            } else if (nowPose.getEnable(nowPose.rightHipAngleS) || nowPose.getEnable(nowPose.rightHipAngleD)) {
+                // 각도 내에 없지만 활성화된 경우 (틀린것)
+                correctArray[0] = false
+            }
+            //Left Hip Angle
+            if (nowPose.isAngle_lhS(leftHipAngle) && nowPose.getEnable(nowPose.leftHipAngleS)) {
+            } else if (nowPose.isAngle_lhD(leftHipAngle) && nowPose.getEnable(nowPose.leftHipAngleD)) {
+            } else if (nowPose.getEnable(nowPose.leftHipAngleS) || nowPose.getEnable(nowPose.leftHipAngleD)) {
+                correctArray[1] = false
+            }
+            // Right Shoulder Angle
+            if (nowPose.isAngle_rsS(rightShoulderAngle) && nowPose.getEnable(nowPose.rightShoulderAngleS)) {
+            } else if (nowPose.isAngle_rsD(rightShoulderAngle) && nowPose.getEnable(nowPose.rightShoulderAngleD)) {
+            } else if (nowPose.getEnable(nowPose.rightShoulderAngleS) || nowPose.getEnable(nowPose.rightShoulderAngleD)) {
+                correctArray[2] = false
+            }
+            // Left Shoulder Angle
+            if (nowPose.isAngle_lsS(leftShoulderAngle) && nowPose.getEnable(nowPose.leftShoulderAngleS)) {
+            } else if (nowPose.isAngle_lsD(leftShoulderAngle) && nowPose.getEnable(nowPose.leftShoulderAngleD)) {
+            } else if (nowPose.getEnable(nowPose.leftShoulderAngleS) || nowPose.getEnable(nowPose.leftShoulderAngleD)) {
+                correctArray[3] = false
+            }
+            // Right Elbow Angle
+            if (nowPose.isAngle_reS(rightElbowAngle) && nowPose.getEnable(nowPose.rightElbowAngleS)) {
+                //rightShoulder,rightElbow,rightWrist
+            } else if (nowPose.isAngle_reD(rightElbowAngle) && nowPose.getEnable(nowPose.rightElbowAngleD)) {
+            } else if (nowPose.getEnable(nowPose.rightElbowAngleD) || nowPose.getEnable(nowPose.rightElbowAngleS)) {
+                correctArray[4] = false
+            }
+            // Left Elbow Angle
+            if (nowPose.isAngle_leS(leftElbowAngle) && nowPose.getEnable(nowPose.leftElbowAngleS)) {
+                //leftShoulder,leftElbow,leftWrist
+            } else if (nowPose.isAngle_leD(leftElbowAngle) && nowPose.getEnable(nowPose.leftElbowAngleD)) {
+
+            } else if (nowPose.getEnable(nowPose.leftElbowAngleD) || nowPose.getEnable(nowPose.leftElbowAngleS)) {
+                correctArray[5] = false
+            }
+            // Right Knee Angle
+            if (nowPose.isAngle_rkS(rightKneeAngle) && nowPose.getEnable(nowPose.rightKneeAngleS)) {
+                //rightHip,rightKnee,rightAnkle
+            } else if (nowPose.isAngle_rkD(rightKneeAngle) && nowPose.getEnable(nowPose.rightKneeAngleD)) {
+            } else if (nowPose.getEnable(nowPose.rightKneeAngleD) || nowPose.getEnable(nowPose.rightKneeAngleS)) {
+                correctArray[6] = false
+            }
+            // Left Knee Angle
+            if (nowPose.isAngle_lkS(leftKneeAngle) && nowPose.getEnable(nowPose.leftKneeAngleS)) {
+            } else if (nowPose.isAngle_lkD(leftKneeAngle) && nowPose.getEnable(nowPose.leftKneeAngleD)) {
+            } else if (nowPose.getEnable(nowPose.leftKneeAngleD) || nowPose.getEnable(nowPose.leftKneeAngleS)) {
+                correctArray[7] = false
+            }
+        }
+    }
     companion object {
         private val DOT_RADIUS = 8.0f
         private val IN_FRAME_LIKELIHOOD_TEXT_SIZE = 30.0f

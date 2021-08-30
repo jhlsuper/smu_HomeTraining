@@ -76,16 +76,16 @@ class CameraXLivePreviewActivity :
   private var exerciseName: String? = null
   private var timerTask: Timer? = null
   private var time = 0
+  private lateinit var mediaPlayer2:MediaPlayer
   var minute by Delegates.notNull<Int>()
   var second by Delegates.notNull<Int>()
 
 
 
   override fun onCreate(savedInstanceState: Bundle?) {
-
-
     super.onCreate(savedInstanceState)
     Log.d(TAG, "onCreate")
+    mediaPlayer2 = MediaPlayer.create(applicationContext, R.raw.beeps)
     if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
       Toast.makeText(
         applicationContext,
@@ -338,7 +338,7 @@ class CameraXLivePreviewActivity :
           val runClassification = PreferenceUtils.shouldPoseDetectionRunClassification(this)
           PoseDetectorProcessor(
             this, poseDetectorOptions, shouldShowInFrameLikelihood, visualizeZ, rescaleZ,
-            runClassification, /* isStreamMode = */ true,exerciseName
+            runClassification, /* isStreamMode = */ true,exerciseName,false,mediaPlayer2
           )
         }
 //        SELFIE_SEGMENTATION -> SegmenterProcessor(this)

@@ -476,10 +476,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         intent.putExtra("minute", minute)
         intent.putExtra("second", second)
         activityResultLauncher.launch(intent)
-        // 카메라 사용 끝
-
-        // 결과 화면
-
     }
 
     fun setUserDBPoints(user: User, points: String) {

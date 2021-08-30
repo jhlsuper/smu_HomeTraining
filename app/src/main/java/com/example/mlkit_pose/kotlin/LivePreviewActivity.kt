@@ -19,6 +19,7 @@ package com.example.mlkit_pose.kotlin
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
@@ -162,7 +163,7 @@ class LivePreviewActivity :
                     cameraSource!!.setMachineLearningFrameProcessor(
                         PoseDetectorProcessor(
                             this, poseDetectorOptions, shouldShowInFrameLikelihood, visualizeZ, rescaleZ,
-                            runClassification, /* isStreamMode = */ true,null
+                            runClassification, /* isStreamMode = */ true,null,false,mediaPlayer2 = MediaPlayer.create(applicationContext, R.raw.beeps)
                         )
                     )
                     Log.d("POSEMODEL","Pose model :")

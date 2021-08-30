@@ -17,8 +17,11 @@
 package com.example.mlkit_pose.kotlin.posedetector
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.util.Log
 import com.example.mlkit_pose.GraphicOverlay
+import com.example.mlkit_pose.R
+import com.example.mlkit_pose.kotlin.CameraXLivePreviewActivity
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
 import com.example.mlkit_pose.kotlin.posedetector.classification.PoseClassifierProcessor
@@ -27,9 +30,10 @@ import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseDetection
 import com.google.mlkit.vision.pose.PoseDetector
 import com.google.mlkit.vision.pose.PoseDetectorOptionsBase
-import java.util.ArrayList
+import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+import kotlin.concurrent.timer
 
 /** A processor to run pose detector.  */
 class PoseDetectorProcessor(
@@ -40,9 +44,14 @@ class PoseDetectorProcessor(
     private val rescaleZForVisualization: Boolean,
     private val runClassification: Boolean,
     private val isStreamMode: Boolean,
-    private val exName: String?
+    private val exName: String?,
+    private val isSetting: Boolean,
+    private val mediaPlayer2:MediaPlayer
 ) : VisionProcessorBase<PoseDetectorProcessor.PoseWithClassification>(context) {
-
+    private var taskTimer: Timer? = null
+    private var time = 0
+    private var checkedTime = 15
+    private var STACK = 0
     private val detector: PoseDetector
     private val classificationExecutor: Executor
 
@@ -55,9 +64,6 @@ class PoseDetectorProcessor(
     init {
         detector = PoseDetection.getClient(options)
         classificationExecutor = Executors.newSingleThreadExecutor()
-        if (exName != null) {
-            Log.d("EXNAME",exName)
-        }
     }
 
     override fun stop() {
@@ -89,12 +95,27 @@ class PoseDetectorProcessor(
         poseWithClassification: PoseWithClassification,
         graphicOverlay: GraphicOverlay
     ) {
-        graphicOverlay.add(
-            PoseGraphic(
-                graphicOverlay, poseWithClassification.pose, showInFrameLikelihood, visualizeZ,
-                rescaleZForVisualization, poseWithClassification.classificationResult,exName
-            )
-        )
+        val poseG:PoseGraphic = PoseGraphic(
+            graphicOverlay, poseWithClassification.pose, showInFrameLikelihood, visualizeZ,
+            rescaleZForVisualization, poseWithClassification.classificationResult,exName,isSetting)
+        graphicOverlay.add(poseG)
+        time+=1
+        if(time==checkedTime) {
+            if(false in poseG.correctArray){
+                Log.d("POSE_TIME", "DETECTED : ${poseG.correctArray.joinToString(",")}, isSetting : $isSetting")
+                STACK += 1
+            }
+            else{
+                STACK = 0
+            }
+            if(STACK == 3){
+                mediaPlayer2.start() // Music Start
+                STACK = 0
+            }
+            checkedTime+=15
+        }
+
+
     }
 
     override fun onFailure(e: Exception) {

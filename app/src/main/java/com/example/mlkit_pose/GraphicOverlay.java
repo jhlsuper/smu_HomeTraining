@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
@@ -65,7 +66,6 @@ public class GraphicOverlay extends View {
   private boolean isImageFlipped;
   private boolean needUpdateTransformation = true;
   private String exName;
-
   /**
    * Base class for a custom graphics object to be rendered within the graphic overlay. Subclass
    * this and implement the {@link Graphic#draw(Canvas)} method to define the graphics element. Add
@@ -229,10 +229,8 @@ public class GraphicOverlay extends View {
   @Override
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
-
     synchronized (lock) {
       updateTransformationIfNeeded();
-
       for (Graphic graphic : graphics) {
         graphic.draw(canvas);
       }

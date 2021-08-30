@@ -16,39 +16,34 @@
 
 package com.example.mlkit_pose.kotlin
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.annotation.RequiresApi
-import androidx.camera.core.CameraInfoUnavailableException
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageProxy
-import androidx.camera.core.Preview
+import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.mlkit_pose.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.mlkit_pose.CameraXViewModel
+import com.example.mlkit_pose.GraphicOverlay
+import com.example.mlkit_pose.R
+import com.example.mlkit_pose.VisionImageProcessor
 import com.example.mlkit_pose.kotlin.posedetector.PoseDetectorProcessor
 import com.example.mlkit_pose.preference.PreferenceUtils
-import com.example.mlkit_pose.preference.SettingsActivity
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
-import com.google.mlkit.common.model.LocalModel
-import com.example.mlkit_pose.preference.SettingsActivity.LaunchSource
-import kotlinx.android.synthetic.main.activity_vision_camerax_live_preview.*
-import kotlinx.android.synthetic.main.fragment_guide_sports.*
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -76,10 +71,12 @@ class SettingLivePreviewActivity :
   private var exerciseName: String? = null
   private var timerTask: Timer? = null
   private var time = 0
+  private lateinit var mediaPlayer2:MediaPlayer
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     Log.d(TAG, "onCreate")
+    mediaPlayer2 = MediaPlayer.create(applicationContext, R.raw.beeps)
     if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
       Toast.makeText(
         applicationContext,
@@ -294,7 +291,7 @@ class SettingLivePreviewActivity :
           val runClassification = PreferenceUtils.shouldPoseDetectionRunClassification(this)
           PoseDetectorProcessor(
             this, poseDetectorOptions, shouldShowInFrameLikelihood, visualizeZ, rescaleZ,
-            runClassification, /* isStreamMode = */ true,exerciseName
+            runClassification, /* isStreamMode = */ true,exerciseName,true,mediaPlayer2
           )
         }
 //        SELFIE_SEGMENTATION -> SegmenterProcessor(this)
@@ -427,7 +424,7 @@ class SettingLivePreviewActivity :
     finish()
   }
   private fun runTimer(minute:Int,second:Int,exText:String?){
-    val check_time = 3
+    val check_time = 5
     timerTask = timer(period = 1000){
       time += 1
       val sec = time
