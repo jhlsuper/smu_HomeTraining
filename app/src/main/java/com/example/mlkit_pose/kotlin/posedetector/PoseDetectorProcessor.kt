@@ -27,9 +27,10 @@ import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseDetection
 import com.google.mlkit.vision.pose.PoseDetector
 import com.google.mlkit.vision.pose.PoseDetectorOptionsBase
-import java.util.ArrayList
+import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+import kotlin.concurrent.timer
 
 /** A processor to run pose detector.  */
 class PoseDetectorProcessor(
@@ -40,9 +41,12 @@ class PoseDetectorProcessor(
     private val rescaleZForVisualization: Boolean,
     private val runClassification: Boolean,
     private val isStreamMode: Boolean,
-    private val exName: String?
+    private val exName: String?,
+    private val isSetting: Boolean
 ) : VisionProcessorBase<PoseDetectorProcessor.PoseWithClassification>(context) {
-
+    private var taskTimer: Timer? = null
+    private var time = 0
+    private var checkedTime = 5
     private val detector: PoseDetector
     private val classificationExecutor: Executor
 
@@ -55,9 +59,6 @@ class PoseDetectorProcessor(
     init {
         detector = PoseDetection.getClient(options)
         classificationExecutor = Executors.newSingleThreadExecutor()
-        if (exName != null) {
-            Log.d("EXNAME",exName)
-        }
     }
 
     override fun stop() {
@@ -89,12 +90,19 @@ class PoseDetectorProcessor(
         poseWithClassification: PoseWithClassification,
         graphicOverlay: GraphicOverlay
     ) {
-        graphicOverlay.add(
-            PoseGraphic(
-                graphicOverlay, poseWithClassification.pose, showInFrameLikelihood, visualizeZ,
-                rescaleZForVisualization, poseWithClassification.classificationResult,exName
-            )
-        )
+        val poseG:PoseGraphic = PoseGraphic(
+            graphicOverlay, poseWithClassification.pose, showInFrameLikelihood, visualizeZ,
+            rescaleZForVisualization, poseWithClassification.classificationResult,exName,isSetting)
+        graphicOverlay.add(poseG)
+
+        taskTimer = timer(period=10000){
+            time += 1
+            if (time == checkedTime) {
+                Log.d("POSE_TIME", "DETECTED : ${poseG.correctArray.joinToString(",")}, isSetting : $isSetting")
+                checkedTime += 5
+            }
+        }
+
     }
 
     override fun onFailure(e: Exception) {

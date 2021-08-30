@@ -162,7 +162,7 @@ class LivePreviewActivity :
                     cameraSource!!.setMachineLearningFrameProcessor(
                         PoseDetectorProcessor(
                             this, poseDetectorOptions, shouldShowInFrameLikelihood, visualizeZ, rescaleZ,
-                            runClassification, /* isStreamMode = */ true,null
+                            runClassification, /* isStreamMode = */ true,null,false
                         )
                     )
                     Log.d("POSEMODEL","Pose model :")

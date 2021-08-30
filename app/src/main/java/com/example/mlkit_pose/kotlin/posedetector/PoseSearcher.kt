@@ -37,6 +37,15 @@ class PoseSearcher {
                                                 listOf(150.0,180.0,1.0),listOf(50.0,96.0,1.0),
                                                 listOf(150.0,180.0,1.0),listOf(50.0,96.0,1.0),"WideSquat")
         poseList.add(WideSquat)
+        val SideLegRaise:ExercisePose = ExercisePose(listOf(110.0,144.5,1.0),listOf(165.0,180.0,1.0),
+                                                    listOf(110.0,144.5,1.0),listOf(165.0,180.0,1.0),
+                                                    listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),
+                                                    listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),
+                                                    listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),
+                                                    listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),
+                                                    listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),
+                                                    listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),"SideLegRaise")
+        poseList.add(SideLegRaise)
     }
 
     public fun searchExByName(exname :String?) : ExercisePose?{

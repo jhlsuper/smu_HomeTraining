@@ -338,7 +338,7 @@ class CameraXLivePreviewActivity :
           val runClassification = PreferenceUtils.shouldPoseDetectionRunClassification(this)
           PoseDetectorProcessor(
             this, poseDetectorOptions, shouldShowInFrameLikelihood, visualizeZ, rescaleZ,
-            runClassification, /* isStreamMode = */ true,exerciseName
+            runClassification, /* isStreamMode = */ true,exerciseName,false
           )
         }
 //        SELFIE_SEGMENTATION -> SegmenterProcessor(this)
