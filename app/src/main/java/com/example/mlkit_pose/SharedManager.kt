@@ -65,7 +65,7 @@ class SharedManager(context:Context) {
         prefs["belong"] = belong.toString()
     }
     fun setUserCountDays(recentDay:String,countDays:Int){
-        prefs["recentDay"] = recentDay
+        prefs["recentDay"] = recentDay.trim()
         prefs["countDays"] = countDays
     }
 
