@@ -56,11 +56,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         response.trim { it <= ' ' }
 
                         val details = response.split(",").toTypedArray()
-                        Toast.makeText(
-                            this,
-                            "$details",
-                            Toast.LENGTH_LONG
-                        ).show()
+//                        Toast.makeText(
+//                            this,
+//                            "$details",
+//                            Toast.LENGTH_LONG
+//                        ).show()
                         if (response.trim() == "error") {
                             Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT)
                                 .show()
