@@ -99,7 +99,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                     showExerciseDonePopup(exname, minute, second, this)
                 }
             }
-        Log.d("userinfo", "${currentUser.weight},${currentUser.height}")
+//        Log.d("userinfo", "${currentUser.weight},${currentUser.height}")
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -107,7 +107,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             info_user_belong?.text = "소속: $it"
         })
         viewModel.point.observe(this, {
-            Log.d("userPoint", it)
+//            Log.d("userPoint", it)
             txt_ranking_my_points?.text = it.toString()
             et_mypage_point?.text = it.toString()
             info_user_point?.text = "포인트: $it"
@@ -130,7 +130,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             et_mypage_exercisedays?.text = it.toString() + "일"
         })
         viewModel.init()
-        Log.d("userinfo", "${currentUser.countDays},${currentUser.recentDay}")
+//        Log.d("userinfo", "${currentUser.countDays},${currentUser.recentDay}")
 
     }
 
@@ -367,16 +367,16 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val currentUser = sharedManager.getCurrentUser()
 
         val url_getUserRank = JSP.getUserRank(currentUser.id.toString())
-        Log.d("currentID", currentUser.id.toString())
+//        Log.d("currentID", currentUser.id.toString())
         val StringRequest2 = StringRequest(
             Request.Method.GET, url_getUserRank, { response ->
                 response.trim { it <= ' ' }
 
                 val details2 = (response.trim().split(",")).toTypedArray()
-                Log.d("rankingresponse", details2[0])
+//                Log.d("rankingresponse", details2[0])
 //                val userPoint: Int
 
-                Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
                 sharedManager.setUserPoint(currentUser, details2[2])
             }, {
                 Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
@@ -440,7 +440,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //        sharedManager.setUserPoint(currentUser,newPoint.toString())
         setUserDBPoints(currentUser, newPoint.toString())
 
-        Log.d("userinfo", currentUser.countDays.toString())
+//        Log.d("userinfo", currentUser.countDays.toString())
         Toast.makeText(this, "${currentUser.points}", Toast.LENGTH_SHORT).show()
         exit.setOnClickListener {
             dialog.dismiss()
@@ -483,7 +483,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
         val currentUser: User = sharedManager.getCurrentUser()
         val queue = Volley.newRequestQueue(this)
-        Log.d("userinfo", currentUser.countDays.toString())
+//        Log.d("userinfo", currentUser.countDays.toString())
 
         val url_setUserPoints = JSP.getUserPointSet(
             user.id.toString(),
@@ -491,18 +491,18 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             currentUser.recentDay.toString(),
             currentUser.countDays.toString()
         )
-        Log.d("userinfo", "$url_setUserPoints 앱네 countdays ${currentUser.countDays}")
+//        Log.d("userinfo", "$url_setUserPoints 앱네 countdays ${currentUser.countDays}")
 
         val StringRequest = StringRequest(
             Request.Method.GET, url_setUserPoints, { response ->
                 response.trim { it <= ' ' }
-                Toast.makeText(this, response, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, response, Toast.LENGTH_SHORT).show()
                 val details3 = (response.trim().split(",")).toTypedArray()
-                Log.d("userinfo", "details ${details3[0]}, ${details3[1]}")
+//                Log.d("userinfo", "details ${details3[0]}, ${details3[1]}")
                 //details3[0] 은 운동 count details[1] 이 최근 날짜 response
-                Log.d("Point", "유저의 Point가 $points 로 업데이트되었습니다.")
+//                Log.d("Point", "유저의 Point가 $points 로 업데이트되었습니다.")
                 viewModel.editExerciseDay(details3[1], details3[0].toInt())
-                Log.d("userinfo", "앱네 count days ${currentUser.countDays}")
+//                Log.d("userinfo", "앱네 count days ${currentUser.countDays}")
 
             }, {
                 Toast.makeText(this, "server error here", Toast.LENGTH_SHORT).show()
