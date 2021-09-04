@@ -2,7 +2,6 @@ package com.example.mlkit_pose.fragment
 
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -14,10 +13,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,17 +25,12 @@ import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.JSP
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
-import com.example.mlkit_pose.SharedManager
-import com.example.mlkit_pose.fragment.expre.ItemAdapter
-import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import kotlinx.android.synthetic.main.fragment_guide_sports.*
-import kotlinx.android.synthetic.main.item_model.*
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
-import java.util.jar.Manifest
 
 
 class GuideSportsFragment : Fragment() {

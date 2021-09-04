@@ -11,6 +11,8 @@ import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.mlkit_pose.dao.SharedManager
+import com.example.mlkit_pose.dao.User
 
 import kotlinx.android.synthetic.main.fragment_login.*
 

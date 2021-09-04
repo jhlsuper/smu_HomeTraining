@@ -19,6 +19,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.mlkit_pose.adapter.MainViewModel
+import com.example.mlkit_pose.adapter.UserRkAdapter
+import com.example.mlkit_pose.dao.SharedManager
+import com.example.mlkit_pose.dao.User
 import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
@@ -30,8 +34,6 @@ import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.properties.Delegates
 
 

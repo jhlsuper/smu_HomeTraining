@@ -1,14 +1,14 @@
-package com.example.mlkit_pose
+package com.example.mlkit_pose.adapter
 
 import android.content.Context
-import android.service.autofill.UserData
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.Text
+import com.example.mlkit_pose.R
+import com.example.mlkit_pose.dao.User
 
 
 class UserRkAdapter(val context: Context):
