@@ -1,10 +1,11 @@
-package com.example.mlkit_pose
+package com.example.mlkit_pose.adapter
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.mlkit_pose.dao.SharedManager
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     @SuppressLint("StaticFieldLeak")

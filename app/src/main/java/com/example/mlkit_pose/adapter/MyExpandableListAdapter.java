@@ -1,4 +1,4 @@
-package com.example.mlkit_pose;
+package com.example.mlkit_pose.adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+
+import com.example.mlkit_pose.R;
 
 import java.util.ArrayList;
 import java.util.List;

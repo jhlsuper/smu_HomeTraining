@@ -1,4 +1,4 @@
-package com.example.mlkit_pose
+package com.example.mlkit_pose.dao
 
 data class User (
     var name:String? = null,

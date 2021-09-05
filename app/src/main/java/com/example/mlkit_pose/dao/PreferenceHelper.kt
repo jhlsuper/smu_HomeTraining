@@ -1,6 +1,5 @@
-package com.example.mlkit_pose
+package com.example.mlkit_pose.dao
 
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager

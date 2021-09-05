@@ -1,9 +1,10 @@
-package com.example.mlkit_pose
+package com.example.mlkit_pose.dao
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.mlkit_pose.PreferenceHelper.set
-import com.example.mlkit_pose.PreferenceHelper.get
+import com.example.mlkit_pose.dao.PreferenceHelper.set
+import com.example.mlkit_pose.dao.PreferenceHelper.get
+
 class SharedManager(context:Context) {
     private val prefs:SharedPreferences= PreferenceHelper.defaultPrefs(context)
 
@@ -20,7 +21,7 @@ class SharedManager(context:Context) {
         prefs["recentDay"]=user.recentDay
         prefs["countDays"] = user.countDays
     }
-    fun getCurrentUser() :User{
+    fun getCurrentUser() : User {
         return User().apply {
             name = prefs["name",""]
             id= prefs["id",""]
@@ -49,7 +50,7 @@ class SharedManager(context:Context) {
         prefs["countDays"]=0
 
     }
-    fun setUserPoint(user:User, points: String?){
+    fun setUserPoint(user: User, points: String?){
 
         prefs["points"]=points.toString()
 
@@ -59,7 +60,7 @@ class SharedManager(context:Context) {
 //        prefs["recentDay"] = today
 //        prefs["countDays"] = countDays
 //    }
-    fun setUserInfo(user: User,weight:String,height:String, belong:String){
+    fun setUserInfo(user: User, weight:String, height:String, belong:String){
         prefs["weight"] =weight.toString()
         prefs["height"] = height.toString()
         prefs["belong"] = belong.toString()
