@@ -112,7 +112,6 @@ class GuideSportsFragment : Fragment() {
                         sport_detail_ename.text = arr2[2]
                         exname_k = sport_detail_name.text as String?
                         val testTEXT = arr2[2]
-                        Log.d("EnameCHECK", "Ename $testTEXT")
                         exname = arr2[2]
                     }
                 },
@@ -162,14 +161,14 @@ class GuideSportsFragment : Fragment() {
                 Toast.makeText(context!!, "거부할 시 카메라 사용에 문제가 있을 수 있습니다.", Toast.LENGTH_LONG).show()
             } else {
                 flag = true
-                (activity as PageActivity).showTimeSettingPopup(exname, context!!)
+                (activity as PageActivity).showTimeSettingPopup(exname,exname_k, context!!)
             }
             if (ContextCompat.checkSelfPermission(
                     context!!,
                     android.Manifest.permission.CAMERA
                 ) == PackageManager.PERMISSION_GRANTED && !flag
             ) {
-                (activity as PageActivity).showTimeSettingPopup(exname, context!!)
+                (activity as PageActivity).showTimeSettingPopup(exname,exname_k, context!!)
             }
 
         }
@@ -302,7 +301,7 @@ class GuideSportsFragment : Fragment() {
         when (requestCode){
             1001 ->
                 if (ContextCompat.checkSelfPermission(context!!,android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    (activity as PageActivity).showTimeSettingPopup(exname, context!!)
+                    (activity as PageActivity).showTimeSettingPopup(exname,exname_k, context!!)
                 }
                 //Alert 만들 것
         }

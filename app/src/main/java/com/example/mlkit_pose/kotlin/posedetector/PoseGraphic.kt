@@ -232,6 +232,7 @@ class PoseGraphic internal constructor(
                 // 각도 내에 없지만 활성화된 경우 (틀린것)
                 drawLine(canvas,rightShoulder,rightHip,wrongPaint)
                 drawLine(canvas,rightHip,rightKnee,wrongPaint)
+                drawLine(canvas, leftHip, rightHip, wrongPaint)
                 correctArray[0] = false
             }
             //Left Hip Angle
@@ -246,6 +247,7 @@ class PoseGraphic internal constructor(
             else if (nowPose.getEnable(nowPose.leftHipAngleS) || nowPose.getEnable(nowPose.leftHipAngleD)){
                 drawLine(canvas,leftShoulder,leftHip,wrongPaint)
                 drawLine(canvas,leftHip,leftKnee,wrongPaint)
+                drawLine(canvas, leftHip, rightHip, wrongPaint)
                 correctArray[1] = false
             }
             // Right Shoulder Angle

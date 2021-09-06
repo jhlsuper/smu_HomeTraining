@@ -34,6 +34,9 @@ import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
+import kotlinx.android.synthetic.main.popup_settime.*
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.properties.Delegates
 
 
@@ -472,6 +475,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         this.second = second
 
 
+
         val intent = Intent(this, SettingLivePreviewActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         intent.putExtra("ExcerciseName", exname) //English Name
@@ -518,7 +522,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         initRecycler()
     }
 
-    fun showTimeSettingPopup(exEname: String?, context: Context) {
+    fun showTimeSettingPopup(exEname: String?,exname_k : String?, context: Context) {
 
         val dialog = android.app.AlertDialog.Builder(context).create()
 
@@ -527,9 +531,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
         val minute: NumberPicker = mView.findViewById(R.id.numberPicker_min)
         val second: NumberPicker = mView.findViewById(R.id.numberPicker_sec)
-
+        val selected_name: TextView = mView.findViewById(R.id.time_exercise_name)
         val cancel: Button = mView.findViewById<Button>(R.id.btn_settime_no)
         val start: Button = mView.findViewById<Button>(R.id.btn_settime_ok)
+
+        selected_name.text = exname_k
         // editText 설정해제
         minute.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         second.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
