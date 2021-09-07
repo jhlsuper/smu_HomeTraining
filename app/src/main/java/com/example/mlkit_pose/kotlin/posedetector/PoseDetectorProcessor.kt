@@ -48,7 +48,6 @@ class PoseDetectorProcessor(
     private val isSetting: Boolean,
     private val mediaPlayer2:MediaPlayer
 ) : VisionProcessorBase<PoseDetectorProcessor.PoseWithClassification>(context) {
-    private var taskTimer: Timer? = null
     private var time = 0
     private var checkedTime = 15
     private var STACK = 0
@@ -108,7 +107,7 @@ class PoseDetectorProcessor(
             else{
                 STACK = 0
             }
-            if(STACK == 3){
+            if(STACK == 2){
                 mediaPlayer2.start() // Music Start
                 STACK = 0
             }

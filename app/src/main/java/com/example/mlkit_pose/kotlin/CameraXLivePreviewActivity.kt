@@ -21,11 +21,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.media.CamcorderProfile
 import android.media.MediaPlayer
+import android.media.MediaRecorder
 import android.media.SoundPool
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
@@ -491,7 +495,6 @@ class CameraXLivePreviewActivity :
       }
     }
   }
-
 
   companion object {
     private const val TAG = "CameraXLivePreview"
