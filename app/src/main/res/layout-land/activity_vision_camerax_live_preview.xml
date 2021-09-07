@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,15 +10,151 @@
       android:id="@+id/preview_view"
       android:layout_width="0dp"
       android:layout_height="match_parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/control"/>
+      app:layout_constraintEnd_toStartOf="@+id/control"
+      app:layout_constraintStart_toStartOf="parent">
+
+  </androidx.camera.view.PreviewView>
 
   <com.example.mlkit_pose.GraphicOverlay
       android:id="@+id/graphic_overlay"
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
+      android:layout_width="682dp"
+      android:layout_height="match_parent" />
+
+  <TextView
+      android:id="@+id/time_Minute"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="100"
+      android:shadowColor="#000000"
+      android:shadowDx="5.0"
+      android:shadowDy="5.0"
+      android:shadowRadius="5.0"
+      android:text="11"
+      android:textAlignment="viewStart"
+      android:textColor="#FFFFFF"
+      android:textSize="40sp"
+      app:layout_constraintBottom_toBottomOf="@+id/preview_view"
       app:layout_constraintEnd_toEndOf="@+id/preview_view"
-      app:layout_constraintStart_toStartOf="@id/preview_view" />
+      app:layout_constraintHorizontal_bias="0.05"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/preview_view"
+      app:layout_constraintVertical_bias="0.060000002" />
+
+  <TextView
+      android:id="@+id/time_dot7"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="100"
+      android:shadowColor="#000000"
+      android:shadowDx="5.0"
+      android:shadowDy="5.0"
+      android:shadowRadius="5.0"
+      android:text="."
+      android:textAlignment="textEnd"
+      android:textColor="#FFFFFF"
+      android:textSize="35sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@+id/preview_view"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@+id/time_Minute"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.060000002" />
+
+  <TextView
+      android:id="@+id/time_Second"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="100"
+      android:shadowColor="#000000"
+      android:shadowDx="5.0"
+      android:shadowDy="5.0"
+      android:shadowRadius="5.0"
+      android:text="11"
+      android:textAlignment="viewStart"
+      android:textColor="#FFFFFF"
+      android:textSize="40sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@+id/preview_view"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@+id/time_dot7"
+      app:layout_constraintTop_toTopOf="@+id/preview_view"
+      app:layout_constraintVertical_bias="0.060000002" />
+
+  <TextView
+      android:id="@+id/time_dot8"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="100"
+      android:shadowColor="#000000"
+      android:shadowDx="5.0"
+      android:shadowDy="5.0"
+      android:shadowRadius="5.0"
+      android:text="."
+      android:textAlignment="textEnd"
+      android:textColor="#FFFFFF"
+      android:textSize="35sp"
+      app:layout_constraintBottom_toBottomOf="@+id/preview_view"
+      app:layout_constraintEnd_toEndOf="@+id/preview_view"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@+id/time_Second"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.060000002" />
+
+  <TextView
+      android:id="@+id/time_Milli"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="100"
+      android:shadowColor="#000000"
+      android:shadowDx="5.0"
+      android:shadowDy="5.0"
+      android:shadowRadius="5.0"
+      android:text="11"
+      android:textAlignment="textEnd"
+      android:textColor="#FFFFFF"
+      android:textSize="20sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@+id/preview_view"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@+id/time_dot8"
+      app:layout_constraintTop_toTopOf="@+id/preview_view"
+      app:layout_constraintVertical_bias="0.110000014" />
+
+  <TextView
+      android:id="@+id/time_sectext4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="100"
+      android:shadowColor="#000000"
+      android:shadowDx="5.0"
+      android:shadowDy="5.0"
+      android:shadowRadius="5.0"
+      android:text="sec"
+      android:textAlignment="textEnd"
+      android:textColor="#FFFFFF"
+      android:textSize="30sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@+id/preview_view"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@+id/time_Milli"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.09" />
+
+  <TextView
+      android:id="@+id/textView11"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="278dp"
+      android:layout_marginTop="376dp"
+      android:layout_marginEnd="256dp"
+      android:layout_marginBottom="16dp"
+      android:text="Live Activity"
+      android:textSize="10sp"
+      app:layout_constraintBottom_toBottomOf="@+id/preview_view"
+      app:layout_constraintEnd_toEndOf="@+id/preview_view"
+      app:layout_constraintHorizontal_bias="0.57"
+      app:layout_constraintStart_toStartOf="@+id/preview_view"
+      app:layout_constraintTop_toTopOf="@+id/preview_view" />
 
   <FrameLayout
       android:id="@id/control"

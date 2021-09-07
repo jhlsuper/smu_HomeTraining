@@ -79,7 +79,7 @@ class RoutineDetailFragment : Fragment() {
                     override fun onItemClick(v: View, guidelist: GuideBookSportsList, pos: Int) {
                         val krName = guidelist.GuideList[pos].name
                         Log.d("ROUTINE_DETAIL", "KR : ${guidelist.GuideList[pos].name}, EN ${routine_Map[krName]}")
-                        (activity as PageActivity).showTimeSettingPopup(routine_Map[krName],context!!)
+                        (activity as PageActivity).showTimeSettingPopup(routine_Map[krName],krName,context!!)
                     }
                 })
 
