@@ -63,28 +63,31 @@
             </FrameLayout>
 
             <ScrollView
+                android:id="@+id/kj2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="3.8"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:background="@drawable/shape_rectanglegray2"
+                android:paddingTop="20dp"
+                android:paddingBottom="15dp"
                 android:fillViewport="true"
                 android:layout_marginBottom="10dp"
                 android:scrollbars="none">
 
                 <RelativeLayout
+                    android:id="@+id/kj"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <Button
                         android:fontFamily="@font/gmartketsansttfmedium"
                         android:id="@+id/chest"
-                        android:layout_width="150dp"
+                        android:layout_width="115dp"
                         android:layout_height="50dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="27dp"
                         android:background="@drawable/button_purple"
                         android:text="가슴"
                         android:textSize="20dp" />
@@ -92,11 +95,12 @@
                     <Button
                         android:fontFamily="@font/gmartketsansttfmedium"
                         android:id="@+id/back"
-                        android:layout_width="150dp"
+                        android:layout_width="115dp"
                         android:layout_height="50dp"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_toRightOf="@+id/chest"
+                        android:layout_marginLeft="30dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="27dp"
                         android:background="@drawable/button_purple"
                         android:text="등"
                         android:textSize="20dp" />
@@ -104,32 +108,34 @@
                     <Button
                         android:fontFamily="@font/gmartketsansttfmedium"
                         android:id="@+id/shoulder"
-                        android:layout_width="150dp"
+                        android:layout_width="115dp"
                         android:layout_height="50dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="90dp"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="70dp"
                         android:background="@drawable/button_purple"
                         android:text="어깨"
                         android:textSize="20dp" />
 
                     <Button
                         android:id="@+id/arm"
-                        android:layout_width="150dp"
+                        android:layout_width="115dp"
                         android:layout_height="50dp"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginTop="90dp"
-                        android:layout_toRightOf="@+id/shoulder"
+                        android:layout_marginTop="70dp"
                         android:background="@drawable/button_purple"
+                        android:layout_marginLeft="30dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="27dp"
                         android:text="팔"
                         android:fontFamily="@font/gmartketsansttfmedium"
                         android:textSize="20dp" />
 
                     <Button
                         android:id="@+id/abs"
-                        android:layout_width="150dp"
+                        android:layout_width="115dp"
                         android:layout_height="50dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="160dp"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="140dp"
                         android:background="@drawable/button_purple"
                         android:text="복근"
                         android:fontFamily="@font/gmartketsansttfmedium"
@@ -137,11 +143,13 @@
 
                     <Button
                         android:id="@+id/core"
-                        android:layout_width="150dp"
+                        android:layout_width="115dp"
                         android:layout_height="50dp"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginTop="160dp"
-                        android:layout_toRightOf="@+id/abs"
+                        android:layout_marginTop="140dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="27dp"
                         android:background="@drawable/button_purple"
                         android:text="코어"
                         android:fontFamily="@font/gmartketsansttfmedium"
@@ -149,10 +157,10 @@
 
                     <Button
                         android:id="@+id/side"
-                        android:layout_width="150dp"
+                        android:layout_width="115dp"
                         android:layout_height="50dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="230dp"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="210dp"
                         android:background="@drawable/button_purple"
                         android:text="옆구리"
                         android:fontFamily="@font/gmartketsansttfmedium"
@@ -205,16 +213,16 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="3.8"
                 android:layout_marginBottom="16dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:background="@drawable/shape_rectanglegray2">
 
                 <Button
                     android:id="@+id/calf"
-                    android:layout_width="150dp"
+                    android:layout_width="115dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginLeft="27dp"
                     android:background="@drawable/button_purple"
                     android:text="종아리"
                     android:fontFamily="@font/gmartketsansttfmedium"
@@ -222,11 +230,13 @@
 
                 <Button
                     android:id="@+id/thigh"
-                    android:layout_width="150dp"
+                    android:layout_width="115dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="25dp"
                     android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@+id/calf"
+                    android:layout_marginLeft="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="27dp"
                     android:background="@drawable/button_purple"
                     android:text="허벅지"
                     android:fontFamily="@font/gmartketsansttfmedium"
@@ -234,10 +244,10 @@
 
                 <Button
                     android:id="@+id/pelvis"
-                    android:layout_width="150dp"
+                    android:layout_width="115dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="90dp"
+                    android:layout_marginLeft="27dp"
                     android:background="@drawable/button_purple"
                     android:text="골반"
                     android:fontFamily="@font/gmartketsansttfmedium"
@@ -246,11 +256,13 @@
 
                 <Button
                     android:id="@+id/hip"
-                    android:layout_width="150dp"
+                    android:layout_width="115dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="25dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="27dp"
                     android:layout_marginTop="90dp"
-                    android:layout_toRightOf="@+id/pelvis"
                     android:background="@drawable/button_purple"
                     android:text="엉덩이"
                     android:fontFamily="@font/gmartketsansttfmedium"
