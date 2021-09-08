@@ -1,22 +1,28 @@
 package com.example.mlkit_pose
 
-
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
-import android.content.res.Resources
-import android.media.CamcorderProfile
-import android.media.MediaRecorder
+import android.content.*
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.MediaScannerConnection
+import android.media.projection.MediaProjectionManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
+import android.os.Environment
+import android.os.Handler
+import android.provider.MediaStore
 import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -32,20 +38,25 @@ import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.navigation.NavigationView
+import com.hbisoft.hbrecorder.HBRecorder
+import com.hbisoft.hbrecorder.HBRecorderListener
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main_page_part.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
-import kotlinx.android.synthetic.main.popup_settime.*
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.jar.Manifest
+
 import kotlin.properties.Delegates
 
 
 class PageActivity : AppCompatActivity(), View.OnClickListener,
-    NavigationView.OnNavigationItemSelectedListener {
+    NavigationView.OnNavigationItemSelectedListener, HBRecorderListener {
 
     lateinit var userRankAdapter: UserRkAdapter
     lateinit var exname: String
@@ -69,10 +80,22 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     lateinit var alertDialog: AlertDialog
     lateinit var builder: AlertDialog.Builder
 
+    var hbRecorder: HBRecorder? = null
+    var hasPermissions = false
+    var contentValues: ContentValues? = null
+    var resolver: ContentResolver? = null
+    var mUri: Uri? = null
+    var inputexEname: String? = null
+    var inputMinute: Int = 0
+    var inputSecond: Int = 0
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context_main = this
+
+        hbRecorder = HBRecorder(this, this)
+        hbRecorder!!.setVideoEncoder("H264")
 
         val currentUser = sharedManager.getCurrentUser()
         setUserRank()
@@ -105,6 +128,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 Log.d("resultLauncher", it.resultCode.toString())
                 if (it.resultCode == RESULT_OK) {
+                    stopRecording()
                     showExerciseDonePopup(exname, minute, second, this)
                 }
             }
@@ -469,7 +493,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     fun startExcercise(exname: String?, minute: Int, second: Int) {
         // 점수 계산을 위한 운동 시간 설정 -> GuideSportsFragment.showTimeSettingPopup()
         // 안내 & 카메라 사용 시작
-//        settingStart()
 
         // Initialize EXNAME,MINUTE,SECOND received from GuideSportsFragment
         if (exname != null) {
@@ -477,7 +500,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         }
         this.minute = minute
         this.second = second
-
 
 
         val intent = Intent(this, SettingLivePreviewActivity::class.java)
@@ -525,15 +547,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         setRankData()
         initRecycler()
     }
-//    private fun startRecord(){
-//        val mediaRecordder: MediaRecorder = MediaRecorder()
-//        mediaRecordder.setAudioSource(MediaRecorder.AudioSource.MIC)
-//        mediaRecordder.setVideoSource(MediaRecorder.VideoSource.SURFACE)
-//        mediaRecordder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH))
-//        val displayMetrics : DisplayMetrics = Resources.getSystem().displayMetrics
-//        mediaRecordder.setVideoSize(displayMetrics.widthPixels, displayMetrics.heightPixels)
-//    }
-    fun showTimeSettingPopup(exEname: String?,exname_k : String?, context: Context) {
+
+    fun showTimeSettingPopup(exEname: String?, exname_k: String?, context: Context) {
 
         val dialog = android.app.AlertDialog.Builder(context).create()
 
@@ -570,8 +585,17 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             dialog.cancel()
         }
         start.setOnClickListener {
+            startRecordingScreen()
             Toast.makeText(context, "${minute.value}분 ${second.value}초", Toast.LENGTH_SHORT).show()
-            startExcercise(exEname, minute.value, second.value)
+            inputexEname = exEname
+            inputMinute = minute.value
+            inputSecond = second.value
+            //first check if permissions was granted
+//            Handler().postDelayed({
+//                startExcercise(exEname, minute.value, second.value)
+//            },3000)
+
+//            startExcercise(exEname, minute.value, second.value)
             dialog.dismiss()
         }
         dialog.setView(mView)
@@ -605,6 +629,126 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         alertDialog.show()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SCREEN_RECORD_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                hbRecorder!!.startScreenRecording(data, resultCode, this)
+            }
+        }
+    }
+
+
+    override fun HBRecorderOnStart() {
+        Log.d("startEx", "$inputexEname,$inputMinute,$inputSecond")
+        startExcercise(inputexEname, inputMinute, inputSecond)
+        Toast.makeText(this, "녹화가 시작되었습니다.", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun HBRecorderOnComplete() {
+        Toast.makeText(this, "녹화가 끝났습니다.", Toast.LENGTH_SHORT).show()
+        //Update gallery depending on SDK Level
+        if (hbRecorder!!.wasUriSet()) {
+            updateGalleryUri()
+        } else {
+            refreshGalleryFile()
+        }
+    }
+
+    override fun HBRecorderOnError(errorCode: Int, reason: String?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun startRecordingScreen() {
+        val mediaProjectionManager =
+            getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+        val permissionIntent = mediaProjectionManager?.createScreenCaptureIntent()
+        startActivityForResult(permissionIntent, SCREEN_RECORD_REQUEST_CODE)
+    }
+
+    private fun setOutputPath() {
+        val filename = generateFileName()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            resolver = contentResolver
+            contentValues = ContentValues()
+            contentValues!!.put(MediaStore.Video.Media.RELATIVE_PATH, "SpeedTest/" + "SpeedTest")
+            contentValues!!.put(MediaStore.Video.Media.TITLE, filename)
+            contentValues!!.put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+            contentValues!!.put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4")
+            mUri = resolver?.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues)
+            //FILE NAME SHOULD BE THE SAME
+            hbRecorder!!.fileName = filename
+            hbRecorder!!.setOutputUri(mUri)
+        } else {
+            createFolder()
+            hbRecorder!!.setOutputPath(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
+                    .toString() + "/HBRecorder"
+            )
+        }
+    }
+
+    private fun checkSelfPermission(permission: String, requestCode: Int): Boolean {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                permission
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
+            return false
+        }
+        return true
+    }
+
+    private fun updateGalleryUri() {
+        contentValues!!.clear()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            contentValues!!.put(MediaStore.Video.Media.IS_PENDING, 0)
+        }
+        contentResolver.update(mUri!!, contentValues, null, null)
+    }
+
+    private fun refreshGalleryFile() {
+        MediaScannerConnection.scanFile(
+            this, arrayOf(hbRecorder!!.filePath), null
+        ) { path, uri ->
+            Log.i("ExternalStorage", "Scanned $path:")
+            Log.i("ExternalStorage", "-> uri=$uri")
+        }
+    }
+
+    private fun generateFileName(): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.getDefault())
+        val curDate = Date(System.currentTimeMillis())
+        return formatter.format(curDate).replace(" ", "")
+    }
+
+    private fun drawable2ByteArray(@DrawableRes drawableId: Int): ByteArray {
+        val icon = BitmapFactory.decodeResource(resources, drawableId)
+        val stream = ByteArrayOutputStream()
+        icon.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        return stream.toByteArray()
+    }
+
+    //Create Folder
+    //Only call this on Android 9 and lower (getExternalStoragePublicDirectory is deprecated)
+    //This can still be used on Android 10> but you will have to add android:requestLegacyExternalStorage="true" in your Manifest
+    private fun createFolder() {
+        val f1 = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES),
+            "SpeedTest"
+        )
+        if (!f1.exists()) {
+            if (f1.mkdirs()) {
+                Log.i("Folder ", "created")
+            }
+        }
+    }
+
+    fun stopRecording() {
+        hbRecorder!!.stopScreenRecording()
+    }
+
 
     companion object {
         lateinit var context_main: Any
@@ -617,9 +761,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         const val TAG_GUIDE_SPORT_FRAGMENT = "guide_sport"
         const val TAG_ROUTINE_DETAIL_FRAGMENT = "routine_detail"
         private const val SETTING_OK = 2
+
+        private const val SCREEN_RECORD_REQUEST_CODE = 100
+        private const val PERMISSION_REQ_ID_RECORD_AUDIO = 101
+        private const val PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE = 102
+
+
     }
-
-
 }
 
 
