@@ -46,7 +46,7 @@
                 android:fontFamily="@font/scdream5"
                 android:text="버드 독"
                 android:textColor="@color/black"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
         </FrameLayout>
@@ -83,7 +83,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|top"
                     android:textColor="@color/black"
-                    android:textSize="17dp" />
+                    android:textSize="17sp" />
 
             </ScrollView>
 
@@ -128,7 +128,6 @@
 
             <Button
                 android:fontFamily="@font/bitrocorettf"
-
                 android:id="@+id/btn_add_routine"
                 android:layout_width="96dp"
                 android:layout_height="wrap_content"
