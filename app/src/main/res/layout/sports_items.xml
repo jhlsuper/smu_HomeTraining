@@ -20,7 +20,7 @@
         android:gravity="center"
         android:text="운동 이름"
         android:textColor="#ffffff"
-        android:textSize="26dp"
+        android:textSize="26sp"
         android:fontFamily="@font/scdream5"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

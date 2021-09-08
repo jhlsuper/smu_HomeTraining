@@ -57,7 +57,6 @@
             android:fontFamily="@font/gmartketsansttfmedium"
             android:gravity="center_vertical"
             android:text="사용자 아이디"
-
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -103,7 +102,6 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/gmartketsansttfmedium"
                 android:text="닉네임 : "
-
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -189,7 +187,6 @@
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/gmartketsansttfmedium"
                 android:textColor="@color/black"
-
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_height"
                 app:layout_constraintTop_toTopOf="@id/txt_mypage_height"
                 tools:text="180cm" />
@@ -321,7 +318,6 @@
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/gmartketsansttfmedium"
                 android:text="최근 운동 날짜 :"
-
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/txt_mypage_point"

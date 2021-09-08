@@ -57,7 +57,7 @@
                     android:text="상체"
                     android:fontFamily="@font/gmartketsansttfmedium"
                     android:textColor="@color/black"
-                    android:textSize="30dp" />
+                    android:textSize="30sp" />
 
 
             </FrameLayout>
@@ -90,7 +90,7 @@
                         android:layout_marginLeft="27dp"
                         android:background="@drawable/button_purple"
                         android:text="가슴"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <Button
                         android:fontFamily="@font/gmartketsansttfmedium"
@@ -103,7 +103,7 @@
                         android:layout_marginRight="27dp"
                         android:background="@drawable/button_purple"
                         android:text="등"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <Button
                         android:fontFamily="@font/gmartketsansttfmedium"
@@ -114,7 +114,7 @@
                         android:layout_marginTop="70dp"
                         android:background="@drawable/button_purple"
                         android:text="어깨"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <Button
                         android:id="@+id/arm"
@@ -128,7 +128,7 @@
                         android:layout_marginRight="27dp"
                         android:text="팔"
                         android:fontFamily="@font/gmartketsansttfmedium"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <Button
                         android:id="@+id/abs"
@@ -139,7 +139,7 @@
                         android:background="@drawable/button_purple"
                         android:text="복근"
                         android:fontFamily="@font/gmartketsansttfmedium"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <Button
                         android:id="@+id/core"
@@ -153,7 +153,7 @@
                         android:background="@drawable/button_purple"
                         android:text="코어"
                         android:fontFamily="@font/gmartketsansttfmedium"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <Button
                         android:id="@+id/side"
@@ -164,7 +164,7 @@
                         android:background="@drawable/button_purple"
                         android:text="옆구리"
                         android:fontFamily="@font/gmartketsansttfmedium"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
 
                 </RelativeLayout>
@@ -202,7 +202,7 @@
                     android:layout_marginTop="3dp"
                     android:fontFamily="@font/gmartketsansttfmedium"
                     android:textColor="@color/black"
-                    android:textSize="30dp" />
+                    android:textSize="30sp" />
 
 
             </FrameLayout>
@@ -226,7 +226,7 @@
                     android:background="@drawable/button_purple"
                     android:text="종아리"
                     android:fontFamily="@font/gmartketsansttfmedium"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/thigh"
@@ -240,7 +240,7 @@
                     android:background="@drawable/button_purple"
                     android:text="허벅지"
                     android:fontFamily="@font/gmartketsansttfmedium"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/pelvis"
@@ -251,8 +251,7 @@
                     android:background="@drawable/button_purple"
                     android:text="골반"
                     android:fontFamily="@font/gmartketsansttfmedium"
-
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/hip"
@@ -266,7 +265,7 @@
                     android:background="@drawable/button_purple"
                     android:text="엉덩이"
                     android:fontFamily="@font/gmartketsansttfmedium"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
 
             </RelativeLayout>
