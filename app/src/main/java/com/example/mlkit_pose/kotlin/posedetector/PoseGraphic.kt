@@ -228,6 +228,7 @@ class PoseGraphic internal constructor(
                 drawLine(canvas,rightShoulder,rightHip,correctPaint)
                 drawLine(canvas,rightHip,rightKnee,correctPaint)
             }
+            else if (nowPose.isAngle_rhM(rightHipAngle) && nowPose.getEnable(nowPose.rightHipAngleM))
             else if (nowPose.getEnable(nowPose.rightHipAngleS) || nowPose.getEnable(nowPose.rightHipAngleD)){
                 // 각도 내에 없지만 활성화된 경우 (틀린것)
                 drawLine(canvas,rightShoulder,rightHip,wrongPaint)
