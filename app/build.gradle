@@ -125,6 +125,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 
+    implementation 'com.github.HBiSoft:HBRecorder:2.0.0'
+
 
 }
 configurations {

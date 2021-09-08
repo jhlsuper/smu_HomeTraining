@@ -154,21 +154,21 @@ class GuideSportsFragment : Fragment() {
 //            (activity as PageActivity).startExcercise(exname)
             var flag = false
             val cameraPermissionCheck = ContextCompat.checkSelfPermission(
-                context!!, android.Manifest.permission.CAMERA
+                requireContext(), android.Manifest.permission.CAMERA
             )
             if (cameraPermissionCheck != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(arrayOf(android.Manifest.permission.CAMERA), 1001)
-                Toast.makeText(context!!, "거부할 시 카메라 사용에 문제가 있을 수 있습니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "거부할 시 카메라 사용에 문제가 있을 수 있습니다.", Toast.LENGTH_LONG).show()
             } else {
                 flag = true
-                (activity as PageActivity).showTimeSettingPopup(exname,exname_k, context!!)
+                (activity as PageActivity).showTimeSettingPopup(exname,exname_k, requireContext())
             }
             if (ContextCompat.checkSelfPermission(
-                    context!!,
+                    requireContext(),
                     android.Manifest.permission.CAMERA
                 ) == PackageManager.PERMISSION_GRANTED && !flag
             ) {
-                (activity as PageActivity).showTimeSettingPopup(exname,exname_k, context!!)
+                (activity as PageActivity).showTimeSettingPopup(exname,exname_k, requireContext())
             }
 
         }
@@ -300,8 +300,8 @@ class GuideSportsFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode){
             1001 ->
-                if (ContextCompat.checkSelfPermission(context!!,android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    (activity as PageActivity).showTimeSettingPopup(exname,exname_k, context!!)
+                if (ContextCompat.checkSelfPermission(requireContext(),android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    (activity as PageActivity).showTimeSettingPopup(exname,exname_k, requireContext())
                 }
                 //Alert 만들 것
         }

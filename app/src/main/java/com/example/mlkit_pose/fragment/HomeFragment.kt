@@ -81,6 +81,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
             R.id.btn_home_routine -> {
                 TODO("routine button impl")
+//                (activty as PageActivity).
             }
             R.id.btn_home_mypage -> {
                 (activity as PageActivity).setDataAtFragment(
