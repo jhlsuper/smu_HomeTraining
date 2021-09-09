@@ -167,8 +167,8 @@ class ExercisePose(
         }
         return false
     }
-    public fun isAngle_lhM(rh : Double) : Boolean {
-        if (leftHipAngleM.get(0) <= rh && leftHipAngleM.get(1) >= rh){
+    public fun isAngle_lhM(lh : Double) : Boolean {
+        if (leftHipAngleM.get(0) <= lh && leftHipAngleM.get(1) >= lh){
             return true
         }
         return false
@@ -187,8 +187,8 @@ class ExercisePose(
         }
         return false
     }
-    public fun isAngle_rsM(rh : Double) : Boolean {
-        if (rightShoulderAngleM.get(0) <= rh && rightShoulderAngleM.get(1) >= rh){
+    public fun isAngle_rsM(rs : Double) : Boolean {
+        if (rightShoulderAngleM.get(0) <= rs && rightShoulderAngleM.get(1) >= rs){
             return true
         }
         return false
@@ -205,8 +205,8 @@ class ExercisePose(
         }
         return false
     }
-    public fun isAngle_lsM(rh : Double) : Boolean {
-        if (leftShoulderAngleM.get(0) <= rh && leftShoulderAngleM.get(1) >= rh){
+    public fun isAngle_lsM(ls : Double) : Boolean {
+        if (leftShoulderAngleM.get(0) <= ls && leftShoulderAngleM.get(1) >= ls){
             return true
         }
         return false
@@ -225,8 +225,8 @@ class ExercisePose(
         }
         return false
     }
-    public fun isAngle_reM(rh : Double) : Boolean {
-        if (rightElbowAngleM.get(0) <= rh && rightElbowAngleM.get(1) >= rh){
+    public fun isAngle_reM(re : Double) : Boolean {
+        if (rightElbowAngleM.get(0) <= re && rightElbowAngleM.get(1) >= re){
             return true
         }
         return false
@@ -243,8 +243,8 @@ class ExercisePose(
         }
         return false
     }
-    public fun isAngle_leM(rh : Double) : Boolean {
-        if (leftElbowAngleM.get(0) <= rh && leftElbowAngleM.get(1) >= rh){
+    public fun isAngle_leM(le : Double) : Boolean {
+        if (leftElbowAngleM.get(0) <= le && leftElbowAngleM.get(1) >= le){
             return true
         }
         return false
@@ -263,8 +263,8 @@ class ExercisePose(
         }
         return false
     }
-    public fun isAngle_rkM(rh : Double) : Boolean {
-        if (rightKneeAngleM.get(0) <= rh && rightKneeAngleM.get(1) >= rh){
+    public fun isAngle_rkM(rk : Double) : Boolean {
+        if (rightKneeAngleM.get(0) <= rk && rightKneeAngleM.get(1) >= rk){
             return true
         }
         return false
@@ -281,8 +281,8 @@ class ExercisePose(
         }
         return false
     }
-    public fun isAngle_lkM(rh : Double) : Boolean {
-        if (leftKneeAngleM.get(0) <= rh && leftKneeAngleM.get(1) >= rh){
+    public fun isAngle_lkM(lk : Double) : Boolean {
+        if (leftKneeAngleM.get(0) <= lk && leftKneeAngleM.get(1) >= lk){
             return true
         }
         return false

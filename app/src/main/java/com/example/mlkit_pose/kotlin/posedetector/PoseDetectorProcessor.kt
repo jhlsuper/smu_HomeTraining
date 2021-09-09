@@ -100,8 +100,9 @@ class PoseDetectorProcessor(
         graphicOverlay.add(poseG)
         time+=1
         if(time==checkedTime) {
+            Log.d("POSE_TIME", "DETECTED : ${poseG.correctArray.joinToString(",")}, isSetting : $isSetting")
             if(false in poseG.correctArray){
-                Log.d("POSE_TIME", "DETECTED : ${poseG.correctArray.joinToString(",")}, isSetting : $isSetting")
+                Log.d("POSE_TIME","STACK ${STACK}")
                 STACK += 1
             }
             else{

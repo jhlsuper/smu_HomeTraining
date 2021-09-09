@@ -31,14 +31,14 @@ class PoseSearcher {
         )
         poseList.add(ShoulderPressDB)
         val WideSquat: ExercisePose = ExercisePose( // #2
-            listOf(60.0, 90.0, 1.0), listOf(140.0, 165.0, 1.0), listOf(0.0, 180.0, -1.0),
-            listOf(60.0, 90.0, 1.0), listOf(140.0, 165.0, 1.0), listOf(0.0, 180.0, -1.0),
+            listOf(60.0, 90.0, 1.0), listOf(140.0, 165.0, 1.0), listOf(93.0, 140.0, 1.0),
+            listOf(60.0, 90.0, 1.0), listOf(140.0, 165.0, 1.0), listOf(93.0, 140.0, 1.0),
             listOf(0.0, 180.0, -1.0), listOf(0.0, 180.0, -1.0), listOf(0.0, 180.0, -1.0),
             listOf(0.0, 180.0, -1.0), listOf(0.0, 180.0, -1.0), listOf(0.0, 180.0, -1.0),
             listOf(0.0, 180.0, -1.0), listOf(0.0, 180.0, -1.0), listOf(0.0, 180.0, -1.0),
             listOf(0.0, 180.0, -1.0), listOf(0.0, 180.0, -1.0),listOf(0.0, 180.0, -1.0),
-            listOf(50.0, 96.0, 1.0), listOf(150.0, 180.0, 1.0),listOf(0.0, 180.0, -1.0),
-            listOf(50.0, 96.0, 1.0), listOf(150.0, 180.0, 1.0),listOf(0.0, 180.0, -1.0), "WideSquat"
+            listOf(50.0, 98.0, 1.0), listOf(150.0, 180.0, 1.0),listOf(110.0, 140.0, 1.0),
+            listOf(50.0, 98.0, 1.0), listOf(150.0, 180.0, 1.0),listOf(110.0, 140.0, 1.0), "WideSquat"
         )
         poseList.add(WideSquat)
         val SideLegRaise: ExercisePose = ExercisePose(  // #3
@@ -217,7 +217,6 @@ class PoseSearcher {
             listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),listOf(0.0, 180.0, -1.0),
             listOf(0.0,180.0,-1.0),listOf(0.0,180.0,-1.0),listOf(0.0, 180.0, -1.0),"SideLateralRaiseDB")
         poseList.add(SideLateralRaiseDB)
-
     }
 
     public fun searchExByName(exname :String?) : ExercisePose?{
