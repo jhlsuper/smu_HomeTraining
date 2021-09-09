@@ -585,7 +585,25 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             dialog.cancel()
         }
         start.setOnClickListener {
-            startRecordingScreen()
+//            startRecordingScreen()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                //first check if permissions was granted
+                if (checkSelfPermission(
+                        android.Manifest.permission.RECORD_AUDIO,
+                        PERMISSION_REQ_ID_RECORD_AUDIO
+                    ) && checkSelfPermission(
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE
+                    )
+                ) {
+                    hasPermissions = true
+                }
+                if (hasPermissions) {
+                    startRecordingScreen()
+                }
+            } else {
+                Toast.makeText(this,"This library requires API 21>",Toast.LENGTH_SHORT).show();
+            }
             Toast.makeText(context, "${minute.value}분 ${second.value}초", Toast.LENGTH_SHORT).show()
             inputexEname = exEname
             inputMinute = minute.value
