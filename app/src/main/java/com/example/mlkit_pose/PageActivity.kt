@@ -651,7 +651,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SCREEN_RECORD_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                hbRecorder!!.startScreenRecording(data, resultCode, this)
+                startExcercise(inputexEname, inputMinute, inputSecond)
+                Handler().postDelayed({
+                    hbRecorder!!.startScreenRecording(data, resultCode, this)
+                },2000L)
+
             }
         }
     }
@@ -659,7 +663,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     override fun HBRecorderOnStart() {
         Log.d("startEx", "$inputexEname,$inputMinute,$inputSecond")
-        startExcercise(inputexEname, inputMinute, inputSecond)
+//        startExcercise(inputexEname, inputMinute, inputSecond)
         Toast.makeText(this, "녹화가 시작되었습니다.", Toast.LENGTH_SHORT).show()
     }
 

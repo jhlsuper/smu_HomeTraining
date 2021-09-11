@@ -88,12 +88,14 @@ class CameraXLivePreviewActivity :
   var minute by Delegates.notNull<Int>()
   var second by Delegates.notNull<Int>()
   private lateinit var mContext: Context
+
+  var hbRecorder:HBRecorder? = null
 //  val page :PageActivity = PageActivity()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     Log.d(TAG, "onCreate")
-
+    hbRecorder = HBRecorder(this, PageActivity())
     mediaPlayer2 = MediaPlayer.create(applicationContext, R.raw.beeps)
     if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
       Toast.makeText(
@@ -222,6 +224,7 @@ class CameraXLivePreviewActivity :
       dialog.dismiss()
 
 //      page?.stopRecording()
+      hbRecorder!!.stopScreenRecording()
       finish()
     }
     dialog.setView(mView)
