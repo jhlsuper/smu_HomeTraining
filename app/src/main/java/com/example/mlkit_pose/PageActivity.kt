@@ -33,6 +33,7 @@ import com.example.mlkit_pose.adapter.MainViewModel
 import com.example.mlkit_pose.adapter.UserRkAdapter
 import com.example.mlkit_pose.dao.SharedManager
 import com.example.mlkit_pose.dao.User
+import com.example.mlkit_pose.dao.userRank
 import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
@@ -50,7 +51,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.jar.Manifest
 
 import kotlin.properties.Delegates
 
@@ -65,7 +65,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     lateinit var day: String
     private var minute by Delegates.notNull<Int>()
     private var second by Delegates.notNull<Int>()
-    val datas = mutableListOf<User>()
+    val datas = mutableListOf<userRank>()
 
     lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
@@ -417,7 +417,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         queue.add(StringRequest2)
 
     }
-
+    fun rankingRefresh() {
+        emptyRecycler()
+        setRankData()
+        initRecycler()
+    }
     //소속별 랭크 받아오고 랭크 어댑터에 data init
     fun setRankData() {
         val queue = Volley.newRequestQueue(this)
@@ -433,12 +437,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 for (i in 0 until (details3.size) - 3 step 3) {
 
                     datas.apply {
-                        add(
+                        add(userRank(details3[i],
                             User(
                                 img = R.drawable.penguin,
                                 id = details3[i + 1],
                                 points = details3[i + 2]
-                            )
+                        ))
+
                         )
 
                     }
@@ -542,11 +547,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         queue.add(StringRequest)
     }
 
-    fun rankingRefresh() {
-        emptyRecycler()
-        setRankData()
-        initRecycler()
-    }
+
 
     fun showTimeSettingPopup(exEname: String?, exname_k: String?, context: Context) {
 
