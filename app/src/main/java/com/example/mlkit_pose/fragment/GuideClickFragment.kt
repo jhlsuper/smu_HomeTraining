@@ -80,8 +80,8 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
                     if (response == "error") {
                         Log.d("error", "error")
                     } else {
-                        for (element in arr) {
-                            array_name.add(element)
+                        for (i in 0 until arr.size-1) {
+                            array_name.add(arr[i])
                         }
 //                        Log.d("successs", array_name[0])
 //                        Log.d("successs", array_name[1])
@@ -109,8 +109,6 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
                             transaction.show(GuideSportsFragment())
                             transaction.addToBackStack(null)
                             transaction.commit()
-
-
                         }
                     })
                 }, {})
