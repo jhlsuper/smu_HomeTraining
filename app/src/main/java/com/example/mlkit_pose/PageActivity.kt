@@ -3,17 +3,20 @@ package com.example.mlkit_pose
 import android.annotation.SuppressLint
 import android.content.*
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaScannerConnection
 import android.media.projection.MediaProjectionManager
 import android.net.Uri
+
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
 import android.provider.MediaStore.MediaColumns.BITRATE
+import android.util.Base64.encodeToString
 import android.util.Log
 import android.view.*
 import android.widget.*
@@ -438,11 +441,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 val details3 = (response.trim().split(",")).toTypedArray()
                 datas.clear()
                 for (i in 0 until (details3.size) - 3 step 3) {
-
+                    val resources: Resources = this.resources
+                    val bitmap = BitmapFactory.decodeResource(resources, R.drawable.penguin)
                     datas.apply {
                         add(userRank(details3[i],
                             User(
-                                img = R.drawable.penguin,
+//                                img = BitmapFactoryR.drawable.penguin,
+                                img = bitmap,
                                 id = details3[i + 1],
                                 points = details3[i + 2]
                         ))
@@ -799,6 +804,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         startActivityForResult(intent, GALLERY)
 
     }
+
 
     companion object {
         lateinit var context_main: Any

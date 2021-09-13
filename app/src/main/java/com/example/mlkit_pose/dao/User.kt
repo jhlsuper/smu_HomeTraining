@@ -1,5 +1,7 @@
 package com.example.mlkit_pose.dao
 
+import android.graphics.Bitmap
+
 data class User (
     var name:String? = null,
     var id:String? = null,
@@ -10,7 +12,7 @@ data class User (
     var points :String? = null,
     var height :String? =null,
     var weight :String? =null,
-    var img: Int?= null,
+    var img: Bitmap?= null,
     var recentDay: String? = null,
     var countDays: Int? =0
 )
