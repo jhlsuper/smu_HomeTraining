@@ -2,7 +2,9 @@ package com.example.mlkit_pose.fragment
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 
 import androidx.fragment.app.Fragment
@@ -30,6 +32,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
+@Suppress("DEPRECATION")
 class MyPageFragment : Fragment(), View.OnClickListener {
     private var id: String? = null
     private var nickname: String? = null
@@ -83,19 +86,19 @@ class MyPageFragment : Fragment(), View.OnClickListener {
 
 
 //        viewModel.init()
-        Log.d("userinfo","$recentDay")
-        if (recentDay.toString()=="0"){
-            year ="없음"
+        Log.d("userinfo", "$recentDay")
+        if (recentDay.toString() == "0") {
+            year = "없음"
             month = ""
             day = ""
+        } else {
+            year = recentDay?.substring(0 until 4).toString().trim() + "년"
+            month = recentDay?.subSequence(4 until 6).toString() + "월"
+            day = recentDay?.subSequence(6 until 8).toString() + "일"
         }
-        else{
-            year = recentDay?.substring(0 until 4).toString().trim()+"년"
-            month = recentDay?.subSequence(4 until  6).toString()+"월"
-            day =recentDay?.subSequence(6 until  8).toString()+"일"
-        }
-        Log.d("userinfo","ymd ymd $year,$month,$day")
+        Log.d("userinfo", "ymd ymd $year,$month,$day")
     }
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -116,6 +119,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
 
 //        view.et_mypage_recent_day.text = "$r"
         view.btn_mypage_edit.setOnClickListener(this)
+        view.img_mypage_profile.setOnClickListener(this)
 
 //        return inflater.inflate(R.layout.fragment_my_page, container, false)
         return view
@@ -142,6 +146,9 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         when (v?.id) {
             R.id.btn_mypage_edit -> {
                 mypageEditPopup()
+            }
+            R.id.img_mypage_profile -> {
+                (activity as PageActivity).selectGalley()
             }
 
         }
@@ -201,5 +208,6 @@ class MyPageFragment : Fragment(), View.OnClickListener {
             })
         queue.add(StringRequest)
     }
+
 
 }

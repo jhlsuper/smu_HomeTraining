@@ -36,17 +36,19 @@
             app:layout_constraintGuide_percent="0.30" />
 
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/img_mypage_profile"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/pngegg"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="@id/layout_mypage_profile"
-            app:layout_constraintEnd_toStartOf="@id/guideline_mypage_30percent"
-            app:layout_constraintStart_toStartOf="@id/layout_mypage_profile"
-            app:layout_constraintTop_toTopOf="@id/layout_mypage_profile" />
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/img_mypage_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+
+
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="@id/layout_mypage_profile"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_mypage_30percent"
+                    app:layout_constraintStart_toStartOf="@id/layout_mypage_profile"
+                    app:layout_constraintTop_toTopOf="@id/layout_mypage_profile" />
 
 
         <TextView
