@@ -5,24 +5,15 @@
     android:id="@+id/main_layout_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?attr/actionBarSize"
-    android:background="@drawable/top">
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_drawer"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
+    android:background="@color/neworange2"
+    android:minHeight="?attr/actionBarSize">
 
-    <!--        android:background="@drawable/btn_menu"-->
-    <!--        />-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 </androidx.appcompat.widget.Toolbar>

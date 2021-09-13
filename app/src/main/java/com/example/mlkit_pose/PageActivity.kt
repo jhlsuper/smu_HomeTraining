@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
+import android.provider.MediaStore.MediaColumns.BITRATE
 import android.util.Log
 import android.view.*
 import android.widget.*
@@ -49,12 +50,14 @@ import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
 import kotlin.properties.Delegates
 
 
+@Suppress("DEPRECATION")
 class PageActivity : AppCompatActivity(), View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener, HBRecorderListener {
 
@@ -603,7 +606,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                     startRecordingScreen()
                 }
             } else {
-                Toast.makeText(this,"This library requires API 21>",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "This library requires API 21>", Toast.LENGTH_SHORT).show();
             }
             Toast.makeText(context, "${minute.value}분 ${second.value}초", Toast.LENGTH_SHORT).show()
             inputexEname = exEname
@@ -655,9 +658,26 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 startExcercise(inputexEname, inputMinute, inputSecond)
                 Handler().postDelayed({
                     hbRecorder!!.startScreenRecording(data, resultCode, this)
-                },2000L)
+                }, 2000L)
 
             }
+        }
+        if (requestCode == GALLERY) {
+            if (resultCode == RESULT_OK) {
+                var currentImageUrl: Uri? = data?.data
+                try {
+                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, currentImageUrl)
+//                    img_mypage_profile.setImageBitmap(bitmap)
+                    img_mypage_profile.setImageURI(currentImageUrl)
+                    Log.d("Profileimg","uri,$currentImageUrl bitmap $bitmap")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+            } else {
+                Log.d("ActivityResult", "error")
+            }
+
         }
     }
 
@@ -772,6 +792,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         hbRecorder!!.stopScreenRecording()
     }
 
+    fun selectGalley() {
+        var intent = Intent(Intent.ACTION_PICK)
+        intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        intent.type = "image/*"
+        startActivityForResult(intent, GALLERY)
+
+    }
 
     companion object {
         lateinit var context_main: Any
@@ -784,7 +811,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         const val TAG_GUIDE_SPORT_FRAGMENT = "guide_sport"
         const val TAG_ROUTINE_DETAIL_FRAGMENT = "routine_detail"
         private const val SETTING_OK = 2
-
+        private const val GALLERY = 125
         private const val SCREEN_RECORD_REQUEST_CODE = 100
         private const val PERMISSION_REQ_ID_RECORD_AUDIO = 101
         private const val PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE = 102
