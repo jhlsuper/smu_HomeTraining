@@ -2,7 +2,10 @@ package com.example.mlkit_pose.fragment
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.pdf.PdfDocument
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -22,6 +25,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.*
 import com.example.mlkit_pose.adapter.MainViewModel
+import com.example.mlkit_pose.dao.SharedManager
 
 
 import kotlinx.android.synthetic.main.fragment_my_page.*
@@ -43,10 +47,12 @@ class MyPageFragment : Fragment(), View.OnClickListener {
     private var point: String? = null
     private var recentDay: String? = null
     private var countDays: String? = null
+    private var profileImg: String? = null
     lateinit var year: String
     lateinit var month: String
     lateinit var day: String
     lateinit var viewModel: MainViewModel
+
 
     @SuppressLint("InflateParams", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +68,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
             point = it.getString("points")
             recentDay = it.getString("recentDay")
             countDays = it.getString("countDays")
+            profileImg = it.getString("profile")
         }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -74,15 +81,6 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         viewModel.belong.observe(this, {
             et_mypage_belong.text = it.toString()
         })
-//        viewModel.recentDay.observe(this, {
-//            year = it.subSequence(0, 4).toString()
-//            month = it.subSequence(4, 6).toString()
-//            day = it.subSequence(6, 8).toString()
-//            et_mypage_belong.text = "${year}년 ${month}월 ${day}일"
-//        })
-//        viewModel.countDays.observe(this, {
-//            et_mypage_exercisedays.text = it.toString() + "일"
-//        })
 
 
 //        viewModel.init()
@@ -105,6 +103,9 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        val sharedManager: SharedManager = SharedManager(requireContext())
+        val currentUser = sharedManager.getCurrentUser()
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_my_page, container, false)
         view.et_mypage_gender.text = "$gender"
@@ -117,7 +118,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         view.et_mypage_recent_day.text = "$year $month $day"
         view.et_mypage_exercisedays.text = "$countDays"
 
-//        view.et_mypage_recent_day.text = "$r"
+        view.img_mypage_profile.setImageBitmap(convertBitMap().StringToBitmap(currentUser.img))
         view.btn_mypage_edit.setOnClickListener(this)
         view.img_mypage_profile.setOnClickListener(this)
 

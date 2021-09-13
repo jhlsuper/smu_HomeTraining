@@ -27,7 +27,7 @@ class SharedManager(context:Context) {
         return User().apply {
             name = prefs["name",""]
             id= prefs["id",""]
-            img =prefs["img",]
+            img =prefs["img",""]
             password = prefs["password",""]
             belong = prefs["belong",""]
             age = prefs["age",0]
@@ -70,8 +70,8 @@ class SharedManager(context:Context) {
         prefs["recentDay"] = recentDay.trim()
         prefs["countDays"] = countDays
     }
-    fun setUserImg(Img:String){
-        prefs["img"] = Img
+    fun setUserImg(bitmapString: String){
+        prefs["img"] = bitmapString
     }
 
 }
