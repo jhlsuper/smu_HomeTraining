@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5E6CA"
-    tools:context=".fragment.RoutineDetailFragment"
+    android:clickable="true"
     android:focusable="true"
-    android:clickable="true">
+    tools:context=".fragment.RoutineDetailFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -26,47 +26,45 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="3"
+            android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/routine_detail_image" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/rec_item_a"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="5dp"/>
-
-
-                <TextView
-                    android:id="@+id/routine_detail_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:text="루틴 이름"
-                    android:fontFamily="@font/gmartketsansttfmedium"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-
-            </FrameLayout>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/routine_detail_image2"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/routine_detail_image3"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/routine_detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/gmartketsansttfmedium"
+            android:text="루틴 이름"
+            android:textColor="@color/blue_grey_400"
+            android:textSize="27dp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="12dp"
-            android:layout_weight="7"
-            android:background="@drawable/shape_rectanglegray2"
-            android:padding="20dp">
+            android:layout_weight="6.5"
+            android:padding="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/routine_recycler_view"
@@ -75,20 +73,6 @@
 
 
         </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.5">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="115dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/mainimgremovebg" />
-
-        </LinearLayout>
 
 
     </LinearLayout>

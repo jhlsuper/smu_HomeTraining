@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/guideEachFragment"
+    android:id="@+id/routine_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/newyellow"
+    android:background="#F5E6CA"
     android:clickable="true"
     android:focusable="true"
     tools:context=".fragment.HomeFragment">
@@ -20,196 +20,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8">
+            android:layout_weight="3"
+            android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/routine_detail_image" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/shape_rectangle" />
-
-                <TextView
-                    android:id="@+id/sport_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/gmartketsansttfmedium"
-                    android:padding="2dp"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btn_guide_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="BACK" />
-
-
-            </FrameLayout>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/routine_detail_image2"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/routine_detail_image3"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/sport_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/gmartketsansttfmedium"
+            android:text="부위 이름"
+            android:textColor="@color/blue_grey_400"
+            android:textSize="27dp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="12dp"
-            android:layout_weight="6"
-            android:background="@drawable/shape_rectanglegray2"
+            android:layout_weight="6.5"
             android:padding="10dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/sports_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="2dp" />
+                android:layout_height="match_parent" />
 
 
         </RelativeLayout>
 
 
-
     </LinearLayout>
-
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="0dp"-->
-
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_margin="15dp"-->
-
-    <!--        android:layout_marginStart="9dp"-->
-    <!--        android:layout_marginEnd="8dp"-->
-    <!--        android:layout_weight="8"-->
-    <!--        android:background="@drawable/shape_rectangle"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.533"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--        <FrameLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:layout_marginTop="10dp"-->
-    <!--            android:layout_weight="1">-->
-
-    <!--            <ImageView-->
-    <!--                android:layout_width="200dp"-->
-    <!--                android:layout_height="40dp"-->
-    <!--                android:layout_gravity="center_horizontal"-->
-    <!--                android:src="@drawable/button_purple" />-->
-
-    <!--            <TextView-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_gravity="center_horizontal|top"-->
-    <!--                android:layout_marginTop="5dp"-->
-    <!--                android:text="[스쿼트]운동"-->
-    <!--                android:textColor="@color/black"-->
-    <!--                android:textSize="20dp"-->
-    <!--                android:textStyle="bold" />-->
-
-    <!--        </FrameLayout>-->
-
-    <!--        <ImageView-->
-    <!--            android:id="@+id/pengsu"-->
-    <!--            android:layout_width="335dp"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:layout_marginLeft="20dp"-->
-    <!--            android:layout_marginRight="20dp"-->
-    <!--            android:layout_weight="2"-->
-    <!--            android:scaleType="centerCrop"-->
-    <!--            android:src="@drawable/squat" />-->
-
-    <!--        <FrameLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:layout_marginLeft="20dp"-->
-    <!--            android:layout_marginTop="20dp"-->
-    <!--            android:layout_marginRight="20dp"-->
-    <!--            android:layout_marginBottom="10dp"-->
-    <!--            android:layout_weight="3"-->
-    <!--            android:background="@drawable/shape_rectanglegray">-->
-
-    <!--            <TextView-->
-    <!--                android:id="@+id/textView9"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="274dp"-->
-    <!--                android:text="    운동설명과 내용들"-->
-    <!--                android:textSize="20dp" />-->
-    <!--        </FrameLayout>-->
-
-    <!--        <Button-->
-    <!--            android:id="@+id/btn_link_check"-->
-    <!--            android:layout_width="100dp"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:layout_gravity="center_horizontal"-->
-    <!--            android:layout_marginBottom="10dp"-->
-    <!--            android:layout_weight="1"-->
-    <!--            android:background="@drawable/button_check"-->
-
-    <!--            android:text="영상 확인"-->
-    <!--            android:textColor="@color/black"-->
-    <!--            android:textStyle="bold" />-->
-
-    <!--    </LinearLayout>-->
-
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guideline3"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_begin="88dp" />-->
-
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guideline4"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintGuide_percent="0.5" />-->
-
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guideline5"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintGuide_percent="0.0" />-->
-
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guideline6"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintGuide_percent="1.0" />-->
-
-
-    <!--    <ImageView-->
-
-    <!--        android:id="@+id/btn_menu"-->
-    <!--        android:layout_width="29dp"-->
-    <!--        android:layout_height="33dp"-->
-    <!--        android:layout_marginStart="16dp"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:src="@drawable/btn_menu"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/guideline3"-->
-    <!--        app:layout_constraintStart_toStartOf="@+id/guideline5"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.0" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
