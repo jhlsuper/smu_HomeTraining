@@ -16,6 +16,7 @@ import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
 import android.provider.MediaStore.MediaColumns.BITRATE
+import android.util.Base64
 import android.util.Base64.encodeToString
 import android.util.Log
 import android.view.*
@@ -138,7 +139,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                     showExerciseDonePopup(exname, minute, second, this)
                 }
             }
-//        Log.d("userinfo", "${currentUser.weight},${currentUser.height}")
+//        Log.d("userinfo", "${currentUser.img}")
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -151,6 +152,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             et_mypage_point?.text = it.toString()
             info_user_point?.text = "포인트: $it"
             btn_home_ranking.text = "유저포인트\n $it"
+
             rankingRefresh()
         })
         viewModel.recentDay.observe(this, {
@@ -167,6 +169,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         })
         viewModel.countDays.observe(this, {
             et_mypage_exercisedays?.text = it.toString() + "일"
+        })
+        viewModel.profileImg.observe(this,{
+            img_mypage_profile?.setImageBitmap(convertBitMap().StringToBitmap(it))
         })
         viewModel.init()
 //        Log.d("userinfo", "${currentUser.countDays},${currentUser.recentDay}")
@@ -286,6 +291,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         bundle.putString("weight", currentUser.weight)
         bundle.putString("recentDay", currentUser.recentDay)
         bundle.putString("countDays", currentUser.countDays.toString())
+//        bundle.putString("profile",currentUser.img.toString())
         fragment.arguments = bundle
         setFragment(fragment, tag)
     }
@@ -447,7 +453,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                         add(userRank(details3[i],
                             User(
 //                                img = BitmapFactoryR.drawable.penguin,
-                                img = bitmap,
+                                img = convertBitMap().BitmapToString(bitmap),
                                 id = details3[i + 1],
                                 points = details3[i + 2]
                         ))
@@ -658,6 +664,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        val currentUser= sharedManager.getCurrentUser()
         if (requestCode == SCREEN_RECORD_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 startExcercise(inputexEname, inputMinute, inputSecond)
@@ -672,8 +679,10 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 var currentImageUrl: Uri? = data?.data
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, currentImageUrl)
-//                    img_mypage_profile.setImageBitmap(bitmap)
-                    img_mypage_profile.setImageURI(currentImageUrl)
+                    img_mypage_profile.setImageBitmap(bitmap)
+                    sharedManager.setUserImg(convertBitMap().BitmapToString(bitmap))
+//                    viewModel.editProfileImg(convertBitMap().BitmapToString(bitmap))
+//                    img_mypage_profile.setImageURI(currentImageUrl)
                     Log.d("Profileimg","uri,$currentImageUrl bitmap $bitmap")
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -804,6 +813,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         startActivityForResult(intent, GALLERY)
 
     }
+
 
 
     companion object {
