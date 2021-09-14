@@ -25,39 +25,48 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
 
+            android:background="@color/neworange"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline8">
+            app:layout_constraintTop_toTopOf="@+id/guideline8"
+            app:layout_constraintVertical_bias="0.0">
 
             <Button
                 android:id="@+id/btn_home"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_bottom_button"
-                android:text="홈"
+                android:drawableTop="@drawable/underbarhome"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:paddingTop="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btn_ranking"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_routine"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@id/btn_guide"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/btn_ranking"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-
+                android:layout_marginEnd="1dp"
                 android:background="@drawable/shape_bottom_button"
                 android:text="랭킹"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/btn_routine"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@id/btn_home"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_guide"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 tools:ignore="HardcodedText" />
 
             <Button
@@ -65,28 +74,34 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
 
+                android:layout_marginEnd="2dp"
                 android:background="@drawable/shape_bottom_button"
                 android:text="루틴"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/btn_guide"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@id/btn_ranking"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_mypage"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@id/btn_home"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/btn_guide"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="2dp"
                 android:background="@drawable/shape_bottom_button"
-
                 android:text="가이드"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/btn_mypage"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@id/btn_routine"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_home"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@id/btn_ranking"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 tools:ignore="HardcodedText" />
 
             <Button
@@ -94,13 +109,17 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
 
+                android:layout_marginEnd="4dp"
                 android:background="@drawable/shape_bottom_button"
                 android:text="마이페이지"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@id/btn_guide"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@id/btn_routine"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 tools:ignore="HardcodedText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
