@@ -14,6 +14,15 @@
         app:layout_constraintBottom_toTopOf="@id/guideline3"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_logo2"
+        app:layout_constraintTop_toBottomOf="@id/include3"
+        app:layout_constraintBottom_toTopOf="@id/layout_linear"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <LinearLayout
         android:id="@+id/layout_linear"
