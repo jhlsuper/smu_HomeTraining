@@ -68,7 +68,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
             point = it.getString("points")
             recentDay = it.getString("recentDay")
             countDays = it.getString("countDays")
-            profileImg = it.getString("profile")
+//            profileImg = it.getString("profile")
         }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 

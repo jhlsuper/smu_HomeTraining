@@ -139,7 +139,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                     showExerciseDonePopup(exname, minute, second, this)
                 }
             }
-        Log.d("userinfo", "${currentUser.img}")
+//        Log.d("userinfo", "${currentUser.img}")
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -291,7 +291,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         bundle.putString("weight", currentUser.weight)
         bundle.putString("recentDay", currentUser.recentDay)
         bundle.putString("countDays", currentUser.countDays.toString())
-        bundle.putString("profile",currentUser.img.toString())
+//        bundle.putString("profile",currentUser.img.toString())
         fragment.arguments = bundle
         setFragment(fragment, tag)
     }
