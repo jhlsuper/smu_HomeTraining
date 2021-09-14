@@ -175,9 +175,12 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         viewModel.countDays.observe(this, {
             et_mypage_exercisedays?.text = it.toString() + "일"
         })
-        viewModel.profileImg.observe(this, {
-            img_mypage_profile?.setImageBitmap(convertBitMap().StringToBitmap(it))
-        })
+//        viewModel.profileImg.observe(this, {
+//            val bitmapImg = convertBitMap().StringToBitmap(it)
+//            img_mypage_profile?.setImageBitmap(bitmapImg)
+//            img_ranking_profile?.setImageBitmap(bitmapImg)
+//            header_icon?.setImageBitmap(bitmapImg)
+//        })
         viewModel.init()
 //        Log.d("userinfo", "${currentUser.countDays},${currentUser.recentDay}")
 
@@ -270,7 +273,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 info_user_id.text = "${currentUser.id}"
                 info_user_belong.text = "소속: ${currentUser.belong}"
                 info_user_point.text = "포인트: ${currentUser.points}"
+                header_icon.setImageBitmap(convertBitMap().StringToBitmap(currentUser.img))
                 main_drawer_layout.openDrawer(GravityCompat.START)
+
             }
         }
     }
