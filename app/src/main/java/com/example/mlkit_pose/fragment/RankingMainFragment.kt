@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.mlkit_pose.*
 import com.example.mlkit_pose.adapter.MainViewModel
+import com.example.mlkit_pose.dao.SharedManager
 import com.example.mlkit_pose.dao.User
 
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
@@ -24,7 +25,6 @@ class RankingMainFragment : Fragment(), View.OnClickListener {
     private var id: String? = null
     private var points: String? = null
     private var belong: String? = null
-
     lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +40,14 @@ class RankingMainFragment : Fragment(), View.OnClickListener {
 //            txt_ranking_my_points.text = it.toString()
 //            rankingRefresh()
 //        })
-//        viewModel.belong.observe(this, {
-//            (activity as PageActivity).rankingRefresh()
-//        })
+        viewModel.belong.observe(this, {
+            (activity as PageActivity).rankingRefresh()
+        })
+        viewModel.profileImg.observe(this,{
+            img_ranking_profile.setImageBitmap(convertBitMap().StringToBitmap(it))
+        })
 
-        viewModel.init()
+//        viewModel.init()
 
     }
 
@@ -52,11 +55,12 @@ class RankingMainFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val currentUser =SharedManager(requireContext()).getCurrentUser()
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_ranking_main, container, false)
         view.txt_ranking_my_id.text = "$id"
         view.txt_ranking_my_points.text = "$points"
-
+        view.img_ranking_profile.setImageBitmap(convertBitMap().StringToBitmap(currentUser.img))
         return view
     }
 

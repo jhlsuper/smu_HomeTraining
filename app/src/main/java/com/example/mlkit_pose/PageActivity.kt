@@ -57,6 +57,7 @@ import java.io.File
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.jar.Manifest
 
 import kotlin.properties.Delegates
 
@@ -73,7 +74,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     private var minute by Delegates.notNull<Int>()
     private var second by Delegates.notNull<Int>()
     val datas = mutableListOf<userRank>()
-
+    private val requiredPermissions = arrayOf(
+        android.Manifest.permission.RECORD_AUDIO,
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        android.Manifest.permission.CAMERA
+    )
     lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     private val sharedManager: SharedManager by lazy { SharedManager(this) }
@@ -170,9 +175,12 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         viewModel.countDays.observe(this, {
             et_mypage_exercisedays?.text = it.toString() + "일"
         })
-        viewModel.profileImg.observe(this,{
-            img_mypage_profile?.setImageBitmap(convertBitMap().StringToBitmap(it))
-        })
+//        viewModel.profileImg.observe(this, {
+//            val bitmapImg = convertBitMap().StringToBitmap(it)
+//            img_mypage_profile?.setImageBitmap(bitmapImg)
+//            img_ranking_profile?.setImageBitmap(bitmapImg)
+//            header_icon?.setImageBitmap(bitmapImg)
+//        })
         viewModel.init()
 //        Log.d("userinfo", "${currentUser.countDays},${currentUser.recentDay}")
 
@@ -265,7 +273,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 info_user_id.text = "${currentUser.id}"
                 info_user_belong.text = "소속: ${currentUser.belong}"
                 info_user_point.text = "포인트: ${currentUser.points}"
+                header_icon.setImageBitmap(convertBitMap().StringToBitmap(currentUser.img))
                 main_drawer_layout.openDrawer(GravityCompat.START)
+
             }
         }
     }
@@ -291,7 +301,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         bundle.putString("weight", currentUser.weight)
         bundle.putString("recentDay", currentUser.recentDay)
         bundle.putString("countDays", currentUser.countDays.toString())
-//        bundle.putString("profile",currentUser.img.toString())
+
         fragment.arguments = bundle
         setFragment(fragment, tag)
     }
@@ -429,11 +439,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         queue.add(StringRequest2)
 
     }
+
     fun rankingRefresh() {
         emptyRecycler()
         setRankData()
         initRecycler()
     }
+
     //소속별 랭크 받아오고 랭크 어댑터에 data init
     fun setRankData() {
         val queue = Volley.newRequestQueue(this)
@@ -450,13 +462,16 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                     val resources: Resources = this.resources
                     val bitmap = BitmapFactory.decodeResource(resources, R.drawable.penguin)
                     datas.apply {
-                        add(userRank(details3[i],
-                            User(
+                        add(
+                            userRank(
+                                details3[i],
+                                User(
 //                                img = BitmapFactoryR.drawable.penguin,
-                                img = convertBitMap().BitmapToString(bitmap),
-                                id = details3[i + 1],
-                                points = details3[i + 2]
-                        ))
+                                    img = convertBitMap().BitmapToString(bitmap),
+                                    id = details3[i + 1],
+                                    points = details3[i + 2]
+                                )
+                            )
 
                         )
 
@@ -562,7 +577,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     }
 
 
-
     fun showTimeSettingPopup(exEname: String?, exname_k: String?, context: Context) {
 
         val dialog = android.app.AlertDialog.Builder(context).create()
@@ -603,16 +617,20 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //            startRecordingScreen()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 //first check if permissions was granted
-                if (checkSelfPermission(
-                        android.Manifest.permission.RECORD_AUDIO,
-                        PERMISSION_REQ_ID_RECORD_AUDIO
-                    ) && checkSelfPermission(
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE
-                    )
-                ) {
-                    hasPermissions = true
-                }
+//                if (checkSelfPermission(
+//                        android.Manifest.permission.RECORD_AUDIO,
+//                        PERMISSION_REQ_ID_RECORD_AUDIO
+//                    ) && checkSelfPermission(
+//                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                        PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE
+//                    )
+//                ) {
+//                    hasPermissions = true
+//                }
+//                if (hasPermissions) {
+//                    startRecordingScreen()
+//                }
+                hasPermissions = requestPermission()
                 if (hasPermissions) {
                     startRecordingScreen()
                 }
@@ -664,7 +682,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val currentUser= sharedManager.getCurrentUser()
+        val currentUser = sharedManager.getCurrentUser()
         if (requestCode == SCREEN_RECORD_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 startExcercise(inputexEname, inputMinute, inputSecond)
@@ -676,14 +694,14 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         }
         if (requestCode == GALLERY) {
             if (resultCode == RESULT_OK) {
-                var currentImageUrl: Uri? = data?.data
+                val currentImageUrl: Uri? = data?.data
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, currentImageUrl)
                     img_mypage_profile.setImageBitmap(bitmap)
                     sharedManager.setUserImg(convertBitMap().BitmapToString(bitmap))
 //                    viewModel.editProfileImg(convertBitMap().BitmapToString(bitmap))
 //                    img_mypage_profile.setImageURI(currentImageUrl)
-                    Log.d("Profileimg","uri,$currentImageUrl bitmap $bitmap")
+                    Log.d("Profileimg", "uri,$currentImageUrl bitmap $bitmap")
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -713,10 +731,10 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     override fun HBRecorderOnError(errorCode: Int, reason: String?) {
-        TODO("Not yet implemented")
+        Toast.makeText(this, "HBRecorder Error", Toast.LENGTH_SHORT).show()
     }
 
-    private fun startRecordingScreen() {
+    fun startRecordingScreen() {
         val mediaProjectionManager =
             getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
         val permissionIntent = mediaProjectionManager?.createScreenCaptureIntent()
@@ -807,14 +825,32 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     fun selectGalley() {
-        var intent = Intent(Intent.ACTION_PICK)
+        val intent = Intent(Intent.ACTION_PICK)
         intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         intent.type = "image/*"
         startActivityForResult(intent, GALLERY)
 
     }
 
+    fun requestPermission(): Boolean {
+        var rejectedPermissionList = ArrayList<String>()
+        for (permission in requiredPermissions) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                rejectedPermissionList.add(permission)
+            }
+        }
+        if (rejectedPermissionList.isNotEmpty()) {
+            val array = arrayOfNulls<String>(rejectedPermissionList.size)
+            ActivityCompat.requestPermissions(this, rejectedPermissionList.toArray(array), 150)
+            return false
+        }
+        return true
 
+    }
 
     companion object {
         lateinit var context_main: Any
