@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             Log.d("userinfo", "height : ${details[7]}  weight: ${details[8]}")
                             sharedManager.saveCurrentUser(currentUser)
                             Log.d("userinfo","${currentUser.countDays}")
-                            getUserPoints(currentUser.id)
+//                            getUserPoints(currentUser.id)
                             startActivity(Intent(this, PageActivity::class.java))
 
                             finish()

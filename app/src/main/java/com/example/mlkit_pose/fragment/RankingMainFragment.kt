@@ -36,16 +36,13 @@ class RankingMainFragment : Fragment(), View.OnClickListener {
         }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-//        viewModel.point.observe(this,{
-//            txt_ranking_my_points.text = it.toString()
-//            rankingRefresh()
-//        })
+
         viewModel.belong.observe(this, {
             (activity as PageActivity).rankingRefresh()
         })
-        viewModel.profileImg.observe(this,{
-            img_ranking_profile.setImageBitmap(convertBitMap().StringToBitmap(it))
-        })
+//        viewModel.profileImg.observe(this,{
+//            img_ranking_profile.setImageBitmap(convertBitMap().StringToBitmap(it))
+//        })
 
 //        viewModel.init()
 

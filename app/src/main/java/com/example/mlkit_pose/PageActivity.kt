@@ -16,6 +16,7 @@ import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
 import android.provider.MediaStore.MediaColumns.BITRATE
+import android.util.AttributeSet
 import android.util.Base64
 import android.util.Base64.encodeToString
 import android.util.Log
@@ -74,6 +75,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     private var minute by Delegates.notNull<Int>()
     private var second by Delegates.notNull<Int>()
     val datas = mutableListOf<userRank>()
+    private var hasOpend = false
     private val requiredPermissions = arrayOf(
         android.Manifest.permission.RECORD_AUDIO,
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -110,7 +112,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         hbRecorder!!.setVideoEncoder("H264")
 
         val currentUser = sharedManager.getCurrentUser()
-        setUserRank()
+
         val transaction = supportFragmentManager.beginTransaction()
         setContentView(R.layout.fragment_main_page_part)
         transaction.add(R.id.frameLayout, HomeFragment().apply {
@@ -132,6 +134,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         btn_routine.setOnClickListener(this)
         btn_ranking.setOnClickListener(this)
         btn_drawer.setOnClickListener(this)
+
 
 //        btn_add_routine.setOnClickListener(this)
         main_navigationView.setNavigationItemSelectedListener(this)
@@ -175,33 +178,24 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         viewModel.countDays.observe(this, {
             et_mypage_exercisedays?.text = it.toString() + "일"
         })
-//        viewModel.profileImg.observe(this, {
-//            val bitmapImg = convertBitMap().StringToBitmap(it)
-//            img_mypage_profile?.setImageBitmap(bitmapImg)
-//            img_ranking_profile?.setImageBitmap(bitmapImg)
-//            header_icon?.setImageBitmap(bitmapImg)
-//        })
+        viewModel.profileImg.observe(this, {
+            val bitmapImg = convertBitMap().StringToBitmap(it)
+            img_mypage_profile?.setImageBitmap(bitmapImg)
+            img_ranking_profile?.setImageBitmap(bitmapImg)
+            header_icon?.setImageBitmap(bitmapImg)
+        })
         viewModel.init()
 //        Log.d("userinfo", "${currentUser.countDays},${currentUser.recentDay}")
 
     }
 
-    //    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if(requestCode == 1000){
-//            if (grantResults[0] != PackageManager.PERMISSION_GRANTED){
-//                Toast.makeText(this@PageActivity,"거부하실 경우 카메라 사용에 문제가 될 수 있습니다.",Toast.LENGTH_LONG).show()
-//            }
-//        }
-//    }
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //툴바 버튼 처리
         when (item.itemId) {
             android.R.id.home -> {
+
                 main_drawer_layout.openDrawer(GravityCompat.START)
             }
 
@@ -209,6 +203,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         return super.onOptionsItemSelected(item)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
 
@@ -270,11 +265,17 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 setDataAtFragment(RoutineFragment(), TAG_ROUTINE_FRAGMENT)
             }
             R.id.btn_drawer -> {
-                info_user_id.text = "${currentUser.id}"
-                info_user_belong.text = "소속: ${currentUser.belong}"
-                info_user_point.text = "포인트: ${currentUser.points}"
-                header_icon.setImageBitmap(convertBitMap().StringToBitmap(currentUser.img))
-                main_drawer_layout.openDrawer(GravityCompat.START)
+                if (!hasOpend) {
+                    hasOpend =true
+                    info_user_id.text = "${currentUser.id}"
+                    info_user_belong.text = "소속: ${currentUser.belong}"
+                    info_user_point.text = "포인트: ${currentUser.points}"
+                    header_icon.setImageBitmap(convertBitMap().StringToBitmap(currentUser.img))
+                    main_drawer_layout.openDrawer(GravityCompat.START)
+                }
+                else{
+                    main_drawer_layout.openDrawer(GravityCompat.START)
+                }
 
             }
         }
@@ -697,9 +698,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 val currentImageUrl: Uri? = data?.data
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, currentImageUrl)
-                    img_mypage_profile.setImageBitmap(bitmap)
-                    sharedManager.setUserImg(convertBitMap().BitmapToString(bitmap))
-//                    viewModel.editProfileImg(convertBitMap().BitmapToString(bitmap))
+//                    img_mypage_profile.setImageBitmap(bitmap)
+//                    sharedManager.setUserImg(convertBitMap().BitmapToString(bitmap))
+                    viewModel.editProfileImg(convertBitMap().BitmapToString(bitmap))
 //                    img_mypage_profile.setImageURI(currentImageUrl)
                     Log.d("Profileimg", "uri,$currentImageUrl bitmap $bitmap")
                 } catch (e: Exception) {
