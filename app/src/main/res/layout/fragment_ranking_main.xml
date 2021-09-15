@@ -62,7 +62,7 @@
                 app:layout_constraintGuide_percent="0.44" />
 
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_ranking_profile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -165,8 +165,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rankingRecyclerView"
-                android:layout_width="400dp"
-                android:layout_height="464dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

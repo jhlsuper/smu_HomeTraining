@@ -10,14 +10,9 @@ import android.graphics.pdf.PdfDocument
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.*
 
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 
 
 import androidx.lifecycle.ViewModelProvider
@@ -35,6 +30,8 @@ import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.img_ranking_profile
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.ranking_item.*
+import android.view.WindowManager
+import android.widget.*
 
 
 private const val ARG_PARAM1 = "param1"
@@ -57,6 +54,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
     lateinit var month: String
     lateinit var day: String
     lateinit var viewModel: MainViewModel
+
 
 
     @SuppressLint("InflateParams", "SetTextI18n")
@@ -86,7 +84,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         viewModel.belong.observe(this, {
             et_mypage_belong.text = it.toString()
         })
-        viewModel.profileImg.observe(this,{
+        viewModel.profileImg.observe(this, {
 //            val bit:Bitmap = convertBitMap().StringToBitmap(it)!!
 //            img_mypage_profile?.setImageBitmap(bit)
 //            header_icon?.setImageBitmap(bit)
@@ -140,6 +138,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        btn_mypage_logout.setOnClickListener(this)
+
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -167,11 +166,13 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams", "CutPasteId")
     fun mypageEditPopup() {
         val dialog = AlertDialog.Builder(context).create()
         val edialog: LayoutInflater = LayoutInflater.from(context)
+
         val mView: View = edialog.inflate(R.layout.popup_mypage_edit, null)
+
 
         val weight: EditText = mView.findViewById<EditText>(R.id.et_mypage_edit_weight)
         val height: EditText = mView.findViewById<EditText>(R.id.et_mypage_edit_height)
@@ -189,17 +190,30 @@ class MyPageFragment : Fragment(), View.OnClickListener {
             val user_height = height.text.toString()
             val user_belong = belong.text.toString()
             viewModel.editUser(user_height, user_weight, user_belong)
-//            Toast.makeText(
-//                context,
-//                "$user_weight, $user_height, $user_belong 서버에 적용해야됨",
-//                Toast.LENGTH_SHORT
-//            ).show()
+
             editUserInfoDB(user_weight, user_height, user_belong, this.id.toString())
             dialog.dismiss()
         }
+        val params: WindowManager.LayoutParams = dialog.window!!.attributes
+//        params.width = WindowManager.LayoutParams.MATCH_PARENT
+//        params.height = WindowManager.LayoutParams.WRAP_CONTENT
+        params.width = 100
+        params.height = 100
+        val list = resources.getString(R.string.university_name)
+        val university = list.split(" ")
+
+        val arrayAdapter =
+            ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, university)
+        val autoCompleteTextView2 = mView.findViewById<AutoCompleteTextView>(R.id.et_mypage_edit_belong)
+        autoCompleteTextView2.setAdapter(arrayAdapter)
+
+
         dialog.setView(mView)
         dialog.create()
+        dialog.window!!.attributes = params
         dialog.show()
+
+
     }
 
     fun editUserInfoDB(

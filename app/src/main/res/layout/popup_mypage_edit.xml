@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="200dp"
     android:layout_height="wrap_content"
     android:background="@color/white"
 
@@ -48,10 +48,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-
                 android:text="몸무게: "
                 android:textColor="@color/black"
                 android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/et_mypage_edit_weight"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
 
@@ -62,10 +63,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint=" 60kg"
+
                 android:inputType="number"
                 android:textColorHint="@color/gray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_mypage_edit_weight"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_edit_weight"
                 app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_weight" />
 
@@ -76,10 +79,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="18dp"
-
                 android:text="신장: "
                 android:textColor="@color/black"
                 android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/et_mypage_edit_height"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_mypage_edit_weight"
 
@@ -94,10 +98,9 @@
                 android:textColorHint="@color/gray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_mypage_edit_height"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_edit_height"
                 app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_height" />
-
-
 
 
             <TextView
@@ -107,10 +110,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="18dp"
-
+                app:layout_constraintEnd_toStartOf="@id/et_mypage_edit_belong"
                 android:text="소속: "
                 android:textColor="@color/black"
                 android:textSize="12sp"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_mypage_edit_height"
 
@@ -121,12 +125,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="소속 검색"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:textColorHint="@color/gray"
+                android:completionThreshold="1"
+                android:ems="6"
+                android:inputType="textPersonName"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_mypage_edit_belong"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_edit_belong"
-                app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_belong"
-                />
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_belong" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_settime_50"
@@ -140,7 +147,7 @@
     </LinearLayout>
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="6dp"
@@ -149,27 +156,30 @@
 
         <Button
             android:id="@+id/btn_mypage_edit_ok"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:background="@color/white"
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_mypage_edit_cancel"
             android:text="확인"
             android:textColor="@color/blue"
 
             />
 
         <Button
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/btn_mypage_edit_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toEndOf="@id/btn_mypage_edit_ok"
+            app:layout_constraintEnd_toEndOf="parent"
             android:background="@color/white"
             android:text="취소"
             android:textColor="@color/blue" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>
