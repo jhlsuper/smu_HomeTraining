@@ -64,7 +64,7 @@
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:background="@drawable/shape_rectangle_routineb"
+        android:background="@drawable/main_myroutine"
         android:fontFamily="@font/gmartketsansttfmedium"
         android:text="프로필"
         android:textColor="#000000"
