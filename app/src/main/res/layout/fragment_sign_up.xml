@@ -22,7 +22,9 @@
         app:layout_constraintBottom_toTopOf="@id/layout_linear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/include3" />
+        app:layout_constraintTop_toBottomOf="@id/include3"
+        android:contentDescription="Just do it"
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:id="@+id/layout_linear"
@@ -247,6 +249,7 @@
             android:background="@drawable/signup_input"
             android:elevation="5dp"
             android:ems="10"
+
             android:inputType="textPersonName"
             android:textColor="@color/black"
             android:textSize="15sp"

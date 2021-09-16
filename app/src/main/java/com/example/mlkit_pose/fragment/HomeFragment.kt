@@ -27,8 +27,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         arguments?.let {
             nickname = it.getString("name")
             point = it.getString("points")
-            Log.d("태그", "fragment 기능 구현")
-            Toast.makeText(activity, "$nickname,$point", Toast.LENGTH_SHORT).show()
+
+//            Toast.makeText(activity, "$nickname,$point", Toast.LENGTH_SHORT).show()
 
         }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -60,7 +60,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         btn_home_daily.setOnClickListener {
             Log.d("태그", "fragment 기능 구현")
-            Toast.makeText(activity, "ohh", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(activity, "ohh", Toast.LENGTH_SHORT).show()
         }
     }
 

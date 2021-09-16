@@ -58,11 +58,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         response.trim { it <= ' ' }
 
                         val details = response.split(",").toTypedArray()
-//                        Toast.makeText(
-//                            this,
-//                            "$details",
-//                            Toast.LENGTH_LONG
-//                        ).show()
+
                         if (response.trim() == "error") {
                             Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT)
                                 .show()
@@ -70,8 +66,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
                         } else {
-//                            Toast.makeText(this, "${details[0]}비밀먼호: ${details[1]}", Toast.LENGTH_SHORT).show()
-//                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+
                             val currentUser = User().apply {
                                 id = details[1]
                                 password = details[2]
@@ -86,8 +81,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             }
                             Log.d("userinfo", "height : ${details[7]}  weight: ${details[8]}")
                             sharedManager.saveCurrentUser(currentUser)
-                            Log.d("userinfo","${currentUser.countDays}")
-//                            getUserPoints(currentUser.id)
+                            Log.d("userinfo", "${currentUser.countDays}")
+                            getUserPoints(currentUser.id)
                             startActivity(Intent(this, PageActivity::class.java))
 
                             finish()
@@ -99,8 +94,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 queue.add(stringRequest)
             }
             R.id.btn_signup -> {
-//                    Toast.makeText(this, "회원 가입버튼 눌림",Toast.LENGTH_SHORT).show()
-//                    setContentView(R.layout.fragment_sign_up)
+
                 startActivity(Intent(this, SignActivity::class.java))
 //                    finish()
             }

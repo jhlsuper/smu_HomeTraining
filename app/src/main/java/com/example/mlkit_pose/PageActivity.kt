@@ -15,10 +15,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
-import android.provider.MediaStore.MediaColumns.BITRATE
-import android.util.AttributeSet
-import android.util.Base64
-import android.util.Base64.encodeToString
+
 import android.util.Log
 import android.view.*
 import android.widget.*
@@ -58,7 +55,7 @@ import java.io.File
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.jar.Manifest
+
 
 import kotlin.properties.Delegates
 
@@ -185,10 +182,10 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             header_icon?.setImageBitmap(bitmapImg)
         })
         viewModel.init()
-//        Log.d("userinfo", "${currentUser.countDays},${currentUser.recentDay}")
+        setUserRank()
+
 
     }
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -266,14 +263,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             }
             R.id.btn_drawer -> {
                 if (!hasOpend) {
-                    hasOpend =true
+                    hasOpend = true
                     info_user_id.text = "${currentUser.id}"
                     info_user_belong.text = "소속: ${currentUser.belong}"
                     info_user_point.text = "포인트: ${currentUser.points}"
                     header_icon.setImageBitmap(convertBitMap().StringToBitmap(currentUser.img))
                     main_drawer_layout.openDrawer(GravityCompat.START)
-                }
-                else{
+                } else {
                     main_drawer_layout.openDrawer(GravityCompat.START)
                 }
 
@@ -432,7 +428,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //                Log.d("rankingresponse", details2[0])
 //                val userPoint: Int
 
-//                Toast.makeText(this, "유저의 운동 points:${details2[2]}", Toast.LENGTH_SHORT).show()
+
                 sharedManager.setUserPoint(currentUser, details2[2])
             }, {
                 Toast.makeText(this, "server error", Toast.LENGTH_SHORT).show()
@@ -563,7 +559,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val StringRequest = StringRequest(
             Request.Method.GET, url_setUserPoints, { response ->
                 response.trim { it <= ' ' }
-//                Toast.makeText(this, response, Toast.LENGTH_SHORT).show()
+
                 val details3 = (response.trim().split(",")).toTypedArray()
 //                Log.d("userinfo", "details ${details3[0]}, ${details3[1]}")
                 //details3[0] 은 운동 count details[1] 이 최근 날짜 response
@@ -636,7 +632,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                     startRecordingScreen()
                 }
             } else {
-                Toast.makeText(this, "This library requires API 21>", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "This library requires API 21>", Toast.LENGTH_SHORT).show()
             }
             Toast.makeText(context, "${minute.value}분 ${second.value}초", Toast.LENGTH_SHORT).show()
             inputexEname = exEname
@@ -683,7 +679,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val currentUser = sharedManager.getCurrentUser()
+
         if (requestCode == SCREEN_RECORD_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 startExcercise(inputexEname, inputMinute, inputSecond)
@@ -738,7 +734,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     fun startRecordingScreen() {
         val mediaProjectionManager =
             getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
-        val permissionIntent = mediaProjectionManager?.createScreenCaptureIntent()
+        val permissionIntent = mediaProjectionManager.createScreenCaptureIntent()
         startActivityForResult(permissionIntent, SCREEN_RECORD_REQUEST_CODE)
     }
 
@@ -834,7 +830,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     fun requestPermission(): Boolean {
-        var rejectedPermissionList = ArrayList<String>()
+        val rejectedPermissionList = ArrayList<String>()
         for (permission in requiredPermissions) {
             if (ContextCompat.checkSelfPermission(
                     this,
