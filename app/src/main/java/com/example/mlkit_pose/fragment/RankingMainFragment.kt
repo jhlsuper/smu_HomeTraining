@@ -25,6 +25,7 @@ class RankingMainFragment : Fragment(), View.OnClickListener {
     private var id: String? = null
     private var points: String? = null
     private var belong: String? = null
+    private var nickname: String? = null
     lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +34,7 @@ class RankingMainFragment : Fragment(), View.OnClickListener {
             id = it.getString("id")
             points = it.getString("points")
             belong = it.getString("belong")
+            nickname = it.getString("name")
         }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -52,10 +54,10 @@ class RankingMainFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val currentUser =SharedManager(requireContext()).getCurrentUser()
+        val currentUser = SharedManager(requireContext()).getCurrentUser()
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_ranking_main, container, false)
-        view.txt_ranking_my_id.text = "$id"
+        view.txt_ranking_my_id.text = "$nickname"
         view.txt_ranking_my_points.text = "$points"
         view.img_ranking_profile.setImageBitmap(convertBitMap().StringToBitmap(currentUser.img))
         return view

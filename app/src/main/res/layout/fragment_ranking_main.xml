@@ -59,7 +59,7 @@
                 app:layout_constraintGuide_percent="0.44" />
 
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_ranking_profile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"

@@ -264,7 +264,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             R.id.btn_drawer -> {
                 if (!hasOpend) {
                     hasOpend = true
-                    info_user_id.text = "${currentUser.id}"
+                    info_user_id.text = "${currentUser.name}"
                     info_user_belong.text = "소속: ${currentUser.belong}"
                     info_user_point.text = "포인트: ${currentUser.points}"
                     header_icon.setImageBitmap(convertBitMap().StringToBitmap(currentUser.img))
