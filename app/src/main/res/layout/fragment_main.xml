@@ -14,7 +14,7 @@
 
     <Button
         android:id="@+id/btn_home_daily"
-        android:layout_width="320dp"
+        android:layout_width="330dp"
         android:layout_height="125dp"
         android:background="@drawable/todayexercise"
         android:elevation="100dp"
@@ -31,15 +31,15 @@
         android:translationZ="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.973"
+        app:layout_constraintVertical_bias="0.942"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_home_ranking"
-        android:layout_width="320dp"
+        android:layout_width="330dp"
         android:layout_height="125dp"
         android:background="@drawable/mainuserpoint"
         android:drawableLeft="@drawable/mainranking"
@@ -59,15 +59,15 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.026"
+        app:layout_constraintVertical_bias="0.064"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btn_home_guide"
-        android:layout_width="140dp"
+        android:layout_width="145dp"
         android:layout_height="125dp"
         android:background="@drawable/main_guidebook"
         android:drawableTop="@drawable/mainguidebook"
@@ -93,7 +93,7 @@
 
     <Button
         android:id="@+id/btn_home_mypage"
-        android:layout_width="140dp"
+        android:layout_width="145dp"
         android:layout_height="125dp"
         android:background="@drawable/main_mypage"
         android:drawableTop="@drawable/mainmypage"
@@ -119,7 +119,7 @@
 
     <Button
         android:id="@+id/btn_home_routine"
-        android:layout_width="140dp"
+        android:layout_width="145dp"
         android:layout_height="125dp"
         android:background="@drawable/main_myroutine"
         android:drawableTop="@drawable/mainmyroutine"
@@ -145,7 +145,7 @@
 
     <Button
         android:id="@+id/btn_home_app_routine"
-        android:layout_width="140dp"
+        android:layout_width="145dp"
         android:layout_height="125dp"
         android:background="@drawable/main_routine"
         android:drawableTop="@drawable/maindumbell"
@@ -199,6 +199,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
