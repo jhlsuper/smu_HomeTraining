@@ -43,9 +43,8 @@
             android:id="@+id/layout_ranking_profile"
             android:layout_width="match_parent"
             android:layout_height="175dp"
-            android:layout_marginTop="0dp"
 
-            android:background="@drawable/rankingimage"
+            android:background="@drawable/rankingimage4"
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
