@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,8 +39,8 @@ class UserRkAdapter(val context: Context):
         private val txtPoint: TextView = itemView.findViewById(R.id.txt_ranking_point)
         private val imgProfile: ImageView = itemView.findViewById(R.id.img_ranking_profile)
         private val background: ConstraintLayout = itemView.findViewById(R.id.ranking_layout)
-        @SuppressLint("ResourceType")
         fun bind(item: userRank) {
+            Log.d("RANKING","Item Rank ${item.rank}")
             if (item.rank == "1"){
                 var drawables = ContextCompat.getDrawable(context, R.drawable.ranking_border_1st)
                 background.background = drawables
