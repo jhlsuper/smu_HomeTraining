@@ -220,7 +220,7 @@
                 android:text="사용자 소속 :"
                 android:textColor="@color/black"
 
-                android:textSize="20sp"
+                android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt_mypage_height"
                 app:layout_constraintTop_toBottomOf="@+id/txt_mypage_height"
