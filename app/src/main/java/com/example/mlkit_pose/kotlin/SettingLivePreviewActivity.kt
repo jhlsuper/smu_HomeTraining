@@ -44,6 +44,8 @@ import com.example.mlkit_pose.kotlin.posedetector.PoseDetectorProcessor
 import com.example.mlkit_pose.preference.PreferenceUtils
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
+import kotlinx.android.synthetic.main.activity_vision_camerax_live_preview.*
+import kotlinx.android.synthetic.main.setting_vision_camerax_live_preview.*
 import java.util.*
 import kotlin.concurrent.timer
 
@@ -432,7 +434,11 @@ class SettingLivePreviewActivity :
         startLive(minute,second,exText)
       }
       Log.d("TIMER","[Setting] Now time $sec, Target Time : $check_time")
+      runOnUiThread {
+        count_time_set.text = (check_time - time).toString()
+      }
     }
+
   }
 
   companion object {

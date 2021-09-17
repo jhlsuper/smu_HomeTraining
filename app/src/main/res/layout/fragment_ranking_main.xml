@@ -43,8 +43,9 @@
             android:id="@+id/layout_ranking_profile"
             android:layout_width="match_parent"
             android:layout_height="175dp"
+            android:layout_marginTop="0dp"
 
-            android:background="@drawable/rankingimage4"
+            android:background="@drawable/rankingimage3"
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -59,7 +60,7 @@
                 app:layout_constraintGuide_percent="0.44" />
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/img_ranking_profile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
