@@ -9,12 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.example.mlkit_pose.*
 import com.example.mlkit_pose.adapter.MainViewModel
+import com.example.mlkit_pose.adapter.PagerRecyclerAdapter
+import kotlinx.android.synthetic.main.ex_list_item.view.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 
+@Suppress("DEPRECATION")
 class HomeFragment : Fragment(), View.OnClickListener {
 
     private var nickname: String? = null
@@ -36,6 +40,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         viewModel.point.observe(this, {
             btn_home_ranking.text = it.toString()
         })
+
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -46,11 +52,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
 
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
-        view.btn_home_daily.setOnClickListener(this)
+        view.viewPager.setOnClickListener(this)
         view.btn_home_ranking.setOnClickListener(this)
         view.btn_home_ranking.text = "유저 포인트\n $point"
         view.btn_home_mypage.setOnClickListener(this)
         view.btn_home_guide.setOnClickListener(this)
+        view.viewPager.setOnClickListener(this)
 
         return view
     }
@@ -58,10 +65,31 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_home_daily.setOnClickListener {
+        viewPager.setOnClickListener {
             Log.d("태그", "fragment 기능 구현")
 //            Toast.makeText(activity, "ohh", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        var pos :Int = 0
+        val bgColors = ArrayList<Int>()
+        bgColors.add(R.drawable.todayexercise)
+        bgColors.add(R.drawable.dumbell)
+        bgColors.add(R.drawable.penguin)
+        viewPager.adapter = PagerRecyclerAdapter(bgColors)
+        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                Log.d("ViewPager", "$position 번째")
+                pos = position
+            }
+
+        })
+
+
     }
 
 
@@ -89,6 +117,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     PageActivity.TAG_MYPAGE_FRAGMENT
                 )
             }
+
+
         }
     }
 }
