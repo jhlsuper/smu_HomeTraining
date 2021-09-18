@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
 import com.example.mlkit_pose.fragment.GuideMainFragment
+import com.example.mlkit_pose.fragment.HomeFragment
 import kotlinx.android.synthetic.main.ex_list_item.view.*
 
 class PagerRecyclerAdapter(private val bgColors: ArrayList<Int>) : RecyclerView.Adapter<PagerRecyclerAdapter.PagerViewHolder>() {
@@ -33,7 +34,8 @@ class PagerRecyclerAdapter(private val bgColors: ArrayList<Int>) : RecyclerView.
             pageName.setImageResource(bgColor)
             itemView.setOnClickListener{
                 Log.d("ViewPager","$position")
-
+//                HomeFragment().toGuideFragment(position)
+//                PageActivity().startEx()
             }
 
         }

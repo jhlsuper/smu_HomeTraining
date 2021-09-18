@@ -44,7 +44,7 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
             sports_names = it.getString("result")
             id = it.getString("id")
         }
-
+        Log.d("ViewPager","$sports_names")
         setFragmentResultListener("requestKey") { resultKey, bundle ->
             val result = bundle.getString("bundleKey")
             Log.d("result", result.toString())

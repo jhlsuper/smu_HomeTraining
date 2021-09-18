@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
+import android.util.AttributeSet
 
 import android.util.Log
 import android.view.*
@@ -26,13 +27,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.adapter.MainViewModel
+import com.example.mlkit_pose.adapter.PagerRecyclerAdapter
 import com.example.mlkit_pose.adapter.UserRkAdapter
 import com.example.mlkit_pose.dao.SharedManager
 import com.example.mlkit_pose.dao.User
@@ -55,6 +62,7 @@ import java.io.File
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.concurrent.timer
 
 
 import kotlin.properties.Delegates
@@ -90,7 +98,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     var number = 0
     lateinit var alertDialog: AlertDialog
     lateinit var builder: AlertDialog.Builder
-
+    var pos:Int =0
     var hbRecorder: HBRecorder? = null
     var hasPermissions = false
     var contentValues: ContentValues? = null
@@ -200,6 +208,36 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onStart() {
+        super.onStart()
+
+
+        val bgColors = ArrayList<Int>()
+        bgColors.add(R.drawable.todayexercise)
+        bgColors.add(R.drawable.dumbell)
+        bgColors.add(R.drawable.penguin)
+
+        viewPager?.adapter = PagerRecyclerAdapter(bgColors)
+        viewPager?.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        viewPager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                Log.d("ViewPager", "$position 번째")
+                pos = position
+            }
+
+
+        })
+        timer(period = 2000L){
+            runOnUiThread{
+                if (pos ==3){
+                    pos = -1
+                }
+                viewPager.setCurrentItem(pos++,true)
+            }
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
@@ -274,6 +312,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 }
 
             }
+
         }
     }
 
@@ -575,7 +614,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
 
     fun showTimeSettingPopup(exEname: String?, exname_k: String?, context: Context) {
-
+        Log.d("ViewPager","$exEname $exname_k")
         val dialog = android.app.AlertDialog.Builder(context).create()
 
         val edialog: LayoutInflater = LayoutInflater.from(context)
@@ -848,6 +887,19 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         return true
 
     }
+    fun change(){
+
+        val fragmentManager : FragmentTransaction =supportFragmentManager.beginTransaction()
+        fragmentManager.add(R.id.frameLayout, GuideSportsFragment(), "guide_sport")
+            .show(GuideSportsFragment())
+            .hide(HomeFragment())
+//            .replace(R.id.frameLayout, GuideClickFragment())
+            .addToBackStack(null)
+
+            .commit()
+    }
+
+
 
     companion object {
         lateinit var context_main: Any

@@ -1,5 +1,6 @@
 package com.example.mlkit_pose.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ class Adapter(val list: MutableList<Model>, val layout:Int, val context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_model,parent,false)
         view.setOnClickListener(object : View.OnClickListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onClick(v: View?) {
                 val id = v?.tag
                 if(selectionList.contains(id)) selectionList.remove(id)
