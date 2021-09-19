@@ -8,12 +8,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.*
 import com.example.mlkit_pose.adapter.MainViewModel
 import com.example.mlkit_pose.adapter.PagerRecyclerAdapter
+import com.example.mlkit_pose.fragment.expre.RoutineDetailFragment
 import kotlinx.android.synthetic.main.ex_list_item.view.*
+import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
@@ -66,31 +76,32 @@ class HomeFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         viewPager.setOnClickListener {
-            Log.d("태그", "fragment 기능 구현")
+            Log.d("ViewPager", "fragment 기능 구현")
 //            Toast.makeText(activity, "ohh", Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        var pos :Int = 0
-        val bgColors = ArrayList<Int>()
-        bgColors.add(R.drawable.todayexercise)
-        bgColors.add(R.drawable.dumbell)
-        bgColors.add(R.drawable.penguin)
-        viewPager.adapter = PagerRecyclerAdapter(bgColors)
-        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                Log.d("ViewPager", "$position 번째")
-                pos = position
-            }
-
-        })
-
-
-    }
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+//        var pos: Int = 0
+//        val bgColors = ArrayList<Int>()
+//        bgColors.add(R.drawable.todayexercise)
+//        bgColors.add(R.drawable.dumbell)
+//        bgColors.add(R.drawable.penguin)
+//        viewPager.adapter = PagerRecyclerAdapter(bgColors)
+//        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+//        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                super.onPageSelected(position)
+//                Log.d("ViewPager", "$position 번째")
+//                pos = position
+//            }
+//
+//        })
+//
+//
+//
+//    }
 
 
     override fun onClick(v: View?) {
@@ -121,4 +132,38 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         }
     }
+
+//    fun toGuideFragment(position: Int) {
+//        when (position) {
+//            0 -> {
+//                setFragmentResult("requestKey2", bundleOf("bundleKey" to "와이드 스쿼트"))
+//                PageActivity().change()
+//            }
+//            1 -> {
+//                setFragmentResult("requestKey2", bundleOf("bundleKey" to "덤벨 숄더 프레스"))
+////                fragmentChange("덤벨 숄더 프레스")
+//                PageActivity().change()
+//            }
+//            2 -> {
+//                setFragmentResult("requestKey2", bundleOf("bundleKey" to "런지"))
+////                fragmentChange()
+//            }
+//        }
+//
+//    }
+
+//    fun fragmentChange(exName: String) {
+//        val fragmentManager :FragmentManager =
+//        Log.d("result", exName)
+//        setFragmentResult("requestKey2", bundleOf("bundleKey" to exName))
+//        parentFragmentManager.beginTransaction()
+//            .add(R.id.frameLayout, GuideSportsFragment(), "guide_sport")
+//            .show(GuideSportsFragment())
+//            .hide(HomeFragment())
+////            .replace(R.id.frameLayout, GuideClickFragment())
+//            .addToBackStack(null)
+//
+//            .commit()
+//    }
+
 }
