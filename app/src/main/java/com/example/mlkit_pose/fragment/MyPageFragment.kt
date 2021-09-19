@@ -228,7 +228,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         val StringRequest = StringRequest(
             Request.Method.GET, url_setUserInfoDB, { response ->
                 response.trim { it <= ' ' }
-                Toast.makeText(context, "변경 되었습니다", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "정보가 변경되었습니다", Toast.LENGTH_SHORT).show()
 
             }, {
                 Toast.makeText(context, "sever error", Toast.LENGTH_SHORT).show()

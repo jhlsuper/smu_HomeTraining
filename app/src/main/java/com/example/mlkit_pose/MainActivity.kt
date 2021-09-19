@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         val details = response.split(",").toTypedArray()
 
                         if (response.trim() == "error") {
-                            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT)
+                            Toast.makeText(this, "아이디 또는 비밀번호가 틀렸습니다", Toast.LENGTH_SHORT)
                                 .show()
                             et_password.text = null
 
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             finish()
                         }
                     }, {
-                        Toast.makeText(this, "서버 에러", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "서버 에러", Toast.LENGTH_SHORT).show() // 오류 잡기 위해 남겨둡니다.
                     }
                 )
                 queue.add(stringRequest)

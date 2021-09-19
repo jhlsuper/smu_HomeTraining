@@ -320,7 +320,7 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                                     StringRequest stringRequest_pr = new StringRequest(Request.Method.GET, url_pr, new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
-                                            Toast.makeText(lastContext, "Removed Success :"+deleteItem_Parent, Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(lastContext, "Removed Success :"+deleteItem_Parent, Toast.LENGTH_SHORT).show();
                                         }
                                     }, new Response.ErrorListener() {
                                         @Override
@@ -358,12 +358,12 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                     StringRequest stringRequest = new StringRequest(Request.Method.GET, url_ch, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Toast.makeText(lastContext, "Removed Success :"+deleteItem_ch, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(lastContext, "Removed Success :"+deleteItem_ch, Toast.LENGTH_SHORT).show();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(lastContext, "sever error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(lastContext, "서버 에러", Toast.LENGTH_SHORT).show();
                         }
                     });
                     queue_ch.add(stringRequest);

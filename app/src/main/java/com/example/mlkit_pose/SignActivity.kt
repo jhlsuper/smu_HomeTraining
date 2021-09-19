@@ -81,8 +81,7 @@ class SignActivity : AppCompatActivity() {
                         val details2 = response.split(",").toTypedArray()
 //                    Toast.makeText(this, "${details2}", Toast.LENGTH_SHORT).show()
                         if (response.trim() == "success") {
-                            Toast.makeText(this, "회원가입완료.", Toast.LENGTH_SHORT).show()
-
+                            Toast.makeText(this, "회원이 되신 걸 환영합니다!", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         } else {

@@ -30,7 +30,7 @@ class SignUpFragment : Fragment(),View.OnClickListener {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
-            Toast.makeText(activity,"signup 프래그먼트 on",Toast.LENGTH_SHORT).show()
+//            Toast.makeText(activity,"signup 프래그먼트 on",Toast.LENGTH_SHORT).show()
         }
 
     }
