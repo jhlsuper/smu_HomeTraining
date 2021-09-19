@@ -238,7 +238,7 @@ class CameraXLivePreviewActivity :
   override fun onBackPressed() {
     pause()
     giveup_Button_Click()
-    Toast.makeText(this,"backbutton눌림",Toast.LENGTH_SHORT).show()
+//    Toast.makeText(this,"backbutton눌림",Toast.LENGTH_SHORT).show()
 //    super.onBackPressed()
   }
 

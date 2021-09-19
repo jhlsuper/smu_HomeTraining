@@ -544,14 +544,14 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         setUserDBPoints(currentUser, newPoint.toString())
 
 //        Log.d("userinfo", currentUser.countDays.toString())
-        Toast.makeText(this, "${currentUser.points}", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, "${currentUser.points}", Toast.LENGTH_SHORT).show()
         exit.setOnClickListener {
             dialog.dismiss()
             dialog.cancel()
 //            finish()
         }
         redo.setOnClickListener {
-            Toast.makeText(this, "운동 다시 하기 ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "운동 다시 하기", Toast.LENGTH_SHORT).show() // 이건 필요한 듯하여 냅둡니다...
         }
 
 

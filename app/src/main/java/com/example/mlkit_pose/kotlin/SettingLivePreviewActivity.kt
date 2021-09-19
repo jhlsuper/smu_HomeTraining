@@ -189,7 +189,7 @@ class SettingLivePreviewActivity :
     timerTask?.cancel()
     setResult(2)
     finish()
-    Toast.makeText(this,"Setting backbutton눌림",Toast.LENGTH_SHORT).show()
+//    Toast.makeText(this,"Setting backbutton눌림",Toast.LENGTH_SHORT).show()
   }
   override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
     if (cameraProvider == null) {
