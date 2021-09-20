@@ -15,8 +15,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
-import android.util.AttributeSet
-
 import android.util.Log
 import android.view.*
 import android.widget.*
@@ -27,12 +25,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.Request
@@ -93,12 +87,12 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     //    private var belong: String? = sharedManager.getCurrentUser().belong
     lateinit var viewModel: MainViewModel
     val list: MutableList<Model> by lazy {
-        mutableListOf<Model>()
+        mutableListOf()
     }
     var number = 0
     lateinit var alertDialog: AlertDialog
     lateinit var builder: AlertDialog.Builder
-    var pos:Int =0
+    var pos: Int = 0
     var hbRecorder: HBRecorder? = null
     var hasPermissions = false
     var contentValues: ContentValues? = null
@@ -228,14 +222,27 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
 
         })
-        timer(period = 2000L){
-            runOnUiThread{
-                if (pos ==3){
+        timer(period = 2500L) {
+            runOnUiThread {
+                if (pos == 3) {
                     pos = -1
                 }
-                viewPager.setCurrentItem(pos++,true)
+                viewPager.setCurrentItem(pos++, true)
             }
         }
+        val pagerRecyclerAdapter= viewPager.adapter as PagerRecyclerAdapter
+
+        pagerRecyclerAdapter.setOnItemClickListener(object :PagerRecyclerAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, position: Int) {
+//                Log.d("ViewPager","deqt")
+                when(position){
+                    0->change("와이드 스쿼트")
+                    1->change("런지")
+                    2->change("덤벨 숄더 프레스")
+                }
+
+            }
+        })
     }
 
     @SuppressLint("SetTextI18n")
@@ -614,7 +621,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
 
     fun showTimeSettingPopup(exEname: String?, exname_k: String?, context: Context) {
-        Log.d("ViewPager","$exEname $exname_k")
+        Log.d("ViewPager", "$exEname $exname_k")
         val dialog = android.app.AlertDialog.Builder(context).create()
 
         val edialog: LayoutInflater = LayoutInflater.from(context)
@@ -799,17 +806,17 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         }
     }
 
-    private fun checkSelfPermission(permission: String, requestCode: Int): Boolean {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                permission
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
-            return false
-        }
-        return true
-    }
+//    private fun checkSelfPermission(permission: String, requestCode: Int): Boolean {
+//        if (ContextCompat.checkSelfPermission(
+//                this,
+//                permission
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
+//            return false
+//        }
+//        return true
+//    }
 
     private fun updateGalleryUri() {
         contentValues!!.clear()
@@ -887,18 +894,23 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         return true
 
     }
-    fun change(){
 
-        val fragmentManager : FragmentTransaction =supportFragmentManager.beginTransaction()
-        fragmentManager.add(R.id.frameLayout, GuideSportsFragment(), "guide_sport")
-            .show(GuideSportsFragment())
-            .hide(HomeFragment())
-//            .replace(R.id.frameLayout, GuideClickFragment())
-            .addToBackStack(null)
+    fun change(exname:String) {
+//        val currentUser = sharedManager.getCurrentUser()
+        val transaction = supportFragmentManager.beginTransaction()
+//        setContentView(R.layout.fragment_main_page_part)
 
-            .commit()
+        transaction.add(R.id.frameLayout, TodaySportsFragment().apply {
+            arguments = Bundle().apply {
+//                putString("id", "${currentUser.name}")
+                putString("exname", exname)
+            }
+        })
+        transaction.show(TodaySportsFragment())
+        transaction.hide(HomeFragment())
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
-
 
 
     companion object {
