@@ -65,7 +65,7 @@ import kotlin.properties.Delegates
 @Suppress("DEPRECATION")
 class PageActivity : AppCompatActivity(), View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener, HBRecorderListener {
-
+    val nameArray = mutableListOf<String>("와이드 스쿼트", "런지", "덤벨 숄더 프레스")
     lateinit var userRankAdapter: UserRkAdapter
     lateinit var exname: String
     lateinit var year: String
@@ -207,9 +207,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
 
         val bgColors = ArrayList<Int>()
-        bgColors.add(R.drawable.todayexercise)
-        bgColors.add(R.drawable.dumbell)
-        bgColors.add(R.drawable.penguin)
+        bgColors.add(R.drawable.img_widesquat)
+        bgColors.add(R.drawable.img_shoulderpress)
+        bgColors.add(R.drawable.img_lunges)
 
         viewPager?.adapter = PagerRecyclerAdapter(bgColors)
         viewPager?.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -227,18 +227,22 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 if (pos == 3) {
                     pos = -1
                 }
+
+
                 viewPager.setCurrentItem(pos++, true)
+//                txt_viewPager.text =nameArray[pos]
             }
         }
-        val pagerRecyclerAdapter= viewPager.adapter as PagerRecyclerAdapter
+        val pagerRecyclerAdapter = viewPager.adapter as PagerRecyclerAdapter
 
-        pagerRecyclerAdapter.setOnItemClickListener(object :PagerRecyclerAdapter.OnItemClickListener{
+        pagerRecyclerAdapter.setOnItemClickListener(object :
+            PagerRecyclerAdapter.OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
 //                Log.d("ViewPager","deqt")
-                when(position){
-                    0->change("와이드 스쿼트")
-                    1->change("런지")
-                    2->change("덤벨 숄더 프레스")
+                when (position) {
+                    0 -> change("와이드 스쿼트")
+                    1 -> change("런지")
+                    2 -> change("덤벨 숄더 프레스")
                 }
 
             }
@@ -895,7 +899,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     }
 
-    fun change(exname:String) {
+    fun change(exname: String) {
 //        val currentUser = sharedManager.getCurrentUser()
         val transaction = supportFragmentManager.beginTransaction()
 //        setContentView(R.layout.fragment_main_page_part)

@@ -40,23 +40,22 @@ class PagerRecyclerAdapter(private val bgColors: ArrayList<Int>) :
 
     inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val pageName: ImageView = itemView.findViewById(R.id.imgView_ex)
-//        private val pageName: ImageView = itemView.findViewById(R.id.viewPager)
+        private val pageImage: ImageView = itemView.findViewById(R.id.imgView_ex)
 
 
+
+
+        @SuppressLint("SetTextI18n")
         fun bind(@ColorRes bgColor: Int, position: Int) {
 //            pageName. ="Page ${position +1}"
 //            pageName.setBackgroundResource(R.drawable.todayexercise)
 //            val PageActivity = (activity as MainActivity)
-            pageName.setImageResource(bgColor)
 
+            pageImage.setImageResource(bgColor)
+//            pageName.text = nameArray[position]
             itemView.setOnClickListener {
                 listener?.onItemClick(itemView, position)
             }
-
-//            itemView.setOnClickListener {
-//                Log.d("ViewPager", "$position")
-//            }
 
         }
     }
