@@ -51,6 +51,7 @@ class UserRkAdapter(val context: Context):
                 var drawables = ContextCompat.getDrawable(context, R.drawable.ranking_border_3rd)
                 background.background = drawables
             }
+            else {}
             txtId.text = item.user!!.id
             txtPoint.text = item.user!!.points.toString()
 //            Glide.with(itemView).load(item.img).into(imgProfile)
