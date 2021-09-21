@@ -699,7 +699,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 startExcercise(inputexEname, inputMinute, inputSecond)
                 Handler().postDelayed({
                     hbRecorder!!.startScreenRecording(data, resultCode, this)
-                }, 11000L)
+                }, 10000L)
 
             }
         }
