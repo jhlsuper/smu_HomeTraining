@@ -52,7 +52,7 @@ class UserRkAdapter(val context: Context):
                 background.background = drawables
             }
             else {}
-            txtId.text = item.user!!.id
+            txtId.text = item.user!!.name
             txtPoint.text = item.user!!.points.toString()
 //            Glide.with(itemView).load(item.img).into(imgProfile)
 

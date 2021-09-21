@@ -469,7 +469,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
                 val details3 = (response.trim().split(",")).toTypedArray()
                 datas.clear()
-                for (i in 0 until (details3.size) - 3 step 3) {
+                for (i in 0 until (details3.size) - 4 step 4) {
                     val resources: Resources = this.resources
                     val bitmap = BitmapFactory.decodeResource(resources, R.drawable.penguin)
                     datas.apply {
@@ -480,14 +480,15 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //                                img = BitmapFactoryR.drawable.penguin,
                                     img = convertBitMap().BitmapToString(bitmap),
                                     id = details3[i + 1],
-                                    points = details3[i + 2]
+                                    points = details3[i + 2],
+                                    name = details3[i + 3]
                                 )
                             )
 
                         )
 
                     }
-                    Log.d("ranklist", "${details3[i + 1]} ${details3[i + 2]}")
+                    Log.d("ranklist", "${details3[i + 1]} ${details3[i + 2]} ${details3[i + 3]}")
                 }
                 initRecycler()
 
