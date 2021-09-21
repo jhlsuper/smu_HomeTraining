@@ -205,11 +205,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     override fun onStart() {
         super.onStart()
-
-
-//        initViewPager()
+        initViewPager()
     }
-
 
     @SuppressLint("SetTextI18n")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -907,10 +904,10 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
         timer(period = 2500L) {
             runOnUiThread {
-                if (pos == 4) {
+                if (pos == 3) {
                     pos = -1
                 }
-                viewPager.setCurrentItem(pos++, true)
+                viewPager.setCurrentItem(++pos, true)
 
             }
         }
