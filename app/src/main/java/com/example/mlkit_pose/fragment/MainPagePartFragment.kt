@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -27,6 +28,7 @@ class MainPagePartFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -39,7 +41,6 @@ class MainPagePartFragment : Fragment() {
 
         return view
     }
-
 
 
     companion object {

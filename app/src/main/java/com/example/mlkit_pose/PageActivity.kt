@@ -66,7 +66,7 @@ import kotlin.properties.Delegates
 @Suppress("DEPRECATION")
 class PageActivity : AppCompatActivity(), View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener, HBRecorderListener {
-
+    val bgColors = ArrayList<Int>()
     lateinit var userRankAdapter: UserRkAdapter
     lateinit var exname: String
     lateinit var year: String
@@ -207,50 +207,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         super.onStart()
 
 
-        val bgColors = ArrayList<Int>()
-//        bgColors.add(R.drawable.img_widesquat)
-//        bgColors.add(R.drawable.img_shoulderpress)
-//        bgColors.add(R.drawable.img_lunges)
-        bgColors.add(R.string.ex_today)
-        bgColors.add(R.string.ex_widesquat)
-        bgColors.add(R.string.ex_shoulderpress)
-        bgColors.add(R.string.ex_lunges)
-
-        viewPager?.adapter = PagerRecyclerAdapter(bgColors)
-        viewPager?.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        viewPager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                Log.d("ViewPager", "$position 번째")
-                pos = position
-            }
-
-
-        })
-        timer(period = 2500L) {
-            runOnUiThread {
-                if (pos == 4) {
-                    pos = -1
-                }
-                viewPager.setCurrentItem(pos++, true)
-
-            }
-        }
-        val pagerRecyclerAdapter = viewPager.adapter as PagerRecyclerAdapter
-
-        pagerRecyclerAdapter.setOnItemClickListener(object :
-            PagerRecyclerAdapter.OnItemClickListener {
-            override fun onItemClick(v: View, position: Int) {
-//                Log.d("ViewPager","deqt")
-                when (position) {
-                    1 -> change(nameArray[position])
-                    2 -> change(nameArray[position])
-                    3 -> change(nameArray[position])
-                }
-
-            }
-        })
+//        initViewPager()
     }
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -297,7 +256,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //        val transaction = supportFragmentManager.beginTransaction()
         when (v.id) {
             R.id.btn_home -> {
+
                 setDataAtFragment(HomeFragment(), TAG_HOME_FRAGMENT)
+
             }
             R.id.btn_guide -> {
                 setDataAtFragment(GuideMainFragment(), TAG_GUIDE_FRAGMENT)
@@ -738,7 +699,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 startExcercise(inputexEname, inputMinute, inputSecond)
                 Handler().postDelayed({
                     hbRecorder!!.startScreenRecording(data, resultCode, this)
-                }, 2000L)
+                }, 11000L)
 
             }
         }
@@ -917,6 +878,64 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         transaction.hide(HomeFragment())
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun initViewPager() {
+
+//        bgColors.add(R.drawable.img_widesquat)
+//        bgColors.add(R.drawable.img_shoulderpress)
+//        bgColors.add(R.drawable.img_lunges)
+        bgColors.add(R.string.ex_today)
+        bgColors.add(R.string.ex_widesquat)
+        bgColors.add(R.string.ex_shoulderpress)
+        bgColors.add(R.string.ex_lunges)
+
+        viewPager?.adapter = PagerRecyclerAdapter(bgColors)
+        viewPager?.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        viewPager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                Log.d("ViewPager", "$position 번째")
+                pos = position
+            }
+
+
+        })
+
+        timer(period = 2500L) {
+            runOnUiThread {
+                if (pos == 4) {
+                    pos = -1
+                }
+                viewPager.setCurrentItem(pos++, true)
+
+            }
+        }
+        val pagerRecyclerAdapter = viewPager.adapter as PagerRecyclerAdapter
+
+        pagerRecyclerAdapter.setOnItemClickListener(object :
+            PagerRecyclerAdapter.OnItemClickListener {
+            override fun onItemClick(v: View, position: Int) {
+//                Log.d("ViewPager","deqt")
+                when (position) {
+                    1 -> change(nameArray[position])
+                    2 -> change(nameArray[position])
+                    3 -> change(nameArray[position])
+                }
+
+            }
+
+        })
+
+
+    }
+
+    fun refreshAdapter() {
+        viewPager.adapter = PagerRecyclerAdapter(bgColors)
+        viewPager?.adapter = null
+        initViewPager()
     }
 
 

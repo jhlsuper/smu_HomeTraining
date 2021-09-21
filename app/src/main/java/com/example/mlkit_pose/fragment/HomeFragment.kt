@@ -79,6 +79,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             Log.d("ViewPager", "fragment 기능 구현")
 //            Toast.makeText(activity, "ohh", Toast.LENGTH_SHORT).show()
         }
+        (activity as PageActivity).initViewPager()
     }
 
 //    override fun onActivityCreated(savedInstanceState: Bundle?) {
