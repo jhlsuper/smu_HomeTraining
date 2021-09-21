@@ -1,13 +1,13 @@
 package com.example.mlkit_pose.fragment
 
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,10 +16,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -35,7 +33,7 @@ import java.net.URL
 
 
 class TodaySportsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var param2: String? = null
 
     var number: Int = 0
@@ -47,7 +45,7 @@ class TodaySportsFragment : Fragment() {
     var exname_k: String? = null
     var id: String? = null
 
-    var hasPermissions = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -63,20 +61,14 @@ class TodaySportsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
-
         return inflater.inflate(R.layout.fragment_guide_sports, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-
-//        id = (activity as PageActivity).findUserId()
         sport_detail_name.text = exname
         result2 = exname
-
 
         val url = JSP.getSportsDetail(result2.toString())
         val queue = Volley.newRequestQueue(context)
@@ -112,9 +104,9 @@ class TodaySportsFragment : Fragment() {
 //                    Log.d("geturl",url.toString())
 
                     val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
-                    conn.setDoInput(true) //Server 통신에서 입력 가능한 상태로 만듦
+                    conn.doInput = true //Server 통신에서 입력 가능한 상태로 만듦
                     conn.connect() //연결된 곳에 접속할 때 (connect() 호출해야 실제 통신 가능함)
-                    val `is`: InputStream = conn.getInputStream() //inputStream 값 가져오기
+                    val `is`: InputStream = conn.inputStream //inputStream 값 가져오기
                     bitmap = BitmapFactory.decodeStream(`is`) // Bitmap으로 반환
                 } catch (e: MalformedURLException) {
                     e.printStackTrace()
@@ -138,20 +130,10 @@ class TodaySportsFragment : Fragment() {
 
 
         btn_start_exercise.setOnClickListener {
-//            (activity as PageActivity).startExcercise(exname)
+
             var flag = false
 
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                Toast.makeText(requireContext(), "거부할 시 카메라 사용에 문제가 있을 수 있습니다.", Toast.LENGTH_LONG).show()
-//                hasPermissions = (activity as PageActivity).requestPermission()
-//                Log.d("user_permission",hasPermissions.toString())
-//
-//            } else {
-//                Toast.makeText(requireContext(), "This library requires API 21>", Toast.LENGTH_SHORT).show();
-//            }
-//            if (hasPermissions) {
-//                (activity as PageActivity).showTimeSettingPopup(exname,exname_k, requireContext())
-//            }
+
             val cameraPermissionCheck = ContextCompat.checkSelfPermission(
                 requireContext(), android.Manifest.permission.CAMERA
             )
@@ -185,7 +167,7 @@ class TodaySportsFragment : Fragment() {
     }
 
 
-
+    @SuppressLint("NotifyDataSetChanged")
     fun MyRoutinePopup() {
 
         val list: MutableList<Model> by lazy {
@@ -288,9 +270,6 @@ class TodaySportsFragment : Fragment() {
                     putString("id", param1)
                 }
             }
-
-        // var result: String? = null
-
     }
 }
 

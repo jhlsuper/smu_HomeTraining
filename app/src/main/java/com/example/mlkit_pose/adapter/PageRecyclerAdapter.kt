@@ -1,25 +1,16 @@
 package com.example.mlkit_pose.adapter
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mlkit_pose.MainActivity
+import com.TodayEx.Companion.nameArray
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
-import com.example.mlkit_pose.fragment.GuideMainFragment
-import com.example.mlkit_pose.fragment.HomeFragment
-import kotlinx.android.synthetic.main.ex_list_item.view.*
-import kotlin.math.log
 
 class PagerRecyclerAdapter(private val bgColors: ArrayList<Int>) :
     RecyclerView.Adapter<PagerRecyclerAdapter.PagerViewHolder>() {
@@ -40,23 +31,20 @@ class PagerRecyclerAdapter(private val bgColors: ArrayList<Int>) :
 
     inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val pageName: ImageView = itemView.findViewById(R.id.imgView_ex)
-//        private val pageName: ImageView = itemView.findViewById(R.id.viewPager)
+//        private val pageImage: ImageView = itemView.findViewById(R.id.imgView_ex)
+        private val pageText :TextView = itemView.findViewById(R.id.textView_ex)
+//        val nameArray = mutableListOf<String>("오늘의 운동","와이드 스쿼트","덤벨 숄더 프레스","런지")
 
 
-        fun bind(@ColorRes bgColor: Int, position: Int) {
-//            pageName. ="Page ${position +1}"
-//            pageName.setBackgroundResource(R.drawable.todayexercise)
-//            val PageActivity = (activity as MainActivity)
-            pageName.setImageResource(bgColor)
+        @SuppressLint("SetTextI18n")
+        fun bind(@SuppressLint("SupportAnnotationUsage") @ColorRes bgColor: String, position: Int) {
 
+
+//            pageImage.setImageResource(bgColor)
+            pageText.text = nameArray[position]
             itemView.setOnClickListener {
                 listener?.onItemClick(itemView, position)
             }
-
-//            itemView.setOnClickListener {
-//                Log.d("ViewPager", "$position")
-//            }
 
         }
     }
@@ -69,15 +57,16 @@ class PagerRecyclerAdapter(private val bgColors: ArrayList<Int>) :
         )
         view.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                Log.d("ViewPager", "12345")
-                PageActivity().change("와이드 스쿼트")
+//                Log.d("ViewPager", "12345")
+//                PageActivity().change("와이드 스쿼트")
             }
         })
         return PagerViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        holder.bind(bgColors[position], position)
+
+        holder.bind(bgColors[position].toString(), position)
 
 
     }

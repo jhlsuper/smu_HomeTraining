@@ -29,6 +29,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.TodayEx.Companion.nameArray
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -207,9 +208,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
 
         val bgColors = ArrayList<Int>()
-        bgColors.add(R.drawable.todayexercise)
-        bgColors.add(R.drawable.dumbell)
-        bgColors.add(R.drawable.penguin)
+//        bgColors.add(R.drawable.img_widesquat)
+//        bgColors.add(R.drawable.img_shoulderpress)
+//        bgColors.add(R.drawable.img_lunges)
+        bgColors.add(R.string.ex_today)
+        bgColors.add(R.string.ex_widesquat)
+        bgColors.add(R.string.ex_shoulderpress)
+        bgColors.add(R.string.ex_lunges)
 
         viewPager?.adapter = PagerRecyclerAdapter(bgColors)
         viewPager?.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -224,21 +229,23 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         })
         timer(period = 2500L) {
             runOnUiThread {
-                if (pos == 3) {
+                if (pos == 4) {
                     pos = -1
                 }
                 viewPager.setCurrentItem(pos++, true)
+
             }
         }
-        val pagerRecyclerAdapter= viewPager.adapter as PagerRecyclerAdapter
+        val pagerRecyclerAdapter = viewPager.adapter as PagerRecyclerAdapter
 
-        pagerRecyclerAdapter.setOnItemClickListener(object :PagerRecyclerAdapter.OnItemClickListener{
+        pagerRecyclerAdapter.setOnItemClickListener(object :
+            PagerRecyclerAdapter.OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
 //                Log.d("ViewPager","deqt")
-                when(position){
-                    0->change("와이드 스쿼트")
-                    1->change("런지")
-                    2->change("덤벨 숄더 프레스")
+                when (position) {
+                    1 -> change(nameArray[position])
+                    2 -> change(nameArray[position])
+                    3 -> change(nameArray[position])
                 }
 
             }
@@ -895,7 +902,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     }
 
-    fun change(exname:String) {
+    fun change(exname: String) {
 //        val currentUser = sharedManager.getCurrentUser()
         val transaction = supportFragmentManager.beginTransaction()
 //        setContentView(R.layout.fragment_main_page_part)

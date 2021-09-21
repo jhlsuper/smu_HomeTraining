@@ -133,7 +133,7 @@
     <string name="pref_title_segmentation_raw_size_mask">Enable raw size mask</string>
     <string name="pref_key_segmentation_raw_size_mask" translatable="false">srsm</string>
 
-<!--    app-->
+    <!--    app-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">LoginActivity</string>
     <!-- Strings used for fragments for navigation -->
@@ -145,7 +145,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-    <string name ="university_name">삼육보건대학교
+    <string name="university_name">삼육보건대학교
 서울여자간호대학교
 기독간호대학교
 조선간호대학교
@@ -587,5 +587,9 @@ ICT폴리텍대학
 한국폴리텍대학 항공캠퍼스
 한국폴리텍 I 대학 제주캠퍼스
 </string>
-    <string name ="point_warning">운동이 완료되지 않아 포인트 적립이 되지않습니다.</string>
+    <string name="point_warning">운동이 완료되지 않아 포인트 적립이 되지않습니다.</string>
+    <string name="ex_widesquat">와이드 스쿼트</string>
+    <string name="ex_shoulderpress">덤벨 숄더 프레스</string>
+    <string name="ex_lunges">런지</string>
+    <string name="ex_today">오늘의 운동</string>
 </resources>
