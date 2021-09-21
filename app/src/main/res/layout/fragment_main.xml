@@ -26,6 +26,7 @@
         android:shadowRadius="1.0"
         android:stateListAnimator="@null"
         android:text="오늘의 운동"
+
         android:textColor="@color/neworange2"
         android:textSize="28sp"
         android:textStyle="bold"

@@ -6,15 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imgView_ex"
+    <TextView
+        android:gravity="center"
+        android:id="@+id/textView_ex"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:text="오늘의 운동"
+        android:textColor="@color/neworange2"
+        android:textSize="28sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription,HardcodedText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,6 +29,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.TodayEx.Companion.nameArray
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -65,7 +66,7 @@ import kotlin.properties.Delegates
 @Suppress("DEPRECATION")
 class PageActivity : AppCompatActivity(), View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener, HBRecorderListener {
-    val nameArray = mutableListOf<String>("와이드 스쿼트", "런지", "덤벨 숄더 프레스")
+
     lateinit var userRankAdapter: UserRkAdapter
     lateinit var exname: String
     lateinit var year: String
@@ -207,9 +208,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
 
         val bgColors = ArrayList<Int>()
-        bgColors.add(R.drawable.img_widesquat)
-        bgColors.add(R.drawable.img_shoulderpress)
-        bgColors.add(R.drawable.img_lunges)
+//        bgColors.add(R.drawable.img_widesquat)
+//        bgColors.add(R.drawable.img_shoulderpress)
+//        bgColors.add(R.drawable.img_lunges)
+        bgColors.add(R.string.ex_today)
+        bgColors.add(R.string.ex_widesquat)
+        bgColors.add(R.string.ex_shoulderpress)
+        bgColors.add(R.string.ex_lunges)
 
         viewPager?.adapter = PagerRecyclerAdapter(bgColors)
         viewPager?.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -224,13 +229,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         })
         timer(period = 2500L) {
             runOnUiThread {
-                if (pos == 3) {
+                if (pos == 4) {
                     pos = -1
                 }
-
-
                 viewPager.setCurrentItem(pos++, true)
-//                txt_viewPager.text =nameArray[pos]
+
             }
         }
         val pagerRecyclerAdapter = viewPager.adapter as PagerRecyclerAdapter
@@ -240,9 +243,9 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             override fun onItemClick(v: View, position: Int) {
 //                Log.d("ViewPager","deqt")
                 when (position) {
-                    0 -> change("와이드 스쿼트")
-                    1 -> change("런지")
-                    2 -> change("덤벨 숄더 프레스")
+                    1 -> change(nameArray[position])
+                    2 -> change(nameArray[position])
+                    3 -> change(nameArray[position])
                 }
 
             }
