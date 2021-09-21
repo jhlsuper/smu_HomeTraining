@@ -1,4 +1,4 @@
-package com.example.mlkit_pose.fragment
+package com.example. mlkit_pose.fragment
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -69,7 +69,7 @@ class MyPageFragment : Fragment(), View.OnClickListener {
             weight = it.getString("weight")
             height = it.getString("height")
             point = it.getString("points")
-            recentDay = it.getString("recentDay")
+            recentDay = it.getString("recentDay")?.trim()
             countDays = it.getString("countDays")
 //            profileImg = it.getString("profile")
         }
@@ -95,7 +95,12 @@ class MyPageFragment : Fragment(), View.OnClickListener {
 
 //        viewModel.init()
         Log.d("userinfo", "$recentDay")
-        if (recentDay.toString() == "0") {
+//        if((recentDay?.length)!! <6){
+//            year ="없음"
+//            month = ""
+//            day = ""
+//        }
+        if (recentDay?.toInt()!!  == 0) {
             year = "없음"
             month = ""
             day = ""
