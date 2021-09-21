@@ -91,9 +91,7 @@
       android:textStyle="bold"
       app:layout_constraintBottom_toBottomOf="@+id/textView10"
       app:layout_constraintEnd_toStartOf="@+id/textView10"
-      app:layout_constraintHorizontal_bias="1.0"
-      app:layout_constraintStart_toStartOf="@+id/preview_view"
-      app:layout_constraintTop_toTopOf="@+id/preview_view"
+      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="1.0" />
 
   <include

@@ -426,7 +426,7 @@ class SettingLivePreviewActivity :
     finish()
   }
   private fun runTimer(minute:Int,second:Int,exText:String?){
-    val check_time = 5
+    val check_time = 10
     timerTask = timer(period = 1000){
       time += 1
       val sec = time
