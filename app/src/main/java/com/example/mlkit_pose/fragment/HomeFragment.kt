@@ -24,6 +24,7 @@ import com.example.mlkit_pose.*
 import com.example.mlkit_pose.adapter.MainViewModel
 import com.example.mlkit_pose.adapter.PagerRecyclerAdapter
 import com.example.mlkit_pose.fragment.expre.RoutineDetailFragment
+import com.example.mlkit_pose.fragment.expre.RoutineFragment
 import kotlinx.android.synthetic.main.ex_list_item.view.*
 import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -69,10 +70,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
         view.viewPager.setOnClickListener(this)
         view.btn_home_ranking.setOnClickListener(this)
-        view.btn_home_ranking.text = "유저 포인트\n $point"
+        view.btn_home_ranking.text = "유저포인트\n $point"
         view.btn_home_mypage.setOnClickListener(this)
         view.btn_home_guide.setOnClickListener(this)
-
+        view.btn_home_routine.setOnClickListener(this)
         return view
     }
 
@@ -124,8 +125,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 )
             }
             R.id.btn_home_routine -> {
-                TODO("routine button impl")
-//                (activty as PageActivity).
+                (activity as PageActivity).setDataAtFragment(
+                    RoutineFragment(),
+                    PageActivity.TAG_ROUTINE_FRAGMENT
+                )
             }
             R.id.btn_home_mypage -> {
                 (activity as PageActivity).setDataAtFragment(
