@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/newyellow"
@@ -11,192 +12,130 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="412dp"
-        android:layout_height="735dp"
-        android:layout_margin="15dp"
+        android:id="@+id/layout_ranking_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-        android:background="@color/newyellow"
-
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/rankingimage3"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
+            android:id="@+id/guideline_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.20" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_ranking_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.44" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_ranking_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:background="@drawable/rankingimage3"
-            android:elevation="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_ranking_top"
-            app:layout_constraintVertical_bias="0.0">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.44" />
-
-
-            <ImageView
-                android:id="@+id/img_ranking_profile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="5dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/person"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/guideline_profile"
-                app:layout_constraintHorizontal_bias="0.571"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.494" />
-
-            <LinearLayout
-                android:id="@+id/layout_ranking_profile_txts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_ranking_profile"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/txt_ranking_my_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|center"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/gmartketsansttfmedium"
-                    android:text="MY ID"
-                    android:textColor="@color/black"
-                    android:textSize="28sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_ranking_my_points"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|center"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/gmartketsansttfmedium"
-                    android:text="2000pt"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_ranking_exercise_temp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/background_gray_light"
-                android:fontFamily="@font/gmartketsansttfmedium"
-                android:text="운동하기"
-                android:textColor="#000000"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.533"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.921"
-                tools:ignore="HardcodedText"
-                tools:visibility="invisible" />
-
-            <Button
-                android:id="@+id/btn_ranking_refresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/background_gray_light"
-                android:fontFamily="@font/gmartketsansttfmedium"
-                android:text="새로고침"
-                android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.725"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_ranking_profile_txts"
-                app:layout_constraintVertical_bias="1.0" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+        <ImageView
+            android:id="@+id/img_ranking_profile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_margin="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/person"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_profile"
+            app:layout_constraintHorizontal_bias="0.571"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_ranking_profile">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.494" />
+
+        <LinearLayout
+            android:id="@+id/layout_ranking_profile_txts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_ranking_profile"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/txt_mybelong"
+                android:id="@+id/txt_ranking_my_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|center"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/gmartketsansttfmedium"
-                android:text="-나의 소속 랭킹-"
+                android:text="MY ID"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.058"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.03" />
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rankingRecyclerView"
-                android:layout_width="400dp"
-                android:layout_height="500dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/txt_ranking_my_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/gmartketsansttfmedium"
+                android:text="2000pt"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline7"
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_ranking_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" />
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_gray_light"
+            android:fontFamily="@font/gmartketsansttfmedium"
+            android:text="새로고침"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.359"
+            app:layout_constraintStart_toStartOf="@+id/guideline_profile"
+            app:layout_constraintTop_toBottomOf="@+id/layout_ranking_profile_txts"
+            app:layout_constraintVertical_bias="1.0" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_ranking_profile"
+        app:layout_constraintVertical_bias="0.006">
+
+        <TextView
+            android:id="@+id/txt_mybelong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="100dp"
+            android:fontFamily="@font/gmartketsansttfmedium"
+            android:text="-나의 소속 랭킹-"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.06" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rankingRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.08" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
