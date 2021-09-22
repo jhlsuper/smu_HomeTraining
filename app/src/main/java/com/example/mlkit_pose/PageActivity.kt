@@ -1,5 +1,6 @@
 package com.example.mlkit_pose
 
+
 import android.annotation.SuppressLint
 import android.content.*
 import android.content.pm.PackageManager
@@ -9,7 +10,6 @@ import android.graphics.BitmapFactory
 import android.media.MediaScannerConnection
 import android.media.projection.MediaProjectionManager
 import android.net.Uri
-
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -17,7 +17,10 @@ import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import android.view.*
-import android.widget.*
+import android.widget.Button
+import android.widget.NumberPicker
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DrawableRes
@@ -54,12 +57,10 @@ import kotlinx.android.synthetic.main.fragment_tool_bar.*
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.timer
-
-
+import kotlin.concurrent.timerTask
 import kotlin.properties.Delegates
 
 
@@ -72,6 +73,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     lateinit var year: String
     lateinit var month: String
     lateinit var day: String
+
     private var minute by Delegates.notNull<Int>()
     private var second by Delegates.notNull<Int>()
     val datas = mutableListOf<userRank>()
@@ -120,7 +122,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 putString("name", "${currentUser.name}")
                 putString("points", "${currentUser.points}")
             }
-        })
+        }, TAG_HOME_FRAGMENT)
+
         transaction.commit()
 
         setSupportActionBar(main_layout_toolbar)
@@ -191,6 +194,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     }
 
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //툴바 버튼 처리
         when (item.itemId) {
@@ -205,7 +209,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     override fun onStart() {
         super.onStart()
-        initViewPager()
+//        initViewPager()
     }
 
     @SuppressLint("SetTextI18n")
@@ -250,7 +254,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //        val datas = mutableListOf<User>()
         val currentUser = sharedManager.getCurrentUser()
 
-//        val transaction = supportFragmentManager.beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction()
         when (v.id) {
             R.id.btn_home -> {
 
@@ -312,17 +316,13 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
         fragment.arguments = bundle
         setFragment(fragment, tag)
+
     }
 
     private fun setFragment(fragment: Fragment, tag: String) {
 
         val transaction = supportFragmentManager.beginTransaction()
         val manager = supportFragmentManager
-
-        if (manager.findFragmentByTag(tag) == null) {
-            transaction.add(R.id.frameLayout, fragment, tag)
-            transaction.show(fragment)
-        }
         val home = manager.findFragmentByTag(TAG_HOME_FRAGMENT)
         val rank = manager.findFragmentByTag(TAG_RANK_FRAGMENT)
         val routine = manager.findFragmentByTag(TAG_ROUTINE_FRAGMENT)
@@ -332,9 +332,16 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val guide_sport = manager.findFragmentByTag(TAG_GUIDE_SPORT_FRAGMENT)
         val routine_detail = manager.findFragmentByTag(TAG_ROUTINE_DETAIL_FRAGMENT)
 
+        if (manager.findFragmentByTag(tag) == null) {
+            transaction.add(R.id.frameLayout, fragment, tag)
+            transaction.show(fragment)
+        }
+
+
         if (home != null) {
 //            transaction.remove(home)
             transaction.hide(home)
+
             Log.d("fragment", "home hide")
         }
         if (rank != null) {
@@ -343,7 +350,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         }
         if (routine != null) {
             transaction.remove(routine)
-//            transaction.remove(routine)
+//            transaction.hide(routine)
         }
         if (guide != null) {
             transaction.hide(guide)
@@ -369,6 +376,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
             TAG_HOME_FRAGMENT -> {
 
                 if (home != null) {
+
                     transaction.show(home)
                 }
             }
@@ -865,15 +873,18 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //        val currentUser = sharedManager.getCurrentUser()
         val transaction = supportFragmentManager.beginTransaction()
 //        setContentView(R.layout.fragment_main_page_part)
-
+        val manager = supportFragmentManager
+        val home = manager.findFragmentByTag(TAG_HOME_FRAGMENT)
         transaction.add(R.id.frameLayout, TodaySportsFragment().apply {
             arguments = Bundle().apply {
 //                putString("id", "${currentUser.name}")
-                putString("exname", exname)
+                putString("exname", exname.toString())
             }
         })
         transaction.show(TodaySportsFragment())
-        transaction.hide(HomeFragment())
+        if (home != null) {
+            transaction.hide(home)
+        }
         transaction.addToBackStack(null)
         transaction.commit()
     }
@@ -888,7 +899,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         bgColors.add(R.string.ex_widesquat)
         bgColors.add(R.string.ex_shoulderpress)
         bgColors.add(R.string.ex_lunges)
-
+        Log.d("ViewPager","$bgColors")
         viewPager?.adapter = PagerRecyclerAdapter(bgColors)
         viewPager?.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
@@ -916,11 +927,11 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         pagerRecyclerAdapter.setOnItemClickListener(object :
             PagerRecyclerAdapter.OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
-//                Log.d("ViewPager","deqt")
+                Log.d("ViewPager","$bgColors")
                 when (position) {
-                    1 -> change(nameArray[position])
-                    2 -> change(nameArray[position])
-                    3 -> change(nameArray[position])
+                    1 -> change(getString(bgColors[position]))
+                    2 -> change(getString(bgColors[position]))
+                    3 -> change(getString(bgColors[position]))
                 }
 
             }
@@ -928,6 +939,10 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         })
 
 
+    }
+
+    fun viewPagerPause() {
+        timerTask { cancel() }
     }
 
     fun refreshAdapter() {

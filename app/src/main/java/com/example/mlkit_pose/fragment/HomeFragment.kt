@@ -1,6 +1,7 @@
 package com.example.mlkit_pose.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.pdf.PdfDocument
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.TodayEx
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -26,11 +28,14 @@ import kotlinx.android.synthetic.main.ex_list_item.view.*
 import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import java.util.ArrayList
+import kotlin.concurrent.timer
 
 
 @Suppress("DEPRECATION")
 class HomeFragment : Fragment(), View.OnClickListener {
-
+    val bgColors = ArrayList<Int>()
+    var pos: Int = 0
     private var nickname: String? = null
     private var point: String? = null
 
@@ -67,19 +72,18 @@ class HomeFragment : Fragment(), View.OnClickListener {
         view.btn_home_ranking.text = "유저 포인트\n $point"
         view.btn_home_mypage.setOnClickListener(this)
         view.btn_home_guide.setOnClickListener(this)
-        view.viewPager.setOnClickListener(this)
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as PageActivity).initViewPager()
+//        viewPager.setOnClickListener {
+//            Log.d("ViewPager", "fragment 기능 구현")
+//
+//        }
 
-        viewPager.setOnClickListener {
-            Log.d("ViewPager", "fragment 기능 구현")
-//            Toast.makeText(activity, "ohh", Toast.LENGTH_SHORT).show()
-        }
-//        (activity as PageActivity).initViewPager()
     }
 
 //    override fun onActivityCreated(savedInstanceState: Bundle?) {
