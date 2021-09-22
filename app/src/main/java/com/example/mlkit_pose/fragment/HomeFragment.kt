@@ -78,7 +78,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        (activity as PageActivity).initViewPager()
 //        viewPager.setOnClickListener {
 //            Log.d("ViewPager", "fragment 기능 구현")
 //

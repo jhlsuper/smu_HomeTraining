@@ -59,7 +59,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.concurrent.timer
 import kotlin.concurrent.timerTask
 import kotlin.properties.Delegates
 
@@ -193,10 +192,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     }
 
-    override fun onRestart() {
-        super.onRestart()
-        initViewPager()
-    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //툴바 버튼 처리
@@ -212,7 +208,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     override fun onStart() {
         super.onStart()
-        initViewPager()
+//        initViewPager()
     }
 
     @SuppressLint("SetTextI18n")
@@ -876,15 +872,18 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 //        val currentUser = sharedManager.getCurrentUser()
         val transaction = supportFragmentManager.beginTransaction()
 //        setContentView(R.layout.fragment_main_page_part)
-
+        val manager = supportFragmentManager
+        val home = manager.findFragmentByTag(TAG_HOME_FRAGMENT)
         transaction.add(R.id.frameLayout, TodaySportsFragment().apply {
             arguments = Bundle().apply {
 //                putString("id", "${currentUser.name}")
-                putString("exname", exname)
+                putString("exname", exname.toString())
             }
         })
         transaction.show(TodaySportsFragment())
-        transaction.hide(HomeFragment())
+        if (home != null) {
+            transaction.hide(home)
+        }
         transaction.addToBackStack(null)
         transaction.commit()
     }
@@ -899,7 +898,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         bgColors.add(R.string.ex_widesquat)
         bgColors.add(R.string.ex_shoulderpress)
         bgColors.add(R.string.ex_lunges)
-
+        Log.d("ViewPager","$bgColors")
         viewPager?.adapter = PagerRecyclerAdapter(bgColors)
         viewPager?.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
@@ -913,25 +912,25 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
         })
 
-        timer(period = 2500L) {
-            runOnUiThread {
-                if (pos == 3) {
-                    pos = -1
-                }
-                viewPager.setCurrentItem(++pos, true)
-
-            }
-        }
+//        timer(period = 2500L) {
+//            runOnUiThread {
+//                if (pos == 3) {
+//                    pos = -1
+//                }
+//                viewPager.setCurrentItem(++pos, true)
+//
+//            }
+//        }
         val pagerRecyclerAdapter = viewPager.adapter as PagerRecyclerAdapter
 
         pagerRecyclerAdapter.setOnItemClickListener(object :
             PagerRecyclerAdapter.OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
-//                Log.d("ViewPager","deqt")
+                Log.d("ViewPager","$bgColors")
                 when (position) {
-                    1 -> change(nameArray[position])
-                    2 -> change(nameArray[position])
-                    3 -> change(nameArray[position])
+                    1 -> change(getString(bgColors[position]))
+                    2 -> change(getString(bgColors[position]))
+                    3 -> change(getString(bgColors[position]))
                 }
 
             }
