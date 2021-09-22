@@ -59,6 +59,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.concurrent.timer
 import kotlin.concurrent.timerTask
 import kotlin.properties.Delegates
 
@@ -912,15 +913,15 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
         })
 
-//        timer(period = 2500L) {
-//            runOnUiThread {
-//                if (pos == 3) {
-//                    pos = -1
-//                }
-//                viewPager.setCurrentItem(++pos, true)
-//
-//            }
-//        }
+        timer(period = 2500L) {
+            runOnUiThread {
+                if (pos == 3) {
+                    pos = -1
+                }
+                viewPager.setCurrentItem(++pos, true)
+
+            }
+        }
         val pagerRecyclerAdapter = viewPager.adapter as PagerRecyclerAdapter
 
         pagerRecyclerAdapter.setOnItemClickListener(object :
