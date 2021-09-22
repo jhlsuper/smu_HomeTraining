@@ -16,22 +16,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.mlkit_pose.JSP.Companion.getRoutineNameList
+import com.example.mlkit_pose.JSP
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
-import com.example.mlkit_pose.RecycleDecoration
-import com.example.mlkit_pose.fragment.GuideSportsFragment
-import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_routine_detail.*
-
 
 private const val ARG_PARAM1 = "param1"
 
-class RoutineDetailFragment : Fragment() {
-    var routine_name: String? = null
+class TodayRoutineFragment : Fragment() {
+    var routine_name: String? = "오늘의 루틴"
     private var id: String? = null
     var routine_name_list = arrayListOf<String>()
-    val routine_Map : HashMap<String, String> = HashMap()
+    val routine_Map: HashMap<String, String> = HashMap()
     var mFragmentManager: FragmentManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +35,7 @@ class RoutineDetailFragment : Fragment() {
 
         id = (activity as PageActivity).findUserId()
         arguments?.let {
-            routine_name = it.getString("routine_Name")
+//            routine_name = it.getString("routine_Name")
         }
 
     }
@@ -70,46 +66,39 @@ class RoutineDetailFragment : Fragment() {
         Log.d("ROUTINE_DETAIL", routine_name.toString())
 
         val queue = Volley.newRequestQueue(context)
-        val url = getRoutineNameList(id, routine_name!!)
+        val url = JSP.getRoutineNameList(id, routine_name!!)
+        routine_name_list.add("푸쉬업")
+        routine_name_list.add("풀 플랭크")
+        routine_name_list.add("백 리프트")
+        routine_Map["푸쉬업"] = "PushUp"
+        routine_Map["백 리프트"] = "BackLift"
+        routine_Map["풀 플랭크"] = "FullPlank"
+        val guideBookRecyclerAdapter = GuideBookRecyclerAdapter(
+            guidelist = createsportslist(),
+            inflater = LayoutInflater.from(context)
+        )
 
-        val Routine_detail_request = StringRequest(
-            Request.Method.GET, url, { response ->
-                response.trim { it <= ' ' }
-                Log.d("response", response)
-                val arr = response.trim().split("@")
-                for (i:Int in 0 until arr.size-1){
-                    val (krName,enName) = arr[i].split(",")
-                    routine_name_list.add(krName)
-                    routine_Map[krName] = enName
-                    Log.d("Routine","$routine_name_list , $routine_Map")
-                }
-//
-                val guideBookRecyclerAdapter = GuideBookRecyclerAdapter(
-                    guidelist = createsportslist(),
-                    inflater = LayoutInflater.from(context)
+        routine_recycler_view?.adapter = guideBookRecyclerAdapter
+        routine_recycler_view?.layoutManager = LinearLayoutManager(context)
+
+        val spaceDecoration = VerticalSpaceItemDecoration(10)
+        routine_recycler_view.addItemDecoration(spaceDecoration)
+
+        guideBookRecyclerAdapter.setOnItemClickListener(object :
+            GuideBookRecyclerAdapter.OnItemClickListener {
+            override fun onItemClick(v: View, guidelist: GuideBookSportsList, pos: Int) {
+                val krName = guidelist.GuideList[pos].name
+                Log.d(
+                    "ROUTINE_DETAIL",
+                    "KR : ${guidelist.GuideList[pos].name}, EN ${routine_Map[krName]}"
                 )
-
-
-                routine_recycler_view?.adapter = guideBookRecyclerAdapter
-                routine_recycler_view?.layoutManager = LinearLayoutManager(context)
-
-                val spaceDecoration = VerticalSpaceItemDecoration(10)
-                routine_recycler_view.addItemDecoration(spaceDecoration)
-
-                guideBookRecyclerAdapter.setOnItemClickListener(object : GuideBookRecyclerAdapter.OnItemClickListener{
-                    override fun onItemClick(v: View, guidelist: GuideBookSportsList, pos: Int) {
-                        val krName = guidelist.GuideList[pos].name
-                        Log.d("ROUTINE_DETAIL", "KR : ${guidelist.GuideList[pos].name}, EN ${routine_Map[krName]}")
-                        (activity as PageActivity).showTimeSettingPopup(routine_Map[krName],krName,context!!)
-                    }
-                })
-
-            }, {})
-        queue.add(Routine_detail_request)
-
-//        val itemAdapter = ItemAdapter(id, context, mFragmentManager)
-//        routine_recycler_view.adapter = itemAdapter
-//        routine_recycler_view.layoutManager = LinearLayoutManager(context)
+                (activity as PageActivity).showTimeSettingPopup(
+                    routine_Map[krName],
+                    krName,
+                    context!!
+                )
+            }
+        })
 
 
     }

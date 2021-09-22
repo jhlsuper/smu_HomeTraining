@@ -74,6 +74,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         view.btn_home_mypage.setOnClickListener(this)
         view.btn_home_guide.setOnClickListener(this)
         view.btn_home_routine.setOnClickListener(this)
+        view.btn_home_app_routine.setOnClickListener(this)
         return view
     }
 
@@ -86,28 +87,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
 //        }
 
     }
-
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        var pos: Int = 0
-//        val bgColors = ArrayList<Int>()
-//        bgColors.add(R.drawable.todayexercise)
-//        bgColors.add(R.drawable.dumbell)
-//        bgColors.add(R.drawable.penguin)
-//        viewPager.adapter = PagerRecyclerAdapter(bgColors)
-//        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-//        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//                Log.d("ViewPager", "$position 번째")
-//                pos = position
-//            }
-//
-//        })
-//
-//
-//
-//    }
 
 
     override fun onClick(v: View?) {
@@ -129,12 +108,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     RoutineFragment(),
                     PageActivity.TAG_ROUTINE_FRAGMENT
                 )
+
             }
             R.id.btn_home_mypage -> {
                 (activity as PageActivity).setDataAtFragment(
                     MyPageFragment(),
                     PageActivity.TAG_MYPAGE_FRAGMENT
                 )
+            }
+            R.id.btn_home_app_routine->{
+                (activity as PageActivity).openTodayRoutine()
             }
 
 
