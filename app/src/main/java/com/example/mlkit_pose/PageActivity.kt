@@ -44,6 +44,7 @@ import com.example.mlkit_pose.dao.User
 import com.example.mlkit_pose.dao.userRank
 import com.example.mlkit_pose.fragment.*
 import com.example.mlkit_pose.fragment.expre.RoutineFragment
+import com.example.mlkit_pose.fragment.expre.TodayRoutineFragment
 import com.example.mlkit_pose.kotlin.SettingLivePreviewActivity
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.navigation.NavigationView
@@ -194,7 +195,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
     }
 
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //툴바 버튼 처리
         when (item.itemId) {
@@ -331,7 +331,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val guide_click = manager.findFragmentByTag(TAG_GUIDE_CLICK_FRAGMENT)
         val guide_sport = manager.findFragmentByTag(TAG_GUIDE_SPORT_FRAGMENT)
         val routine_detail = manager.findFragmentByTag(TAG_ROUTINE_DETAIL_FRAGMENT)
-
+        val today_sport = manager.findFragmentByTag(TAG_TODAY_SPORTS_FRAGMENT)
+        val today_routine = manager.findFragmentByTag(TAG_TODAY_ROUTINE_FRAGMENT)
         if (manager.findFragmentByTag(tag) == null) {
             transaction.add(R.id.frameLayout, fragment, tag)
             transaction.show(fragment)
@@ -375,8 +376,14 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         when (tag) {
             TAG_HOME_FRAGMENT -> {
 
-                if (home != null) {
 
+                if (home != null) {
+                    if (today_sport != null) {
+                        transaction.remove(today_sport)
+                    }
+                    if(today_routine != null){
+                        transaction.remove(today_routine)
+                    }
                     transaction.show(home)
                 }
             }
@@ -874,17 +881,23 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         val transaction = supportFragmentManager.beginTransaction()
 //        setContentView(R.layout.fragment_main_page_part)
         val manager = supportFragmentManager
-        val home = manager.findFragmentByTag(TAG_HOME_FRAGMENT)
+        val today_sports = manager.findFragmentByTag(TAG_TODAY_SPORTS_FRAGMENT)
         transaction.add(R.id.frameLayout, TodaySportsFragment().apply {
             arguments = Bundle().apply {
 //                putString("id", "${currentUser.name}")
                 putString("exname", exname.toString())
             }
-        })
+        }, TAG_TODAY_SPORTS_FRAGMENT)
         transaction.show(TodaySportsFragment())
-        if (home != null) {
-            transaction.hide(home)
-        }
+
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+    fun openTodayRoutine(){
+        val transaction = supportFragmentManager.beginTransaction()
+        val manager = supportFragmentManager
+        transaction.add(R.id.frameLayout,TodayRoutineFragment(), TAG_TODAY_ROUTINE_FRAGMENT)
+        transaction.show(TodayRoutineFragment())
         transaction.addToBackStack(null)
         transaction.commit()
     }
@@ -899,7 +912,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         bgColors.add(R.string.ex_widesquat)
         bgColors.add(R.string.ex_shoulderpress)
         bgColors.add(R.string.ex_lunges)
-        Log.d("ViewPager","$bgColors")
+        Log.d("ViewPager", "$bgColors")
         viewPager?.adapter = PagerRecyclerAdapter(bgColors)
         viewPager?.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
@@ -909,8 +922,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
                 Log.d("ViewPager", "$position 번째")
                 pos = position
             }
-
-
         })
 
         timer(period = 2500L) {
@@ -927,7 +938,7 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         pagerRecyclerAdapter.setOnItemClickListener(object :
             PagerRecyclerAdapter.OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
-                Log.d("ViewPager","$bgColors")
+                Log.d("ViewPager", "$bgColors")
                 when (position) {
                     1 -> change(getString(bgColors[position]))
                     2 -> change(getString(bgColors[position]))
@@ -941,15 +952,6 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
 
     }
 
-    fun viewPagerPause() {
-        timerTask { cancel() }
-    }
-
-    fun refreshAdapter() {
-        viewPager.adapter = PagerRecyclerAdapter(bgColors)
-        viewPager?.adapter = null
-        initViewPager()
-    }
 
 
     companion object {
@@ -962,6 +964,8 @@ class PageActivity : AppCompatActivity(), View.OnClickListener,
         const val TAG_GUIDE_CLICK_FRAGMENT = "guide_click"
         const val TAG_GUIDE_SPORT_FRAGMENT = "guide_sport"
         const val TAG_ROUTINE_DETAIL_FRAGMENT = "routine_detail"
+        const val TAG_TODAY_SPORTS_FRAGMENT = "today_sport"
+        const val TAG_TODAY_ROUTINE_FRAGMENT ="today_routine"
         private const val SETTING_OK = 2
         private const val GALLERY = 125
         private const val SCREEN_RECORD_REQUEST_CODE = 100
