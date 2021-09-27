@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="200dp"
     android:layout_height="wrap_content"
     android:background="@color/white"
 
@@ -27,7 +27,8 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
 
@@ -48,14 +49,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-
                 android:text="몸무게: "
                 android:textColor="@color/black"
                 android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/et_mypage_edit_weight"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
 
-                />
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/et_mypage_edit_weight"
@@ -66,8 +68,10 @@
                 android:textColorHint="@color/gray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_mypage_edit_weight"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_edit_weight"
-                app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_weight" />
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_weight"
+                tools:ignore="HardcodedText" />
 
             <TextView
 
@@ -76,12 +80,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="18dp"
-
                 android:text="신장: "
                 android:textColor="@color/black"
                 android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/et_mypage_edit_height"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_mypage_edit_weight"
+                tools:ignore="HardcodedText"
 
                 />
 
@@ -94,10 +100,10 @@
                 android:textColorHint="@color/gray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_mypage_edit_height"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_edit_height"
-                app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_height" />
-
-
+                app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_height"
+                tools:ignore="HardcodedText" />
 
 
             <TextView
@@ -107,12 +113,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="18dp"
-
                 android:text="소속: "
                 android:textColor="@color/black"
                 android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/et_mypage_edit_belong"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_mypage_edit_height"
+                tools:ignore="HardcodedText"
 
                 />
 
@@ -120,13 +128,17 @@
                 android:id="@+id/et_mypage_edit_belong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:completionThreshold="1"
+                android:ems="6"
                 android:hint="소속 검색"
+                android:inputType="textPersonName"
                 android:textColorHint="@color/gray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_mypage_edit_belong"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txt_mypage_edit_belong"
                 app:layout_constraintTop_toTopOf="@id/txt_mypage_edit_belong"
-                />
+                tools:ignore="HardcodedText" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_settime_50"
@@ -140,7 +152,7 @@
     </LinearLayout>
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="6dp"
@@ -149,27 +161,32 @@
 
         <Button
             android:id="@+id/btn_mypage_edit_ok"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:background="@color/white"
-
             android:text="확인"
             android:textColor="@color/blue"
+            app:layout_constraintEnd_toStartOf="@id/btn_mypage_edit_cancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText"
 
             />
 
         <Button
             android:id="@+id/btn_mypage_edit_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:background="@color/white"
             android:text="취소"
-            android:textColor="@color/blue" />
+            android:textColor="@color/blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_mypage_edit_ok"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>

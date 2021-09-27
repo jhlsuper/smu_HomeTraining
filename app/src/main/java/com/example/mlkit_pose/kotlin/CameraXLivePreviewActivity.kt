@@ -20,12 +20,18 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.graphics.pdf.PdfDocument
+import android.media.CamcorderProfile
 import android.media.MediaPlayer
+import android.media.MediaRecorder
 import android.media.SoundPool
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
@@ -49,6 +55,8 @@ import com.example.mlkit_pose.kotlin.posedetector.PoseGraphic
 import com.example.mlkit_pose.preference.PreferenceUtils
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
+import com.hbisoft.hbrecorder.HBRecorder
+import com.hbisoft.hbrecorder.HBRecorderListener
 import kotlinx.android.synthetic.main.activity_vision_camerax_live_preview.*
 import java.util.*
 import kotlin.concurrent.timer
@@ -79,12 +87,15 @@ class CameraXLivePreviewActivity :
   private lateinit var mediaPlayer2:MediaPlayer
   var minute by Delegates.notNull<Int>()
   var second by Delegates.notNull<Int>()
+  private lateinit var mContext: Context
 
-
+  var hbRecorder:HBRecorder? = null
+//  val page :PageActivity = PageActivity()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     Log.d(TAG, "onCreate")
+    hbRecorder = HBRecorder(this, PageActivity())
     mediaPlayer2 = MediaPlayer.create(applicationContext, R.raw.beeps)
     if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
       Toast.makeText(
@@ -211,6 +222,9 @@ class CameraXLivePreviewActivity :
     yesBt.setOnClickListener {
       timerTask?.cancel()
       dialog.dismiss()
+
+//      page?.stopRecording()
+      hbRecorder!!.stopScreenRecording()
       finish()
     }
     dialog.setView(mView)
@@ -224,7 +238,7 @@ class CameraXLivePreviewActivity :
   override fun onBackPressed() {
     pause()
     giveup_Button_Click()
-    Toast.makeText(this,"backbutton눌림",Toast.LENGTH_SHORT).show()
+//    Toast.makeText(this,"backbutton눌림",Toast.LENGTH_SHORT).show()
 //    super.onBackPressed()
   }
 
@@ -278,10 +292,10 @@ class CameraXLivePreviewActivity :
 
   public override fun onDestroy() {
     super.onDestroy()
+
     imageProcessor?.run {
       this.stop()
     }
-
 
   }
 
@@ -491,7 +505,6 @@ class CameraXLivePreviewActivity :
       }
     }
   }
-
 
   companion object {
     private const val TAG = "CameraXLivePreview"

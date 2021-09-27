@@ -62,7 +62,7 @@ class ToolBarFragment : Fragment(), View.OnClickListener{
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_drawer->{
-                Toast.makeText(activity,"fragment 기능이 실행중",Toast.LENGTH_SHORT).show()
+//                Toast.makeText(activity,"fragment 기능이 실행중",Toast.LENGTH_SHORT).show()
                 main_drawer_layout.openDrawer(GravityCompat.START)
             }
         }

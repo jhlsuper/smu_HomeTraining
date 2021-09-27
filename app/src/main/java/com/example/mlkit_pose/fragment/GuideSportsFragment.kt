@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -45,7 +46,7 @@ class GuideSportsFragment : Fragment() {
     var exname: String? = null
     var exname_k: String? = null
     var id: String? = null
-
+    var hasPermissions = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -112,7 +113,6 @@ class GuideSportsFragment : Fragment() {
                         sport_detail_ename.text = arr2[2]
                         exname_k = sport_detail_name.text as String?
                         val testTEXT = arr2[2]
-                        Log.d("EnameCHECK", "Ename $testTEXT")
                         exname = arr2[2]
                     }
                 },
@@ -154,22 +154,34 @@ class GuideSportsFragment : Fragment() {
         btn_start_exercise.setOnClickListener {
 //            (activity as PageActivity).startExcercise(exname)
             var flag = false
+
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                Toast.makeText(requireContext(), "거부할 시 카메라 사용에 문제가 있을 수 있습니다.", Toast.LENGTH_LONG).show()
+//                hasPermissions = (activity as PageActivity).requestPermission()
+//                Log.d("user_permission",hasPermissions.toString())
+//
+//            } else {
+//                Toast.makeText(requireContext(), "This library requires API 21>", Toast.LENGTH_SHORT).show();
+//            }
+//            if (hasPermissions) {
+//                (activity as PageActivity).showTimeSettingPopup(exname,exname_k, requireContext())
+//            }
             val cameraPermissionCheck = ContextCompat.checkSelfPermission(
-                context!!, android.Manifest.permission.CAMERA
+                requireContext(), android.Manifest.permission.CAMERA
             )
             if (cameraPermissionCheck != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(arrayOf(android.Manifest.permission.CAMERA), 1001)
-                Toast.makeText(context!!, "거부할 시 카메라 사용에 문제가 있을 수 있습니다.", Toast.LENGTH_LONG).show()
+                requestPermissions(arrayOf(android.Manifest.permission.CAMERA,android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.RECORD_AUDIO,android.Manifest.permission.ACCESS_FINE_LOCATION), 1001)
+                Toast.makeText(requireContext(), "거부할 시 카메라 사용에 문제가 있을 수 있습니다.", Toast.LENGTH_LONG).show()
             } else {
                 flag = true
-                (activity as PageActivity).showTimeSettingPopup(exname, context!!)
+                (activity as PageActivity).showTimeSettingPopup(exname,exname_k, requireContext())
             }
             if (ContextCompat.checkSelfPermission(
-                    context!!,
+                    requireContext(),
                     android.Manifest.permission.CAMERA
                 ) == PackageManager.PERMISSION_GRANTED && !flag
             ) {
-                (activity as PageActivity).showTimeSettingPopup(exname, context!!)
+                (activity as PageActivity).showTimeSettingPopup(exname,exname_k, requireContext())
             }
 
         }
@@ -301,8 +313,8 @@ class GuideSportsFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode){
             1001 ->
-                if (ContextCompat.checkSelfPermission(context!!,android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    (activity as PageActivity).showTimeSettingPopup(exname, context!!)
+                if (ContextCompat.checkSelfPermission(requireContext(),android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    (activity as PageActivity).showTimeSettingPopup(exname,exname_k, requireContext())
                 }
                 //Alert 만들 것
         }

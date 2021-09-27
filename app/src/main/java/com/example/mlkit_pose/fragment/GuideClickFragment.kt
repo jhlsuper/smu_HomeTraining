@@ -6,6 +6,7 @@ import GuideBookRecyclerAdapter
 import GuideBookRecyclerAdapter.Companion.array_name
 import GuideBookSportsList
 import GuideSports
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,12 +17,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.JSP.Companion.getSportsName
 import com.example.mlkit_pose.R
+import com.example.mlkit_pose.fragment.expre.RoutineDetailFragment
 import kotlinx.android.synthetic.main.fragment_guide_click.*
+import kotlinx.android.synthetic.main.fragment_routine_detail.*
 
 
 val sportsdatas = mutableListOf<String>()
@@ -34,14 +38,13 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
     private var id: String? = null
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             sports_names = it.getString("result")
             id = it.getString("id")
         }
-
+        Log.d("ViewPager","$sports_names")
         setFragmentResultListener("requestKey") { resultKey, bundle ->
             val result = bundle.getString("bundleKey")
             Log.d("result", result.toString())
@@ -80,8 +83,8 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
                     if (response == "error") {
                         Log.d("error", "error")
                     } else {
-                        for (element in arr) {
-                            array_name.add(element)
+                        for (i in 0 until arr.size-1) {
+                            array_name.add(arr[i])
                         }
 //                        Log.d("successs", array_name[0])
 //                        Log.d("successs", array_name[1])
@@ -94,6 +97,11 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
                     )
                     sports_recycler_view?.adapter = guideBookRecyclerAdapter
                     sports_recycler_view?.layoutManager = LinearLayoutManager(context)
+
+                    val spaceDecoration_guide =
+                        RoutineDetailFragment.VerticalSpaceItemDecoration(10)
+                    sports_recycler_view.addItemDecoration(spaceDecoration_guide)
+
                     guideBookRecyclerAdapter.setOnItemClickListener(object :
                         GuideBookRecyclerAdapter.OnItemClickListener {
                         override fun onItemClick(
@@ -118,8 +126,6 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
 
 
         }
-        btn_guide_back.setOnClickListener(this)
-
 
     }
 
@@ -135,16 +141,16 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
             }
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.btn_guide_back -> {
-
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.frameLayout, GuideMainFragment())
-                    .commit()
-            }
-        }
-    }
+//    override fun onClick(v: View?) {
+//        when (v?.id) {
+//            R.id.btn_guide_back -> {
+//
+//                parentFragmentManager.beginTransaction()
+//                    .replace(R.id.frameLayout, GuideMainFragment())
+//                    .commit()
+//            }
+//        }
+//    }
 
 
 
@@ -166,6 +172,10 @@ class GuideClickFragment : Fragment(), View.OnClickListener {
         }
 
         return guideBook
+    }
+
+    override fun onClick(p0: View?) {
+        TODO("Not yet implemented")
     }
 
 

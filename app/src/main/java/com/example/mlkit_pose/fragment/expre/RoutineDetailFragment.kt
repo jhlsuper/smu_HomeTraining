@@ -3,6 +3,7 @@ package com.example.mlkit_pose.fragment.expre
 import GuideBookRecyclerAdapter
 import GuideBookSportsList
 import GuideSports
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,12 +12,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.JSP.Companion.getRoutineNameList
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
+import com.example.mlkit_pose.RecycleDecoration
 import com.example.mlkit_pose.fragment.GuideSportsFragment
 import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_routine_detail.*
@@ -39,6 +42,17 @@ class RoutineDetailFragment : Fragment() {
             routine_name = it.getString("routine_Name")
         }
 
+    }
+
+    public class VerticalSpaceItemDecoration(private val verticalSpaceHeight: Int) :
+        RecyclerView.ItemDecoration() {
+
+        override fun getItemOffsets(
+            outRect: Rect, view: View, parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            outRect.bottom = verticalSpaceHeight
+        }
     }
 
     override fun onCreateView(
@@ -67,19 +81,26 @@ class RoutineDetailFragment : Fragment() {
                     val (krName,enName) = arr[i].split(",")
                     routine_name_list.add(krName)
                     routine_Map[krName] = enName
+                    Log.d("Routine","$routine_name_list , $routine_Map")
                 }
 //
                 val guideBookRecyclerAdapter = GuideBookRecyclerAdapter(
                     guidelist = createsportslist(),
                     inflater = LayoutInflater.from(context)
                 )
+
+
                 routine_recycler_view?.adapter = guideBookRecyclerAdapter
                 routine_recycler_view?.layoutManager = LinearLayoutManager(context)
+
+                val spaceDecoration = VerticalSpaceItemDecoration(10)
+                routine_recycler_view.addItemDecoration(spaceDecoration)
+
                 guideBookRecyclerAdapter.setOnItemClickListener(object : GuideBookRecyclerAdapter.OnItemClickListener{
                     override fun onItemClick(v: View, guidelist: GuideBookSportsList, pos: Int) {
                         val krName = guidelist.GuideList[pos].name
                         Log.d("ROUTINE_DETAIL", "KR : ${guidelist.GuideList[pos].name}, EN ${routine_Map[krName]}")
-                        (activity as PageActivity).showTimeSettingPopup(routine_Map[krName],context!!)
+                        (activity as PageActivity).showTimeSettingPopup(routine_Map[krName],krName,context!!)
                     }
                 })
 

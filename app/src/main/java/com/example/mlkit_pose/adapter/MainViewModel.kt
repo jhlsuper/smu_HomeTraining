@@ -2,9 +2,11 @@ package com.example.mlkit_pose.adapter
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.mlkit_pose.convertBitMap
 import com.example.mlkit_pose.dao.SharedManager
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -22,6 +24,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val point: MutableLiveData<String> = MutableLiveData()
     val recentDay: MutableLiveData<String> = MutableLiveData()
     val countDays: MutableLiveData<Int> = MutableLiveData()
+    val profileImg : MutableLiveData<String> = MutableLiveData()
     fun init() {
         height.value = currentUser.height
         weight.value = currentUser.weight
@@ -29,6 +32,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         point.value = currentUser.points
         recentDay.value = currentUser.recentDay
         countDays.value = currentUser.countDays
+        profileImg.value = currentUser.img
     }
 
     fun editUser(input_height: String, input_weight: String, input_belong: String) {
@@ -57,7 +61,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         sharedManager.setUserCountDays(input_recentDay,input_countDays)
         Log.d("userinfo","editExcersieDay done, ${currentUser.recentDay},${currentUser.countDays}")
     }
-
+    fun editProfileImg(bitmapString: String){
+        profileImg.value = bitmapString
+        sharedManager.setUserImg(bitmapString)
+    }
 
     override fun onCleared() {
         Log.d("userinfo", "edited info ${currentUser.height},${currentUser.weight}")
