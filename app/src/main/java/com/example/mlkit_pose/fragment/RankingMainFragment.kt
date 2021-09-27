@@ -1,20 +1,18 @@
 package com.example.mlkit_pose.fragment
 
-import android.graphics.pdf.PdfDocument
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.mlkit_pose.*
+import com.example.mlkit_pose.adapter.MainViewModel
+import com.example.mlkit_pose.dao.User
 
-import kotlinx.android.synthetic.main.fragment_bottom_menu.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.view.*
-import kotlinx.android.synthetic.main.fragment_tool_bar.*
 
 
 private const val ARG_PARAM1 = "param1"

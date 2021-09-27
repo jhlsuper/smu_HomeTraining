@@ -19,6 +19,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.*
+import com.example.mlkit_pose.adapter.MainViewModel
 
 
 import kotlinx.android.synthetic.main.fragment_my_page.*
