@@ -15,7 +15,7 @@
 
   </androidx.camera.view.PreviewView>
 
-  <com.example.mlkit_pose.GraphicOverlay
+  <com.example.mlkit_pose.camera.GraphicOverlay
       android:id="@+id/graphic_overlay"
       android:layout_width="682dp"
       android:layout_height="match_parent" />

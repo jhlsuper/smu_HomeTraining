@@ -13,10 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.Request
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.mlkit_pose.JSP
+import com.example.mlkit_pose.companion.JSP
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
 import kotlinx.android.synthetic.main.fragment_routine_detail.*

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.mlkit_pose;
+package com.example.mlkit_pose.camera;
 
 /** Describing a frame info. */
 public class FrameMetadata {

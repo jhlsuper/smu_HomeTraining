@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.mlkit_pose;
+package com.example.mlkit_pose.camera;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

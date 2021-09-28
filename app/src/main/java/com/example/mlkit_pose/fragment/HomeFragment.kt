@@ -1,36 +1,18 @@
 package com.example.mlkit_pose.fragment
 
 import android.annotation.SuppressLint
-import android.graphics.pdf.PdfDocument
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2
-import com.TodayEx
-import com.android.volley.Request
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.example.mlkit_pose.*
 import com.example.mlkit_pose.adapter.MainViewModel
-import com.example.mlkit_pose.adapter.PagerRecyclerAdapter
-import com.example.mlkit_pose.fragment.expre.RoutineDetailFragment
 import com.example.mlkit_pose.fragment.expre.RoutineFragment
-import kotlinx.android.synthetic.main.ex_list_item.view.*
-import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import java.util.ArrayList
-import kotlin.concurrent.timer
 
 
 @Suppress("DEPRECATION")

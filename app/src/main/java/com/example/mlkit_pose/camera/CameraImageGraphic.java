@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.example.mlkit_pose;
+package com.example.mlkit_pose.camera;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import com.example.mlkit_pose.GraphicOverlay.Graphic;
+
+import com.example.mlkit_pose.camera.GraphicOverlay.Graphic;
 
 /** Draw camera image to background. */
 public class CameraImageGraphic extends Graphic {

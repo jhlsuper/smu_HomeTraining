@@ -23,7 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.mlkit_pose.JSP;
+import com.example.mlkit_pose.companion.JSP;
 import com.example.mlkit_pose.R;
 import com.example.mlkit_pose.fragment.expre.model.ChildItem;
 import com.example.mlkit_pose.fragment.expre.model.Item;

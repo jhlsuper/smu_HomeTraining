@@ -6,7 +6,6 @@ import GuideBookRecyclerAdapter
 import GuideBookRecyclerAdapter.Companion.array_name
 import GuideBookSportsList
 import GuideSports
-import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,15 +16,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.mlkit_pose.JSP.Companion.getSportsName
+import com.example.mlkit_pose.companion.JSP.Companion.getSportsName
 import com.example.mlkit_pose.R
 import com.example.mlkit_pose.fragment.expre.RoutineDetailFragment
 import kotlinx.android.synthetic.main.fragment_guide_click.*
-import kotlinx.android.synthetic.main.fragment_routine_detail.*
 
 
 val sportsdatas = mutableListOf<String>()

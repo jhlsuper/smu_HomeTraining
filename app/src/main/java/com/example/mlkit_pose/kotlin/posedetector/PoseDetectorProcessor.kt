@@ -19,9 +19,7 @@ package com.example.mlkit_pose.kotlin.posedetector
 import android.content.Context
 import android.media.MediaPlayer
 import android.util.Log
-import com.example.mlkit_pose.GraphicOverlay
-import com.example.mlkit_pose.R
-import com.example.mlkit_pose.kotlin.CameraXLivePreviewActivity
+import com.example.mlkit_pose.camera.GraphicOverlay
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
 import com.example.mlkit_pose.kotlin.posedetector.classification.PoseClassifierProcessor
@@ -33,7 +31,6 @@ import com.google.mlkit.vision.pose.PoseDetectorOptionsBase
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
-import kotlin.concurrent.timer
 
 /** A processor to run pose detector.  */
 class PoseDetectorProcessor(

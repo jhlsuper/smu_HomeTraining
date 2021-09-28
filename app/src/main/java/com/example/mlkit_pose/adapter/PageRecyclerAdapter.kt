@@ -1,15 +1,13 @@
 package com.example.mlkit_pose.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.RecyclerView
-import com.TodayEx.Companion.nameArray
-import com.example.mlkit_pose.PageActivity
+import com.example.mlkit_pose.companion.TodayEx.Companion.nameArray
 import com.example.mlkit_pose.R
 
 class PagerRecyclerAdapter(private val bgColors: ArrayList<Int>) :

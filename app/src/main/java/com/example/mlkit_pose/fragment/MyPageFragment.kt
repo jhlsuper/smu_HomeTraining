@@ -2,13 +2,7 @@ package com.example. mlkit_pose.fragment
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.pdf.PdfDocument
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.*
 
@@ -27,11 +21,12 @@ import com.example.mlkit_pose.dao.SharedManager
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_my_page.view.*
 import kotlinx.android.synthetic.main.fragment_ranking_main.*
-import kotlinx.android.synthetic.main.fragment_ranking_main.img_ranking_profile
 import kotlinx.android.synthetic.main.main_drawer_header.*
 import kotlinx.android.synthetic.main.ranking_item.*
 import android.view.WindowManager
 import android.widget.*
+import com.example.mlkit_pose.camera.convertBitMap
+import com.example.mlkit_pose.companion.JSP
 
 
 private const val ARG_PARAM1 = "param1"

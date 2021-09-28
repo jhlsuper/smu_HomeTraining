@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.mlkit_pose;
+package com.example.mlkit_pose.camera;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
+
 import com.google.android.gms.common.images.Size;
 import com.example.mlkit_pose.preference.PreferenceUtils;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.example.mlkit_pose;
+package com.example.mlkit_pose.adapter;
 
 import android.graphics.Rect;
 import android.view.View;

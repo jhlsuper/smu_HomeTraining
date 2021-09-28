@@ -16,12 +16,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.mlkit_pose.JSP.Companion.getRoutineNameList
+import com.example.mlkit_pose.companion.JSP.Companion.getRoutineNameList
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
-import com.example.mlkit_pose.RecycleDecoration
-import com.example.mlkit_pose.fragment.GuideSportsFragment
-import kotlinx.android.synthetic.main.fragment_guide_click.*
 import kotlinx.android.synthetic.main.fragment_routine_detail.*
 
 

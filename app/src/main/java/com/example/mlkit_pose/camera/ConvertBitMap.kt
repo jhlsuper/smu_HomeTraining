@@ -1,4 +1,4 @@
-package com.example.mlkit_pose
+package com.example.mlkit_pose.camera
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

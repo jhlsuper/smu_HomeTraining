@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -23,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.mlkit_pose.JSP
+import com.example.mlkit_pose.companion.JSP
 import com.example.mlkit_pose.PageActivity
 import com.example.mlkit_pose.R
 import kotlinx.android.synthetic.main.fragment_guide_sports.*

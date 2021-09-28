@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.mlkit_pose.*
 import com.example.mlkit_pose.adapter.MainViewModel
+import com.example.mlkit_pose.camera.convertBitMap
 import com.example.mlkit_pose.dao.SharedManager
 import com.example.mlkit_pose.dao.User
 

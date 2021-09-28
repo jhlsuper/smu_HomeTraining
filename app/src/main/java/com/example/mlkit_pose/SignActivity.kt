@@ -1,39 +1,21 @@
 package com.example.mlkit_pose
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.fragment_login.*
-import android.content.SharedPreferences
-import android.util.AttributeSet
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.annotation.NonNull
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.replace
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
+import com.example.mlkit_pose.companion.JSP
 //import com.example.mlkit_pose.databinding.FragmentSignUpBinding
 
-import com.example.mlkit_pose.fragment.MyPageFragment
 //import kotlinx.android.synthetic.main.activity_main.*
 //import kotlinx.android.synthetic.main.belong_search.*
 import kotlinx.android.synthetic.main.fragment_sign_up.*
-import kotlinx.android.synthetic.main.fragment_sign_up.view.*
-import kotlin.reflect.typeOf
 
 class SignActivity : AppCompatActivity() {
 

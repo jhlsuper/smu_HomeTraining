@@ -34,16 +34,14 @@ import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.mlkit_pose.CameraSource
-import com.example.mlkit_pose.CameraSourcePreview
-import com.example.mlkit_pose.GraphicOverlay
+import com.example.mlkit_pose.camera.CameraSource
+import com.example.mlkit_pose.camera.CameraSourcePreview
+import com.example.mlkit_pose.camera.GraphicOverlay
 import com.example.mlkit_pose.R
 import com.example.mlkit_pose.preference.SettingsActivity
 import com.google.android.gms.common.annotation.KeepName
-import com.google.mlkit.common.model.LocalModel
 import com.example.mlkit_pose.kotlin.posedetector.PoseDetectorProcessor
 import com.example.mlkit_pose.preference.PreferenceUtils
-import com.example.mlkit_pose.preference.SettingsActivity.LaunchSource
 import java.io.IOException
 import java.util.ArrayList
 
@@ -147,7 +145,8 @@ class LivePreviewActivity :
     private fun createCameraSource(model: String) {
         // If there's no existing cameraSource, create one.
         if (cameraSource == null) {
-            cameraSource = CameraSource(this, graphicOverlay)
+            cameraSource =
+                CameraSource(this, graphicOverlay)
         }
         try {
             when (model) {

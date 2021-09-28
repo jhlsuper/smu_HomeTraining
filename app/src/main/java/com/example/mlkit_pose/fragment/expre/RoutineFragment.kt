@@ -1,7 +1,6 @@
 package com.example.mlkit_pose.fragment.expre
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
@@ -11,11 +10,10 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.mlkit_pose.JSP
+import com.example.mlkit_pose.companion.JSP
 import com.example.mlkit_pose.R
 import kotlinx.android.synthetic.main.fragment_my_routine.*
 import java.util.*

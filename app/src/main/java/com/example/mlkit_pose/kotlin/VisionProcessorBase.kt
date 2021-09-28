@@ -31,11 +31,13 @@ import com.example.mlkit_pose.*
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.mlkit.vision.common.InputImage
-import com.example.mlkit_pose.FrameMetadata
-import com.example.mlkit_pose.GraphicOverlay
-import com.example.mlkit_pose.InferenceInfoGraphic
+import com.example.mlkit_pose.camera.FrameMetadata
+import com.example.mlkit_pose.camera.GraphicOverlay
+import com.example.mlkit_pose.camera.InferenceInfoGraphic
 import com.example.mlkit_pose.ScopedExecutor
-import com.example.mlkit_pose.VisionImageProcessor
+import com.example.mlkit_pose.camera.VisionImageProcessor
+import com.example.mlkit_pose.camera.BitmapUtils
+import com.example.mlkit_pose.camera.CameraImageGraphic
 import com.example.mlkit_pose.preference.PreferenceUtils
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -58,7 +60,8 @@ import java.util.TimerTask
   *
   * @param <T> The type of the detected feature.
 */
-abstract class VisionProcessorBase<T>(context: Context) : VisionImageProcessor {
+abstract class VisionProcessorBase<T>(context: Context) :
+  VisionImageProcessor {
 
   companion object {
     const val MANUAL_TESTING_LOG = "LogTagForTest"
@@ -338,7 +341,12 @@ abstract class VisionProcessorBase<T>(context: Context) : VisionImageProcessor {
           }
           graphicOverlay.clear()
           if (originalCameraImage != null) {
-            graphicOverlay.add(CameraImageGraphic(graphicOverlay, originalCameraImage))
+            graphicOverlay.add(
+              CameraImageGraphic(
+                graphicOverlay,
+                originalCameraImage
+              )
+            )
           }
           this@VisionProcessorBase.onSuccess(results, graphicOverlay)
           if (!PreferenceUtils.shouldHideDetectionInfo(graphicOverlay.context)) {

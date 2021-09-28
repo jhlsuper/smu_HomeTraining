@@ -1,4 +1,4 @@
-package com
+package com.example.mlkit_pose.companion
 
 class TodayEx {
     companion object{

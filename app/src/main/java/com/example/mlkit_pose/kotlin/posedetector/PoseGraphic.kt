@@ -19,22 +19,15 @@ package com.example.mlkit_pose.kotlin.posedetector
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.media.MediaPlayer
 import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.example.mlkit_pose.GraphicOverlay
+import com.example.mlkit_pose.camera.GraphicOverlay
 import com.google.common.primitives.Ints
-import com.example.mlkit_pose.GraphicOverlay.Graphic
-import com.example.mlkit_pose.R
-import com.example.mlkit_pose.kotlin.CameraXLivePreviewActivity
 import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseLandmark
 import java.lang.Math.max
 import java.lang.Math.min
 import java.util.*
 import kotlin.math.atan2
-import kotlin.concurrent.timer
 
 /** Draw the detected pose in preview.  */
 class PoseGraphic internal constructor(
