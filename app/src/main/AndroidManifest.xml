@@ -33,6 +33,8 @@
         android:theme="@style/Theme.AppCompat"
         android:supportsRtl="true"
         android:allowBackup="true"
+        android:icon="@mipmap/syncfiticon"
+        android:roundIcon="@mipmap/syncfiticon_round"
         android:usesCleartextTraffic="true">
 
         <meta-data
