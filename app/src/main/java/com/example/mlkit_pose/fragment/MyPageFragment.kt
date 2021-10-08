@@ -1,4 +1,4 @@
-package com.example. mlkit_pose.fragment
+package com.example.mlkit_pose.fragment
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -51,7 +51,6 @@ class MyPageFragment : Fragment(), View.OnClickListener {
     lateinit var viewModel: MainViewModel
 
 
-
     @SuppressLint("InflateParams", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -95,7 +94,8 @@ class MyPageFragment : Fragment(), View.OnClickListener {
 //            month = ""
 //            day = ""
 //        }
-        if (recentDay?.toInt()!!  == 0) {
+
+        if (recentDay?.toInt()!! == 0) {
             year = "없음"
             month = ""
             day = ""
@@ -203,8 +203,13 @@ class MyPageFragment : Fragment(), View.OnClickListener {
         val university = list.split(" ")
 
         val arrayAdapter =
-            ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, university)
-        val autoCompleteTextView2 = mView.findViewById<AutoCompleteTextView>(R.id.et_mypage_edit_belong)
+            ArrayAdapter(
+                requireContext(),
+                R.layout.support_simple_spinner_dropdown_item,
+                university
+            )
+        val autoCompleteTextView2 =
+            mView.findViewById<AutoCompleteTextView>(R.id.et_mypage_edit_belong)
         autoCompleteTextView2.setAdapter(arrayAdapter)
 
 

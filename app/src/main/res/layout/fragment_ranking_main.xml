@@ -14,10 +14,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_ranking_profile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
 
         android:background="@drawable/rankingimage3"
         android:elevation="10dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -44,59 +45,55 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.494" />
 
-        <LinearLayout
-            android:id="@+id/layout_ranking_profile_txts"
+
+        <TextView
+            android:id="@+id/txt_ranking_my_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
+            android:layout_gravity="top|center"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/gmartketsansttfmedium"
+            android:text="MY ID"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/img_ranking_profile"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toEndOf="@id/img_ranking_profile"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txt_ranking_my_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|center"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/gmartketsansttfmedium"
-                android:text="MY ID"
-                android:textColor="@color/black"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txt_ranking_my_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/gmartketsansttfmedium"
+            android:text="2000pt"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/txt_ranking_my_id"
+            app:layout_constraintStart_toStartOf="@id/txt_ranking_my_id"
+            app:layout_constraintTop_toBottomOf="@id/txt_ranking_my_id" />
 
-            <TextView
-                android:id="@+id/txt_ranking_my_points"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|center"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/gmartketsansttfmedium"
-                android:text="2000pt"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
 
         <Button
             android:id="@+id/btn_ranking_refresh"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
             android:background="@drawable/background_gray_light"
             android:fontFamily="@font/gmartketsansttfmedium"
             android:text="새로고침"
             android:textColor="#000000"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.359"
-            app:layout_constraintStart_toStartOf="@+id/guideline_profile"
-            app:layout_constraintTop_toBottomOf="@+id/layout_ranking_profile_txts"
+            app:layout_constraintEnd_toEndOf="@id/txt_ranking_my_points"
+            app:layout_constraintStart_toStartOf="@id/txt_ranking_my_points"
+            app:layout_constraintTop_toBottomOf="@id/txt_ranking_my_points"
+
             app:layout_constraintVertical_bias="1.0" />
 
 
@@ -137,5 +134,12 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.08" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

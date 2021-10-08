@@ -14,17 +14,6 @@
         layout="@layout/fragment_tool_bar2"
         app:layout_constraintBottom_toTopOf="@id/guideline3"
         app:layout_constraintTop_toTopOf="parent" />
-    <!--    <ImageView-->
-    <!--        android:id="@+id/background_top"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-
-    <!--        android:layout_marginBottom="44dp"-->
-    <!--        android:src="@drawable/top"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/guideline3"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.0"-->
-    <!--        app:layout_constraintStart_toStartOf="parent" />-->
 
     <ImageView
         android:id="@+id/imageView3"
@@ -42,58 +31,58 @@
         android:id="@+id/et_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/login_input"
+        android:elevation="20dp"
         android:ems="10"
         android:hint="ID를 입력하세요"
-        android:padding="3dp"
-        android:elevation="20dp"
-        android:background="@drawable/login_input"
         android:inputType="textPersonName"
+        android:padding="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName3"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        tools:ignore="HardcodedText"/>
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/et_password"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:background="@drawable/login_input"
+        android:elevation="20dp"
         android:ems="10"
         android:hint="PW를 입력하세요"
-        android:background="@drawable/login_input"
         android:inputType="textPassword"
         android:padding="3dp"
-        android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName4"
         app:layout_constraintEnd_toEndOf="@+id/et_id"
         app:layout_constraintStart_toStartOf="@+id/et_id"
-        app:layout_constraintTop_toBottomOf="@+id/et_id" />
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4" />
 
     <Button
-        android:background="@drawable/login_login"
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="36dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/login_login"
         android:text="로그인"
-        android:textStyle="bold"
         android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
 
     <Button
-        android:background="@drawable/login_signup"
         android:id="@+id/btn_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/login_signup"
         android:text="회원가입"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/btn_login"
@@ -102,17 +91,17 @@
 
     <TextView
         android:id="@+id/editTextTextPersonName3"
-        android:layout_width="60dp"
+        android:layout_width="36dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:ems="10"
+        android:layout_marginTop="35dp"
         android:background="@drawable/login_id"
-        android:text="ID"
         android:elevation="20dp"
-        android:textAlignment="center"
+        android:ems="10"
         android:gravity="center"
-        android:textSize="20sp"
+        android:text="ID"
+        android:textAlignment="center"
         android:textColor="@color/black"
+        android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.126"
@@ -124,14 +113,14 @@
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="23dp"
-        android:ems="10"
-        android:textSize="20sp"
         android:background="@drawable/login_id"
+        android:elevation="20dp"
+        android:ems="10"
+        android:gravity="center"
         android:text="PW"
         android:textAlignment="center"
-        android:gravity="center"
-        android:elevation="20dp"
         android:textColor="@color/black"
+        android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName3"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName3"
